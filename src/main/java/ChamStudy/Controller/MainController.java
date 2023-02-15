@@ -1,4 +1,4 @@
-package ChamStudy.ChamStudy.Controller;
+package ChamStudy.Controller;
 
 import java.util.Optional;
 
