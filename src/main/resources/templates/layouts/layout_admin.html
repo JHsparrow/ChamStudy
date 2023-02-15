@@ -28,7 +28,10 @@
 <body>
 	<div class="wrapper">
 	    <div th:replace="fragments/header_admin::header"></div>
-	    <div layout:fragment="content" class="content"></div>
+	    <div class="main">
+		    <nav class="navbar navbar-expand navbar-light navbar-bg" th:replace="fragments/admin_content_nav::con_nav"></nav>
+		    <div layout:fragment="content"></div>
+	    </div>
 	    <div th:replace="fragments/footer_admin::footer"></div>
 	</div>
 </body>
