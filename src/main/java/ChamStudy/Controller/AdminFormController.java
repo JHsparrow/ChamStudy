@@ -20,16 +20,6 @@ public class AdminFormController {
 		return "AdminForm/pages-profile";
 	}
 	
-	@GetMapping(value = "/signin")
-	public String signin() {
-		return "AdminForm/pages-sign-in";
-	}
-	
-	@GetMapping(value = "/signup")
-	public String signup() {
-		return "AdminForm/pages-sign-up";
-	}
-	
 	@GetMapping(value = "/blank")
 	public String blank() {
 		return "AdminForm/pages-blank";
@@ -58,16 +48,6 @@ public class AdminFormController {
 	@GetMapping(value = "/icons")
 	public String icons() {
 		return "AdminForm/icons-feather";
-	}
-	
-	@GetMapping(value = "/chart")
-	public String chart() {
-		return "AdminForm/charts-chartjs";
-	}
-	
-	@GetMapping(value = "/maps")
-	public String maps() {
-		return "AdminForm/maps-google";
 	}
 	
 	
