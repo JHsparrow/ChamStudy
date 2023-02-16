@@ -21,10 +21,10 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		//로그인에 대한 설정
 		http.formLogin()
-		    .loginPage("/members/login") //로그인 페이지 url설정
+		    .loginPage("/members/signin") //로그인 페이지 url설정
 			.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지
 			.usernameParameter("id") //로그인시 사용할 파라메터 이름
-			.failureUrl("/members/login/error") //로그인 실패시 이동할 url
+			.failureUrl("/members/signin/error") //로그인 실패시 이동할 url
 			.and()
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout")) //로그아웃 url
