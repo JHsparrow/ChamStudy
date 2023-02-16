@@ -31,5 +31,16 @@ public class Class {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;	
 	
+	@Column(name="class_name")
+	private String name;	
 	
+	private int price;
+	
+	private String sdate;
+	
+	private String edate;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "content_id")
+	private Category categoryId;
 }
