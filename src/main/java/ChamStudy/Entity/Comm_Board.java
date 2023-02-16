@@ -33,13 +33,22 @@ public class Comm_Board extends BaseTimeEntity{
 	
 	private int oriId; //작성글 아이디
 	
+<<<<<<< HEAD
 	private String boardType; //게시글 종류
+=======
+	private String dType; //게시글 종류
+>>>>>>> 2ff06f48b1324b01f39e9f647a4d8debff34ed0f
 	
 	private String gubun; //구분 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+<<<<<<< HEAD
 	@JoinColumn(name = "email")
 	private User_info user_info; //작성자
+=======
+	@JoinColumn(name = "user_id")
+	private User userId; //작성자
+>>>>>>> 2ff06f48b1324b01f39e9f647a4d8debff34ed0f
 	
 	private int viewCount; //조회수
 }

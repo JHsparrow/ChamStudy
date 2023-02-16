@@ -24,11 +24,19 @@ public class Comm_Board_Img { //게시판 이미지
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id; //게시판 이미지 식별자
 	
+<<<<<<< HEAD
 	private String commImgUrl; //이미지 링크
 	
 	private String commImgName; //이미지 이름
 	
 	private String commOriName; //이미지 원본 이름
+=======
+	private String url; //이미지 링크
+	
+	private String name; //이미지 이름
+	
+	private String oriname; //이미지 원본 이름
+>>>>>>> 2ff06f48b1324b01f39e9f647a4d8debff34ed0f
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_id")
