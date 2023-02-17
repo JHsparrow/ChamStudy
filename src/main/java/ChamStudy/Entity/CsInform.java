@@ -31,6 +31,4 @@ public class CsInform extends BaseTimeEntity {
 	private String gubun;
 	
 	private String fix;
-	
-	
 }

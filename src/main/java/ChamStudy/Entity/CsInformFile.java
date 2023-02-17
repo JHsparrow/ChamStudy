@@ -27,6 +27,4 @@ public class CsInformFile {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "inform_id")
 	private CsInform csInform;
-	
-	
 }
