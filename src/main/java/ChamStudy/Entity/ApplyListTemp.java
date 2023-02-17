@@ -9,37 +9,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import groovy.transform.ToString;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
-@Table(name="user") 
+@Table(name="apply_list_temp") // 임시 강의 리스트 
 @Getter
 @Setter
 @ToString
-public class UserInfo {
+public class ApplyListTemp{
 	@Id
-	@Column(name="user_id")
-	private String id;  //이메일
+	@Column(name="apply_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
-	@Column(name="user_name")
-	private String name;  //회원이름
+	@ManyToOne(fetch = FetchType.LAZY)
+	private UserInfo userId;
 	
-	private String password; //회원 비밀번호
 	
-	private String phone; //회원 전화번호
-	
-	private String role; //회원 등급	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private ClassInfo classId;
 	
 	@CreatedDate 
 	@Column(updatable = false)
-	private String regDate; //회원 가입일
+	private String regDate;
+	
 }
