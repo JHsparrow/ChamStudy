@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description"
+	content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+<meta name="author" content="AdminKit">
+<meta name="keywords"
+	content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+<script src="/js/mainPage.js"></script>
+<link th:href="@{/css/comm.css}" rel="stylesheet">
+<title>참스터디</title>
+                            <!-- 커뮤니티 관리 메인 페이지  -->
+</head>
+<body>
+	<div layout:fragment="content">
+		<main class="content">
+			<div class="container-fluid p-0">
+				<div class="a-comm-main-header"> <!-- 페이지 상단 메뉴 -->
+				<ul class="a-comm-type"> <!-- 관리자 게시글 종류/이동 --> 
+					<li><div class="a-header-1"><a class="a-header-comm" href="/adminForm/comm">자유게시판</a></div></li>
+					<li><div class="a-header-2"><a class="a-header-mento" href="/adminForm/mento">멘토멘티게시판</a></div></li>
+					<li><div class="a-header-3"><a class="a-header-qna" href="/adminForm/qna">질의응답게시판</a></div></li>
+				</ul>
+				</div>
+				<div class="a-search-section"> <!-- 검색창 영역 -->
+					<div class="a-search-font">검색</div>
+					<input type="text" class="a-search-box">
+				</div>
+				<div class="a-writing-info-wrap"> <!-- 글 정보 안내글 -->
+					<ul class="a-writing-info">
+						<li class="a-writing-1">게시판 식별자</li>
+						<li class="a-writing-2">게시글 종류</li>
+						<li class="a-writing-3">제목</li>
+						<li class="a-writing-4">작성자</li>
+						<li class="a-writing-5">등록일</li>
+						<li class="a-writing-6">조회수</li>
+					</ul>
+				</div> 
+			</div>
+		</main>
+	</div>
+</body>
+</html>

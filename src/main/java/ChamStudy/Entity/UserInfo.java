@@ -24,10 +24,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class User {
+public class UserInfo {
 	@Id
 	@Column(name="user_id")
-	private String email;  //이메일
+	private String id;  //이메일
 	
 	@Column(name="user_name")
 	private String name;  //회원이름
@@ -39,6 +39,7 @@ public class User {
 	private String role; //회원 등급	
 	
 	@CreatedDate 
+<<<<<<< HEAD:src/main/java/ChamStudy/Entity/User.java
 	@Column(name="reg_date", updatable = false)
 	private String regDate; //회원 가입일
 	
@@ -64,4 +65,8 @@ public class User {
 		
 		return user;
 	}
+=======
+	@Column(updatable = false)
+	private String regDime; //회원 가입일
+>>>>>>> 4d19c4de05e249e73da6d744618e75405c9723f9:src/main/java/ChamStudy/Entity/UserInfo.java
 }

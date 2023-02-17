@@ -8,28 +8,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
-@SequenceGenerator(
-        name="CLASS_GEN_GEN", //기수제 시퀸스 
-        sequenceName="CLASS_SEQ", //시퀀스 이름
-        initialValue=1000 //시작값
-        )
-@Table(name="class") 
+@Table(name="sub_category")
 @Getter
 @Setter
-@ToString
-public class Class {
+public class SubCategory {
+	
 	@Id
-	@Column(name="class_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;	
+	@Column(name="sub_category_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
+	@Column(nullable=false)
+	private String name;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
+	private Category categoryId;
 }
