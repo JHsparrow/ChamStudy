@@ -1,10 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description"
+	content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+<meta name="author" content="AdminKit">
+<meta name="keywords"
+	content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+<script src="/js/mainPage.js"></script>
+<link th:href="@{/css/comm/a-comm.css}" rel="stylesheet">
+<title>참스터디</title>
+                            <!-- 커뮤니티 관리 메인 페이지  -->
 </head>
 <body>
-
+	<div layout:fragment="content">
+		<main class="content">
+			<div class="container-fluid p-0">
+				<div class="comm-main-header"> <!-- 페이지 상단 메뉴 -->
+				<ul class="comm-type"> <!-- 관리자 게시글 종류/이동 --> 
+					<li><div class="header-1"><a class="header-comm" href="/adminForm/comm">자유게시판</a></div></li>
+					<li><div class="header-2" style="height: 34px; width: 120px; text-align: center;  background-color: #d9d9d9; margin-left: 30px; margin-right: 30px;"><a class="header-mento" href="/adminForm/mento" style="margin-right:0px;">멘토멘티게시판</a></div></li>
+					<li><div class="header-3"><a class="header-qna" href="/adminForm/qna">질의응답게시판</a></div></li>
+				</ul>
+				</div>
+				<div class="search-section"> <!-- 검색창 영역 -->
+					<div class="search-font">검색</div>
+					<input type="text" class="search-box">
+				</div>
+				<div class="writing-info-wrap"> <!-- 글 정보 안내글 -->
+					<ul class="writing-info">
+						<li class="writing-1">게시판 식별자</li>
+						<li class="writing-2">게시글 종류</li>
+						<li class="writing-3">제목</li>
+						<li class="writing-4">작성자</li>
+						<li class="writing-5">등록일</li>
+						<li class="writing-6">조회수</li>
+					</ul>
+				</div> 
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+				<div class="user-content-wrap"> <!--유저 글 불러오는곳-->
+				 <ul class="user-content">
+				 	<li class="content-1">1</li>
+				 	<li class="content-2">자유게시판</li>
+				 	<li class="content-3">테스트입니다.</li>
+				 	<li class="content-4">테스트</li>
+				 	<li class="content-5">2023-02-16 03:29</li>
+				 	<li class="content-6">1</li>
+				 </ul>
+				</div>
+			</div>
+		</main>
+	</div>
 </body>
 </html>
