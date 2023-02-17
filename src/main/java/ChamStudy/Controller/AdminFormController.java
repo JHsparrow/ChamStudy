@@ -50,6 +50,10 @@ public class AdminFormController {
 		return "AdminForm/icons-feather";
 	}
 	
+	@GetMapping(value = "/list")
+	public String list() {
+		return "AdminForm/pages-list";
+	}
 	
 	
 }
