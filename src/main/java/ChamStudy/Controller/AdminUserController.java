@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ChamStudy.Dto.UserDto;
-import ChamStudy.Entity.User;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -47,7 +47,7 @@ public class AdminUserController {
 		}
 		
 		try {
-			User user = User.createUser(memberFormDto, passwordEncoder);
+			UserInfo user = UserInfo.createUser(memberFormDto, passwordEncoder);
 			userService.saveUser(user);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());

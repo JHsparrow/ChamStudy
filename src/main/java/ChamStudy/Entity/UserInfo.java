@@ -1,5 +1,8 @@
 package ChamStudy.Entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -14,7 +17,9 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import ChamStudy.Dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,4 +47,27 @@ public class UserInfo {
 	@CreatedDate 
 	@Column(updatable = false)
 	private String regDate; //회원 가입일
+
+	public static UserInfo createUser(UserDto userDto, PasswordEncoder passwordEncoder) {
+		String role = "USER";
+		LocalDateTime localDateTime = LocalDateTime.now();
+		String time = localDateTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
+		
+		
+		
+		UserInfo user = new UserInfo();
+		user.setId(userDto.getId());
+		user.setName(userDto.getName());
+		user.setPhone(userDto.getPhone());
+		
+		//패스워드 암호화
+		String password = passwordEncoder.encode(userDto.getPassword());
+		user.setPassword(password);
+		
+		user.setRole(role);
+		
+		user.setRegDate(time);
+		
+		return user;
+	}
 }

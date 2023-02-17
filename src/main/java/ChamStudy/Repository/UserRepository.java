@@ -2,8 +2,8 @@ package ChamStudy.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import ChamStudy.Entity.User;
+import ChamStudy.Entity.UserInfo;
 
-public interface UserRepository extends JpaRepository<User, String>{
-	User findByEmail(String email);
+public interface UserRepository extends JpaRepository<UserInfo, String>{
+	UserInfo findByEmail(String email);
 }
