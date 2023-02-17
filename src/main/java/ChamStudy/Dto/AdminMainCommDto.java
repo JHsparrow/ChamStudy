@@ -23,6 +23,7 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.oriId = comm_Board.getOriId();
 		this.viewCount = comm_Board.getViewCount();
 		this.userInfo = comm_Board.getUserId();
+		this.regdate = comm_Board.getRegDate();
 	}
 	private int id;
 	
@@ -39,6 +40,8 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	private int oriId;
 	
 	private int viewCount;
+	
+	private String regdate;
 	
 	private List<Comm_Board_Img> comm_Board_Img = new ArrayList<>();
 	

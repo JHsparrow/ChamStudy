@@ -42,4 +42,16 @@ public class AdminCommService { //관리자 커뮤니티 게시판 서비스
 		}
 		return mainCommDtoList;
 	}
+	
+	public void commDelete(Integer boardId) throws Exception { //게시글 삭제 메소드
+		//게시판의 하위 테이블인 img테이블이 삭제가 안되면 게시판도 삭제가 불가능해서 게시판의 이미지들을 게시판 아이디로
+		//DB에서 가져온다.
+		List<Comm_Board_Img> boardImg = commImgRepository.findByBoardIdOrderByIdAsc(boardId);
+		for(Comm_Board_Img comm_Board_Img : boardImg) {
+			//가져온 리스트에서 이미지들을 하나하나씩 삭제해준다.
+			commImgRepository.deleteById(comm_Board_Img.getId());
+		}
+		//이미지가 전부 삭제되어 게시글도 삭제가 가능하기에 바로 삭제
+		commRepository.deleteById(boardId);
+	}
 }
