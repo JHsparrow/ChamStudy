@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 - 공지사항</title>
@@ -9,7 +11,7 @@
 		<div class="main">
 			<main class="content">
 				<div class="container-fluid p-0">
-					<h1 class="h3 mb-3">Blank Page</h1>
+					<h1 class="h3 mb-3">고객센터</h1>
 					<div class="card">
 						<div class="card-header pb-0">
 							<div class="card-actions float-end">
@@ -25,7 +27,7 @@
 									</div>
 								</div>
 							</div>
-							<h5 class="card-title mb-0">Orders</h5>
+							<h5 class="card-title mb-0">공지사항</h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -52,123 +54,156 @@
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
 										<thead>
 											<tr>
-												<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 91px;" aria-sort="ascending" aria-label="#: activate to sort column descending">#</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 211px;" aria-label="Billing Name: activate to sort column ascending">Billing Name</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 156px;" aria-label="Date: activate to sort column ascending">Date</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 114px;" aria-label="Total: activate to sort column ascending">Total</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 237px;" aria-label="Payment Status: activate to sort column ascending">Payment Status</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 253px;" aria-label="Payment Method: activate to sort column ascending">Payment Method</th>
-												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 192px;" aria-label="Actions">Actions</th></tr>
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 91px;">No.</th>
+												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 800px;">제목</th>
+												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 90px;">조회수</th>
+												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 120px;">작성일</th>
+												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 75px;">수정</th>
+												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 75px;">삭제</th></tr>
 										</thead>
 										<tbody>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0001</strong></td>
-												<td><a href="#">Brian Smith</a></td>
-												<td>2021-12-04</td>
-												<td>$353.00</td>
-												<td><span class="badge badge-success-light">Paid</span></td>
-												<td><i class="fab fa-cc-mastercard me-1"></i> Mastercard</td>
+												<td><a href="#">lorem</a></td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="even">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0002</strong></td>
 												<td>Patrick Babcock</td>
-												<td>2021-12-05</td>
-												<td><s>$939.00</s></td>
-												<td><span class="badge badge-danger-light">Chargeback</span></td>
-												<td><i class="fab fa-cc-visa me-1"></i> Visa</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0003</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2021-12-12</td>
-												<td><s>$965.00</s></td>
-												<td><span class="badge badge-warning-light">Refunded</span></td>
-												<td><i class="fab fa-cc-visa me-1"></i> Visa</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="even">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0004</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2021-12-21</td>
-												<td>$247.00</td>
-												<td><span class="badge badge-success-light">Paid</span></td>
-												<td><i class="fab fa-cc-mastercard me-1"></i> Mastercard</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0005</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2022-01-05</td>
-												<td>$187.00</td>
-												<td><span class="badge badge-success-light">Paid</span></td>
-												<td><i class="fab fa-cc-visa me-1"></i> Visa</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="even">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0006</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2022-01-11</td>
-												<td>$784.00</td>
-												<td><span class="badge badge-success-light">Paid</span></td>
-												<td><i class="fab fa-cc-mastercard me-1"></i> Mastercard</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0007</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2022-02-01</td>
-												<td>$258.00</td>
-												<td><span class="badge badge-success-light">Paid</span></td>
-												<td><i class="fab fa-cc-mastercard me-1"></i> Mastercard</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="even">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0008</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2022-02-26</td>
-												<td><s>$933.00</s></td>
-												<td><span class="badge badge-danger-light">Chargeback</span></td>
-												<td><i class="fab fa-cc-visa me-1"></i> Visa</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0009</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2022-03-09</td>
-												<td>$928.00</td>
-												<td><span class="badge badge-success-light">Paid</span></td>
-												<td><i class="fab fa-cc-visa me-1"></i> Visa</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											<tr class="even">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>#0010</strong></td>
 												<td><a href="#">Brian Smith</a></td>
-												<td>2022-03-17</td>
-												<td><s>$715.00</s></td>
-												<td><span class="badge badge-warning-light">Refunded</span></td>
-												<td><i class="fab fa-cc-visa me-1"></i> Visa</td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
+												</td>
+											</tr>
+											<tr class="odd">
+												<td class="dtr-control sorting_1" tabindex="0"><strong>#0009</strong></td>
+												<td><a href="#">Brian Smith</a></td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
+												</td>
+											</tr>
+											<tr class="even">
+												<td class="dtr-control sorting_1" tabindex="0"><strong>#0010</strong></td>
+												<td><a href="#">Brian Smith</a></td>
+												<td>3215465</td>
+												<td>2023-02-17</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											</tbody>
