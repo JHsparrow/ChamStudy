@@ -17,14 +17,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="content_info")
+@Table(name="content_info") // 콘텐츠 정보
 @Setter
 @Getter
 @EntityListeners(value = {AuditingEntityListener.class})
 public class ContentInfo {
 	
 	@Id
-	@Column(name="content_id") // 콘텐츠 테이블
+	@Column(name="content_id") 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	

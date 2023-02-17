@@ -32,10 +32,12 @@ public class ApplyList{
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private UserInfo userId;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "class_id")
 	private ClassInfo classId;
 	
 	@CreatedDate 

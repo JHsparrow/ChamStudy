@@ -1,6 +1,8 @@
 package ChamStudy.Service;
 
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,7 @@ public class UserService{
 	
 	//이메일 중복 체크
 	private void validateDuplicateUser(UserInfo user) {
-		UserInfo findUser = userRepository.findByEmail(user.getId());
+		Optional<UserInfo> findUser = userRepository.findById(user.getId());
 		if(findUser != null) {
 			throw new IllegalStateException("이미 가입된 회원입니다.");
 		}
