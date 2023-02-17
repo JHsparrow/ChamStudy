@@ -1,6 +1,5 @@
 package ChamStudy.Entity;
 
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -21,9 +20,9 @@ public class BaseTimeEntity {
 
 	@CreatedDate
 	@Column(updatable = false)
-	private LocalDateTime regDate; //등록날짜
+	private String regDate; //등록날짜
 	
 	@LastModifiedDate
-	private LocalDateTime upDate; //수정날짜
+	private String upDate; //수정날짜
 	
 }

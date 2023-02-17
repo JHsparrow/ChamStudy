@@ -14,14 +14,16 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value="/adminForm")
-public class AdminCommController {
-	private final AdminCommService adminCommService;
+@RequestMapping(value="/adminForm") 
+public class AdminCommController { //관리자 커뮤니티 게시판
+	private final AdminCommService adminCommService; 
 	
-	@GetMapping(value = "/comm")
+	@GetMapping(value = "/comm") //관리자 커뮤니티 게시판 메인겸 자유게시판 관리
 	public String commMain(Model model) {
 		
+		//서비스에 작성한 게시판 불러오는 메소드를 실행
 		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminComm();
+		//view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("Comms", adminMainCommDtoList);
 		
 		return "AdminForm/comm/comm-main";
