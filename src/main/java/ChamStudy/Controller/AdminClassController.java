@@ -12,4 +12,16 @@ public class AdminClassController {
 	public String generation() {
 		return "AdminClass/list";
 	}
+	
+	@GetMapping(value = "/onlineList") //실시간강의 목록
+	public String onlineList() {
+		return "AdminForm/AdminClass/onlineList";
+	}
+	
+	@GetMapping(value = "/onlineDetail") //강의 상세페이지
+	public String onlineDetail() {
+		return "AdminForm/AdminClass/onlineDetail";
+	}
+	
+	
 }

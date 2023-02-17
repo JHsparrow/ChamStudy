@@ -120,7 +120,7 @@
 													<td>[[${comm.userInfo.name}]]</td>
 													<td>[[${comm.regdate}]]</td>
 													<td>[[${comm.viewCount}]]</td>
-													<td><a href="#" class="btn btn-primary btn-sm">delete</a>
+													<td><a th:href="@{/story/delete(boardId=${comm.id})}" class="btn btn-primary btn-sm">delete</a>
 													</td>
 												</tr>
 											</tbody>

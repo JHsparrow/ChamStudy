@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ChamStudy.Dto.UserDto;
+import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,13 +33,13 @@ public class AdminUserController {
 	//회원가입 화면 보여주기
 	@GetMapping(value = "/signUp")
 	public String signUp(Model model) {
-		model.addAttribute("userDto", new UserDto());
+		model.addAttribute("userInfoDto", new UserInfoDto());
 		return "users/user-sign-up";
 	}
 	
 	//회원가입 버튼 눌렀을때 작동
 	@PostMapping(value = "/new")
-	public String addUser(@Valid UserDto memberFormDto, BindingResult bindingResult, Model model) {
+	public String addUser(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
 		
 		if(bindingResult.hasErrors()) {
 			System.out.println("addUser 메소드 내 if문 오류");
@@ -47,7 +47,7 @@ public class AdminUserController {
 		}
 		
 		try {
-			UserInfo user = UserInfo.createUser(memberFormDto, passwordEncoder);
+			UserInfo user = UserInfo.createUser(userInfoDto, passwordEncoder);
 			userService.saveUser(user);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());

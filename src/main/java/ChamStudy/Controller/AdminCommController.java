@@ -39,9 +39,9 @@ public class AdminCommController { //관리자 커뮤니티 게시판
 		return "AdminForm/comm/comm-qna";
 	}
 	
-	@GetMapping(value = "/comm/delete")
-	public String commDelete() throws Exception {
-		
+	@GetMapping(value = "/comm/delete") //게시글 삭제
+	public String commDelete(Integer boardId) throws Exception {
+		adminCommService.commDelete(boardId);
 		return "redirect:/";
 	}
 	

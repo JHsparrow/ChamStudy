@@ -20,7 +20,15 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		//회원가입이 실패했을 때
+		//회원가입이 실패했을 때.
+		
+		$(document).ready(function(){
+			var errorMessage = [[${errorMessage}]];	//중괄호로 감싸서 값을 받아온다.
+			if(errorMessage != null) {
+				alert(errorMessage);
+			}
+		});
+		
 		function passwordCk() {
 			var p1 = document.getElementById('password').value;
 			var p2 = document.getElementById('passwordck').value;
@@ -28,7 +36,7 @@
 		          alert("비밀번호가 일치 하지 않습니다");
 		          return false;
 		        } else{
-		          return true;
+		        	$('#frm').submit();
 		        }
 			
 			
@@ -59,23 +67,20 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
-									<form action="/users/new" method="post" th:object="${userDto}">
+									<form id="frm" action="/users/new" method="post" th:object="${userInfoDto}">
 										<div class="mb-3">
-											<label class="form-label" th:for="email">이메일</label> 
-											<input class="form-control form-control-lg" type="email" 
-											th:field="*{email}" id="email" name="email" placeholder="이메일을 입력 해주세요" />
-											<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+											<label class="form-label" th:for="id">이메일</label> 
+											<input th:field="*{id}" class="form-control form-control-lg" type="email" id="id" name="id" placeholder="이메일을 입력 해주세요" />
+											<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="name">이름</label> 
-											<input class="form-control form-control-lg" type="text"
-											th:field="*{name}" id="name" name="name" placeholder="이름을 입력 해주세요" />
+											<input th:field="*{name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
 											<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="password">비밀번호</label> 
-											<input class="form-control form-control-lg" type="password"
-											th:field="*{password}" id="password" name="password" placeholder="비밀번호를 입력 해주세요" />
+											<input th:field="*{password}" class="form-control form-control-lg" type="password" id="password" name="password" placeholder="비밀번호를 입력 해주세요" />
 											<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="mb-3">
@@ -85,8 +90,7 @@
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="phone">휴대폰 번호</label> 
-											<input class="form-control form-control-lg" type="text"
-											th:field="*{phone}" id="phone" name="phone" placeholder="비밀번호를 확인 해주세요" />
+											<input th:field="*{phone}" class="form-control form-control-lg" type="text" id="phone" name="phone" placeholder="비밀번호를 확인 해주세요" />
 											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="text-center mt-3">
