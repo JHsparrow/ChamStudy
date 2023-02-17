@@ -3,31 +3,15 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout_admin}">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description"
-	content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-<meta name="author" content="AdminKit">
-<meta name="keywords"
-	content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
 <title>회원가입</title>
-
-<th:block layout:fragment="script">
 	<script th:inline="javascript">
 		//회원가입이 실패했을 때.
 		
-		$(document).ready(function(){
-			var errorMessage = [[${errorMessage}]];	//중괄호로 감싸서 값을 받아온다.
-			if(errorMessage != null) {
-				alert(errorMessage);
-			}
-		});
+		
 		
 		function passwordCk() {
 			var p1 = document.getElementById('password').value;
@@ -42,7 +26,6 @@
 			
 		}
 	</script>
-</th:block>
 
 <th:block layout:fragment="css">
 	<style>
