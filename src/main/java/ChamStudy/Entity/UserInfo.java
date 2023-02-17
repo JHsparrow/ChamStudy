@@ -25,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class User {
+public class UserInfo {
 	@Id
 	@Column(name="user_id")
 	private String id;  //이메일
@@ -40,6 +40,6 @@ public class User {
 	private String role; //회원 등급	
 	
 	@CreatedDate 
-	@Column(name="reg_date", updatable = false)
-	private String regTime; //회원 가입일
+	@Column(updatable = false)
+	private String regDime; //회원 가입일
 }

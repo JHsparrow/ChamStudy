@@ -25,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Class {
+public class ClassInfo {
 	@Id
 	@Column(name="class_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

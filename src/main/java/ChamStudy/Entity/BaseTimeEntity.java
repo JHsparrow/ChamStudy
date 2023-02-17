@@ -24,6 +24,6 @@ public class BaseTimeEntity {
 	private LocalDateTime regDate; //등록날짜
 	
 	@LastModifiedDate
-	private LocalDateTime updDate; //수정날짜
+	private LocalDateTime upDate; //수정날짜
 	
 }

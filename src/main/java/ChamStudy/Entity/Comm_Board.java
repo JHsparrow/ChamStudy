@@ -38,8 +38,8 @@ public class Comm_Board extends BaseTimeEntity{
 	private String gubun; //구분 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "email")
-	private User_info user_info; //작성자
+	@JoinColumn(name = "user_id")
+	private UserInfo userId; //작성자
 	
 	private int viewCount; //조회수
 }
