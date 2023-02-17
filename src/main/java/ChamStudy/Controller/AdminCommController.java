@@ -9,19 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ChamStudy.Dto.AdminMainCommDto;
 import ChamStudy.Service.AdminCommService;
+import lombok.RequiredArgsConstructor;
 
 
-@RequestMapping(value="/adminForm")
 @Controller
+@RequiredArgsConstructor
+@RequestMapping(value="/adminForm")
 public class AdminCommController {
-	
 	private final AdminCommService adminCommService;
 	
 	@GetMapping(value = "/comm")
 	public String commMain(Model model) {
 		
-		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getMainComm();
+		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminComm();
 		model.addAttribute("Comms", adminMainCommDtoList);
+		
 		return "AdminForm/comm/comm-main";
 	}
 
