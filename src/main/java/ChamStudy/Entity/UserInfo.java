@@ -19,7 +19,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import ChamStudy.Dto.UserDto;
+import ChamStudy.Dto.UserInfoDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -48,7 +48,7 @@ public class UserInfo {
 	@Column(updatable = false)
 	private String regDate; //회원 가입일
 
-	public static UserInfo createUser(UserDto userDto, PasswordEncoder passwordEncoder) {
+	public static UserInfo createUser(UserInfoDto userDto, PasswordEncoder passwordEncoder) {
 		String role = "USER";
 		LocalDateTime localDateTime = LocalDateTime.now();
 		String time = localDateTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));

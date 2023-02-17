@@ -11,9 +11,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDto {
+public class UserInfoDto {
 
-	@NotBlank(message="이메일은 필수 입력 값입니다.")
+	@NotBlank(message="아이디은 필수 입력 값입니다.")
 	@Email(message = "이메일 형식으로 입력해주세요.")
 	private String id;
 	
