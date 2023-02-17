@@ -1,6 +1,5 @@
 package ChamStudy.Entity;
 
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
