@@ -1,0 +1,150 @@
+@charset "UTF-8";
+ul.comm-type {
+    list-style: none;
+    margin-left: 20px;
+    margin-top: 40px;
+    
+}
+
+a.header-comm {
+    color: black;
+    position: relative;
+    top: 7px;
+}
+
+a.header-mento {
+    color: black;
+    position: relative;
+    top: 7px;
+}
+
+a.header-qna {
+    color: black;
+    position: relative;
+    top: 7px;
+}
+
+main.content {
+    height: 86vh;
+    padding-top: 24px;
+}
+
+ul.comm-type {
+    list-style: none;
+    display: flex;
+}
+
+a.header-mento {
+    color: black;
+    margin-right: 30px;
+}
+
+ul.writing-info {
+    list-style: none;
+    padding-left: 0px;
+}
+
+ul.writing-info {
+    list-style: none;
+    display: flex;
+    margin-left:90px;
+}
+
+main.content {
+	padding: 0px;
+}
+
+li.writing-1 {
+    width: 10vw;
+}
+
+li.content-1 {
+    width: 10vw;
+}
+
+li.writing-2 {
+    width: 15vw;
+}
+
+li.content-2 {
+    width: 15vw;
+}
+
+li.writing-3 {
+    width: 12vw;
+}
+
+li.content-3 {
+    width: 12vw;
+}
+
+li.writing-4 {
+    width: 12vw;
+}
+
+li.content-4 {
+    width: 12vw;
+}
+
+li.writing-5 {
+    width: 12vw;
+}
+
+li.content-5 {
+    width: 12vw;
+}
+
+li.writing-6 {
+    width: 10vw;
+}
+
+li.content-6 {
+    width: 10vw;
+}
+
+
+.writing-info-wrap {
+    display: inline-flex;
+}
+
+.search-section {
+    display: flex;
+    float: right;
+    margin-bottom: 27px;
+}
+
+input.search-box {
+    margin-left: 11px;
+}
+
+.search-font {
+    font-size: 1.2rem;
+}
+
+.writing-info-wrap {
+    display: inline-flex;
+    width: 80vw;
+    text-align: center;
+    margin-left: 13px;
+    border-bottom: 1px solid;
+}
+
+.user-content-wrap {
+    display: inline-flex;
+    width: 80vw;
+    text-align: center;
+    margin-left: 13px;
+    border-bottom: 1px solid;
+    margin-top: 13px;
+    
+}
+
+
+
+ul.user-content {
+    list-style: none;
+    display: flex;
+    margin-left: 90px;
+    padding:0px;
+    
+}
