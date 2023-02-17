@@ -27,6 +27,7 @@ public class Class_review {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private UserInfo userId;
 	
 	private String description;
@@ -35,6 +36,7 @@ public class Class_review {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "class_id")
 	private ClassInfo classId;
 	
 }

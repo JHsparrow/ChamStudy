@@ -33,7 +33,7 @@ public class StudyResult extends BaseTimeEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "apply_id")
-	private UserInfo applyId;
+	private ApplyList applyId;
 	
 	private int process;
 	

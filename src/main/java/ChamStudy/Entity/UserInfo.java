@@ -26,7 +26,7 @@ import lombok.ToString;
 
 @Entity
 @EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
-@Table(name="user") 
+@Table(name="user_info") 
 @Getter
 @Setter
 @ToString

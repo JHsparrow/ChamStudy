@@ -21,7 +21,7 @@ import lombok.ToString;
         sequenceName="CLASS_SEQ", //시퀀스 이름
         initialValue=1000 //시작값
         )
-@Table(name="class") 
+@Table(name="class_info") // 클래스 정보
 @Getter
 @Setter
 @ToString
@@ -42,5 +42,5 @@ public class ClassInfo {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "content_id")
-	private Category categoryId;
+	private ContentInfo contentId;
 }

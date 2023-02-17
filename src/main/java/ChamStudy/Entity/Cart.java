@@ -21,13 +21,13 @@ import lombok.Setter;
 
 @Entity
 @EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
-@Table(name="cart") // 강의 리뷰
+@Table(name="cart") // 장바구니 리스트
 @Getter
 @Setter
 @ToString
 public class Cart {
 	@Id
-	@Column(name="order_id")
+	@Column(name="cart_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -37,6 +37,7 @@ public class Cart {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "class_id")
 	private ClassInfo classId;
 	
 	@CreatedDate 
