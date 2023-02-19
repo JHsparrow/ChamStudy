@@ -13,10 +13,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import ChamStudy.Service.UserService;
+
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
+	@Autowired
+	UserService userService;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
