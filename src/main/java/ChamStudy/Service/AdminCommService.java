@@ -26,7 +26,45 @@ public class AdminCommService { //관리자 커뮤니티 게시판 서비스
 	
 	public List<AdminMainCommDto> getAdminComm(){ //관리자 메인 페이지에 뿌려줄 게시판 리스트를 불러온다.
 		//커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
-		List<Comm_Board> commList = commRepository.findAll(Sort.by(Sort.Direction.DESC,"id")); 
+		List<Comm_Board> commList = commRepository.findF(); 
+		//화면에 뿌려주기 위해 담을 Dto 리스트 작성
+		List<AdminMainCommDto> mainCommDtoList = new ArrayList<>();
+		
+		//담을 Dto리스트에 db에서 찾은 데이터들을 담아주는 작업
+		//이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다.
+		for(Comm_Board board : commList) {
+			AdminMainCommDto commDto = new AdminMainCommDto(board);
+			List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(board.getId());
+			mainCommDtoList.add(commDto);
+			for(Comm_Board_Img comm_board_Img : board_Img) {
+				((AdminMainCommDto) mainCommDtoList).addCommBoardImg(comm_board_Img);
+			}
+		}
+		return mainCommDtoList;
+	}
+	
+	public List<AdminMainCommDto> getAdminCommQna(){ //관리자 QnA 페이지에 뿌려줄 게시판 리스트를 불러온다.
+		//커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
+		List<Comm_Board> commList = commRepository.findQ(); 
+		//화면에 뿌려주기 위해 담을 Dto 리스트 작성
+		List<AdminMainCommDto> mainCommDtoList = new ArrayList<>();
+		
+		//담을 Dto리스트에 db에서 찾은 데이터들을 담아주는 작업
+		//이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다.
+		for(Comm_Board board : commList) {
+			AdminMainCommDto commDto = new AdminMainCommDto(board);
+			List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(board.getId());
+			mainCommDtoList.add(commDto);
+			for(Comm_Board_Img comm_board_Img : board_Img) {
+				((AdminMainCommDto) mainCommDtoList).addCommBoardImg(comm_board_Img);
+			}
+		}
+		return mainCommDtoList;
+	}
+	
+	public List<AdminMainCommDto> getAdminCommMento(){ //관리자 Mento 페이지에 뿌려줄 게시판 리스트를 불러온다.
+		//커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
+		List<Comm_Board> commList = commRepository.findM(); 
 		//화면에 뿌려주기 위해 담을 Dto 리스트 작성
 		List<AdminMainCommDto> mainCommDtoList = new ArrayList<>();
 		

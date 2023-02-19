@@ -1,1 +1,9 @@
 @charset "UTF-8";
+
+.dropdown.position-relative {
+    display: flex !important;
+}
+
+svg.feather.feather-more-horizontal.align-middle {
+    margin-left: 15px;
+}
