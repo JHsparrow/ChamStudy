@@ -52,7 +52,6 @@
 										<div class="text-center mt-3">
 										<button class="btn btn-lg btn-primary" type="button" onclick="passwordCk()">sign up</button>
 										</div>
-										
 									</form>
 								</div>
 							</div>
@@ -65,12 +64,12 @@
 			function passwordCk() {
 				var p1 = document.getElementById('password').value;
 				var p2 = document.getElementById('passwordck').value;
-			      if( p1 != p2 ) {
-			          alert("비밀번호가 일치 하지 않습니다");
-			          return false;
-			        } else{
-			        	$('#frm').submit();
-			        }
+		      	if( p1 != p2 ) {
+		          alert("비밀번호가 일치 하지 않습니다");
+		          return false;
+		        } else{
+		        	$('#frm').submit();
+		        }
 			}
 		</script>
 	</div>

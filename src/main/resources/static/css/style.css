@@ -38,7 +38,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-    justify-content: flex-end;
+    justify-content: center;
     margin: 2px 0;
     white-space: nowrap;
 }
