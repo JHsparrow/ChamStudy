@@ -42,8 +42,9 @@
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="/adminForm/comm">자유게시판</a>
 									<a class="dropdown-item" href="/adminForm/comm/mento">멘토게시판</a> <a
-										class="dropdown-item" href="/adminForm/comm/qna">QnA게시판</a>
+										class="dropdown-item" href="/adminForm/comm/qna">QnA게시판</a> 
 								</div>
 							</div>
 						</div>
@@ -117,7 +118,7 @@
 											<tbody>
 												<tr class="odd">
 													<td class="comm-td1"><strong>[[${comm.id}]]</strong></td>
-													<td class="comm-td2">[[${comm.boardType}]]</td>
+													<td class="comm-td2"><span th:if="${comm.boardType == 'F'}">자유게시판</span> </td>
 													<td class="comm-td3">[[${comm.Title}]]</td>
 													<td class="comm-td4">[[${comm.userInfo.name}]]</td>
 													<td class="comm-td5">[[${comm.regdate}]]</td>

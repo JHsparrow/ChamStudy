@@ -33,7 +33,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	@GetMapping(value = "/comm/mento")
 	public String commMento(Model model) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
-		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminComm();
+		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminCommMento();
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 		return "AdminForm/comm/comm-mento";
@@ -42,7 +42,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	@GetMapping(value = "/comm/qna")
 	public String commQna(Model model) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
-		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminComm();
+		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminCommQna();
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 		return "AdminForm/comm/comm-qna";
