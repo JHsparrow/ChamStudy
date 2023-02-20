@@ -24,7 +24,7 @@ public class CsFaq {
 	@Id
 	@Column(name = "faq_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String title;
