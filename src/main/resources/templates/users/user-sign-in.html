@@ -13,10 +13,46 @@
 <meta name="keywords"
 	content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
+
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
 <title>로그인</title>
+<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+<!-- 각 페이지에 script가 작성될 위치 -->
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	//쿠키를 이용한 아이디 기억
+	$(document).ready(function() {
+		var userInputId = getCookie("userInputId");	//쿠키의 key! 키로 값을 가져온다. (현재 상태에는 저장된 것이 없어서 가져올 것이 없다.)
+		var setCookieYN = getCookie("setCookieYN");
+		
+		//제이쿼리로 작성 !
+		if(setCookieYN == 'Y') {
+			$("#id_save").prop("checked", true); //체크 박스를 체크 상태로 만들어준다.
+			$("#email").val(userInputId);	//이메일 인풋 창에 저장된 이메일을 띄워준다.
+		} else {
+			$("#id_save").prop("checked", false);  //체크 해제
+		}
+	
+		//로그인 버튼 클릭
+		$('#loginbtn').click(function(){
+			//아이디를 쿠키에 저장
+			if($("#id_save").is(":checked")) {	//아이디 기억하기 체크박스가 체크되어있으면 true 리턴 !
+				var userInputId = $("#email").val();  //input창에 입력된 email 값을 가져온다.
+				setCookie("userInputId", userInputId, 60);	//60일 동안 쿠키 저장
+				setCookie("setCookieYN", "Y", 60);	//쿠키 저장 여부 파악
+			} else {							//체크박스가 해제되면 쿠키를 삭제한다.
+				deleteCookie("userInputId");
+				deleteCookie("setCookieYN");
+			}
+		});
+	});
+	</script>
+</th:block>
+
 </head>
 <body>
 	<div layout:fragment="content">
@@ -37,31 +73,29 @@
 										<img src="/img/avatars/avatar.jpg" alt="Charles Hall"
 											class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form>
+									<form action="/users/signIn" method="post" role="form">
 										<div class="mb-3">
-											<label class="form-label">Email</label> <input
-												class="form-control form-control-lg" type="email"
-												name="email" placeholder="Enter your email" />
+											<label class="form-label" th:for="email">이메일</label> 
+											<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="이메일을 입력 하세요" />
 										</div>
 										<div class="mb-3">
-											<label class="form-label">Password</label> <input
-												class="form-control form-control-lg" type="password"
-												name="password" placeholder="Enter your password" /> <small>
+											<label class="form-label" th:for="password">비밀번호</label> 
+											<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력 하세요" /> 
+											<small>
 												<a href="index.html">Forgot password?</a>
 											</small>
 										</div>
 										<div>
+										
+										<p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
 											<label class="form-check"> <input
-												class="form-check-input" type="checkbox" value="remember-me"
-												name="remember-me" checked> <span
-												class="form-check-label"> Remember me next time </span>
+												class="form-check-input" type="checkbox" id="id_save" name="id_save">아이디 기억하기 
 											</label>
 										</div>
 										<div class="text-center mt-3">
-											<a href="index.html" class="btn btn-lg btn-primary">Sign
-												in</a>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+											<button type="submit" class="btn btn-lg btn-primary" id="loginbtn">Sign in</button>
 										</div>
+										<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 									</form>
 								</div>
 							</div>
@@ -71,5 +105,6 @@
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>

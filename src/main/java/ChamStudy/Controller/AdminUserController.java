@@ -58,4 +58,13 @@ public class AdminUserController {
 		return "redirect:/";
 	}
 	
+	//회원가입 오류 날때
+	@GetMapping(value = "/signIn/error")
+	public String loginError(Model model) {
+		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+		return "users/user-sign-in";
+	}
+	
+	
+	
 }
