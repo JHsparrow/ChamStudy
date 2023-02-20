@@ -12,10 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserInfoDto {
-
+	
 	@NotBlank(message="아이디은 필수 입력 값입니다.")
 	@Email(message = "이메일 형식으로 입력해주세요.")
-	private String id;
+	private String email;
 	
 	@NotEmpty(message = "이름은 필수 입력 값입니다.")
 	private String name;

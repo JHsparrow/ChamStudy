@@ -29,7 +29,7 @@ public class SecurityConfig {
 		http.formLogin()
 		    .loginPage("/users/signIn") //로그인 페이지 url설정
 			.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지
-			.usernameParameter("id") //로그인시 사용할 파라메터 이름
+			.usernameParameter("email") //로그인시 사용할 파라메터 이름
 			.failureUrl("/users/signIn/error") //로그인 실패시 이동할 url
 			.and()
 			.logout()
