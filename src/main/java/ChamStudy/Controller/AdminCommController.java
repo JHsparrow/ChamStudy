@@ -51,6 +51,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		return "AdminForm/AdminComm/comm-qna";
 	}
 	
+	//게시판 상세 페이지
 	@GetMapping(value = "/comm/dtl/{boardId}")
 	public String commDtl(@PathVariable("boardId") Long boardId, Model model) {
 		try {

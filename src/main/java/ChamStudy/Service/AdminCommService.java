@@ -54,9 +54,11 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		
 		List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(comm_Board.getId());
 		AdminMainCommDto mainCommDto = new AdminMainCommDto(comm_Board);
+		//이미지 리스트 담아준다.
 		for (Comm_Board_Img comm_board_Img : board_Img) {
 			((AdminMainCommDto) mainCommDto).addCommBoardImg(comm_board_Img);
 		}
+		//댓글 리스트도 담아준다.
 		for(Comm_Board comment: commentList) {
 			mainCommDto.addCommentList(comment);
 		}
