@@ -21,9 +21,11 @@
 </head>
 <body>
 	<div layout:fragment="content">
+			<div class="main">
+	
 		<main class="content">
 			<div class="container-fluid p-0">
-				<h1 class="h3 mb-3">자유게시판 관리</h1>
+				<h1 class="h3 mb-3">커뮤니티</h1>
 				<div class="card">
 					<div class="card-header pb-0">
 						<div class="card-actions float-end">
@@ -48,7 +50,7 @@
 								</div>
 							</div>
 						</div>
-						<h5 class="card-title mb-0">Orders</h5>
+						<h5 class="card-title mb-0">자유게시판 관리</h5>
 					</div>
 					<div class="card-body">
 						<div id="datatables-orders_wrapper"
@@ -114,7 +116,7 @@
 											</tr>
 										</thead>
 										<!-- each로 자유게시판 데이터 전부 로드 -->
-										<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
+										<th:block class="comm-each-wrap" th:each="comm, status: ${comms}" th:if="${comm.id} == ${comm.oriId}">
 											<tbody>
 												<tr class="odd">
 													<td class="comm-td1"><a th:href="'/adminForm/comm/dtl/'+${comm.id}"><strong>[[${comm.id}]]</strong></a></td>

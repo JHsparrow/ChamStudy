@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import ChamStudy.Dto.AdminMainCommDto;
 import ChamStudy.Service.AdminCommService;
@@ -68,6 +68,22 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		// 게시글 삭제 후 삭제 버튼 누른 페이지로 이동하기 위해 추가한 메소드
 		String referer = request.getHeader("Referer");
 		request.getSession().setAttribute("redirectURI", referer);
+		return "redirect:" + referer;
+	}
+	
+	@GetMapping(value = "/comm/back")
+	public String rateHandler(HttpServletRequest request) {
+	    //your controller code
+	    String referer = request.getHeader("Referer");
+	    return "redirect:"+ referer;
+	}
+	
+	
+	@GetMapping(value = "/comm/deletedtl") // 게시글 상세 페이지에서 삭제 
+	public String commDelete2(Long boardId, HttpServletRequest request) throws Exception {
+		adminCommService.commDelete(boardId);
+		String referer = request.getHeader("Referer");
+		// 게시글 삭제 후 삭제 버튼 누른 페이지로 이동하기 위해 추가한 메소드
 		return "redirect:" + referer;
 	}
 

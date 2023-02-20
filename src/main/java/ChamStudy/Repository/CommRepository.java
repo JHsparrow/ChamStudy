@@ -23,7 +23,8 @@ public interface CommRepository extends JpaRepository<Comm_Board, Long> {
 	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'M' order by c.board_id desc",nativeQuery = true)
 	List<Comm_Board> findM();
 	
-	
+	//게시글과 함께 해당 게시글의 댓글까지 가져온다.
+	List<Comm_Board> findByoriId(Long oriId);
 
 	
 	

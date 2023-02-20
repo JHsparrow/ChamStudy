@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import ChamStudy.Dto.AdminMainCommDto;
+import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;
@@ -49,11 +50,15 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
-
+		List<Comm_Board> commentList = commRepository.findByoriId(comm_Board.getOriId());		
+		
 		List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(comm_Board.getId());
-		AdminMainCommDto mainCommDto = new AdminMainCommDto(comm_Board);		
+		AdminMainCommDto mainCommDto = new AdminMainCommDto(comm_Board);
 		for (Comm_Board_Img comm_board_Img : board_Img) {
 			((AdminMainCommDto) mainCommDto).addCommBoardImg(comm_board_Img);
+		}
+		for(Comm_Board comment: commentList) {
+			mainCommDto.addCommentList(comment);
 		}
 		return mainCommDto;
 	}

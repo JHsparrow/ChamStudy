@@ -21,23 +21,35 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<main class="content">
-			<div class="container-fluid p-0">
-				<div class="Admin-Comm-Dtl-Wrap">
-					<div class="admin-dtl-content1">
-						<div class="admin-dtl-content1-1">[[${comm.userInfo.name}]]([[${comm.userInfo.id}]])</div>
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+					<div class="Admin-Comm-Dtl-Wrap">
+						<div class="Admin-Dtl-Content1">
+							<span th:if="${comm.boardType == 'F'}">자유게시판</span> <span
+								th:if="${comm.boardType == 'Q'}">QnA게시판</span> <span
+								th:if="${comm.boardType == 'M'}">멘토게시판</span>
+						</div>
+						<div class="Admin-Dtl-Content2">
+							<div class="Admin-Dtl-Content2-1">[[${comm.Title}]]</div>
+							<div class="Admin-Dtl-Content2-2">조회수:[[${comm.viewCount}]]</div>
+							<div class="Admin-Dtl-Content2-3">[[${comm.userInfo.name}]]([[${comm.userInfo.email}]])</div>
+						</div>
+						<div class="Admin-Dtl-Content3">
+							<div class="Admin-Dtl-Content3-1">[[${comm.regdate}]]</div>
+						</div>
+						<div class="Admin-Dtl-Content4">[[${comm.substance}]]</div>
+						<div class="Admin-dtl-Content5">
+							<button class="Admin-Dtl-Back" th:onclick="|location.href='@{/adminForm/comm/back}'|">돌아가기</button>
+							<button class="Admin-Dtl-Delete" th:onclick="|location.href='@{/adminForm/comm/deletedtl(boardId=${comm.id})}'|">삭제</button>
+						</div>
+						<div class="Admin-dtl-Content6">
+							<div class="Admin-Dtl-Content6-1">댓글</div>							
+						</div>						
 					</div>
-					<div class="admin-dtl-content2">
-						<div class="admin-dtl-content2-1">[[${comm.Title}]]</div>						
-						<div class="admin-dtl-content2-2">조회수:[[${comm.viewCount}]]</div>						
-					</div>
-					<div class="admin-dtl-content3">					
-						<div class="admin-dtl-content3-1">[[${comm.regdate}]]</div>
-						<div class="admin-dtl-content3-2">[[${comm.substance}]]</div>	
-					</div>											
 				</div>
-			</div>
-		</main>
+			</main>
+		</div>
 	</div>
 </body>
 </html>

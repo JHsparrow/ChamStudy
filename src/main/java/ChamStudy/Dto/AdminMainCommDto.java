@@ -24,6 +24,8 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.viewCount = comm_Board.getViewCount();
 		this.userInfo = comm_Board.getUserId();
 		this.regdate = comm_Board.getRegDate();
+		this.blockComment = comm_Board.getBlockComment();
+		this.openChat = comm_Board.getOpenChat();
 	}
 	private Long id;
 	
@@ -37,16 +39,26 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String substance;
 	
-	private int oriId;
+	private Long oriId;
 	
 	private int viewCount;
 	
 	private String regdate;
+	
+	private String blockComment;
+	
+	private String openChat;
+	
+	private List<Comm_Board> commentList = new ArrayList<>();
 	
 	private List<Comm_Board_Img> comm_Board_Img = new ArrayList<>();
 	
 	//이미지는 따로 담아야해서 따로 메소드를 만들어주었다.
 	public void addCommBoardImg(Comm_Board_Img board_Img) {
 		this.comm_Board_Img.add(board_Img);
+	}
+	
+	public void addCommentList(Comm_Board board) {
+		this.commentList.add(board);
 	}
 }

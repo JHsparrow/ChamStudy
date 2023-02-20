@@ -12,3 +12,72 @@ a {
     text-decoration: none !important;
     color: black;
 }
+
+button.Admin-Dtl-Back {
+    width: 98px;
+    height: 43px;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    background-color: #B4B4B4;
+}
+
+button.Admin-Dtl-Delete {
+    width: 98px;
+    height: 43px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    background-color: black;
+}
+
+.Admin-Dtl-Content1-1 {
+    height: 30px;
+    border-bottom: 1px solid black;
+    width: 65vw;
+}
+
+ul.pagination {
+    justify-content: left !important;
+}
+
+.Admin-Dtl-Content2-1 {
+    font-size: 24px;
+}
+
+.Admin-Dtl-Content2-2 {
+    position: absolute;
+    right: 20vw;
+    top: 192px;
+}
+
+.Admin-Dtl-Content2-3 {
+    border-bottom: 1px solid black;
+    width: 65vw;
+}
+
+.Admin-Dtl-Content3-1 {
+    right: 20vw;
+    position: absolute;
+    margin-top: 15px;
+}
+
+.Admin-Dtl-Content4 {
+    width: 65vw;
+    margin-top: 60px;
+    font-size: 20px;
+}
+
+.Admin-dtl-Content5 {
+    margin-left: 55vw;
+    margin-top: 40px;
+}
+    
+    
+.Admin-Dtl-Content1 {
+    font-size: 40px;
+    border-bottom: 1px solid;
+    width: 65vw;
+    height: 70px;
+}
+    
