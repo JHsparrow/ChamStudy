@@ -25,7 +25,7 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.userInfo = comm_Board.getUserId();
 		this.regdate = comm_Board.getRegDate();
 	}
-	private int id;
+	private Long id;
 	
 	private String Title;
 	

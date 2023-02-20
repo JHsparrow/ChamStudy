@@ -2,12 +2,15 @@ package ChamStudy.Controller;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import ChamStudy.Dto.AdminMainCommDto;
 import ChamStudy.Service.AdminCommService;
@@ -49,13 +52,18 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	}
 	
 	@GetMapping(value = "/comm/dtl/{boardId}")
-	public String commDtl(Model model) {
-		
+	public String commDtl(@PathVariable("boardId") Long boardId, Model model) {
+		try {
+			AdminMainCommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
+			model.addAttribute("comm",adminMainCommDto);
+		}catch(EntityNotFoundException e) {
+			model.addAttribute("errorMessage","존재하지 않는 게시물입니다.");
+		}
 		return "AdminForm/AdminComm/comm-Dtl-Form";
 	}
 
 	@GetMapping(value = "/comm/delete") // 게시글 삭제
-	public String commDelete(Integer boardId, HttpServletRequest request) throws Exception {
+	public String commDelete(Long boardId, HttpServletRequest request) throws Exception {
 		adminCommService.commDelete(boardId);
 		// 게시글 삭제 후 삭제 버튼 누른 페이지로 이동하기 위해 추가한 메소드
 		String referer = request.getHeader("Referer");

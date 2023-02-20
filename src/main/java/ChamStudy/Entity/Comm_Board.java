@@ -25,7 +25,7 @@ public class Comm_Board extends BaseTimeEntity{
 	@Id
 	@Column(name = "board_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id; //게시판 아이디
+	private Long id; //게시판 아이디
 	
 	private String Title; //게시판 제목
 	

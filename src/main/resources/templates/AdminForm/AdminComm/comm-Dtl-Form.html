@@ -23,7 +23,18 @@
 	<div layout:fragment="content">
 		<main class="content">
 			<div class="container-fluid p-0">
-			
+				<div class="Admin-Comm-Dtl-Wrap">
+					<div class="admin-dtl-content1">
+						<div class="admin-dtl-content1-1">[[${comm.userInfo.name}]]([[${comm.userInfo.id}]])</div>
+					</div>
+					<div class="admin-dtl-content2">
+						<div class="admin-dtl-content2-1">[[${comm.Title}]]</div>						
+						<div class="admin-dtl-content2-2">조회수:[[${comm.viewCount}]]</div>						
+					</div>
+					<div class="admin-dtl-content3">					
+						<div class="admin-dtl-content3-1">[[${comm.regdate}]]</div>
+						<div class="admin-dtl-content3-2">[[${comm.substance}]]</div>												
+				</div>
 			</div>
 		</main>
 	</div>

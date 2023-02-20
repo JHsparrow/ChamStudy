@@ -22,7 +22,7 @@ public class CommImgService {
 	private final CommRepository commRepository;
 	
 	//게시글 아이디로 해당 게시물의 이미지들을 찾아와주는 메소드
-	public List<Comm_Board_Img> findImg(Integer boardId) throws Exception {
+	public List<Comm_Board_Img> findImg(Long boardId) throws Exception {
 		List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(boardId);
 		return board_Img;
 	}
