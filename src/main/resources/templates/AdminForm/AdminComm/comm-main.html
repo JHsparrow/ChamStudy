@@ -116,7 +116,7 @@
 										<!-- each로 자유게시판 데이터 전부 로드 -->
 										<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
 											<tbody>
-												<tr class="odd">
+												<tr class="odd" style="cursor: pointer;" onclick="location.href='/adminForm/comm/mento'">
 													<td class="comm-td1"><strong>[[${comm.id}]]</strong></td>
 													<td class="comm-td2"><span th:if="${comm.boardType == 'F'}">자유게시판</span> </td>
 													<td class="comm-td3">[[${comm.Title}]]</td>
@@ -125,6 +125,7 @@
 													<td class="comm-td6">[[${comm.viewCount}]]</td>
 													<td><a th:href="@{/adminForm/comm/delete(boardId=${comm.id})}" class="btn btn-primary btn-sm">delete</a>
 													</td>
+												</a>
 												</tr>
 											</tbody>
 										</th:block>

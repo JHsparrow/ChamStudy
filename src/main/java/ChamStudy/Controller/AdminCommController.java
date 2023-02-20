@@ -27,7 +27,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 
-		return "AdminForm/comm/comm-main";
+		return "AdminForm/AdminComm/comm-main";
 	}
 
 	@GetMapping(value = "/comm/mento")
@@ -36,7 +36,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminCommMento();
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
-		return "AdminForm/comm/comm-mento";
+		return "AdminForm/AdminComm/comm-mento";
 	}
 
 	@GetMapping(value = "/comm/qna")
@@ -45,7 +45,13 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminCommQna();
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
-		return "AdminForm/comm/comm-qna";
+		return "AdminForm/AdminComm/comm-qna";
+	}
+	
+	@GetMapping(value = "/comm/dtl/{boardId}")
+	public String commDtl(Model model) {
+		
+		return "AdminForm/AdminComm/comm-Dtl-Form";
 	}
 
 	@GetMapping(value = "/comm/delete") // 게시글 삭제
