@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 <link th:href="@{/css/community/a-comm.css}" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <title>Blank Page | AdminKit Demo</title>
 </head>
 <body>
@@ -25,6 +25,7 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 					<div class="Admin-Comm-Dtl-Wrap">
+
 						<div class="Admin-Dtl-Content1">
 							<span th:if="${comm.boardType == 'F'}">자유게시판</span> <span
 								th:if="${comm.boardType == 'Q'}">QnA게시판</span> <span
@@ -40,12 +41,91 @@
 						</div>
 						<div class="Admin-Dtl-Content4">[[${comm.substance}]]</div>
 						<div class="Admin-dtl-Content5">
-							<button class="Admin-Dtl-Back" th:onclick="|location.href='@{/adminForm/comm/back}'|">돌아가기</button>
-							<button class="Admin-Dtl-Delete" th:onclick="|location.href='@{/adminForm/comm/deletedtl(boardId=${comm.id})}'|">삭제</button>
+							<form>
+								<input type="hidden" id="referer" name="referer"
+									th:value="${referer}">
+								<button class="Admin-Dtl-Back"
+									th:onclick="|location.href='@{/adminForm/comm/back}'|">돌아가기</button>
+								<button class="Admin-Dtl-Delete"
+									th:onclick="|location.href='@{/adminForm/comm/deletedtl(boardId=${comm.id})}'|">삭제</button>
+							</form>
 						</div>
 						<div class="Admin-dtl-Content6">
-							<div class="Admin-Dtl-Content6-1">댓글</div>							
-						</div>						
+							<div class="accordion" id="accordionExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne"
+											aria-expanded="false" aria-controls="collapseOne">
+											Accordion Item #1</button>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse"
+										aria-labelledby="headingOne"
+										data-bs-parent="#accordionExample" style="">
+										<div class="accordion-body">
+											<strong>This is the first item's accordion body.</strong> It
+											is shown by default, until the collapse plugin adds the
+											appropriate classes that we use to style each element. These
+											classes control the overall appearance, as well as the
+											showing and hiding via CSS transitions. You can modify any of
+											this with custom CSS or overriding our default variables.
+											It's also worth noting that just about any HTML can go within
+											the
+											<code>.accordion-body</code>
+											, though the transition does limit overflow.
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingTwo">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+											aria-expanded="false" aria-controls="collapseTwo">
+											Accordion Item #2</button>
+									</h2>
+									<div id="collapseTwo" class="accordion-collapse collapse"
+										aria-labelledby="headingTwo"
+										data-bs-parent="#accordionExample" style="">
+										<div class="accordion-body">
+											<strong>This is the second item's accordion body.</strong> It
+											is hidden by default, until the collapse plugin adds the
+											appropriate classes that we use to style each element. These
+											classes control the overall appearance, as well as the
+											showing and hiding via CSS transitions. You can modify any of
+											this with custom CSS or overriding our default variables.
+											It's also worth noting that just about any HTML can go within
+											the
+											<code>.accordion-body</code>
+											, though the transition does limit overflow.
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingThree">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseThree"
+											aria-expanded="false" aria-controls="collapseThree">
+											Accordion Item #3</button>
+									</h2>
+									<div id="collapseThree" class="accordion-collapse collapse"
+										aria-labelledby="headingThree"
+										data-bs-parent="#accordionExample">
+										<div class="accordion-body">
+											<strong>This is the third item's accordion body.</strong> It
+											is hidden by default, until the collapse plugin adds the
+											appropriate classes that we use to style each element. These
+											classes control the overall appearance, as well as the
+											showing and hiding via CSS transitions. You can modify any of
+											this with custom CSS or overriding our default variables.
+											It's also worth noting that just about any HTML can go within
+											the
+											<code>.accordion-body</code>
+											, though the transition does limit overflow.
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</main>
