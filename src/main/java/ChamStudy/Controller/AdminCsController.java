@@ -2,6 +2,7 @@ package ChamStudy.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,9 +14,13 @@ public class AdminCsController {
 		return "cs/inform";
 	}
 	
-	/*
-	 * @GetMapping(value="/faq")
-	 * 
-	 * @GetMapping(value="/qna")
-	 */
+	@GetMapping(value = "/createInform")
+	public String createInform() {
+		return "cs/createInform";
+	}
+	
+	@PostMapping(value = "/uploadInform")
+	public String uploadInform() {
+		return "null";
+	}
 }

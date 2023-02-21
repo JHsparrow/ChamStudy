@@ -39,14 +39,19 @@
 				
 				
 				<!-- 로그인 테스트(김용수) -->
-				<li class="sidebar-item">
+				<li class="sidebar-item" sec:authorize="isAnonymous()">
 					<a class="sidebar-link" href="/users/signIn">
 		            	<i class="align-middle" data-feather="book"></i> <span class="align-middle">로그인</span>
 		            </a>
 				</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" sec:authorize="isAnonymous()">
 					<a class="sidebar-link" href="/users/signUp">
 		            	<i class="align-middle" data-feather="book"></i> <span class="align-middle">회원가입</span>
+		            </a>
+				</li>
+				<li class="sidebar-item" sec:authorize="isAuthenticated()">
+					<a class="sidebar-link" href="/users/logout">
+		            	<i class="align-middle" data-feather="book"> </i> <span class="align-middle">로그아웃</span>
 		            </a>
 				</li>
 				<!-- 로그인 테스트(김용수) end-->

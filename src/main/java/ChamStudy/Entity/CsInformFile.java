@@ -16,7 +16,7 @@ public class CsInformFile {
 	@Id
 	@Column(name = "inform_file_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	private String oriFileName;
 	

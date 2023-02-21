@@ -1,7 +1,5 @@
 package ChamStudy.Entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -43,10 +41,10 @@ public class ContentVideo {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "content_id")
-	private ContentInfo contentId;
+	private ContentInfo contentInfo;
 	
 	@CreatedDate
 	@Column(updatable = false)
-	private LocalDateTime regDate;
+	private String regDate;
 
 }

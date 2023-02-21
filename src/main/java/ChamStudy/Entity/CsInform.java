@@ -16,7 +16,7 @@ public class CsInform extends BaseTimeEntity {
 	@Id
 	@Column(name = "inform_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	@Column(nullable = false, length = 100)
 	private String title;

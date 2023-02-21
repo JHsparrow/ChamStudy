@@ -11,7 +11,7 @@
 		<div class="main">
 			<main class="content">
 				<div class="container-fluid p-0">
-					<h1 class="h3 mb-3">고객센터</h1>
+					<h1 class="h3 mb-3">공지사항 관리</h1>
 					<div class="card">
 						<div class="card-header pb-0">
 							<div class="card-actions float-end">
@@ -45,6 +45,7 @@
 											<label class="d-flex justify-content-end">
 												<span>Search:</span>
 												<input type="search" class="form-control form-control-sm width30" placeholder="" aria-controls="datatables-orders">
+												<button class="btn btn-primary" style="margin-left: 20px;" th:onclick="|location.href='@{/cs/createInform}'|">작성하기</button>
 											</label>
 										</div>
 									</div>

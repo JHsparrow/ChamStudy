@@ -25,15 +25,25 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+
 @EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
 @Table(name="user_info") 
 @Getter
-@Setter
+@Setter@SequenceGenerator(
+        name="USER_GEN_GEN", //기수제 시퀸스 
+        sequenceName="USER_SEQ", //시퀀스 이름
+        initialValue=1 //시작값
+        )
 @ToString
 public class UserInfo {
+	
 	@Id
 	@Column(name="user_id")
-	private String id;  //이메일
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
+	
+	@Column(name="user_email")
+	private String email;  //이메일
 	
 	@Column(name="user_name")
 	private String name;  //회원이름
@@ -56,7 +66,7 @@ public class UserInfo {
 		
 		
 		UserInfo user = new UserInfo();
-		user.setId(userDto.getId());
+		user.setEmail(userDto.getEmail());
 		user.setName(userDto.getName());
 		user.setPhone(userDto.getPhone());
 		
