@@ -21,9 +21,11 @@
 </head>
 <body>
 	<div layout:fragment="content">
+			<div class="main">
+	
 		<main class="content">
 			<div class="container-fluid p-0">
-				<h1 class="h3 mb-3">커뮤니티 QnA 게시판 관리</h1>
+				<h1 class="h3 mb-3">커뮤니티</h1>
 				<div class="card">
 					<div class="card-header pb-0">
 						<div class="card-actions float-end">
@@ -42,13 +44,13 @@
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-end">
-									<a class="dropdown-item" href="/adminForm/comm">자유게시판</a>
+								<a class="dropdown-item" href="/adminForm/comm">자유게시판</a>
 									<a class="dropdown-item" href="/adminForm/comm/mento">멘토게시판</a> <a
-										class="dropdown-item" href="/adminForm/comm/qna">QnA게시판</a>
+										class="dropdown-item" href="/adminForm/comm/qna">QnA게시판</a> 
 								</div>
 							</div>
 						</div>
-						<h5 class="card-title mb-0">커뮤니티 QnA 게시판</h5>
+						<h5 class="card-title mb-0">자유게시판 관리</h5>
 					</div>
 					<div class="card-body">
 						<div id="datatables-orders_wrapper"
@@ -114,15 +116,15 @@
 											</tr>
 										</thead>
 										<!-- each로 자유게시판 데이터 전부 로드 -->
-										<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
+										<th:block class="comm-each-wrap" th:each="comm, status: ${comms}" th:if="${comm.id} == ${comm.oriId}">
 											<tbody>
 												<tr class="odd">
-													<td class="comm-td1"><strong>[[${comm.id}]]</strong></td>
-													<td class="comm-td2"><span th:if="${comm.boardType == 'Q'}">질의응답게시판</span> </td>
-													<td class="comm-td3">[[${comm.Title}]]</td>
-													<td class="comm-td4">[[${comm.userInfo.name}]]</td>
-													<td class="comm-td5">[[${comm.regdate}]]</td>
-													<td class="comm-td6">[[${comm.viewCount}]]</td>
+													<td class="comm-td1"><a th:href="'/adminForm/comm/dtl/'+${comm.id}"><strong>[[${comm.id}]]</strong></a></td>
+													<td class="comm-td2"><a th:href="'/adminForm/comm/dtl/'+${comm.id}"><span th:if="${comm.boardType == 'F'}">자유게시판</span></a> </td>
+													<td class="comm-td3"><a th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.Title}]]</a></td>
+													<td class="comm-td4"><a th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.userInfo.name}]]</a></td>
+													<td class="comm-td5"><a th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.regdate}]]</a></td>
+													<td class="comm-td6"><a th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.viewCount}]]</a></td>
 													<td><a th:href="@{/adminForm/comm/delete(boardId=${comm.id})}" class="btn btn-primary btn-sm">delete</a>
 													</td>
 												</tr>

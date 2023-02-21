@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head></head>
+  <body>
+    <th:block layout:fragment="script">
+      <script th:inline="javascript">
+        /* <![CDATA[ */
+    
+        window.onload = () => {
+          const message = [[${params.message}]]
+          
+          if (message) {
+            alert(message);
+          }
+    
+          const redirectUri = /*[[ ${params.redirectUri} ]]*/
+          location.href = redirectUri;
+          console.log(redirectUri);
+        }
+    
+        /* ]]> */
+      </script>
+    </th:block>
+  </body>
+</html>

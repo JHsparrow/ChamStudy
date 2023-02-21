@@ -74,3 +74,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 	cursor: pointer;
 	display: none;
 }
+
+.newbtnwrap{
+	text-align: right;
+	align-self: center;
+}
+
+.newbtn{
+	width: 100px;
+    padding: 10px 0;
+    margin-right: 35px;
+}
