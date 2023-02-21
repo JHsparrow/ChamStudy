@@ -82,7 +82,7 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		
 		//댓글을 먼저 찾아준다.
 		for(Comm_Board comment : boardList) {
-			List<Comm_Board> replys = commRepository.findreply(comment.getOriId(),comment.getId());
+			List<Comm_Board> replys = commRepository.findreply(comment.getOriId());
 			//찾은 댓글에서 답글을 찾아서 담아주기 위해 다시 for문을 돌린다.
 			for(Comm_Board reply : replys) {
 				CommCommentDto replyDto = new CommCommentDto(reply);

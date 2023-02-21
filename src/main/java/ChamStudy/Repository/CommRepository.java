@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import ChamStudy.Entity.Comm_Board;
 
@@ -26,8 +27,8 @@ public interface CommRepository extends JpaRepository<Comm_Board, Long> {
 	//게시글과 함께 해당 게시글의 댓글까지 가져온다.
 	List<Comm_Board> findByoriId(Long oriId);
 
-	@Query(value = "SELECT * FROM comm_board c WHERE c.ori_id = c.board_id",nativeQuery = true)
-	List<Comm_Board> findreply(Long oriId,Long boardId);
+	@Query(value = "SELECT * FROM comm_board c WHERE c.ori_id = :oriId and gubun = 'r'",nativeQuery = true)
+	List<Comm_Board> findreply(@Param("oriId") Long oriId);
 
 	
 	
