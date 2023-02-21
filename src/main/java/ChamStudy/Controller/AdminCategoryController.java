@@ -22,7 +22,7 @@ public class AdminCategoryController {
 	
 	@GetMapping(value = "/main") //메인 카테고리 리스트
 	public String generation() {
-		return "adminCategory/mainList";
+		return "AdminForm/adminCategory/mainList";
 	}
 	
 	
