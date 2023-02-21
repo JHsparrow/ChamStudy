@@ -106,6 +106,14 @@ public class OnContentService {
 		}
 	}
 	
+	@Transactional(readOnly = true)
+	public List<ContentInfo> getAllContent() {
+		//content 테이블 전체 데이터 조회
+		List<ContentInfo> contentInfo = onContentRepository.findAll();
+		
+		return contentInfo;
+	}
+	
 	/**
 	 * 모든 ContentVideo 조회
 	 * @param contentId
