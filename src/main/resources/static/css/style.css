@@ -68,6 +68,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .width30{
 	width: 30% !important;
 }
+
+.cancelbtn{
+	position: relative;
+	cursor: pointer;
+	display: none;
+}
+
 .newbtnwrap{
 	text-align: right;
 	align-self: center;
