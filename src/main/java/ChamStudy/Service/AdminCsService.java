@@ -22,7 +22,7 @@ public class AdminCsService {
 	private final AdminCsFileRepository adminCsFileRepository;
 	
 	//공지사항 게시물 등록
-	public Long saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) {
+	public void saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) {
 		CsInform csInform = csInformDto.createCsInform();
 		adminCsRepository.save(csInform);
 		
