@@ -72,7 +72,7 @@
 									</h2>
 									<div id="panelsStayOpen-collapseOne"
 										class="accordion-collapse collapse"
-										aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="accordionPanelsStayOpenExample">
+										aria-labelledby="panelsStayOpen-headingOne">
 										<div class="accordion-body">
 											<th:block class="comment-each"
 												th:each=" comment : ${comments}">
@@ -91,15 +91,54 @@
 													<div class="comment-td5">[[${comment.substance}]]</div>
 													<button class="Admin-Comment-Delete"
 														th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${comment.id})}'|">삭제</button>
+													<div class="accordion" id="accordionPanelsStayOpenExample">
+														<div class="accordion-item">
+															<h2 class="accordion-header"
+																id="panelsStayOpen-headingtwo">
+																<button class="accordion-button" type="button"
+																	data-bs-toggle="collapse"
+																	data-bs-target="#panelsStayOpen-collapsetwo"
+																	aria-expanded="true"
+																	aria-controls="panelsStayOpen-collapsetwo">
+																	답글보기</button>
+															</h2>
+															<div id="panelsStayOpen-collapsetwo"
+																class="accordion-collapse collapse show"
+																aria-labelledby="panelsStayOpen-headingtwo">
+																<div class="accordion-body">
+																	<th:block class="comment-each"
+																		th:each=" comment : ${replys}">
+																		<div class="comment-wrap">
+																			<div class="comment-td1">
+																				<span class="comment-td1-1"
+																					th:if="${comment.gubun == 'B'}">댓글</span>
+																			</div>
+																			<div class="comment-td4">[[${comment.id}]]</div>
+																			<div class="comment-td2,3">
+																				<div class="comment-td2">이름:
+																					[[${comment.userInfo.name}]]</div>
+																				<div class="comment-td3">이메일:
+																					[[${comment.userInfo.email}]]</div>
+																			</div>
+																			<div class="comment-td4">[[${comment.regdate}]]</div>
+																			<div class="comment-td5">[[${comment.substance}]]</div>
+																			<button class="Admin-Comment-Delete"
+																				th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${comment.id})}'|">삭제</button>
+																		</div>
+																		</th:block>
+																</div>
+															</div>
+														</div>
+														
+													</div>
 												</div>
+											</th:block>
 										</div>
-										</th:block>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</main>
 		</div>
 	</div>
