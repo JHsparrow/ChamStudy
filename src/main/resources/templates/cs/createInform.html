@@ -43,10 +43,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="card">
- 						<!--	<div class="card-header">
-										<h5 class="card-title mb-0">공지사항</h5>
-									</div> -->
-									<form action="creatdInform" method="post" enctype="multipart/form-data" th:object="${csInformDto}">
+									<form action="uploadInform" method="post" enctype="multipart/form-data" th:object="${csInformDto}">
 										<input type="hidden" th:field="*{id}"/>
 										<input type="hidden" th:field="*{viewCount}"/>
 										<div class="card-body">
@@ -57,8 +54,12 @@
 											<div>
 												<span>상단 고정 여부</span>
 												<label class="form-check">
-												<input class="form-check-input" type="checkbox" th:field="*{gubun}" value="f" name="radios-example" >
-												<span class="form-check-label">고정함</span>
+													<input class="form-check-input" type="radio" th:field="*{gubun}" value="f" name="radios-example">
+													<span class="form-check-label">고정함</span>
+												</label>
+												<label class="form-check">
+													<input class="form-check-input" type="radio" th:field="*{gubun}" value="n" name="radios-example">
+													<span class="form-check-label">고정하지 않음</span>
 												</label>
 											</div>
 
@@ -93,7 +94,7 @@
 												<button type="button" class="btn btn-secondary" onClick="location.href='/cs/inform'">돌아가기</button>
 											</div>
 										</div>
-										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+										<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 									</form>
 								</div>
 							</div>

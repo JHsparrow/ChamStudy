@@ -27,4 +27,10 @@ public class CsInformFile {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "inform_id")
 	private CsInform csInform;
+	
+	public void updateCsInformFile(String oriFileName, String fileName, String fileUrl) {
+		this.oriFileName = oriFileName;
+		this.fileName = fileName;
+		this.fileUrl = fileUrl;
+	}
 }
