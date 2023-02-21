@@ -60,10 +60,12 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 			//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
 			AdminMainCommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
 			List<CommCommentDto> commentList = adminCommService.getCommentList(boardId);
+			List<CommCommentDto> replyList = adminCommService.getReplyList(boardId);
 			
 			//담아준 Dto를 view로 보내준다
 			model.addAttribute("comm",adminMainCommDto);
 			model.addAttribute("comments",commentList);
+			model.addAttribute("replys",replyList);
 		}catch(EntityNotFoundException e) {
 			model.addAttribute("errorMessage","존재하지 않는 게시물입니다.");
 		}
