@@ -59,7 +59,7 @@ public class OnContentService {
 			contentInfo.setImgName(imgName);
 			
 			//contentInfo데이터 저장 : 업로드된 이미지 url 저장
-			String imgUrl = "/contents/item" + imgName;
+			String imgUrl = "/contents/" + imgName;
 			contentInfo.setImgUrl(imgUrl);
 			
 			//데이터베이스 저장 : OnContentRepository 에 contentInfo데이터를 저장
@@ -88,11 +88,11 @@ public class OnContentService {
 				contentVideo.setName(videoNm);
 				
 				//contentInfo데이터 저장 : 업로드된 비디오 url 저장
-				String videoUrl = "/contents/item" + videoNm;
+				String videoUrl = "/contents/" + videoNm;
 				contentVideo.setUrl(videoUrl);
 				
 				//contentId를 contentVideo에도 저장한다.
-				contentVideo.setContentId(contentInfo);
+				contentVideo.setContentInfo(contentInfo);
 				
 				//데이터베이스 저장 : OnContentRepository 에 contentVideo데이터를 저장
 				contentVideo = onContentVideoRepository.save(contentVideo);
@@ -104,5 +104,34 @@ public class OnContentService {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+	
+	/**
+	 * 모든 ContentVideo 조회
+	 * @param contentId
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public List<ContentVideo> getAllContents() {
+		//contentVideo 테이블 전체 데이터 조회
+		List<ContentVideo> contentVideoList = onContentVideoRepository.findAll();
+		
+		return contentVideoList;
+	}
+	
+	/**
+	 * ContentId 컬럼에 해당하는 ContentVideo 조회
+	 * @param contentId
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public List<ContentVideo> getContents(Long contentId) {
+		ContentInfo contentInfo = new ContentInfo();
+		contentInfo.setId(contentId); //join 된 테이블의 content_id 컬럼 값으로 조회하기 위해 설정한다
+		
+		//content_id 조회값 가져온다 (pk가 아니므로 여러개 반환 가능하여 List 객체 사용)
+		List<ContentVideo> contentVideoList = onContentVideoRepository.findByContentInfo(contentInfo);
+		
+		return contentVideoList;
 	}
 }

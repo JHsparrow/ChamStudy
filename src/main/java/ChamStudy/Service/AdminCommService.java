@@ -2,17 +2,14 @@ package ChamStudy.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import ChamStudy.Dto.AdminMainCommDto;
-import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;

@@ -14,6 +14,16 @@
 	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
 	<title>참스터디</title>
+	
+	<script>
+	
+	</script>
+	
+	<style>
+		.popUp {
+		border:none;
+		}
+	</style>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -24,11 +34,19 @@
 					<div class="card">
 						<div class="card-header pb-0">
 							<div class="card-actions float-end">
-								<div class="dropdown position-relative">					
-									<a href="/adminOnClass/contentNew" class="btn btn-primary btn-sm">등록</a>
+								<div class="dropdown position-relative">
+									<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+									</a>
+
+									<div class="dropdown-menu dropdown-menu-end">
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
 								</div>
 							</div>
-							<h5 class="card-title mb-0">Contents</h5>
+							<h5 class="card-title mb-0">Orders</h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -57,31 +75,49 @@
 											<tr>
 												<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 91px;" aria-sort="ascending" aria-label="#: activate to sort column descending">번호</th>
 												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 211px;" aria-label="Billing Name: activate to sort column ascending">콘텐츠</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 156px;" aria-label="Date: activate to sort column ascending">경로</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 114px;" aria-label="Total: activate to sort column ascending"></th>
-											</tr>
+												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 156px;" aria-label="Date: activate to sort column ascending">등록일</th>
+												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 114px;" aria-label="Total: activate to sort column ascending">강의</th>
+												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 192px;" aria-label="Actions">Actions</th></tr>
 										</thead>
-										
 										<tbody>
 											<tr class="odd">
-												<td><a href="/adminOnClass/onlineDetail"></a></td>
-												<td><a href="/adminOnClass/onlineDetail"></a></td>
-												<td><a href="/adminOnClass/onlineDetail"></a></td>
-												<td><a href="/adminOnClass/onlineDetail"></a></td>
+												<td class="dtr-control sorting_1" tabindex="0"><strong>#0001</strong></td>
+												<td>Brian Smith</td>
+												<td>2021-12-04</td>
+												<td><button type="button" class="popUp" data-bs-toggle="modal" data-bs-target="#exampleModal">보기</button></td>
+													<!-- Modal -->
+													<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h1 class="modal-title fs-5" id="exampleModalLabel">Content</h1>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<h2 class="fs-5">Popover in a modal</h2>
+																	<p>콘텐츠<button class="btn btn-secondary" data-bs-toggle="popover" title="Popover title" data-bs-content="Popover body content is set in this attribute.">button</button></p>
+																	<hr>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																</div>
+															</div>
+														</div>
+													</div>
 												<td>
-													<a href="/adminOnClass/onlineDetail" class="btn btn-primary btn-sm">수정</a>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
 												</td>
-											</tr>							
-										</tbody>
-											
+											</tr>
+											</tbody>
 										</table>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-sm-12 col-md-5">
+								<div class="row" >
+									<div class="col-sm-12 col-md-3">
 										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite">Showing 1 to 10 of 15 entries</div>
 									</div>
-									<div class="col-sm-12 col-md-7">
+									
+									<div class="col-sm-12 col-md-6 ">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
 											<ul class="pagination">
 												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
@@ -98,6 +134,9 @@
 												</li>
 											</ul>
 										</div>
+									</div>
+									<div class="col-sm-12 col-md-3">
+										<a href="/adminOnClass/contentNew" class="btn btn-primary btn-sm">등록하기</a>
 									</div>
 								</div>
 							</div>

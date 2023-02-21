@@ -39,5 +39,5 @@ public class ContentInfo {
 	
 	@CreatedDate
 	@Column(updatable = false)
-	private LocalDateTime regDate;
+	private String regDate;
 }
