@@ -129,7 +129,7 @@ public class OnContentService {
 		ContentInfo contentInfo = new ContentInfo();
 		contentInfo.setId(contentId); //join 된 테이블의 content_id 컬럼 값으로 조회하기 위해 설정한다
 		
-		//content_id 조회값 가져온다 (pk 가 아니므로 여러개 반환 가능하여 List 객체 사용)
+		//content_id 조회값 가져온다 (pk가 아니므로 여러개 반환 가능하여 List 객체 사용)
 		List<ContentVideo> contentVideoList = onContentVideoRepository.findByContentInfo(contentInfo);
 		
 		return contentVideoList;

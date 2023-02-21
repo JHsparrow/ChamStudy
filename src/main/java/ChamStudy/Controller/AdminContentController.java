@@ -63,9 +63,15 @@ public class AdminContentController {
 	//콘텐츠
 	@GetMapping(value = "/adminOnClass/contents") //콘텐츠 관리페이지
 	public String contents(Model model) {
+		/*
+		전체 콘텐츠 조회
 		List<ContentVideo> contentVideoList = onContentService.getAllContents();
-		//List<ContentVideo> contentVideoList = onContentService.getContents((long) 1);
 		model.addAttribute("contentVideoList", contentVideoList);
+		*/
+		
+		List<ContentVideo> contentVideoList = onContentService.getContents((long) 1);
+		model.addAttribute("contentVideoList", contentVideoList);
+		
 		return "/AdminForm/AdminOnClass/contentList";
 	}
 	

@@ -39,37 +39,4 @@ public class AdminOnClassController {
 		return "/AdminForm/AdminOnClass/onlineUpdate";
 	}
 	
-	@GetMapping(value = "/contents") //콘텐츠 관리페이지
-	public String contents() {
-		return "/AdminForm/AdminOnClass/contentList";
-	}
-	
-	@GetMapping(value = "/contentNew") //콘텐츠 등록
-	public String contentForm(Model model) {
-		model.addAttribute("onContentDto", new OnContentDto());
-		return "/AdminForm/AdminOnClass/contentNew";
-	}
-	
-	@PostMapping(value = "/contentNew")
-	public String contentNew(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model) {
-		
-		if(bindingResult.hasErrors()) {
-			return "/AdminForm/AdminOnClass/contentNew";
-		}
-		
-		try {
-			if(0 < onContentService.saveOnContent(onContentDto)) {
-				model.addAttribute("errorMessage", "콘텐츠 등록이 성공적으로 등록되었습니다!");
-				return "/AdminForm/AdminOnClass/contentNew";
-			} else {
-				model.addAttribute("errorMessage", "콘텐츠 등록이 실패했습니다!");
-				return "/AdminForm/AdminOnClass/contentNew";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMessage", "콘텐츠 등록 중 에러가 발생했습니다.");
-			return "/AdminForm/AdminOnClass/contentNew";
-		}
-	}
-	
 }
