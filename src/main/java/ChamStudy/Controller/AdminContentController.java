@@ -1,5 +1,7 @@
 package ChamStudy.Controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -7,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ChamStudy.Dto.OnContentDto;
 import ChamStudy.Dto.VideoDto;
+import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Service.ContentVideoService;
+import ChamStudy.Service.OnContentService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -19,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminContentController {
 	
 	private final ContentVideoService videoService;
+	private final OnContentService onContentService;
 	
 	@GetMapping(value = "/adminClass/generation") //기수제 목록
 	public String generation() {
@@ -55,5 +60,40 @@ public class AdminContentController {
 		
 	}
 	
+	//콘텐츠
+	@GetMapping(value = "/adminOnClass/contents") //콘텐츠 관리페이지
+	public String contents(Model model) {
+		List<ContentVideo> contentVideoList = onContentService.getAllContents();
+		//List<ContentVideo> contentVideoList = onContentService.getContents((long) 1);
+		model.addAttribute("contentVideoList", contentVideoList);
+		return "/AdminForm/AdminOnClass/contentList";
+	}
 	
+	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
+	public String contentForm(Model model) {
+		model.addAttribute("onContentDto", new OnContentDto());
+		return "/AdminForm/AdminOnClass/contentNew";
+	}
+	
+	@PostMapping(value = "/adminOnClass/contentNew")
+	public String contentNew(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "/AdminForm/AdminOnClass/contentNew";
+		}
+		
+		try {
+			if(0 < onContentService.saveOnContent(onContentDto)) {
+				model.addAttribute("errorMessage", "콘텐츠 등록이 성공적으로 등록되었습니다!");
+				return "/AdminForm/AdminOnClass/contentNew";
+			} else {
+				model.addAttribute("errorMessage", "콘텐츠 등록이 실패했습니다!");
+				return "/AdminForm/AdminOnClass/contentNew";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "콘텐츠 등록 중 에러가 발생했습니다.");
+			return "/AdminForm/AdminOnClass/contentNew";
+		}
+	}
 }

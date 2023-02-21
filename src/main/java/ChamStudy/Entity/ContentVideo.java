@@ -39,10 +39,10 @@ public class ContentVideo {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "content_id")
-	private ContentInfo contentId;
+	private ContentInfo contentInfo;
 	
 	@CreatedDate
 	@Column(updatable = false)
-	private LocalDateTime regDate;
+	private String regDate;
 
 }
