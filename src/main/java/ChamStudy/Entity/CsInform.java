@@ -25,7 +25,7 @@ public class CsInform extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String substance;
 	
-	@Column(columnDefinition = "interger default 0", nullable = false)
+	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int viewCount;
 	
 	@Column(nullable = false, columnDefinition = "CHAR", length=1)

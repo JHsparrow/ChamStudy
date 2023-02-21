@@ -49,6 +49,6 @@ public class AdminCsController {
 			model.addAttribute("errorMessage", "공지사항 등록 중 에러가 발생했습니다.");
 			return "cs/createInform";
 		}
-		return "redirect:/cs/inform";
+		return "redirect:/";
 	}
 }

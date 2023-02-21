@@ -22,7 +22,7 @@ public class AdminCsService {
 	private final AdminCsFileRepository adminCsFileRepository;
 	
 	//공지사항 게시물 등록
-	public void saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) {
+	public Long saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) throws Exception {
 		CsInform csInform = csInformDto.createCsInform();
 		adminCsRepository.save(csInform);
 		
@@ -30,9 +30,10 @@ public class AdminCsService {
 		for(int i=0; i<csInformFileList.size(); i++) {
 			CsInformFile csInformFile = new CsInformFile();
 			csInformFile.setCsInform(csInform);
+			
+			adminCsService.saveFile(csInformFile, csInformFileList.get(i));
 		}
-		
-		
+		return csInform.getId();
 	}
 
 }
