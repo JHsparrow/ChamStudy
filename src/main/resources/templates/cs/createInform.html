@@ -5,6 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지 - 공지사항 작성</title>
+
+<!-- 각 페이지에 script가 작성될 위치 -->
+<script th:inline="javascript">
+	
+	function changeDisplay(val){
+		if(val=='1') $('#btn_cancel1').show();
+		if(val=='2') $('#btn_cancel2').show();
+		if(val=='3') $('#btn_cancel3').show();
+		
+	}
+	$(function(){
+		$('#btn_cancel1').click(function(){
+			$('#formFile1').val('');
+			$('#btn_cancel1').hide();
+		})
+		$('#btn_cancel2').click(function(){
+			$('#formFile2').val('');
+			$('#btn_cancel2').hide();
+		})
+		$('#btn_cancel3').click(function(){
+			$('#formFile3').val('');
+			$('#btn_cancel3').hide();
+		})
+	})
+
+</script>
+
 </head>
 <body>
 	<div layout:fragment="content">
@@ -16,49 +43,57 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="card">
-									<div class="card-header">
+ 						<!--	<div class="card-header">
 										<h5 class="card-title mb-0">공지사항</h5>
-									</div>
-									<form>
-										<input type="hidden"/>
+									</div> -->
+									<form action="creatdInform" method="post" enctype="multipart/form-data" th:object="${csInformDto}">
+										<input type="hidden" th:field="*{id}"/>
+										<input type="hidden" th:field="*{viewCount}"/>
 										<div class="card-body">
 											<div class="mb-3">
-												<span>제목</span> <input type="text" class="form-control"
-													 placeholder="제목을 입력해 주세요.">
+												<span>제목</span>
+												<input type="text" class="form-control" th:field="*{title}" placeholder="제목을 입력해 주세요.">
 											</div>
-
-											<div class="mb-3">
-												<span>첨부 파일</span> <br /> <input type="file" />
+											<div>
+												<span>상단 고정 여부</span>
+												<label class="form-check">
+												<input class="form-check-input" type="checkbox" th:field="*{gubun}" value="f" name="radios-example" >
+												<span class="form-check-label">고정함</span>
+												</label>
 											</div>
 
 											<div class="mb-3">
 												<span>내용</span>
-												<textarea class="form-control" 
-													rows="2" placeholder="공지사항 내용 입력" style="height: 350px;"></textarea>
+												<textarea class="form-control" rows="2"
+													th:field="*{substance}" placeholder="공지사항 내용 입력" style="height: 350px;"></textarea>
 											</div>
-											<div>
-												<label class="form-check"> <input
-													class="form-check-input" type="radio" value="option1"
-													name="radios-example" checked> <span
-													class="form-check-label"> Option one is this and
-														that&mdash;be sure to include why it's great </span>
-												</label> <label class="form-check"> <input
-													class="form-check-input" type="radio" value="option2"
-													name="radios-example"> <span
-													class="form-check-label"> Option two can be
-														something else and selecting it will deselect option one </span>
-												</label> <label class="form-check"> <input
-													class="form-check-input" type="radio" value="option3"
-													name="radios-example" disabled> <span
-													class="form-check-label"> Option three is disabled </span>
-												</label>
+											
+											<div class="col-sm-6">
+											
+											<div class="mb-3">
+												<label for="formFile" class="form-label d-block">첨부파일 1</label>
+												<input class="form-control w-75 d-inline-block" type="file" id="formFile1" name="csInformFile" onchange="changeDisplay('1')" >
+												<i id="btn_cancel1" class="fa-solid fa-xmark cancelbtn"></i>
+											</div>
+											<div class="mb-3">
+												<label for="formFile" class="form-label d-block">첨부파일 2</label>
+												<input class="form-control w-75 d-inline-block" type="file" id="formFile2" name="csInformFile" onchange="changeDisplay('2')">
+												<i id="btn_cancel2" class="fa-solid fa-xmark cancelbtn"></i>
+											</div>
+											<div class="mb-3">
+												<label for="formFile" class="form-label d-block">첨부파일 3</label>
+												<input class="form-control w-75 d-inline-block" type="file" id="formFile3" name="csInformFile" onchange="changeDisplay('3')">
+												<i id="btn_cancel3" class="fa-solid fa-xmark cancelbtn"></i>
+											</div>
+											
 											</div>
 
 											<div class="text-center">
-												<button class="btn btn-primary">게시글 등록</button>
-												<button class="btn btn-secondary">돌아가기</button>
+												<button type="submit" class="btn btn-primary">게시글 등록</button>
+												<button type="button" class="btn btn-secondary" onClick="location.href='/cs/inform'">돌아가기</button>
 											</div>
 										</div>
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 									</form>
 								</div>
 							</div>
