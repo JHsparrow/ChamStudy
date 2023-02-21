@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:each="ContentVideo, status: ${contentVideoList}">
+	<p>[[ContentVideo.oriname]]</p>
+	<a href="@{${ContentVideo.url}}" class="btn btn-primary btn-sm">보여줘</a>
+	<hr>
+	</th:block>
+</body>
+</html>

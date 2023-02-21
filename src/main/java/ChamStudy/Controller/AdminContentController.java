@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ChamStudy.Dto.OnContentDto;
 import ChamStudy.Dto.VideoDto;
+import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Service.ContentVideoService;
 import ChamStudy.Service.OnContentService;
@@ -63,17 +65,29 @@ public class AdminContentController {
 	//콘텐츠
 	@GetMapping(value = "/adminOnClass/contents") //콘텐츠 관리페이지
 	public String contents(Model model) {
-		/*
-		전체 콘텐츠 조회
-		List<ContentVideo> contentVideoList = onContentService.getAllContents();
-		model.addAttribute("contentVideoList", contentVideoList);
-		*/
 		
-		List<ContentVideo> contentVideoList = onContentService.getContents((long) 1);
-		model.addAttribute("contentVideoList", contentVideoList);
+		List<ContentInfo> contentInfo = onContentService.getAllContent();
+		model.addAttribute("contentInfo", contentInfo);
 		
 		return "/AdminForm/AdminOnClass/contentList";
 	}
+	
+	@GetMapping(value = "/adminOnClass/contentVideo") //콘텐츠 관리페이지
+	public String contentVideo() {	
+		return "/AdminForm/AdminOnClass/contentVideo";
+	}
+	
+	
+	@GetMapping(value = "/adminOnClass/contentVideo/{contentId}") //콘텐츠 비디오 보기
+	public String contents(Model model, @PathVariable(value = "contentId") Long contentId) {
+	
+	List<ContentVideo> contentVideoList = onContentService.getContents(contentId);
+	model.addAttribute("contentVideoList", contentVideoList);
+	
+	return "/AdminForm/AdminOnClass/contentVideo";
+	
+	}
+	
 	
 	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentForm(Model model) {
