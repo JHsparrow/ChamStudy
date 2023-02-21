@@ -78,3 +78,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     padding: 10px 0;
     margin-right: 35px;
 }
+.modal-header{
+	background: #0d6efd;
+    color: #ffff;
+}
+.btn-close{color: #fff;  opacity: 1;}
