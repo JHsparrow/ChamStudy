@@ -49,8 +49,6 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String openChat;
 	
-	private List<Comm_Board> commentList = new ArrayList<>();
-	
 	private List<Comm_Board_Img> comm_Board_Img = new ArrayList<>();
 	
 	//이미지는 따로 담아야해서 따로 메소드를 만들어주었다.
@@ -58,7 +56,4 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.comm_Board_Img.add(board_Img);
 	}
 	
-	public void addCommentList(Comm_Board board) {
-		this.commentList.add(board);
-	}
 }

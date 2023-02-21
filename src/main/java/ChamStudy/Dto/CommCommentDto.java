@@ -2,9 +2,13 @@ package ChamStudy.Dto;
 
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.UserInfo;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CommCommentDto { //커뮤니티 댓글 Dto
-	public CommCommentDto(Comm_Board comm_Board) {  
+	public  CommCommentDto(Comm_Board comm_Board) {  
 		this.id = comm_Board.getId();
 		this.boardType = comm_Board.getBoardType();
 		this.Title = comm_Board.getTitle();
@@ -39,4 +43,7 @@ public class CommCommentDto { //커뮤니티 댓글 Dto
 	private String blockComment;
 	
 	private String openChat;
+
+
 }
+

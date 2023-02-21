@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import ChamStudy.Dto.AdminMainCommDto;
+import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;
@@ -47,7 +48,6 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
-		List<Comm_Board> commentList = commRepository.findByoriId(comm_Board.getOriId());		
 		
 		List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(comm_Board.getId());
 		AdminMainCommDto mainCommDto = new AdminMainCommDto(comm_Board);
@@ -55,11 +55,42 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		for (Comm_Board_Img comm_board_Img : board_Img) {
 			((AdminMainCommDto) mainCommDto).addCommBoardImg(comm_board_Img);
 		}
-		//댓글 리스트도 담아준다.
-		for(Comm_Board comment: commentList) {
-			mainCommDto.addCommentList(comment);
-		}
 		return mainCommDto;
+	}
+
+	public List<CommCommentDto> getCommentList(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다.
+		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
+		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
+		List<Comm_Board> boardList = commRepository.findByoriId(comm_Board.getOriId());		
+		List<CommCommentDto> commentList = new ArrayList<>();
+		
+		for(Comm_Board comment : boardList) {
+			CommCommentDto commentDto = new CommCommentDto(comment);
+			commentList.add(commentDto);
+		}
+		
+		return commentList;
+	}
+
+	public List<CommCommentDto> getReplyList(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 답글을 불러온다.
+		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다.
+		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
+		List<Comm_Board> boardList = commRepository.findByoriId(comm_Board.getOriId());		
+		List<CommCommentDto> replyList = new ArrayList<>();
+		
+		//댓글을 먼저 찾아준다.
+		for(Comm_Board comment : boardList) {
+			List<Comm_Board> replys = commRepository.findreply(comment.getOriId(),comment.getId());
+			//찾은 댓글에서 답글을 찾아서 담아주기 위해 다시 for문을 돌린다.
+			for(Comm_Board reply : replys) {
+				CommCommentDto replyDto = new CommCommentDto(reply);
+				replyList.add(replyDto);
+			}
+		}
+		
+		return replyList;
 	}
 
 	public List<AdminMainCommDto> getAdminCommQna() { // 관리자 QnA 페이지에 뿌려줄 게시판 리스트를 불러온다.
