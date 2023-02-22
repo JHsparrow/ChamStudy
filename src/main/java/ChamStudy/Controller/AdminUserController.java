@@ -2,6 +2,9 @@ package ChamStudy.Controller;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Entity.UserInfo;
+import ChamStudy.Service.PrincipalDetails;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -20,9 +25,24 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminUserController {
 	
+	@GetMapping("/test/signIn")
+	//Authentication = di(의존성 주입)
+	public @ResponseBody String loginTest(Authentication Authentication,
+			@AuthenticationPrincipal UserDetails userDetails) {
+		System.out.println("/test/signIn");
+		System.out.println("/Authentication:" + Authentication.getPrincipal());
+		return "세선정보 확인하기";
+	}
+	
+	
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	
+	@GetMapping(value = "/user")
+	public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+		System.out.println("PrincipalDetails: " + principalDetails.getUsername());
+		return "users/user-sign-in";
+	}
 
 	//로그인 화면 보여주기
 	@GetMapping(value = "/signIn")
@@ -64,6 +84,8 @@ public class AdminUserController {
 		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
 		return "users/user-sign-in";
 	}
+	
+	
 	
 	
 	
