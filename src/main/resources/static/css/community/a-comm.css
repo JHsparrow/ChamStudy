@@ -22,7 +22,8 @@ button.Admin-Dtl-Back {
     background-color: #B4B4B4;
 }
 
-button.Admin-Dtl-Delete {
+.Admin-Dtl-Delete {
+	text-align: center;
     width: 98px;
     height: 43px;
     border: none;
@@ -68,7 +69,10 @@ ul.pagination {
     font-size: 20px;
 }
 
+
+
 .Admin-dtl-Content5 {
+	display:flex;
     margin-left: 55vw;
     margin-top: 40px;
 }
@@ -81,9 +85,6 @@ ul.pagination {
     height: 70px;
 }
 
-form#frm {
-    margin-bottom: 65px;
-}
 
 .Admin-dtl-Content6 {
     width: 65vw;
@@ -179,4 +180,29 @@ button.Admin-Comment-Delete {
 .comment-td4 {
     font-size: 13px;
 }
-    
+
+button.Admin-reply-Delete {
+    width: 98px;
+    height: 43px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    background-color: black;
+        margin-left: 51vw;
+}
+
+.reply-wrap {
+    margin-left: 79px;
+}
+
+a.commLink-1 {
+    margin-right: 20px;
+}
+
+a.commLink-2 {
+    margin-right: 20px;
+}
+
+nav.navbar.navbar-expand.bg-light {
+    margin-bottom: 15px;
+}

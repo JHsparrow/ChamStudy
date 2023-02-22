@@ -60,10 +60,12 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 			//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
 			AdminMainCommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
 			List<CommCommentDto> commentList = adminCommService.getCommentList(boardId);
+			List<CommCommentDto> replyList = adminCommService.getReplyList(boardId);
 			
 			//담아준 Dto를 view로 보내준다
 			model.addAttribute("comm",adminMainCommDto);
 			model.addAttribute("comments",commentList);
+			model.addAttribute("replys",replyList);
 		}catch(EntityNotFoundException e) {
 			model.addAttribute("errorMessage","존재하지 않는 게시물입니다.");
 		}
@@ -95,11 +97,15 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	
 	//미완성
 	@GetMapping(value = "/comm/deletedtl") // 게시글 상세 페이지에서 삭제 
-	public String commDelete2(@PathVariable("boardId") Long boardId, HttpServletRequest request) throws Exception {
+	public String commDelete2(Long boardId) throws Exception {
 		adminCommService.commDelete(boardId);
-		String referer = request.getParameter("referer");
-		String link = referer.replace("http://localhost/adminForm/", "");
-	    return "redirect:/adminForm/" + link;
+	    return "redirect:/adminForm/comm";
+	}
+
+	@GetMapping(value = "/comm/block") // 게시글 상세 페이지에서 삭제 
+	public String commBlock(Long boardId) throws Exception {
+		adminCommService.commBlock(boardId);
+		return "redirect:/adminForm/comm";
 	}
 
 }

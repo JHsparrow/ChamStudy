@@ -21,8 +21,6 @@
 	rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
 	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link th:href="@{/css/community/a-comm.css}" rel="stylesheet">
 
 <title>Blank Page | AdminKit Demo</title>
@@ -50,15 +48,20 @@
 							<div class="Admin-Dtl-Content3-1">[[${comm.regdate}]]</div>
 						</div>
 						<div class="Admin-Dtl-Content4">[[${comm.substance}]]</div>
+						<div class="Admin-Dtl-Content4-2">
+							<th:block th:each="commImg : ${comm.commImgDtos}">
+								<img th:if="${not #strings.isEmpty(commImg.url)}"
+									th:src="${commImg.url}">
+							</th:block>
+						</div>
 						<div class="Admin-dtl-Content5">
 							<form id="frm" action="/adminForm/comm/back" method="get">
 								<input type="hidden" id="referer" name="referer"
 									th:value="${referer}">
 								<button class="Admin-Dtl-Back"
 									th:onclick="|location.href='@{/adminForm/comm/back}'|">돌아가기</button>
-								<button class="Admin-Dtl-Delete"
-									th:onclick="|location.href='@{/adminForm/comm/deletedtl(boardId=${comm.id})}'|">삭제</button>
 							</form>
+								<button th:onclick="|location.href='@{/adminForm/comm/deletedtl(boardId=${comm.id})}'|" class="Admin-Dtl-Delete"><span class="Dtl-Delete-Span">삭제</span></button>
 						</div>
 						<div class="Admin-dtl-Content6">
 							<div class="accordion" id="accordionPanelsStayOpenExample">
@@ -75,12 +78,14 @@
 										aria-labelledby="panelsStayOpen-headingOne">
 										<div class="accordion-body">
 											<th:block class="comment-each"
-												th:each=" comment : ${comments}" th:if="${comment.id} != ${comment.oriId}">
+												th:each=" comment : ${comments}"
+												th:if="${comment.id} != ${comment.oriId}">
 												<div class="comment-wrap">
 													<div class="comment-td1">
 														<span class="comment-td1-1"
-															th:if="${comment.gubun == 'B'}">댓글</span>
+															th:if="${comment.gubun == 'C'}">댓글</span>
 													</div>
+													<div class="comment-td4">[[${comment.id}]]</div>
 													<div class="comment-td2,3">
 														<div class="comment-td2">이름:
 															[[${comment.userInfo.name}]]</div>
@@ -88,57 +93,41 @@
 															[[${comment.userInfo.email}]]</div>
 													</div>
 													<div class="comment-td4">[[${comment.regdate}]]</div>
-													<div class="comment-td5">[[${comment.substance}]]</div>
+													<div class="comment-td5" th:if="${comment.blockComment == 'N'}"><span>[[${comment.substance}]]</span></div>
+													<div class="comment-td5" th:unless="${comment.blockComment == 'Y'}"><span>이 댓글은 관리자에 의해 차단됐습니다.</span></div>
 													<button class="Admin-Comment-Delete"
-														th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${comment.id})}'|">삭제</button>
-													<div class="accordion" id="accordionPanelsStayOpenExample">
-														<div class="accordion-item">
-															<h2 class="accordion-header"
-																id="panelsStayOpen-headingtwo">
-																<button class="accordion-button" type="button"
-																	data-bs-toggle="collapse"
-																	data-bs-target="#panelsStayOpen-collapsetwo"
-																	aria-expanded="true"
-																	aria-controls="panelsStayOpen-collapsetwo">
-																	답글보기</button>
-															</h2>
-															<div id="panelsStayOpen-collapsetwo"
-																class="accordion-collapse collapse show"
-																aria-labelledby="panelsStayOpen-headingtwo">
-																<div class="accordion-body">
-																	<th:block class="comment-each"
-																		th:each=" comment : ${comment}">
-																		<div class="comment-wrap">
-																			<div class="comment-td1">
-																				<span class="comment-td1-1"
-																					th:if="${comment.gubun == 'B'}">댓글</span>
-																			</div>
-																			<div class="comment-td4">[[${comment.id}]]</div>
-																			<div class="comment-td2,3">
-																				<div class="comment-td2">이름:
-																					[[${comment.userInfo.name}]]</div>
-																				<div class="comment-td3">이메일:
-																					[[${comment.userInfo.email}]]</div>
-																			</div>
-																			<div class="comment-td4">[[${comment.regdate}]]</div>
-																			<div class="comment-td5">[[${comment.substance}]]</div>
-																			<button class="Admin-Comment-Delete"
-																				th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${comment.id})}'|">삭제</button>
-																		</div>
-																		</th:block>
-																</div>
+														th:onclick="|location.href='@{/adminForm/comm/block(boardId=${comment.id})}'|">삭제</button>
+													<th:block class="comment-each" th:each=" reply : ${replys}">
+														<div class="reply-wrap"
+															th:if="${reply.id} - ${comment.id} < 1000 and ${reply.id} - ${comment.id} > 0">
+															<div class="comment-td1">
+																<span class="comment-td1-1"
+																	th:if="${comment.gubun == 'B'}">댓글</span>
 															</div>
+															<div class="comment-td4">[[${reply.id}]]</div>
+															<div class="comment-td2,3">
+																<div class="comment-td2">이름:
+																	[[${reply.userInfo.name}]]</div>
+																<div class="comment-td3">이메일:
+																	[[${reply.userInfo.email}]]</div>
+															</div>
+															<div class="comment-td4">[[${reply.regdate}]]</div>
+															<div class="comment-td5" th:if="${reply.blockComment == 'N'}"><span>[[${reply.substance}]]</span></div>
+															<div class="comment-td5" th:unless="${reply.blockComment == 'Y'}"><span>이 답글은 관리자에 의해 차단됐습니다</span></div>
+															<button class="Admin-reply-Delete"
+																th:onclick="|location.href='@{/adminForm/comm/block(boardId=${reply.id})}'|">삭제</button>
 														</div>
-														
-													</div>
+													</th:block>
 												</div>
-											</th:block>
 										</div>
 									</div>
+
 								</div>
 							</div>
+							</th:block>
 						</div>
 					</div>
+				</div>
 			</main>
 		</div>
 	</div>

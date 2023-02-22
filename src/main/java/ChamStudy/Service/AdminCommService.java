@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import ChamStudy.Dto.AdminMainCommDto;
 import ChamStudy.Dto.CommCommentDto;
+import ChamStudy.Dto.CommImgDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;
@@ -35,67 +36,62 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		// 이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다.
 		for (Comm_Board board : commList) {
 			AdminMainCommDto commDto = new AdminMainCommDto(board);
-			List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(board.getId());
 			mainCommDtoList.add(commDto);
-			for (Comm_Board_Img comm_board_Img : board_Img) {
-				((AdminMainCommDto) mainCommDtoList).addCommBoardImg(comm_board_Img);
-			}
 		}
 		return mainCommDtoList;
 	}
 
 	public AdminMainCommDto getAdminCommDtl(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다.
-		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
-		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
-		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
+		List<Comm_Board_Img> commImgList = commImgRepository.findByBoardIdOrderByIdAsc(boardId);
+		List<CommImgDto> commImgDtoList = new ArrayList<>();
 
-		List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(comm_Board.getId());
-		AdminMainCommDto mainCommDto = new AdminMainCommDto(comm_Board);
-		// 이미지 리스트 담아준다.
-		for (Comm_Board_Img comm_board_Img : board_Img) {
-			((AdminMainCommDto) mainCommDto).addCommBoardImg(comm_board_Img);
+		// 엔티티 객체 -> Dto객체로 변환
+		for (Comm_Board_Img commImg : commImgList) {
+			CommImgDto commImgDto = CommImgDto.of(commImg);
+			commImgDtoList.add(commImgDto);
 		}
-		return mainCommDto;
+		// 2.item테이블에 있는 데이터를 가져온다.
+		Comm_Board board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+
+		// 엔티티 객체 -> Dto객체로 변환
+		AdminMainCommDto commDto = new AdminMainCommDto(board);
+
+		// 상품의 이미지 정보를 넣어준다.
+		commDto.setCommImgDtos(commImgDtoList);
+
+		return commDto;
 	}
 
-	public List<CommCommentDto> getCommentList(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다.
+	public List<CommCommentDto> getCommentList(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 댓글 리스트를 불러온다.
 		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
-		List<Comm_Board> boardList = commRepository.findByoriId(comm_Board.getOriId());
+		List<Comm_Board> boardList = commRepository.findComment(comm_Board.getId());
 		List<CommCommentDto> commentList = new ArrayList<>();
 
 		for (Comm_Board comment : boardList) {
 			CommCommentDto commentDto = new CommCommentDto(comment);
-			List<Comm_Board> replys = commRepository.findreply(comment.getId());
 			commentList.add(commentDto);
-
-			for (Comm_Board reply : replys) {
-				CommCommentDto replyDto = new CommCommentDto(reply);
-				/* commentList.addReplys(replyDto); */
-			}
-
 		}
 
 		return commentList;
 	}
 
-	/*
-	 * public List<CommCommentDto> getReplyList(Long boardId) { // 관리자 게시판 상세페이지에
-	 * 뿌려줄 답글을 불러온다. //db에서 클릭한 상세 페이지의 게시판을 불러와준다. Comm_Board comm_Board =
-	 * commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
-	 * //불러온 게시판의 댓글을 찾아와준다. List<Comm_Board> boardList =
-	 * commRepository.findByoriId(comm_Board.getOriId()); List<CommCommentDto>
-	 * replyList = new ArrayList<>();
-	 * 
-	 * //찾은 댓글 리스트를 for문으로 풀어서 댓글의 답글이 있는지 찾아준다. for(Comm_Board comment : boardList)
-	 * { List<Comm_Board> replys = commRepository.findreply(comment.getId()); //찾은
-	 * 댓글에서 답글을 찾아서 담아주기 위해 다시 for문을 돌린다. for(Comm_Board reply : replys) {
-	 * CommCommentDto replyDto = new CommCommentDto(reply); replyList.add(replyDto);
-	 * } }
-	 * 
-	 * return replyList; }
-	 */
+	
+	public List<CommCommentDto> getReplyList(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 댓글 리스트를 불러온다.
+		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
+		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+		// 화면에 뿌려주기 위해 담을 Dto 리스트 작성
+		List<Comm_Board> boardList = commRepository.findreply(comm_Board.getId());
+		List<CommCommentDto> commentList = new ArrayList<>();
+		
+		for (Comm_Board comment : boardList) {
+			CommCommentDto commentDto = new CommCommentDto(comment);
+			commentList.add(commentDto);
+		}
+		
+		return commentList;
+	}
 
 	public List<AdminMainCommDto> getAdminCommQna() { // 관리자 QnA 페이지에 뿌려줄 게시판 리스트를 불러온다.
 		// 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
@@ -107,11 +103,7 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		// 이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다.
 		for (Comm_Board board : commList) {
 			AdminMainCommDto commDto = new AdminMainCommDto(board);
-			List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(board.getId());
 			mainCommDtoList.add(commDto);
-			for (Comm_Board_Img comm_board_Img : board_Img) {
-				((AdminMainCommDto) mainCommDtoList).addCommBoardImg(comm_board_Img);
-			}
 		}
 		return mainCommDtoList;
 	}
@@ -126,11 +118,7 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		// 이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다.
 		for (Comm_Board board : commList) {
 			AdminMainCommDto commDto = new AdminMainCommDto(board);
-			List<Comm_Board_Img> board_Img = commImgRepository.findByBoardIdOrderByIdAsc(board.getId());
 			mainCommDtoList.add(commDto);
-			for (Comm_Board_Img comm_board_Img : board_Img) {
-				((AdminMainCommDto) mainCommDtoList).addCommBoardImg(comm_board_Img);
-			}
 		}
 		return mainCommDtoList;
 	}
@@ -145,5 +133,10 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		}
 		// 이미지가 전부 삭제되어 게시글도 삭제가 가능하기에 바로 삭제
 		commRepository.deleteById(boardId);
+	}
+
+	public void commBlock(Long boardId) throws Exception { // 게시글 삭제 메소드
+		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+		comm_Board.setBlockComment("Y");
 	}
 }

@@ -13,22 +13,23 @@ public interface CommRepository extends JpaRepository<Comm_Board, Long> {
 	//완성은 메소드 3개를 따로 작성해 자유/멘토멘티/QnA게시판을 따로 가져와야한다.
 	
 	//F = freeboard 자유게시판을 최신순으로 불러와준다.
-	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'F' order by c.board_id desc",nativeQuery = true)
+	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'F' and c.gubun = 'B' order by c.reg_date desc;",nativeQuery = true)
 	List<Comm_Board> findF();
 	
 	//Q = QnAboard 질의응답 게시판을 최신순으로 불러와준다.
-	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'Q' order by c.board_id desc",nativeQuery = true)
+	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'Q' and c.gubun = 'B' order by c.reg_date desc;",nativeQuery = true)
 	List<Comm_Board> findQ();
 	
 	//M = Mento 멘토게시판을 최신순으로 불러와준다.
-	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'M' order by c.board_id desc",nativeQuery = true)
+	@Query(value = "SELECT * FROM comm_board c WHERE c.board_type = 'M' and c.gubun = 'B' order by c.reg_date desc;",nativeQuery = true)
 	List<Comm_Board> findM();
 	
 	//게시글과 함께 해당 게시글의 댓글까지 가져온다.
-	List<Comm_Board> findByoriId(Long oriId);
+	@Query(value = "SELECT * FROM comm_board c WHERE c.board_id - :boardId > 0 and c.board_id - :boardId < 1000000 and gubun = 'C';",nativeQuery = true)
+	List<Comm_Board> findComment(@Param("boardId") Long boardId);
 
-	@Query(value = "SELECT * FROM comm_board c WHERE c.ori_id = :oriId and gubun = 'r'",nativeQuery = true)
-	List<Comm_Board> findreply(@Param("oriId") Long oriId);
+	@Query(value = "SELECT * FROM comm_board c WHERE c.board_id - :boardId > 0 and c.board_id - :boardId < 1000000 and gubun = 'R';",nativeQuery = true)
+	List<Comm_Board> findreply(@Param("boardId") Long boardId);
 
 	
 	
