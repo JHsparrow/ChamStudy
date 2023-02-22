@@ -75,7 +75,7 @@
 										aria-labelledby="panelsStayOpen-headingOne">
 										<div class="accordion-body">
 											<th:block class="comment-each"
-												th:each=" comment : ${comments}">
+												th:each=" comment : ${comments}" th:if="${comment.id} != ${comment.oriId}">
 												<div class="comment-wrap">
 													<div class="comment-td1">
 														<span class="comment-td1-1"
@@ -107,7 +107,7 @@
 																aria-labelledby="panelsStayOpen-headingtwo">
 																<div class="accordion-body">
 																	<th:block class="comment-each"
-																		th:each=" comment : ${replys}">
+																		th:each=" comment : ${comment}">
 																		<div class="comment-wrap">
 																			<div class="comment-td1">
 																				<span class="comment-td1-1"

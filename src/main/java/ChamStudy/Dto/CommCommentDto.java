@@ -1,5 +1,8 @@
 package ChamStudy.Dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.UserInfo;
 import lombok.Getter;
@@ -43,6 +46,12 @@ public class CommCommentDto { //커뮤니티 댓글 Dto
 	private String blockComment;
 	
 	private String openChat;
+	
+	private List<CommCommentDto> replyList = new ArrayList<>();
+	
+	public void addReplys(CommCommentDto reply) {
+		replyList.add(reply);
+	}
 
 
 }
