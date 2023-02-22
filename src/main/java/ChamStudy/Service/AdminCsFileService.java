@@ -1,5 +1,7 @@
 package ChamStudy.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,5 +40,25 @@ public class AdminCsFileService {
 		csInformFile.updateCsInformFile(oriFileName, fileName, fileUrl);
 		adminCsFileRepository.save(csInformFile);
 	}
+	
+	//파일 수정(업데이트)
+	public void updateFile(Long informFileId, MultipartFile csInformFile) throws Exception {
+		if(!csInformFile.isEmpty()) {
+			CsInformFile savedCsFile = adminCsFileRepository.findById(informFileId)
+															.orElseThrow(EntityNotFoundException::new);
+			
+			//기존 파일 삭제
+			if(!StringUtils.isEmpty(savedCsFile.getFileName())) {
+				fileService.deleteFile(csFileLocation + "/" + savedCsFile);
+			}
+			
+			String oriFileName = csInformFile.getOriginalFilename();
+			String fileName = fileService.uploadFile(csFileLocation, oriFileName, csInformFile.getBytes());
+			String fileUrl = "/contents/file/" + fileName;
+			
+			savedCsFile.updateCsInformFile(oriFileName, fileName, fileUrl);
+		}
+	}
+	
 	
 }

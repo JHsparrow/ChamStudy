@@ -1,12 +1,16 @@
 package ChamStudy.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import ChamStudy.Dto.CsInformDto;
+import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Entity.CsInformFile;
 import ChamStudy.Repository.AdminCsFileRepository;
@@ -18,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class AdminCsService {
 	private final AdminCsRepository adminCsRepository;
-	private final AdminCsFileService adminCsService;
+	private final AdminCsFileService adminCsFileService;
 	private final AdminCsFileRepository adminCsFileRepository;
 	
 	//공지사항 게시물 등록
@@ -29,11 +33,50 @@ public class AdminCsService {
 		//파일 등록
 		for(int i=0; i<csInformFileList.size(); i++) {
 			CsInformFile csInformFile = new CsInformFile();
-			csInformFile.setCsInform(csInform);
+			csInformFile.setInformId(csInform);
 			
-			adminCsService.saveFile(csInformFile, csInformFileList.get(i));
+			adminCsFileService.saveFile(csInformFile, csInformFileList.get(i));
 		}
 		return csInform.getId();
+	}
+	
+	//게시물 불러오기
+	@Transactional(readOnly = true)
+	public CsInformDto getInform(Long informId) {
+		//csInformFile 테이블의 파일을 가져온다.
+		List<CsInformFile> csInformFileList = adminCsFileRepository.findByInformIdOrderByIdAsc(informId);
+		List<CsInformFileDto> csInformFileDtoList = new ArrayList<>();
+		
+		//엔티티 객체 -> DTO 객체로 변환
+		for (CsInformFile csInformFile : csInformFileList) {
+			CsInformFileDto csInformFileDto = CsInformFileDto.of(csInformFile);
+			csInformFileDtoList.add(csInformFileDto);
+		}
+		
+		//csInform 테이블에 있는 데이터를 가져온다.
+		CsInform csInform = adminCsRepository.findById(informId)
+											 .orElseThrow(EntityNotFoundException::new);
+		
+		CsInformDto csInformDto = CsInformDto.of(csInform);
+		
+		csInformDto.setCsInformFileDtoList(csInformFileDtoList);
+		
+		return csInformDto;
+	}
+	
+	//게시물 수정하기
+	public Long updateInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) throws Exception {
+		CsInform csInform = adminCsRepository.findById(csInformDto.getId())
+											 .orElseThrow(EntityNotFoundException::new);
+		csInform.updateInform(csInformDto);
+		
+		List<Long> informFileIds = csInformDto.getInformFileIds();
+		
+		for(int i = 0; i < csInformFileList.size(); i++) {
+			adminCsFileService.updateFile(informFileIds.get(i), csInformFileList.get(i));
+		}
+		return csInform.getId();
+				
 	}
 
 }

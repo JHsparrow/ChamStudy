@@ -1,5 +1,8 @@
 package ChamStudy.Dto;
 
+import org.modelmapper.ModelMapper;
+
+import ChamStudy.Entity.CsInformFile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +16,10 @@ public class CsInformFileDto {
 	private String fileName;
 	
 	private String fileUrl;
+	
+	private static ModelMapper modelMapper = new ModelMapper();
+	
+	public static CsInformFileDto of(CsInformFile csInformFile) {
+		return modelMapper.map(csInformFile, CsInformFileDto.class);
+	}
 }
