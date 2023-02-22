@@ -53,6 +53,14 @@
 	</script>
 </th:block>
 
+<th:block layout:fragment="css">
+  <style>
+     .error {
+        color: #bd2130;
+     }
+  </style>
+</th:block>
+
 </head>
 <body>
 	<div layout:fragment="content">
@@ -94,6 +102,12 @@
 										</div>
 										<div class="text-center mt-3">
 											<button type="submit" class="btn btn-lg btn-primary" id="loginbtn">Sign in</button>
+										</div>
+										
+										<div class="text-center mt-3" style="margin: 0 auto;">
+											<a type="submit" class="btn btn-lg btn-primary" id="loginbtn" style="width: 400px;"
+											href="/oauth2/authorization/google"
+											>구글 로그인</a>
 										</div>
 										<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 									</form>

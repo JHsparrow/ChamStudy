@@ -20,6 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ChamStudy.Dto.UserInfoDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -58,6 +59,18 @@ public class UserInfo {
 	@Column(updatable = false)
 	private String regDate; //회원 가입일
 
+	public UserInfo(){}
+	
+	@Builder
+	public UserInfo (String email, String name, String password, String phone, String role, String regDate) {
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.role = role;
+		this.regDate = regDate;
+	}
+	
 	public static UserInfo createUser(UserInfoDto userDto, PasswordEncoder passwordEncoder) {
 		String role = "USER";
 		LocalDateTime localDateTime = LocalDateTime.now();
@@ -80,4 +93,12 @@ public class UserInfo {
 		
 		return user;
 	}
+
+
+	
+	
+	
+	
+	
+	
 }
