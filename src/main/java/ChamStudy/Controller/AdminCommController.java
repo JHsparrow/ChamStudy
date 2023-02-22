@@ -1,5 +1,6 @@
 package ChamStudy.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ChamStudy.Dto.AdminMainCommDto;
+import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Service.AdminCommService;
 import lombok.RequiredArgsConstructor;
 
@@ -53,13 +55,26 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	
 	//게시판 상세 페이지
 	@GetMapping(value = "/comm/dtl/{boardId}")
-	public String commDtl(@PathVariable("boardId") Long boardId, Model model) {
+	public String commDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request) {
 		try {
+			//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
 			AdminMainCommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
+			List<CommCommentDto> commentList = adminCommService.getCommentList(boardId);
+			List<CommCommentDto> replyList = adminCommService.getReplyList(boardId);
+			
+			//담아준 Dto를 view로 보내준다
 			model.addAttribute("comm",adminMainCommDto);
+			model.addAttribute("comments",commentList);
+			model.addAttribute("replys",replyList);
 		}catch(EntityNotFoundException e) {
 			model.addAttribute("errorMessage","존재하지 않는 게시물입니다.");
 		}
+		//돌아가기 버튼을 누르면 상세 페이지 이전 페이지의 정보가 있어야해서 referer를 써준다.
+		//referer : 전 페이지의 정보를 가져온다.
+		String referer = request.getHeader("Referer");
+			request.getSession().setAttribute("redirectURI", referer);
+			//전 페이지의 링크를 view에 hidden으로 남기려고 작성
+			model.addAttribute("referer",referer);
 		return "AdminForm/AdminComm/comm-Dtl-Form";
 	}
 
@@ -74,18 +89,19 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	
 	@GetMapping(value = "/comm/back")
 	public String rateHandler(HttpServletRequest request) {
-	    //your controller code
-	    String referer = request.getHeader("Referer");
-	    return "redirect:"+ referer;
+		//상세 페이지에 들어오면 전 페이지의 링크를
+		String referer = request.getParameter("referer");
+		String link = referer.replace("http://localhost/adminForm/", "");
+	    return "redirect:/adminForm/" + link;
 	}
 	
-	
+	//미완성
 	@GetMapping(value = "/comm/deletedtl") // 게시글 상세 페이지에서 삭제 
-	public String commDelete2(Long boardId, HttpServletRequest request) throws Exception {
+	public String commDelete2(@PathVariable("boardId") Long boardId, HttpServletRequest request) throws Exception {
 		adminCommService.commDelete(boardId);
-		String referer = request.getHeader("Referer");
-		// 게시글 삭제 후 삭제 버튼 누른 페이지로 이동하기 위해 추가한 메소드
-		return "redirect:" + referer;
+		String referer = request.getParameter("referer");
+		String link = referer.replace("http://localhost/adminForm/", "");
+	    return "redirect:/adminForm/" + link;
 	}
 
 }

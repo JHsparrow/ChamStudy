@@ -14,11 +14,18 @@
 	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
 	<title>참스터디</title>
-	
 	<script>
-	
+		function createNew(w,h,contentId){
+			console.log(contentId);
+			var popupX = (document.body.offsetWidth / 2) - (w / 2);
+			popupX += window.screenLeft;
+			var popupY= (window.screen.height / 2) - (h / 2); 	
+			
+			window.open("/adminOnClass/contentVideo/"+contentId, "_blank", 'width='+w+', height='+h+', left='+ popupX + ', top='+ popupY);
+			
+			return false;
+		}
 	</script>
-	
 	<style>
 		.popUp {
 		border:none;
@@ -27,6 +34,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
+	<form method="POST" action="/adminOnClass/contents">
 		<div class="main">
 			<main class="content">
 				<div class="container-fluid p-0">
@@ -46,7 +54,7 @@
 									</div>
 								</div>
 							</div>
-							<h5 class="card-title mb-0">Orders</h5>
+							<h5 class="card-title mb-1">Orders</h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -62,8 +70,7 @@
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
 											<label class="d-flex justify-content-end">
-												<span>Search:</span>
-												<input type="search" class="form-control form-control-sm width30" placeholder="" aria-controls="datatables-orders">
+												<input type="search" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
 											</label>
 										</div>
 									</div>
@@ -71,43 +78,34 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
+										<colgroup> <!-- 너비 계산하기  -->
+											<col width="10%"><col width="10%"><col width="10%"><col width="10%"><col width="10%">
+											<col width="10%"><col width="10%">
+										</colgroup>
 										<thead>
 											<tr>
-												<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 91px;" aria-sort="ascending" aria-label="#: activate to sort column descending">번호</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 211px;" aria-label="Billing Name: activate to sort column ascending">콘텐츠</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 156px;" aria-label="Date: activate to sort column ascending">등록일</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 114px;" aria-label="Total: activate to sort column ascending">강의</th>
-												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 192px;" aria-label="Actions">Actions</th></tr>
+												<th>#</th>
+												<th>Content Name</th>
+												<th>Date</th>
+												<th>교안</th>
+												<th>수정</th>
+												<th>삭제</th>
 										</thead>
 										<tbody>
+										<th:block th:each="ContentInfo, status: ${contentInfo}">
 											<tr class="odd">
-												<td class="dtr-control sorting_1" tabindex="0"><strong>#0001</strong></td>
-												<td>Brian Smith</td>
-												<td>2021-12-04</td>
-												<td><button type="button" class="popUp" data-bs-toggle="modal" data-bs-target="#exampleModal">보기</button></td>
-													<!-- Modal -->
-													<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-														<div class="modal-dialog">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h1 class="modal-title fs-5" id="exampleModalLabel">Content</h1>
-																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-																</div>
-																<div class="modal-body">
-																	<h2 class="fs-5">Popover in a modal</h2>
-																	<p>콘텐츠<button class="btn btn-secondary" data-bs-toggle="popover" title="Popover title" data-bs-content="Popover body content is set in this attribute.">button</button></p>
-																	<hr>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																</div>
-															</div>
-														</div>
-													</div>
+												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${ContentInfo.id}]]</strong></td>
+												<td>[[${ContentInfo.name}]]</td>
+												<td>[[${ContentInfo.regDate}]]</td>
+												<td th:onclick="createNew(900,600,[[${ContentInfo.id}]])"><a href="#" class="btn btn-primary btn-sm">보기</a></td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">수정</a>
+													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">Del</a>
 												</td>
 											</tr>
+											</th:block>
 											</tbody>
 										</table>
 									</div>
@@ -135,8 +133,8 @@
 											</ul>
 										</div>
 									</div>
-									<div class="col-sm-12 col-md-3">
-										<a href="/adminOnClass/contentNew" class="btn btn-primary btn-sm">등록하기</a>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<a href="/adminOnClass/contentNew" class="btn btn-primary btn-sm newbtn">등록하기</a>
 									</div>
 								</div>
 							</div>
@@ -145,6 +143,7 @@
 				</div>
 			</main>
 		</div>
+		</form>
 	</div>
 </body>
 </html>

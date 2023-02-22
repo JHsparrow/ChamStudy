@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+
+	<title>Blank Page | AdminKit Demo</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h1 class="h3 mb-3">카테고리 관리</h1>
+					<div class="card">
+						<div class="card-header pb-0">
+							
+							<h5 class="card-title mb-1">메인 카테고리</h5>
+						</div>
+						<div class="card-body">
+							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
+										<colgroup>
+											<col width="10%"><col width="40%"><col width="10%"><col width="20%"><col width="10%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>아이디</th>
+												<th>메인 카테고리 이름</th>
+												<th>서브 카데고리 수</th>
+												<th>등록일</th>
+												<th>구분</th>
+										</thead>
+										<tbody>
+											<th:block th:each="cateList, status: ${mainList}">
+											<tr>
+												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${cateList.id}]]</strong></td>
+												<td><a href="#">[[${cateList.name}]]</a></td>
+												<td>6</td>
+												<td>2021-12-04</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">수정</a>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
+												</td>
+											</tr>
+											</th:block>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="row" >
+									<div class="col-sm-12 col-md-3">
+										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
+									</div>
+									
+									<div class="col-sm-12 col-md-6 ">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+											<ul class="pagination">
+												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												</li>
+												<li class="paginate_button page-item active  mx-1">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+												</li>
+												<li class="paginate_button page-item  mx-1 ">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+												</li>
+												<li class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm newbtn">등록하기</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">메인카테고리 생성</h5>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				      	<form id="frm" action="/adminCategory/newResult" method="get">
+				      		<div class="form-group">
+						    	<label for="cateName">카테고리 이름</label>
+						    	<input type="email" class="form-control" id="cateName" name="cateName" placeholder="카테고리 이름">
+						  	</div>
+				      	</form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button onclick="frmsbt()" type="button" class="btn btn-primary">등록</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</main>
+		</div>
+		<script>
+			function frmsbt(){
+				$('#frm').submit();
+			}
+		</script>
+	</div>
+</body>
+</html>

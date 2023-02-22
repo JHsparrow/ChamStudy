@@ -36,7 +36,7 @@
 									</div>
 								</div>
 							</div>
-							<h5 class="card-title mb-0">Orders</h5>
+							<h5 class="card-title mb-1">Orders</h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -52,8 +52,7 @@
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
 											<label class="d-flex justify-content-end">
-												<span>Search:</span>
-												<input type="search" class="form-control form-control-sm width30" placeholder="" aria-controls="datatables-orders">
+												<input type="search" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
 											</label>
 										</div>
 									</div>
@@ -61,15 +60,19 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
+										<colgroup> <!-- 너비 계산하기  -->
+											<col width="10%"><col width="10%"><col width="10%"><col width="10%"><col width="10%">
+											<col width="10%"><col width="10%">
+										</colgroup>
 										<thead>
 											<tr>
-												<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 91px;" aria-sort="ascending" aria-label="#: activate to sort column descending">#</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 211px;" aria-label="Billing Name: activate to sort column ascending">Billing Name</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 156px;" aria-label="Date: activate to sort column ascending">Date</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 114px;" aria-label="Total: activate to sort column ascending">Total</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 237px;" aria-label="Payment Status: activate to sort column ascending">Payment Status</th>
-												<th class="sorting" tabindex="0" aria-controls="datatables-orders" rowspan="1" colspan="1" style="width: 253px;" aria-label="Payment Method: activate to sort column ascending">Payment Method</th>
-												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 192px;" aria-label="Actions">Actions</th></tr>
+												<th>#</th>
+												<th>Billing Name</th>
+												<th>Date</th>
+												<th>Total</th>
+												<th>Total</th>
+												<th>Total</th>
+												<th>Total</th>
 										</thead>
 										<tbody>
 											<tr class="odd">
@@ -209,8 +212,8 @@
 											</ul>
 										</div>
 									</div>
-									<div class="col-sm-12 col-md-3">
-										<a class="btn btn-primary btn-sm">등록하기</a>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<a class="btn btn-primary btn-sm newbtn">등록하기</a>
 									</div>
 								</div>
 							</div>

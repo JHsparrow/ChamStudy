@@ -25,10 +25,13 @@ public class CsInform extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String substance;
 	
+	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int viewCount;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "CHAR", length=1)
 	private String gubun;
 	
-	private String fix;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private UserInfo userInfo;
 }
