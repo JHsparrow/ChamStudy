@@ -93,16 +93,18 @@
 															[[${comment.userInfo.email}]]</div>
 													</div>
 													<div class="comment-td4">[[${comment.regdate}]]</div>
-													<div class="comment-td5" th:if="${comment.blockComment == 'N'}"><span>[[${comment.substance}]]</span></div>
-													<div class="comment-td5" th:unless="${comment.blockComment == 'Y'}"><span>이 댓글은 관리자에 의해 차단됐습니다.</span></div>
-													<button class="Admin-Comment-Delete"
-														th:onclick="|location.href='@{/adminForm/comm/block(boardId=${comment.id})}'|">삭제</button>
+													<div class="comment-td5" th:if="${#strings.equals(comment.blockComment, 'N')}"><span>[[${comment.substance}]]</span></div>
+													<div class="comment-td5" th:unless="${#strings.equals(comment.blockComment, 'N')}"><span>이 댓글은 관리자에 의해 차단됐습니다.</span></div>
+													<button class="Admin-Comment-Block"
+														th:onclick="|location.href='@{/adminForm/comm/block(boardId=${comment.id})}'|">차단</button>
+														<button class="Admin-reply-Delete"
+																th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${comment.id})}'|">삭제</button>					
 													<th:block class="comment-each" th:each=" reply : ${replys}">
 														<div class="reply-wrap"
 															th:if="${reply.id} - ${comment.id} < 1000 and ${reply.id} - ${comment.id} > 0">
 															<div class="comment-td1">
 																<span class="comment-td1-1"
-																	th:if="${comment.gubun == 'B'}">댓글</span>
+																	th:if="${reply.gubun == 'R'}">답글</span>
 															</div>
 															<div class="comment-td4">[[${reply.id}]]</div>
 															<div class="comment-td2,3">
@@ -112,10 +114,14 @@
 																	[[${reply.userInfo.email}]]</div>
 															</div>
 															<div class="comment-td4">[[${reply.regdate}]]</div>
-															<div class="comment-td5" th:if="${reply.blockComment == 'N'}"><span>[[${reply.substance}]]</span></div>
-															<div class="comment-td5" th:unless="${reply.blockComment == 'Y'}"><span>이 답글은 관리자에 의해 차단됐습니다</span></div>
+															<div class="comment-td5" th:if="${#strings.equals(reply.blockComment, 'N')}"><span>[[${reply.substance}]]</span></div>
+															<div class="comment-td5" th:unless="${#strings.equals(reply.blockComment, 'N')}"><span>이 답글은 관리자에 의해 차단됐습니다</span></div>
+															<div>
+															<button class="Admin-reply-Block"
+																th:onclick="|location.href='@{/adminForm/comm/block(boardId=${reply.id})}'|">차단</button>															
 															<button class="Admin-reply-Delete"
-																th:onclick="|location.href='@{/adminForm/comm/block(boardId=${reply.id})}'|">삭제</button>
+																th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${reply.id})}'|">삭제</button>															
+															</div>
 														</div>
 													</th:block>
 												</div>

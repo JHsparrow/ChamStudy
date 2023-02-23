@@ -23,7 +23,6 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.Title = comm_Board.getTitle();
 		this.substance = comm_Board.getSubstance();
 		this.gubun = comm_Board.getGubun();
-		this.oriId = comm_Board.getOriId();
 		this.viewCount = comm_Board.getViewCount();
 		this.userInfo = comm_Board.getUserId();
 		this.regdate = comm_Board.getRegDate();
@@ -41,8 +40,6 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	private String gubun;
 	
 	private String substance;
-	
-	private Long oriId;
 	
 	private int viewCount;
 	

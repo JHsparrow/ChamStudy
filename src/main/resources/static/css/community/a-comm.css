@@ -193,6 +193,9 @@ button.Admin-reply-Delete {
 
 .reply-wrap {
     margin-left: 79px;
+    margin-bottom: 25px;
+    margin-top: 30px;
+    
 }
 
 a.commLink-1 {
@@ -205,4 +208,14 @@ a.commLink-2 {
 
 nav.navbar.navbar-expand.bg-light {
     margin-bottom: 15px;
+}
+
+button.Admin-Comment-Block {
+    border: none;
+    border-radius: 25px;
+}
+
+button.Admin-reply-Block {
+    border: none;
+    border-radius: 25px;
 }

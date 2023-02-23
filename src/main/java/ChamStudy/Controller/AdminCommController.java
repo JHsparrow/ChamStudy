@@ -103,9 +103,11 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	}
 
 	@GetMapping(value = "/comm/block") // 게시글 상세 페이지에서 삭제 
-	public String commBlock(Long boardId) throws Exception {
+	public String commBlock(Long boardId, HttpServletRequest request) throws Exception {
 		adminCommService.commBlock(boardId);
-		return "redirect:/adminForm/comm";
+		String referer = request.getHeader("Referer");
+		request.getSession().setAttribute("redirectURI", referer);
+		return "redirect:" + referer;
 	}
 
 }

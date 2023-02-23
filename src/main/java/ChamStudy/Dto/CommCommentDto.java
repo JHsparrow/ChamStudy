@@ -17,7 +17,6 @@ public class CommCommentDto { //커뮤니티 댓글 Dto
 		this.Title = comm_Board.getTitle();
 		this.substance = comm_Board.getSubstance();
 		this.gubun = comm_Board.getGubun();
-		this.oriId = comm_Board.getOriId();
 		this.viewCount = comm_Board.getViewCount();
 		this.userInfo = comm_Board.getUserId();
 		this.regdate = comm_Board.getRegDate();
@@ -36,8 +35,6 @@ public class CommCommentDto { //커뮤니티 댓글 Dto
 	private String gubun;
 	
 	private String substance;
-	
-	private Long oriId;
 	
 	private int viewCount;
 	

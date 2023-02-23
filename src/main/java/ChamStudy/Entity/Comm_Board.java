@@ -37,8 +37,6 @@ public class Comm_Board extends BaseTimeEntity{
 	
 	private String substance; //내용
 	
-	private Long oriId; //작성글 아이디
-	
 	@Column(columnDefinition = "CHAR", length=1) 
 	private String boardType; //게시글 종류
 	
