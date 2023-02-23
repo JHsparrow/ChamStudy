@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
+import com.querydsl.core.annotations.QueryProjection;
 
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.UserInfo;
@@ -16,6 +17,7 @@ import lombok.Setter;
 public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 
 	//service에서 view에 보여줄 entity들 여기 담아서 view로 보내준다.
+	@QueryProjection
 	public AdminMainCommDto(Comm_Board comm_Board) {  
 		this.id = comm_Board.getId();
 		this.boardType = comm_Board.getBoardType();
