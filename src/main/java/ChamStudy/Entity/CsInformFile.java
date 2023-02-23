@@ -9,13 +9,18 @@ import lombok.ToString;
 @Entity
 @Table(name="cs_inform_file")
 @Getter
-@Setter
+@Setter @SequenceGenerator(
+		name="INFORMFILE_GEN_GEN",	//공지사항 시퀀스
+		sequenceName="INFORMFILE_SEQ",	//시퀀스 이름
+		initialValue=5000	//시작값
+		)
 @ToString
 public class CsInformFile {
 	
 	@Id
 	@Column(name = "inform_file_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	generator = "INFORMFILE_GEN_GEN")
 	private Long id;
 	
 	private String oriFileName;
