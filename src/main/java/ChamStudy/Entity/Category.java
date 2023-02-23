@@ -17,6 +17,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import ChamStudy.Dto.modifySubCategoryDto;
 import groovy.transform.ToString;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,4 +47,8 @@ public class Category {
     public void onPrePersist(){
         this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
     }
+	
+	public void updateMainCategory(String cateName) {
+		this.name = cateName;
+	}
 }

@@ -31,30 +31,33 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
-										<colgroup>
-											<col width="10%"><col width="40%"><col width="10%"><col width="20%"><col width="10%">
-										</colgroup>
-										<thead>
-											<tr>
-												<th>아이디</th>
-												<th>메인 카테고리 이름</th>
-												<th>서브 카데고리 수</th>
-												<th>등록일</th>
-												<th>구분</th>
-										</thead>
-										<tbody>
-											<th:block th:each="cateList, status: ${mainList}">
-											<tr>
-												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${cateList.id}]]</strong></td>
-												<td><a th:href="/adminCategory/sub/${cateList.id]">[[${cateList.name}]]</a></td>
-												<td>6</td>
-												<td>2021-12-04</td>
-												<td>
-													<a href="#" class="btn btn-primary btn-sm">수정</a>
-													<a href="#" class="btn btn-primary btn-sm">삭제</a>
-												</td>
-											</tr>
-											</th:block>
+											<colgroup>
+												<col width="10%"><col width="40%"><col width="10%"><col width="20%"><col width="10%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th>아이디</th>
+													<th>메인 카테고리 이름</th>
+													<th>서브 카데고리 수</th>
+													<th>등록일</th>
+													<th>구분</th>
+											</thead>
+											<tbody>
+												<th:block  th:each="cateList, status: ${mainList}">
+												<tr th:if="${cateList.getId()!=null}">
+													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${cateList.getId()}]]</strong></td>
+													<td><a th:href="'/adminCategory/sub/'+${cateList.getId()}">[[${cateList.getName()}]]</a></td>
+													<td>[[${cateList?.getCount()}]]</td>
+													<td>[[${cateList.getDate()}]]</td>
+													<td>
+														<button th:onclick="modifySet([[${cateList.getId()}]],[[${cateList.getName()}]])" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">수정</button>
+														<button th:onclick="delCheck([[${cateList.getId()}]],[[${cateList.getCount()}]])" type="button" class="btn btn-primary btn-sm">삭제</button>
+													</td>
+												</tr>
+												<tr th:if="${cateList.getId()==null}">
+													<td colspan="5" class="dtr-control sorting_1" tabindex="0"><strong>데이터가 없습니다.</strong></td>
+												</tr>
+												</th:block>
 											</tbody>
 										</table>
 									</div>
@@ -83,23 +86,27 @@
 										</div>
 									</div>
 									<div class="col-sm-12 col-md-3 newbtnwrap">
-										<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm newbtn">등록하기</button>
+										<button onclick="newRest()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm newbtn">등록하기</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<form id="delFrm" action="/adminCategory/del">
+					<input type="hidden" id="delMainId" name="mainId" />
+				</form>
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">메인카테고리 생성</h5>
+				        <h5 class="modal-title" id="ModalLabel">메인카테고리 생성</h5>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
 				      	<form id="frm" action="/adminCategory/newResult" method="get">
+				      		<input type="hidden" id="mainId" name="mainId">
 				      		<div class="form-group">
 						    	<label for="cateName">카테고리 이름</label>
 						    	<input type="email" class="form-control" id="cateName" name="cateName" placeholder="카테고리 이름">
@@ -108,7 +115,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-				        <button onclick="frmsbt()" type="button" class="btn btn-primary">등록</button>
+				        <button id="sbtBtn" onclick="frmsbt()" type="button" class="btn btn-primary">등록</button>
 				      </div>
 				    </div>
 				  </div>
@@ -118,6 +125,35 @@
 		<script>
 			function frmsbt(){
 				$('#frm').submit();
+			}
+			
+			function modifySet(id,name){
+				$('#mainId').val(id);
+				$('#cateName').val(name);
+				$('#ModalLabel').text('메인카테고리 수정');
+				$('#frm').attr('action','/adminCategory/modifyResult');
+				$('#sbtBtn').text("수정");
+			}
+			
+			function newRest(){
+				$('#mainId').val('');
+				$('#cateName').val('');
+				$('#ModalLabel').text('메인카테고리 생성');
+				$('#frm').attr('action','/adminCategory/newResult');
+				$('#sbtBtn').text("등록");
+			}
+			
+			function delCheck(mainId,count){
+				
+				if(count>=1){
+					alert('해당 카테고리의 서브카테고리가 존재합니다.\n\n삭제 후 다시 시도해주세요.');
+					return false;
+				}
+				
+				if(confirm('삭제하시겠습니까?')){
+					$('#delMainId').val(mainId);
+					$('#delFrm').submit();
+				}else{ return false; }
 			}
 		</script>
 	</div>
