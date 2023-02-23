@@ -3,6 +3,9 @@ package ChamStudy.Dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
+
+
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Entity.UserInfo;
@@ -20,7 +23,6 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.Title = comm_Board.getTitle();
 		this.substance = comm_Board.getSubstance();
 		this.gubun = comm_Board.getGubun();
-		this.oriId = comm_Board.getOriId();
 		this.viewCount = comm_Board.getViewCount();
 		this.userInfo = comm_Board.getUserId();
 		this.regdate = comm_Board.getRegDate();
@@ -39,8 +41,6 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String substance;
 	
-	private Long oriId;
-	
 	private int viewCount;
 	
 	private String regdate;
@@ -49,11 +49,12 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String openChat;
 	
-	private List<Comm_Board_Img> comm_Board_Img = new ArrayList<>();
+	private List<CommImgDto> commImgDtos = new ArrayList<>();
 	
+	private static ModelMapper modelMapper = new ModelMapper();
 	//이미지는 따로 담아야해서 따로 메소드를 만들어주었다.
-	public void addCommBoardImg(Comm_Board_Img board_Img) {
-		this.comm_Board_Img.add(board_Img);
+	public static CommImgDto of(Comm_Board board) {
+		return modelMapper.map(board, CommImgDto.class);
 	}
 	
 }

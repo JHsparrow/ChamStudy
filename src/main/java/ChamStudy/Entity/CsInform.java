@@ -2,6 +2,7 @@ package ChamStudy.Entity;
 
 import javax.persistence.*;
 
+import ChamStudy.Dto.CsInformDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,4 +35,11 @@ public class CsInform extends BaseTimeEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserInfo userInfo;
+	
+	public void updateInform(CsInformDto csInformDto) {
+		this.title = csInformDto.getTitle();
+		this.substance = csInformDto.getSubstance();
+		this.viewCount = csInformDto.getViewCount();
+		this.gubun = csInformDto.getGubun();
+	}
 }

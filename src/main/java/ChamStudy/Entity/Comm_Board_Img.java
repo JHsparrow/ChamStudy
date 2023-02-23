@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name = "comm_board_img")
 @Getter
 @Setter
-public class Comm_Board_Img { //게시판 이미지
+public class Comm_Board_Img extends BaseTimeEntity{ //게시판 이미지
 	
 	@Id
 	@Column(name = "comm_img_id")
@@ -33,5 +33,11 @@ public class Comm_Board_Img { //게시판 이미지
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_id")
 	private Comm_Board board; //게시판 식별자
-
+	
+	public void updateBoardImg(String oriName, String name, String url) {
+		this.oriName = oriName;
+		this.name = name;
+		this.url = url;
+}
+	
 }

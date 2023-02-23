@@ -27,11 +27,13 @@ public class CsInformDto {
 	
 	private int viewCount;
 	
+	@NotBlank(message = "상단 고정여부를 선택해 주십시오.")
 	private String gubun;
 	
-	private List<CsInformFileDto> csInformFileList = new ArrayList<>();
+	private List<CsInformFileDto> csInformFileDtoList = new ArrayList<>();
 	
-	private List<Integer> informFileIds = new ArrayList<>();
+	//파일의 아이디 저장 -> 수정시 파일 아이디를 담아 둘 용도
+	private List<Long> informFileIds = new ArrayList<>();
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
