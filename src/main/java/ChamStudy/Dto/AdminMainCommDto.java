@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 
 
 import ChamStudy.Entity.Comm_Board;
-import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Entity.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
