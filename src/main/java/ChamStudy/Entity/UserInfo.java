@@ -19,6 +19,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import ChamStudy.Dto.UserInfoDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,17 +60,22 @@ public class UserInfo {
 	@CreatedDate 
 	@Column(updatable = false)
 	private String regDate; //회원 가입일
+	
+	@Column(columnDefinition = "CHAR", length=1) 
+	private String gubun;
 
+	
 	public UserInfo(){}
 	
 	@Builder
-	public UserInfo (String email, String name, String password, String phone, String role, String regDate) {
+	public UserInfo (String email, String name, String password, String phone, String role, String regDate, String gubun) {
 		this.email = email;
 		this.name = name;
 		this.password = password;
 		this.phone = phone;
 		this.role = role;
 		this.regDate = regDate;
+		this.gubun = gubun;
 	}
 	
 	public static UserInfo createUser(UserInfoDto userDto, PasswordEncoder passwordEncoder) {
@@ -91,13 +98,22 @@ public class UserInfo {
 		
 		user.setRegDate(time);
 		
+		user.setGubun("N");
+		
 		return user;
 	}
 
+	
+	public static String passwordEn (String tmep, PasswordEncoder passwordEncoder) {
+		
+		String password = passwordEncoder.encode(tmep);
+		
+		return password;
+	}
+	
+	
 
-	
-	
-	
+
 	
 	
 	
