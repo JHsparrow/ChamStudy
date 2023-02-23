@@ -19,18 +19,13 @@ import lombok.Setter;
 @Table(name="comm_board")  //자유게시판 테이블
 @Getter
 @Setter
-@SequenceGenerator(
-        name="COMM_GEN_GEN", //기수제 시퀸스 
-        sequenceName="COMM_SEQ", //시퀀스 이름
-        initialValue=1 //시작값
-        )
+
 public class Comm_Board extends BaseTimeEntity{ 
 	//BaseEntity : 수정자와 등록자, 수정일 등록일 컬럼 추가 
 	//커뮤니티 게시판
 	
 	@Id
 	@Column(name = "board_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id; //게시판 아이디
 	
 	private String Title; //게시판 제목

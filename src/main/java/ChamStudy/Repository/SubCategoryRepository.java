@@ -13,4 +13,6 @@ import ChamStudy.Entity.SubCategory;
 public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> {
 	@Query(value="select * from sub_category where category_id = ?1 ",nativeQuery = true)
 	List<SubCategory> findSubCategoryMain(@Param("mainId") Long mainId);
+	
+	
 }

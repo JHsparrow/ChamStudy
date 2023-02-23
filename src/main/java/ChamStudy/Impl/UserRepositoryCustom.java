@@ -1,4 +1,4 @@
-package ChamStudy.Repository;
+package ChamStudy.Impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

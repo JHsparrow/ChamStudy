@@ -1,4 +1,4 @@
-package ChamStudy.Repository;
+package ChamStudy.Impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
