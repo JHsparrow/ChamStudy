@@ -1,21 +1,35 @@
 package ChamStudy.Controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import ChamStudy.Dto.UserInfoDto;
+import ChamStudy.Dto.UserListDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.UserInfo;
+import ChamStudy.Repository.UserRepository;
 import ChamStudy.Service.PrincipalDetails;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +51,7 @@ public class AdminUserController {
 	
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
+	private final UserRepository userRepository;
 	
 	@GetMapping(value = "/user")
 	public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -85,8 +100,26 @@ public class AdminUserController {
 		return "users/user-sign-in";
 	}
 	
+	//회원 리스트에 페이지 보여주기
+	@GetMapping(value = "userList")
+	public String userList(UserSearchDto userSearchDto,UserInfoDto userInfoDto, Optional<Integer> page, Model model) {
+		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 15); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
+		Page<UserListDto> users = userService.getUserPage(userSearchDto,userInfoDto, pageable);
+		
+		model.addAttribute("users", users);	//items는 page 객체임
+		model.addAttribute("userSearchDto", userSearchDto);
+		model.addAttribute("maxPage", 5);
+		
+		return "users/user-list"; 
+	}
 	
-	
+	//회원 상세정보 보여주기
+	@GetMapping(value = "userDetail/{id}")
+	public String userDetail (@PathVariable("id") Long Id, Model model) {
+		
+		return null;
+	}
 	
 	
 }

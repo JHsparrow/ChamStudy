@@ -2,6 +2,8 @@ package ChamStudy.Service;
 
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import ChamStudy.Dto.UserInfoDto;
+import ChamStudy.Dto.UserListDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +58,11 @@ public class UserService implements UserDetailsService{
 		}
 	}
 
+	//유저 리스트 가져오기
+	@Transactional(readOnly = true)
+	public Page<UserListDto> getUserPage(UserSearchDto userSearchDto,UserInfoDto userInfoDto,Pageable pageable) {
+		return userRepository.getUserPage(userSearchDto, userInfoDto, pageable); 
+	}
 
 	
 	

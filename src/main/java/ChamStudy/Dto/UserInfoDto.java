@@ -30,4 +30,6 @@ public class UserInfoDto {
 	private String role;
 	
 	private String regTime;
+	
+	private String gubun;
 }

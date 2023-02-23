@@ -1,7 +1,11 @@
 package ChamStudy.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -10,13 +14,15 @@ import org.springframework.stereotype.Service;
 
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 //구글 후처리 해주는 서비스
 @Service
+@RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	@Autowired
 	private UserRepository userRepository;
-	
+	private final PasswordEncoder passwordEncoder;
 	
 	
 	//구글로 부터 받은 userrequest 데이터에 대한 후처리되는 함수
@@ -30,14 +36,27 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		System.out.println("getAttributes:" + super.loadUser(userRequest).getAttributes());
 //===========================================================================================================================
 		OAuth2User oauth2User = super.loadUser(userRequest);
+		Random rand = new Random();
+		String temp = Integer.toString( rand.nextInt(8) + 1);
+		for (int i = 0; i < 7; i++) {
+		    temp+= Integer.toString(rand.nextInt(9));
+		}
+		
+		String password1 = passwordEncoder.encode(temp);
+		
+		
+		LocalDateTime localDateTime = LocalDateTime.now();
+		String time = localDateTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
+		System.out.println(time);
+
 		
 		String username = oauth2User.getAttribute("name");
 		String email = oauth2User.getAttribute("email");
-		String password = "123456789";
+		String password = password1;
 		String role = "USER";
-		String regDate = "654";
-		String phone = "asd0";
-		
+//		String regDate = time;
+		String phone = "0";
+		String gubun = "G";
 		
 		UserInfo userEntity =  userRepository.findByemail(email);
 		
@@ -48,7 +67,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 					.password(password)
 					.phone(phone)
 					.role(role)
-					.regDate(regDate)
+					.regDate(time)
+					.gubun(gubun)
 					.build();
 			userRepository.save(userEntity);
 		}else {
