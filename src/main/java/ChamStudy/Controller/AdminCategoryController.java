@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Dto.SubCategoryJsonDto;
 import ChamStudy.Dto.modifySubCategoryDto;
 import ChamStudy.Entity.Category;
 import ChamStudy.Entity.SubCategory;
@@ -36,12 +39,12 @@ public class AdminCategoryController {
 	
 	
 	@GetMapping(value = "/main") //메인 카테고리 리스트
-	public String mainCategoryList(@PathVariable("page") Optional<Integer> page, Model model) {
-		
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
-		Page<CategoryInterface> mainList = adminCategoryService.getAllMainList(pageable);
+	public String mainCategoryList(Optional<Integer> page,CategoryDto categoryDto ,Model model) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Page<CategoryDto> mainList = adminCategoryService.getAllMainList(categoryDto, pageable);
 		
 		model.addAttribute("mainList", mainList);
+		model.addAttribute("maxPage", 5);
 		return "AdminForm/adminCategory/mainList";
 	}
 	
@@ -53,6 +56,18 @@ public class AdminCategoryController {
 		model.addAttribute("mainInfo", mainInfo);
 		return "AdminForm/adminCategory/subList";
 	}
+	
+	@GetMapping(value = "/consub/{mainid}") //콘텐츠 등록 서브 카테고리
+	@ResponseBody
+	public List<SubCategoryJsonDto> subCategoryFonContent(@PathVariable("mainid") Long mainId) { 
+		List<SubCategory> subList = adminCategoryService.getAllSubList(mainId);
+		List<SubCategoryJsonDto> subCategoryJsonDtos = new ArrayList<>();
+		for (SubCategory subCategory : subList) {
+			subCategoryJsonDtos.add(new SubCategoryJsonDto(subCategory));
+		}
+		return subCategoryJsonDtos;
+	}
+	
 	
 	@GetMapping(value = "/new") //메인 카테고리 생성 페이지
 	public String mainCategoryCreateForm() {
