@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Dto.SubCategoryJsonDto;
 import ChamStudy.Dto.modifySubCategoryDto;
 import ChamStudy.Entity.Category;
 import ChamStudy.Entity.SubCategory;
@@ -55,13 +57,15 @@ public class AdminCategoryController {
 		return "AdminForm/adminCategory/subList";
 	}
 	
-	@GetMapping(value = "/consub/{mainid}") //콘텐츠 등록 서브 카테고리 
-	public String subCategoryFonContent(@PathVariable("mainid") Long mainId, Model model) { 
-		Category mainInfo = adminCategoryService.getMainInfo(mainId);
+	@GetMapping(value = "/consub/{mainid}") //콘텐츠 등록 서브 카테고리
+	@ResponseBody
+	public List<SubCategoryJsonDto> subCategoryFonContent(@PathVariable("mainid") Long mainId) { 
 		List<SubCategory> subList = adminCategoryService.getAllSubList(mainId);
-		model.addAttribute("mainList", subList);
-		model.addAttribute("mainInfo", mainInfo);
-		return "AdminForm/adminCategory/subList";
+		List<SubCategoryJsonDto> subCategoryJsonDtos = new ArrayList<>();
+		for (SubCategory subCategory : subList) {
+			subCategoryJsonDtos.add(new SubCategoryJsonDto(subCategory));
+		}
+		return subCategoryJsonDtos;
 	}
 	
 	

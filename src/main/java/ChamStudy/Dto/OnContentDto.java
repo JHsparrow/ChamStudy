@@ -27,11 +27,11 @@ public class OnContentDto {
 	
 	private String imgUrl; // 콘텐츠 이미지 경로
 	
-	private List<MultipartFile> contentVideoFileList = new ArrayList<>(); //콘텐츠 비디오 정보를 저장하는 리스트
-	
 	private MultipartFile itemImgFile; //콘텐츠 이미지 정보를 저장하는 객체
 	
-	private List<Long> contentVideoIds = new ArrayList<>(); //콘텐츠 비디오 아이디를 저장 -> 수정시에 비디오 아이디를 담아 둘 용도.
+	private Long categoryId;
+	
+	private Long subCategoryId;
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	

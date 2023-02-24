@@ -40,23 +40,6 @@
                 $(this).siblings(".class-file-input").html(fileName);
 			});
 		}
-		
-	    //파일 첨부시 동영상 파일인지 검사하기 위해 change이벤트를 등록한다.
-	    function bindDomEvent2(){
-	        $(".class-file-input2").on("change", function() {
-	            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-	            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-	            fileExt = fileExt.toLowerCase(); //소문자 변환
-	
-	            if(fileExt != "mp4" && fileExt != "mov" && fileExt != "wmv" && fileExt != "avi" && fileExt != "flv"){
-	                alert("동영상 파일만 등록이 가능합니다.");
-	                $(this).val(""); //파일명 공란으로 설정
-	                return;
-	            }
-	
-	            $(this).siblings(".class-file-input2").html(fileName);
-			});
-	    }
 	    
 	    function bindDomEvent3(){
 	    	$('#btnContentSave').on("click", function() {
@@ -81,13 +64,13 @@
 			<h1 class="h3 mb-3">콘텐츠 등록</h1>
 			<input type="hidden" th:field="*{id}" />
 			<div class="row mb-3">
-				<select id="categorySelect" class=" col-sm-2" onchange="getSubcategories()">
+				<select id="categorySelect" name="categotyId" class=" col-sm-2" onchange="getSubcategories()">
 					<option hidden>메인 카테고리</option>
 					<th:block th:each=" cateLists : ${cateList} ">
 						<option th:value="${cateLists.id}">[[${cateLists.name}]]</option>
 					</th:block>
 				</select>
-				<select id="subcategorySelect" class=" col-sm-2">
+				<select id="subcategorySelect" name="subCategotyId" class=" col-sm-2">
 					<option hidden>서브 카테고리</option>
 					
 				</select>
@@ -120,20 +103,21 @@
 		<script>
 		function getSubcategories() {
 		    var categoryId = $('#categorySelect').val();
-
+			console.log(categoryId);
 		    $.ajax({
-		        url: "/adminCategory/sub/" + categoryId,
-		        type: "GET",
-		        success: function(subcategories) {
-		            var subcategorySelect = $('#subcategorySelect');
-		            
-		            $("#subcategorySelect option").remove();
-
-		            for (var i = 0; i < subcategories.length; i++) {
-		                var subcategory = subcategories[i];
-		                subcategorySelect.options[i+1] = new Option(subcategory.name, subcategory.id);
-		            }
-		        }
+		        url: "/adminCategory/consub/" + categoryId,
+	            type: 'GET',
+	            dataType: 'json',
+	            success: function(data) {
+	                var subcategorySelect = $('#subcategorySelect');
+	                subcategorySelect.empty();
+	                $.each(data, function(index, subcategory) {
+	                    subcategorySelect.append($('<option/>', {
+	                        value: subcategory.id,
+	                        text: subcategory.name
+	                    }));
+	                });
+	            }
 		    });
 		}
 		</script>
