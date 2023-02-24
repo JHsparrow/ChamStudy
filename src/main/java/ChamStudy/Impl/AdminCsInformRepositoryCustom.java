@@ -10,4 +10,7 @@ public interface AdminCsInformRepositoryCustom {
 
 	//공지사항 리스트 가져오기
 	Page<CsInformListDto> getInformList(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable);
+	
+	//공지사항 상단 고정 리스트 가져오기
+	Page<CsInformListDto> getFixedInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable);
 }

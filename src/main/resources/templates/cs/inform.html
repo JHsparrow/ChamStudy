@@ -69,14 +69,35 @@
 											</tr>
 										</thead>
 										<tbody>
+										
+										<div th:if="${not #lists.isEmpty(fixedInformList.getContent())}">
+											<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
+											<tr class="fixedInform">
+												<td class="dtr-control sorting_1" tabindex="0"><i class="align-middle me-2" data-feather="volume-2"></i></td>
+												<td><a href="#" class="underline"><strong>[[${fixedInform.title}]]</strong></a></td>
+												<td class="text-center">[[${fixedInform.viewCount}]]</td>
+												<td>[[${fixedInform.update.substring(0,13)}]]</td>
+												<td>
+													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/modifyInform/}+${fixedInform.id}'|">수정</a>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
+												</td>
+											</tr>
+											</th:block>
+										
+										</div>
+										
+											
+											
 											<th:block th:each="inform, status : ${informList.getContent()}">
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${inform.id}]]</strong></td>
-												<td><a href="#">[[${inform.title}]]</a></td>
+												<td><a href="#" class="underline">[[${inform.title}]]</a></td>
 												<td class="text-center">[[${inform.viewCount}]]</td>
 												<td>[[${inform.update.substring(0,13)}]]</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/modifyInform/}{inform.id}'|">수정</a>
+													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/modifyInform/}+${inform.id}'|">수정</a>
 												</td>
 												<td>
 													<a href="#" class="btn btn-primary btn-sm">삭제</a>
@@ -88,12 +109,14 @@
 									</div>
 								</div>
 								<div class="row">
+									<div class="col-sm-12 col-md-3">
+										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
+									</div>
 								
-								
-									<nav th:with="start=${(informList.number/maxPage)*maxPage + 1},
-									end=(${(informList.totalPages == 0) ? 1 : (start + (maxPage -1) < informList.totalPages ? start + (maxPage -1) : informList.totalPages)})">
 									
-									<div class="col-sm-12 col-md-9 ">
+									<div class="col-sm-12 col-md-6">
+										<nav th:with="start=${(informList.number/maxPage)*maxPage + 1},
+										end=(${(informList.totalPages == 0) ? 1 : (start + (maxPage -1) < informList.totalPages ? start + (maxPage -1) : informList.totalPages)})">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
 										
 											<ul class="pagination">
@@ -120,11 +143,11 @@
 												</li>
 											</ul>
 										</div>
+									</nav>
 									</div>
 									<div class="col-sm-12 col-md-3 newbtnwrap">
 										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/createInform}'|">등록하기</a>
 									</div>
-									</nav>
 								
 								
 								

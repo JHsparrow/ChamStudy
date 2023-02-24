@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -58,6 +60,42 @@ public class AdminCsInformRepositoryCustomImpl implements AdminCsInformRepositor
 		
 		return new PageImpl<>(content, pageable, total);
 		
+	}
+	
+	//상단 고정 게시글만 select하기
+	public BooleanExpression getFixed(String searchQuery) {
+		return StringUtils.isEmpty(searchQuery) ? null : QCsInform.csInform.title.like("%" + searchQuery + "%");
+				
+	}
+	
+	@Override
+	public Page<CsInformListDto> getFixedInformList(UserSearchDto userSearchDto, CsInformListDto csInformListDto,
+			Pageable pageable) {
+		QCsInform csFixedInform = QCsInform.csInform;
+		
+		
+		
+		List<CsInformListDto> content = queryFactory.select(
+				new QCsInformListDto (
+						csFixedInform.id,
+						csFixedInform.title,
+						csFixedInform.viewCount,
+						csFixedInform.upDate)
+				)
+				.from(csFixedInform)
+				.where(csFixedInform.gubun.eq("f"))
+				.orderBy(csFixedInform.id.desc())
+				.offset(pageable.getOffset())	//데이터를 가져올 시작 index
+				.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
+				.fetch();
+		
+				
+		long total = queryFactory.select(Wildcard.count)
+				.from(csFixedInform)
+				.where(csFixedInform.gubun.eq("f"))
+				.fetchOne();
+		
+		return new PageImpl<>(content, pageable, total);
 	}
 	
 	

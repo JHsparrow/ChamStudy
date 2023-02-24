@@ -30,7 +30,7 @@ public class CsInformDto {
 	@NotBlank(message = "상단 고정여부를 선택해 주십시오.")
 	private String gubun;
 	
-	private UserInfo userInfo;
+	private String userInfo;
 	
 	private List<CsInformFileDto> csInformFileDtoList = new ArrayList<>();
 	
