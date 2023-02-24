@@ -79,4 +79,9 @@ public class AdminCategoryService {
 		Category Category = categoryRepository.findById(mainId).orElseThrow(EntityNotFoundException::new);   
 		categoryRepository.delete(Category);
 	}
+	
+	public List<Category> getCategory() throws Exception{
+		return categoryRepository.findAll();
+		
+	}
 }

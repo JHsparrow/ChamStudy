@@ -55,6 +55,16 @@ public class AdminCategoryController {
 		return "AdminForm/adminCategory/subList";
 	}
 	
+	@GetMapping(value = "/consub/{mainid}") //콘텐츠 등록 서브 카테고리 
+	public String subCategoryFonContent(@PathVariable("mainid") Long mainId, Model model) { 
+		Category mainInfo = adminCategoryService.getMainInfo(mainId);
+		List<SubCategory> subList = adminCategoryService.getAllSubList(mainId);
+		model.addAttribute("mainList", subList);
+		model.addAttribute("mainInfo", mainInfo);
+		return "AdminForm/adminCategory/subList";
+	}
+	
+	
 	@GetMapping(value = "/new") //메인 카테고리 생성 페이지
 	public String mainCategoryCreateForm() {
 		return "AdminForm/adminCategory/mainNew";

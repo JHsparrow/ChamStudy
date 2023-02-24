@@ -80,7 +80,18 @@
 	    	<form id="frmContentNew" class="row g-3" method="post" enctype="multipart/form-data" th:object="${onContentDto}">
 			<h1 class="h3 mb-3">콘텐츠 등록</h1>
 			<input type="hidden" th:field="*{id}" />
-			
+			<div class="row mb-3">
+				<select id="categorySelect" class=" col-sm-2" onchange="getSubcategories()">
+					<option hidden>메인 카테고리</option>
+					<th:block th:each=" cateLists : ${cateList} ">
+						<option th:value="${cateLists.id}">[[${cateLists.name}]]</option>
+					</th:block>
+				</select>
+				<select id="subcategorySelect" class=" col-sm-2">
+					<option hidden>서브 카테고리</option>
+					
+				</select>
+			</div>
 			<div class="row mb-3">
 			    	<label class="col-sm-2 col-form-label">콘텐츠 이름</label>
 			    <div class="col-sm-10">
@@ -107,8 +118,27 @@
 			<div th:if="${#strings.isEmpty(onContentDto.id)}">
 				<input type="button" id="btnContentSave" class="btn btn-primary mb-3" value="저장" />
 			</div>
-			
 		</form>
+		<script>
+		function getSubcategories() {
+		    var categoryId = $('#categorySelect').val();
+
+		    $.ajax({
+		        url: "/adminCategory/sub/" + categoryId,
+		        type: "GET",
+		        success: function(subcategories) {
+		            var subcategorySelect = $('#subcategorySelect');
+		            
+		            $("#subcategorySelect option").remove();
+
+		            for (var i = 0; i < subcategories.length; i++) {
+		                var subcategory = subcategories[i];
+		                subcategorySelect.options[i+1] = new Option(subcategory.name, subcategory.id);
+		            }
+		        }
+		    });
+		}
+		</script>
 	</div>
 </body>
 

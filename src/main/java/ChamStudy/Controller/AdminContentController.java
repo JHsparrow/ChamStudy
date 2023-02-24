@@ -16,6 +16,7 @@ import ChamStudy.Dto.OnContentDto;
 import ChamStudy.Dto.VideoDto;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
+import ChamStudy.Service.AdminCategoryService;
 import ChamStudy.Service.ContentVideoService;
 import ChamStudy.Service.OnContentService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class AdminContentController {
 	
 	private final ContentVideoService videoService;
 	private final OnContentService onContentService;
+	private final AdminCategoryService adminCategoryService;
 	
 	@GetMapping(value = "/adminClass/generation") //기수제 목록
 	public String generation() {
@@ -90,7 +92,8 @@ public class AdminContentController {
 	
 	
 	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
-	public String contentForm(Model model) {
+	public String contentForm(Model model) throws Exception {
+		model.addAttribute("cateList",adminCategoryService.getCategory());
 		model.addAttribute("onContentDto", new OnContentDto());
 		return "/AdminForm/AdminOnClass/contentNew";
 	}
