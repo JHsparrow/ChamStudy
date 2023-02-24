@@ -8,34 +8,40 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="cs_inform")
+@Table(name = "cs_inform")
 @Getter
-@Setter
+@Setter @SequenceGenerator(
+		name="INFORM_GEN_GEN",	//공지사항 시퀀스
+		sequenceName="INFORM_SEQ",	//시퀀스 이름
+		initialValue=4000	//시작값
+		)
 @ToString
 public class CsInform extends BaseTimeEntity {
-	
+
 	@Id
 	@Column(name = "inform_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	generator = "INFORM_GEN_GEN")
 	private Long id;
-	
+
 	@Column(nullable = false, length = 100)
 	private String title;
-	
+
 	@Lob
 	@Column(nullable = false)
 	private String substance;
-	
+
 	@Column(columnDefinition = "integer default 0", nullable = false)
-	private int viewCount;
-	
-	@Column(nullable = false, columnDefinition = "CHAR", length=1)
+	private Integer viewCount;
+
+	@Column(nullable = false, columnDefinition = "CHAR", length = 1)
 	private String gubun;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserInfo userInfo;
 	
+
 	public void updateInform(CsInformDto csInformDto) {
 		this.title = csInformDto.getTitle();
 		this.substance = csInformDto.getSubstance();

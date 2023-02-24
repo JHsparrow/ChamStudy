@@ -1,21 +1,26 @@
 package ChamStudy.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import ChamStudy.Dto.AdminMainCommDto;
 import ChamStudy.Dto.CommCommentDto;
+import ChamStudy.Dto.CommSearchDto;
+import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Service.AdminCommService;
+import ChamStudy.Service.CommSearchService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -23,14 +28,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/adminForm")
 public class AdminCommController { // 관리자 커뮤니티 게시판
 	private final AdminCommService adminCommService;
+	private final CommSearchService commSearchService;
 
-	@GetMapping(value = "/comm") // 관리자 커뮤니티 게시판 메인겸 자유게시판 관리
-	public String commMain(Model model) {
-
-		// 서비스에 작성한 게시판 불러오는 메소드를 실행
-		List<AdminMainCommDto> adminMainCommDtoList = adminCommService.getAdminComm();
+	@GetMapping(value = {"/comm" ,"/comm/{page}"}) // 관리자 커뮤니티 게시판 메인겸 자유게시판 관리
+	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page")Optional<Integer> page) {
+		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 6);
+		Page<AdminMainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
-		model.addAttribute("comms", adminMainCommDtoList);
+		model.addAttribute("comms", comms);
+		model.addAttribute("commSearchDto",commSearchDto);
+		model.addAttribute("maxPage",5);
 
 		return "AdminForm/AdminComm/comm-main";
 	}

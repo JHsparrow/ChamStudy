@@ -18,6 +18,24 @@
 <link th:href="@{/css/community/a-comm.css}" rel="stylesheet">
 
 <title>Blank Page | AdminKit Demo</title>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault();
+				page(0);
+			});
+		});
+
+		function page(page) {
+			var searchBy = $("#searchBy").val();
+			var searchQuery = $("#searchQuery").val();
+
+			location.href = "/adminForm/comm/" + page + "?searchBy=" + searchBy
+					+ "&searchQuery=" + searchQuery;
+		}
+	</script>
+</th:block>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -37,9 +55,11 @@
 								</button>
 								<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 									<div class="navbar-nav">
-										<a class="nav-link" id="nav-link1" href="/adminForm/comm" style="background-color: #007bff; border-radius: 7px; color: #fff;">자유게시판</a> <a
-											class="nav-link" id="nav-link2" href="/adminForm/comm/mento">멘토게시판</a> <a
-											class="nav-link" id="nav-link3" href="/adminForm/comm/qna">QnA게시판</a>
+										<a class="nav-link" id="nav-link1" href="/adminForm/comm"
+											style="background-color: #007bff; border-radius: 7px; color: #fff;">자유게시판</a>
+										<a class="nav-link" id="nav-link2"
+											href="/adminForm/comm/mento">멘토게시판</a> <a class="nav-link"
+											id="nav-link3" href="/adminForm/comm/qna">QnA게시판</a>
 									</div>
 								</div>
 							</div>
@@ -65,8 +85,9 @@
 											style="text-align: right">
 											<label class="d-flex justify-content-end"> <span></span>
 												<input type="search"
-												class="form-control form-control-sm width30" placeholder="Search:"
-												aria-controls="datatables-orders">
+												class="form-control form-control-sm width30"
+												placeholder="Search:" aria-controls="datatables-orders"
+												name="searchQuery" th:value="${commSearchDto.searchQuery}">
 											</label>
 										</div>
 									</div>
@@ -143,20 +164,27 @@
 									<div class="col-sm-12 col-md-7">
 										<div
 											class="dataTables_paginate paging_simple_numbers block-27"
-											id="datatables-orders_paginate">
+											id="datatables-orders_paginate"
+											th:with="start=${(comms.number/maxPage)*maxPage + 1}, end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage - 1) : comms.totalPages)})">
 											<ul class="pagination">
 												<li class="paginate_button page-item previous disabled mx-1"
-													id="datatables-orders_previous"><a href="#"
+													id="datatables-orders_previous"
+													th:classappend="${comms.number eq 0}? 'disabled':''">
+													<a
+													th:href="@{'/' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page=' +${comms.number-1}}"
 													aria-controls="datatables-orders" data-dt-idx="0"
-													tabindex="0" class="page-link">&lt </a></li>
-												<li class="paginate_button page-item active  mx-1"><a
-													href="#" aria-controls="datatables-orders" data-dt-idx="1"
-													tabindex="0" class="page-link">1</a></li>
-												<li class="paginate_button page-item  mx-1 "><a
-													href="#" aria-controls="datatables-orders" data-dt-idx="2"
-													tabindex="0" class="page-link">2</a></li>
+													tabindex="0" class="page-link">&lt </a>
+												</li>
+												<li class="paginate_button page-item active  mx-1"
+													th:each="page, status:${#numbers.sequence(start,end)}"
+													th:classappend="${comms.number eq page-1}? 'active':''"><a
+													th:href="@{'/' + '?searchQuery='+${commSearchDto.searchQuery} + '&page=' +$(page-1)}"
+													aria-controls="datatables-orders" data-dt-idx="1"
+													tabindex="0" class="page-link"></a></li>
 												<li class="paginate_button page-item next"
-													id="datatables-orders_next  mx-1"><a href="#"
+													id="datatables-orders_next  mx-1"
+													th:classappend="${comms.number+1 ge comms.totalPages}? 'disabled':''"><a
+													th:href="@{'/' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page='+${comms.number+1} }"
 													aria-controls="datatables-orders" data-dt-idx="3"
 													tabindex="0" class="page-link">&gt</a></li>
 											</ul>
