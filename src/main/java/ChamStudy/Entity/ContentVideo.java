@@ -30,7 +30,7 @@ public class ContentVideo {
 	
 	@Id
 	@Column(name="content_video_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String name; 

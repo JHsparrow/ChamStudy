@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
 import ChamStudy.Dto.modifySubCategoryDto;
@@ -27,8 +28,8 @@ public class AdminCategoryService {
 	private final CategoryRepository categoryRepository;
 	private final SubCategoryRepository subCategoryRepository;
 	
-	public Page<CategoryInterface> getAllMainList(Pageable pageable){
-		return categoryRepository.findAllList(pageable);
+	public Page<CategoryDto> getAllMainList(CategoryDto categoryDto,Pageable pageable){
+		return categoryRepository.getMainPage(categoryDto,pageable);
 	}
 	
 	
@@ -77,5 +78,10 @@ public class AdminCategoryService {
 	public void deleteMainCategory(Long mainId) throws Exception {
 		Category Category = categoryRepository.findById(mainId).orElseThrow(EntityNotFoundException::new);   
 		categoryRepository.delete(Category);
+	}
+	
+	public List<Category> getCategory() throws Exception{
+		return categoryRepository.findAll();
+		
 	}
 }

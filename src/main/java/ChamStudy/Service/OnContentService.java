@@ -1,6 +1,7 @@
 package ChamStudy.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class OnContentService {
 	
 	@Value("${itemImgLocation}")
-	private String itemImgLocation; //D:/spring/Honawa-2/item
+	private String itemImgLocation;
 	
 	private final OnContentRepository onContentRepository;
 	private final OnContentVideoService onContentVideoService;
@@ -30,7 +31,7 @@ public class OnContentService {
 	
 	/**
 	 * 콘텐츠 등록
-	 * 
+	 * Transactional을 위해 콘텐츠정보와 비디오 등록을 같이함
 	 * @param onContentDto
 	 * @return 0보다 크면 정상
 	 */
@@ -62,10 +63,16 @@ public class OnContentService {
 			String imgUrl = "/contents/" + imgName;
 			contentInfo.setImgUrl(imgUrl);
 			
+			//등록날짜
+			//LocalDateTime localDateTime = LocalDateTime.now();
+			//String regDate = localDateTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
+			//contentInfo.setRegDate(regDate);
+			
 			//데이터베이스 저장 : OnContentRepository 에 contentInfo데이터를 저장
 			contentInfo = onContentRepository.save(contentInfo);
 			
-			//for문						
+			
+			//for문(비디오콘텐츠)
 			for(int i=0; i<contentVideoList.size(); i++) {
 				
 				//데이터베이스에 contentVideo데이터 저장
@@ -114,32 +121,44 @@ public class OnContentService {
 		return contentInfo;
 	}
 	
-	/**
-	 * 모든 ContentVideo 조회
-	 * @param contentId
-	 * @return
-	 */
 	@Transactional(readOnly = true)
-	public List<ContentVideo> getAllContents() {
-		//contentVideo 테이블 전체 데이터 조회
-		List<ContentVideo> contentVideoList = onContentVideoRepository.findAll();
+	public ContentInfo getIdContent(Long contentId) {
+		//content테이블에서 contentId 조회
+		Optional<ContentInfo> contentInfo = onContentRepository.findById(contentId);
+		ContentInfo result = null;
 		
-		return contentVideoList;
+		result = contentInfo.orElse(null); //조회된 값 없을 때 null 로 가져온다
+		
+		return result;
 	}
 	
 	/**
-	 * ContentId 컬럼에 해당하는 ContentVideo 조회
-	 * @param contentId
+	 * ContentInfo insert, update
+	 * @param contentInfo
 	 * @return
 	 */
-	@Transactional(readOnly = true)
-	public List<ContentVideo> getContents(Long contentId) {
-		ContentInfo contentInfo = new ContentInfo();
-		contentInfo.setId(contentId); //join 된 테이블의 content_id 컬럼 값으로 조회하기 위해 설정한다
-		
-		//content_id 조회값 가져온다 (pk가 아니므로 여러개 반환 가능하여 List 객체 사용)
-		List<ContentVideo> contentVideoList = onContentVideoRepository.findByContentInfo(contentInfo);
-		
-		return contentVideoList;
+	public ContentInfo save(ContentInfo contentInfo) {
+		return onContentRepository.save(contentInfo);
 	}
+	
+	/**
+	 * 콘텐츠 삭제
+	 * @param contentId
+	 * @return
+	 * 양수: 삭제된 콘텐츠 수
+	 * -1 : contentId에 해당하는 콘텐츠가 없다.
+	 */
+	public int deleteContent(Long contentId) {
+		
+		Optional<ContentInfo> contentInfo = onContentRepository.findById(contentId);
+		
+		//해당 콘텐츠가 존재 하지 않으면
+		if(contentInfo == null) {
+			return -1;
+		} else {
+			onContentRepository.deleteById(contentId);
+			return 1;
+		}
+	}
+	
 }
