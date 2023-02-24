@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
 import ChamStudy.Dto.MessageDto;
@@ -36,12 +37,12 @@ public class AdminCategoryController {
 	
 	
 	@GetMapping(value = "/main") //메인 카테고리 리스트
-	public String mainCategoryList(@PathVariable("page") Optional<Integer> page, Model model) {
-		
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
-		Page<CategoryInterface> mainList = adminCategoryService.getAllMainList(pageable);
+	public String mainCategoryList(Optional<Integer> page,CategoryDto categoryDto ,Model model) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Page<CategoryDto> mainList = adminCategoryService.getAllMainList(categoryDto, pageable);
 		
 		model.addAttribute("mainList", mainList);
+		model.addAttribute("maxPage", 5);
 		return "AdminForm/adminCategory/mainList";
 	}
 	

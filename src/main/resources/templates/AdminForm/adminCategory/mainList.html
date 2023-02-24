@@ -43,12 +43,12 @@
 													<th>구분</th>
 											</thead>
 											<tbody>
-												<th:block  th:each="cateList, status: ${mainList}">
+												<th:block  th:each="cateList, status: ${mainList.getContent()}">
 												<tr th:if="${cateList.getId()!=null}">
 													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${cateList.getId()}]]</strong></td>
 													<td><a th:href="'/adminCategory/sub/'+${cateList.getId()}">[[${cateList.getName()}]]</a></td>
 													<td>[[${cateList?.getCount()}]]</td>
-													<td>[[${cateList.getDate()}]]</td>
+													<td>[[${cateList.getDate().substring(0,13)}]]</td>
 													<td>
 														<button th:onclick="modifySet([[${cateList.getId()}]],[[${cateList.getName()}]])" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">수정</button>
 														<button th:onclick="delCheck([[${cateList.getId()}]],[[${cateList.getCount()}]])" type="button" class="btn btn-primary btn-sm">삭제</button>
@@ -68,19 +68,20 @@
 									</div>
 									
 									<div class="col-sm-12 col-md-6 ">
-										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
+											th:with="start=${(mainList.number/maxPage)*maxPage + 1},
+													end=${(mainList.getTotalPages() == 0) ? 1 : (start + (maxPage - 1) < mainList.getTotalPages() ? start + (maxPage - 1) : mainList.getTotalPages())}"	>
 											<ul class="pagination">
-												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
-													<a href="#" aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous" th:classappend="${mainList.first}?'disabled'">
+													<a th:href="'/adminCategory/main?page='+${(mainList.number-1)}" aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
 												</li>
-												<li class="paginate_button page-item active  mx-1">
-													<a href="#" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-												</li>
-												<li class="paginate_button page-item  mx-1 ">
-													<a href="#" aria-controls="datatables-orders" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-												</li>
+												<th:block th:each="page: ${#numbers.sequence(start, end)}" >
+													<li th:classappend="${mainList.number eq page-1}?'active':''" class="paginate_button page-item mx-1" >
+														<a th:href="@{'/adminCategory/main?page=' + ${page-1}}" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
+													</li>
+												</th:block>
 												<li class="paginate_button page-item next" id="datatables-orders_next  mx-1">
-													<a href="#" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+													<a th:href="@{'/adminCategory/main?page=' + ${mainList.number+1}}" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
 												</li>
 											</ul>
 										</div>
