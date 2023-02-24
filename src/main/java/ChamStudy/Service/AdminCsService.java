@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import ChamStudy.Dto.CsInformDto;
 import ChamStudy.Dto.CsInformFileDto;
+import ChamStudy.Dto.CsInformListDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Entity.CsInformFile;
 import ChamStudy.Repository.AdminCsFileRepository;
@@ -77,6 +81,12 @@ public class AdminCsService {
 		}
 		return csInform.getId();
 				
+	}
+	
+	//공지사항 첫 화면 리스트 가져오기
+	@Transactional(readOnly = true)
+	public Page<CsInformListDto> getInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){
+		return adminCsRepository.getInformList(userSearchDto, csInformListDto, pageable);
 	}
 
 }

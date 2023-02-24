@@ -135,7 +135,7 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 		commRepository.deleteById(boardId);
 	}
 
-	public void commBlock(Long boardId) throws Exception { // 게시글 삭제 메소드
+	public void commBlock(Long boardId) throws Exception { // 게시글 차단 메소드
 		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 		comm_Board.setBlockComment("Y");
 	}
