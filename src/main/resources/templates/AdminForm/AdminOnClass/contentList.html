@@ -25,6 +25,16 @@
 			
 			return false;
 		}
+		
+		function update(w,h,contentId){
+			var popupX = (document.body.offsetWidth / 2) - (w / 2);
+			popupX += window.screenLeft;
+			var popupY= (window.screen.height / 2) - (h / 2); 	
+			
+			window.open("/adminOnClass/contentUpdate/"+contentId, "_blank", 'width='+w+', height='+h+', left='+ popupX + ', top='+ popupY);
+			
+			return false;
+		}
 	</script>
 	<style>
 		.popUp {
@@ -34,7 +44,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-	<form method="POST" action="/adminOnClass/contents">
+	<form method="post" action="/adminOnClass/contentUpdate">
 		<div class="main">
 			<main class="content">
 				<div class="container-fluid p-0">
@@ -60,12 +70,6 @@
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
 								<div class="row">
 									<div class="col-sm-12 col-md-6">
-										<div class="dataTables_length" id="datatables-orders_length">
-											<select name="datatables-orders_length" aria-controls="datatables-orders" class="form-select form-select-sm width30">
-												<option value="10">10</option><option value="25">25</option>
-												<option value="50">50</option><option value="100">100</option>
-											</select>
-										</div>
 									</div>
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
@@ -79,11 +83,12 @@
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
 										<colgroup> <!-- 너비 계산하기  -->
-											<col width="10%"><col width="10%"><col width="10%"><col width="10%"><col width="10%">
+											<col width="10%"><col width="10%"><col width="30%"><col width="20%">
 											<col width="10%"><col width="10%">
 										</colgroup>
 										<thead>
 											<tr>
+												<th></th>
 												<th>#</th>
 												<th>Content Name</th>
 												<th>Date</th>
@@ -94,15 +99,17 @@
 										<tbody>
 										<th:block th:each="ContentInfo, status: ${contentInfo}">
 											<tr class="odd">
-												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${ContentInfo.id}]]</strong></td>
+												<!--td class="dtr-control sorting_1" tabindex="0"><strong>[[${ContentInfo.id}]]</strong></td-->
+												<td></td>
+												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${status.size - status.index}]]</strong></td>
 												<td>[[${ContentInfo.name}]]</td>
 												<td>[[${ContentInfo.regDate}]]</td>
-												<td th:onclick="createNew(900,600,[[${ContentInfo.id}]])"><a href="#" class="btn btn-primary btn-sm">보기</a></td>
-												<td>
-													<a href="#" class="btn btn-primary btn-sm">Edit</a>
+												<td th:onclick="createNew(900,600,[[${ContentInfo.id}]])"><input type="button" value="보기" class="popUp"/></td>
+												<td th:onclick="update(900,900,[[${ContentInfo.id}]])">
+													<input type="button" value="수정" class="btn btn-primary btn-sm"/>
 												</td>
 												<td>
-													<a href="#" class="btn btn-primary btn-sm">Del</a>
+													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
 											</th:block>
@@ -112,9 +119,7 @@
 								</div>
 								<div class="row" >
 									<div class="col-sm-12 col-md-3">
-										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite">Showing 1 to 10 of 15 entries</div>
-									</div>
-									
+									</div>		
 									<div class="col-sm-12 col-md-6 ">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
 											<ul class="pagination">
@@ -133,7 +138,7 @@
 											</ul>
 										</div>
 									</div>
-									<div class="col-sm-12 col-md-3 newbtnwrap">
+									<div class="col-sm-12 col-md-2 newbtnwrap">
 										<a href="/adminOnClass/contentNew" class="btn btn-primary btn-sm newbtn">등록하기</a>
 									</div>
 								</div>
