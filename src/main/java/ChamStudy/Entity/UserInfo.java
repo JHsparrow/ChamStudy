@@ -32,17 +32,21 @@ import lombok.ToString;
 @EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
 @Table(name="user_info") 
 @Getter
-@Setter@SequenceGenerator(
+@Setter
+@SequenceGenerator(
         name="USER_GEN_GEN", //기수제 시퀸스 
         sequenceName="USER_SEQ", //시퀀스 이름
-        initialValue=1 //시작값
+        initialValue=10001 //시작값
         )
 @ToString
 public class UserInfo {
 	
 	@Id
 	@Column(name="user_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(
+            strategy=GenerationType.SEQUENCE, //사용할 전략을 시퀀스로  선택
+            generator="USER_GEN_GEN" //식별자 생성기를 설정해놓은  USER_SEQ_GEN으로 설정        
+            )
 	private Long id;
 	
 	@Column(name="user_email")

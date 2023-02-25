@@ -34,6 +34,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
 		return StringUtils.isEmpty(searchQuery) ? null : QUserInfo.userInfo.name.like("%" + searchQuery + "%");
 	}
 	
+	
 	@Override
 	public Page<UserListDto> getUserPage(UserSearchDto userSearchDto,UserInfoDto userInfoDto, Pageable pageable) {
 		QUserInfo userInfo = QUserInfo.userInfo;

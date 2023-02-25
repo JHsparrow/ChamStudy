@@ -2,6 +2,8 @@ package ChamStudy.Service;
 
 
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
@@ -64,6 +66,11 @@ public class UserService implements UserDetailsService{
 		return userRepository.getUserPage(userSearchDto, userInfoDto, pageable); 
 	}
 
+	//회원탈퇴
+	public void deleteUser(Long id) {
+		UserInfo userInfo = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+		userRepository.delete(userInfo);
+	}
 	
 	
 	
