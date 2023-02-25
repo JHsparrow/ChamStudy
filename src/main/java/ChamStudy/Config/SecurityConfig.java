@@ -25,8 +25,8 @@ public class SecurityConfig {
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	private PrincipalOauth2UserService principalOauth2UserService;
+	//@Autowired
+	//private PrincipalOauth2UserService principalOauth2UserService;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,8 +47,11 @@ public class SecurityConfig {
 			//tip.로그인이 완료가 되면 코드를 받는게 아니라
 			//토큰과 사용자 프로필 정보만 따로 받는다.
 			.oauth2Login() //구글 로그인 설정
-			.userInfoEndpoint()
-			.userService(principalOauth2UserService); //값이 없거나 이상하면 오류가 뜸
+			.userInfoEndpoint();
+		
+		//(용수) 참조 사이클 에러 원인. 서로를 참조한다. => 잘못된 구글 계정값을 받을때 처리 해 주는 애임.
+		//구글 값이 에러가 날 이유가 있는지..?
+//			.userService(principalOauth2UserService); //값이 없거나 이상하면 오류가 뜸
 		
 		/*/구글 로그인 설정 파일 참고용/
 		 * http .csrf().disable() .headers().frameOptions().disable() .and()
