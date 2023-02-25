@@ -18,10 +18,29 @@
 <link th:href="@{/css/community/a-comm.css}" rel="stylesheet">
 
 <title>Blank Page | AdminKit Demo</title>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault();
+				page(0);
+			});
+		});
+
+		function page(page) {
+			var searchBy = $("#searchBy").val();
+			var searchQuery = $("#searchQuery").val();
+
+			location.href = "/adminForm/comm/" + page + "?searchBy=" + searchBy
+					+ "&searchQuery=" + searchQuery;
+		}
+	</script>
+</th:block>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="main">
+
 			<main class="content">
 				<div class="container-fluid p-0">
 					<h1 class="h3 mb-3">커뮤니티</h1>
@@ -36,9 +55,10 @@
 								</button>
 								<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 									<div class="navbar-nav">
-										<a class="nav-link" href="/adminForm/comm">자유게시판</a> <a
-											class="nav-link" href="/adminForm/comm/mento">멘토게시판</a> <a
-											class="nav-link" href="/adminForm/comm/qna" style="background-color: #007bff; border-radius: 7px; color: #fff;">QnA게시판</a>
+										<a class="nav-link" id="nav-link1" href="/adminForm/comm">자유게시판</a>
+										<a class="nav-link" id="nav-link2"
+											href="/adminForm/comm/mento">멘토게시판</a> <a class="nav-link"
+											id="nav-link3" href="/adminForm/comm/qna" style="background-color: #007bff; border-radius: 7px; color: #fff;">QnA게시판</a>
 									</div>
 								</div>
 							</div>
@@ -62,11 +82,14 @@
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter"
 											style="text-align: right">
+											<form th:action="@{/adminForm/comm/qna}" method="get" role="search">
 											<label class="d-flex justify-content-end"> <span></span>
 												<input type="search"
-												class="form-control form-control-sm width30" placeholder="Search:"
-												aria-controls="datatables-orders">
+												class="form-control form-control-sm width30"
+												placeholder="검색창" aria-controls="datatables-orders"
+												name="searchQuery" th:value="${commSearchDto.searchQuery}">
 											</label>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -108,8 +131,7 @@
 											</thead>
 											<!-- each로 자유게시판 데이터 전부 로드 -->
 											<th:block class="comm-each-wrap"
-												th:each="comm, status: ${comms}"
-												th:if="${comm.id} == ${comm.oriId}">
+												th:each="comm, status: ${comms}">
 												<tbody>
 													<tr class="odd">
 														<td class="comm-td1"><a
@@ -122,7 +144,7 @@
 														<td class="comm-td4"><a
 															th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.userInfo.name}]]</a></td>
 														<td class="comm-td5"><a
-															th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.regdate}]]</a></td>
+															th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.regDate}]]</a></td>
 														<td class="comm-td6"><a
 															th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.viewCount}]]</a></td>
 														<td><a
@@ -143,20 +165,29 @@
 									<div class="col-sm-12 col-md-7">
 										<div
 											class="dataTables_paginate paging_simple_numbers block-27"
-											id="datatables-orders_paginate">
+											id="datatables-orders_paginate"
+											th:with="start=${(comms.number/maxPage)*maxPage + 1}, end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage - 1) : comms.totalPages)})">
 											<ul class="pagination">
 												<li class="paginate_button page-item previous disabled mx-1"
-													id="datatables-orders_previous"><a href="#"
+													id="datatables-orders_previous"
+													th:classappend="${comms.first}? 'disabled'">
+													<a
+													th:href="@{'/adminForm/comm' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page=' +${comms.number-1}}"
 													aria-controls="datatables-orders" data-dt-idx="0"
-													tabindex="0" class="page-link">&lt </a></li>
-												<li class="paginate_button page-item active  mx-1"><a
-													href="#" aria-controls="datatables-orders" data-dt-idx="1"
-													tabindex="0" class="page-link">1</a></li>
-												<li class="paginate_button page-item  mx-1 "><a
-													href="#" aria-controls="datatables-orders" data-dt-idx="2"
-													tabindex="0" class="page-link">2</a></li>
+													tabindex="0" class="page-link">&lt </a>
+												</li>
+												<li class="paginate_button page-item active  mx-1"
+													th:each="page, status:${#numbers.sequence(start,end)}"
+													th:classappend="${comms.number eq page-1}? 'active':''"><a
+													th:href="@{'/adminForm/comm' + '?searchQuery='+${commSearchDto.searchQuery} + '&page=' +${page-1}}"
+													aria-controls="datatables-orders" data-dt-idx="1"
+													tabindex="0" class="page-link">[[${page}]]</a></li>
+													
+													
 												<li class="paginate_button page-item next"
-													id="datatables-orders_next  mx-1"><a href="#"
+													id="datatables-orders_next  mx-1"
+													th:classappend="${comms.last}? 'disabled'"><a
+													th:href="@{'/adminForm/comm' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page='+${comms.number+1} }"
 													aria-controls="datatables-orders" data-dt-idx="3"
 													tabindex="0" class="page-link">&gt</a></li>
 											</ul>

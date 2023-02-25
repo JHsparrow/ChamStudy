@@ -47,5 +47,6 @@ public class Comm_Board extends BaseTimeEntity{
 	@JoinColumn(name = "user_id")
 	private UserInfo userId; //작성자
 	
-	private int viewCount; //조회수
+	private Integer viewCount; //조회수
+	
 }
