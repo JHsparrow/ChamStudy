@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.OnContentDto;
 import ChamStudy.Dto.OnContentVideoDto;
 import ChamStudy.Dto.VideoDto;
@@ -41,12 +42,23 @@ public class AdminContentController {
 		
 		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo", contentInfo);
-		
 		return "/AdminForm/AdminOnClass/contentList";
 	}
 	
-	@GetMapping(value = "/adminOnClass/contentVideo") //콘텐츠비디오 관리페이지
-	public String contentVideo() {	
+	@GetMapping(value = "/adminOnClass/contentVideoList/{contentId}") //콘텐츠비디오 교안보기 리스트
+	public String contentVideoList(@PathVariable("contentId") ContentInfo contentId, Model model) {	
+		List<ContentVideo> videoLists = videoService.videoList(contentId);
+		model.addAttribute("videoLists",videoLists);
+		return "/AdminForm/AdminOnClass/contentVideoList";
+	}
+	
+	@GetMapping(value = "/adminOnClass/video/{videoUrl}") //콘텐츠비디오 재생페이지
+	public String showContentVideo(@PathVariable("videoUrl") String videoUrl, Model model) {	
+		Long contentId = videoService.getContentId(videoUrl);
+		String url = videoService.getContentUrl(videoUrl);
+		videoService.createStudyHistory(videoUrl,contentId);
+		model.addAttribute("contentId",contentId);
+		model.addAttribute("videoUrl",url);
 		return "/AdminForm/AdminOnClass/contentVideo";
 	}
 	
@@ -63,24 +75,19 @@ public class AdminContentController {
 	
 	@PostMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentNew(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model) {
-		
+		MessageDto message;
 		if(bindingResult.hasErrors()) {
 			return "/AdminForm/AdminOnClass/contentNew";
 		}
-		
 		try {
-			if(0 < onContentService.saveOnContent(onContentDto)) {
-				model.addAttribute("errorMessage", "콘텐츠 등록이 성공적으로 등록되었습니다!");
-				return "/AdminForm/AdminOnClass/contentNew";
-			} else {
-				model.addAttribute("errorMessage", "콘텐츠 등록이 실패했습니다!");
-				return "/AdminForm/AdminOnClass/contentNew";
-			}
+			onContentService.saveOnContent(onContentDto);
+			ContentInfo conId = onContentService.getLastContentId();
+			videoService.insertVideoData(conId,5);
+			message = new MessageDto("콘텐츠 등록이 완료되었습니다.", "/adminOnClass/contents");
 		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMessage", "콘텐츠 등록 중 에러가 발생했습니다.");
-			return "/AdminForm/AdminOnClass/contentNew";
+			message = new MessageDto("콘텐츠 등록이 실패하였습니다.", "/AdminForm/AdminOnClass/contentNew");
 		}
+		return showMessageAndRedirect(message, model);
 	}
 	
 	@GetMapping(value = "/adminOnClass/contentUpdate/{contentId}") //수정할 컨텐츠 조회
@@ -110,5 +117,10 @@ public class AdminContentController {
 			model.addAttribute("onContentDto", new OnContentDto());
 			return "/AdminForm/AdminOnClass/contentList";
 		}
+	}
+	
+	private String showMessageAndRedirect(final MessageDto params, Model model) {
+        model.addAttribute("params", params);
+        return "common/messageRedirect";
 	}
 }

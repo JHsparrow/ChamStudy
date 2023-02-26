@@ -21,7 +21,7 @@
 			popupX += window.screenLeft;
 			var popupY= (window.screen.height / 2) - (h / 2); 	
 			
-			window.open("/adminOnClass/contentVideo/"+contentId, "_blank", 'width='+w+', height='+h+', left='+ popupX + ', top='+ popupY);
+			window.open("/adminOnClass/contentVideoList/"+contentId, "_blank", 'width='+w+', height='+h+', left='+ popupX + ', top='+ popupY);
 			
 			return false;
 		}
@@ -81,34 +81,33 @@
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
-										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 										<colgroup> <!-- 너비 계산하기  -->
-											<col width="10%"><col width="10%"><col width="30%"><col width="20%">
-											<col width="10%"><col width="10%">
+											<col width="10%"><col width="30%"><col width="30%"><col width="10%"><col width="10%">
 										</colgroup>
 										<thead>
 											<tr>
-												<th></th>
-												<th>#</th>
+												<th>아이디</th>
 												<th>Content Name</th>
 												<th>Date</th>
+												<th>진도율</th>
 												<th>교안</th>
-												<th>수정</th>
-												<th>삭제</th>
+												<th>컨트롤</th>
 										</thead>
 										<tbody>
 										<th:block th:each="ContentInfo, status: ${contentInfo}">
 											<tr class="odd">
-												<!--td class="dtr-control sorting_1" tabindex="0"><strong>[[${ContentInfo.id}]]</strong></td-->
-												<td></td>
-												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${status.size - status.index}]]</strong></td>
+												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${ContentInfo.id}]]</strong></td>
 												<td>[[${ContentInfo.name}]]</td>
 												<td>[[${ContentInfo.regDate}]]</td>
-												<td th:onclick="createNew(900,600,[[${ContentInfo.id}]])"><input type="button" value="보기" class="popUp"/></td>
-												<td th:onclick="update(900,900,[[${ContentInfo.id}]])">
-													<input type="button" value="수정" class="btn btn-primary btn-sm"/>
-												</td>
 												<td>
+													<div class="progress">
+													  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+													</div>
+												</td>
+												<td th:onclick="createNew(900,600,[[${ContentInfo.id}]])"><input type="button" value="보기" class="popUp"/></td>
+												<td>
+													<button th:onclick="update(900,900,[[${ContentInfo.id}]])" type="button" class="btn btn-primary btn-sm">수정</button>
 													<a href="#" class="btn btn-primary btn-sm">삭제</a>
 												</td>
 											</tr>
@@ -147,6 +146,11 @@
 					</div>
 				</div>
 			</main>
+			<script>
+				$(function(){
+					$('#progressbar').css('width','50%');
+				})
+			</script>
 		</div>
 		</form>
 	</div>
