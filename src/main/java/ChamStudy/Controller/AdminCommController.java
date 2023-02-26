@@ -14,12 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ChamStudy.Dto.AdminMainCommDto;
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommSearchDto;
 import ChamStudy.Dto.MainCommDto;
-import ChamStudy.Entity.Comm_Board;
+import ChamStudy.Dto.MessageDto;
 import ChamStudy.Service.AdminCommService;
 import ChamStudy.Service.CommSearchService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,8 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	private final AdminCommService adminCommService;
 	private final CommSearchService commSearchService;
 
-	@GetMapping(value = "/comm") // 관리자 커뮤니티 게시판 메인겸 자유게시판 관리
-	public String commMain(Model model,CommSearchDto commSearchDto,Optional<Integer> page,AdminMainCommDto adminMainCommDto) {
+	@GetMapping(value = {"/comm","comm/{page}"}) // 관리자 커뮤니티 게시판 메인겸 자유게시판 관리
+	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page") Optional<Integer> page,AdminMainCommDto adminMainCommDto) {
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
 		Page<AdminMainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, adminMainCommDto ,pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
@@ -92,13 +93,16 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		return "AdminForm/AdminComm/comm-Dtl-Form";
 	}
 
-	@GetMapping(value = "/comm/delete") // 게시글 삭제
-	public String commDelete(Long boardId, HttpServletRequest request) throws Exception {
-		adminCommService.commDelete(boardId);
-		// 게시글 삭제 후 삭제 버튼 누른 페이지로 이동하기 위해 추가한 메소드
-		String referer = request.getHeader("Referer");
-		request.getSession().setAttribute("redirectURI", referer);
-		return "redirect:" + referer;
+	@GetMapping(value = "/comm/delete") // 게시글 삭제&댓글 삭제
+	public String commDelete(Long boardId, HttpServletRequest request,Model model) throws Exception {
+		MessageDto message;
+		try {
+			adminCommService.commDelete(boardId);
+			message = new MessageDto("글 삭제이 완료되었습니다.", "/adminForm/comm");
+		} catch (Exception e) {
+			message = new MessageDto("글 삭제이 실패되었습니다.", "/adminForm/comm");
+		}
+		return showMessageAndRedirect(message, model);
 	}
 	
 	@GetMapping(value = "/comm/back")
@@ -108,20 +112,23 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		String link = referer.replace("http://localhost/adminForm/", "");
 	    return "redirect:/adminForm/" + link;
 	}
-	
-	//미완성
-	@GetMapping(value = "/comm/deletedtl") // 게시글 상세 페이지에서 삭제 
-	public String commDelete2(Long boardId) throws Exception {
-		adminCommService.commDelete(boardId);
-	    return "redirect:/adminForm/comm";
-	}
 
-	@GetMapping(value = "/comm/block") // 게시글 상세 페이지에서 삭제 
-	public String commBlock(Long boardId, HttpServletRequest request) throws Exception {
+	@GetMapping(value = "/comm/block") // 게시글 상세 페이지에서 차단 
+	public String commBlock(@RequestParam(value = "boardId") Long boardId, HttpServletRequest request,Model model) throws Exception {
+		MessageDto message;
 		adminCommService.commBlock(boardId);
-		String referer = request.getHeader("Referer");
-		request.getSession().setAttribute("redirectURI", referer);
-		return "redirect:" + referer;
+		try {
+			adminCommService.commBlock(boardId);
+			message = new MessageDto("글 차단이 완료되었습니다.", "/adminForm/comm");
+		} catch (Exception e) {
+			message = new MessageDto("글 차단이 실패되었습니다.", "/adminForm/comm");
+		}
+		return showMessageAndRedirect(message, model);
 	}
 
+	private String showMessageAndRedirect(final MessageDto params, Model model) {
+        model.addAttribute("params", params);
+        return "common/messageRedirect";
+	}
+	
 }

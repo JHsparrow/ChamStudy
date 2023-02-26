@@ -69,28 +69,25 @@
 								<div class="row">
 									<div class="col-sm-12 col-md-6">
 										<div class="dataTables_length" id="datatables-orders_length">
-											<select name="datatables-orders_length"
-												aria-controls="datatables-orders"
-												class="form-select form-select-sm width30">
-												<option value="10">10</option>
-												<option value="25">25</option>
-												<option value="50">50</option>
-												<option value="100">100</option>
-											</select>
+											
 										</div>
 									</div>
-									<div class="col-sm-12 col-md-6">
-										<div id="datatables-orders_filter" class="dataTables_filter"
-											style="text-align: right">
-											<form th:action="@{/adminForm/comm/qna}" method="get" role="search">
-											<label class="d-flex justify-content-end"> <span></span>
-												<input type="search"
-												class="form-control form-control-sm width30"
-												placeholder="검색창" aria-controls="datatables-orders"
-												name="searchQuery" th:value="${commSearchDto.searchQuery}">
-											</label>
-											</form>
-										</div>
+									<div class="d-flex justify-content-center"
+										th:object="${commSearchDto}" style="height: 40px;">
+										<!-- 상품 등록일 -->
+										<!-- 상품명, 등록자 선택 -->
+										<select th:field="*{searchBy}" class="form-select"
+											style="width: auto;">
+											<option value="substance">글 내용</option>
+											<option value="name">작성자</option>
+											<option value="Title">글 제목</option>
+										</select>
+										<!-- 검색창 -->
+										<input type="text" th:field="*{searchQuery}"
+											class="form-control" placeholder="검색어 입력"
+											style="width: auto;">
+										<button id="searchBtn" type="submit"
+											class="btn btn-primary mb-3" style="height: 100%;">검색</button>
 									</div>
 								</div>
 								<div class="row">
