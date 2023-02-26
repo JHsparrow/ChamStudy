@@ -75,12 +75,12 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
-				.where(commNmLike(commSearchDto.getSearchQuery())).where(comm.gubun.eq("B"), comm.boardType.eq("F"))
+				.where(comm.gubun.eq("B"), comm.boardType.eq("F")).where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()))
 				.orderBy(comm.regDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
 		long total = queryFactory.select(Wildcard.count).from(comm).leftJoin(comm_Board_Img)
 				.on(comm.id.eq(comm_Board_Img.id))
-				.where(commNmLike(commSearchDto.getSearchQuery()), comm.gubun.eq("B"), comm.boardType.eq("F"))
+				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()), comm.gubun.eq("B"), comm.boardType.eq("F"))
 				.fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
@@ -97,11 +97,11 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
-				.where(commNmLike(commSearchDto.getSearchQuery())).where(comm.gubun.eq("B"), comm.boardType.eq("Q"))
+				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery())).where(comm.gubun.eq("B"), comm.boardType.eq("Q"))
 				.orderBy(comm.regDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
 		long total = queryFactory.select(Wildcard.count).from(comm).leftJoin(comm_Board_Img)
-				.on(comm.id.eq(comm_Board_Img.id)).where(commNmLike(commSearchDto.getSearchQuery()))
+				.on(comm.id.eq(comm_Board_Img.id)).where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()))
 				.where((comm.gubun.eq("B"))).where(comm.boardType.eq("Q")).fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
@@ -118,11 +118,11 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
-				.where(commNmLike(commSearchDto.getSearchQuery()), comm.gubun.eq("B"), comm.boardType.eq("M"))
+				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()), comm.gubun.eq("B"), comm.boardType.eq("M"))
 				.orderBy(comm.regDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
 		long total = queryFactory.select(Wildcard.count).from(comm).leftJoin(comm_Board_Img)
-				.on(comm.id.eq(comm_Board_Img.id)).where(commNmLike(commSearchDto.getSearchQuery()))
+				.on(comm.id.eq(comm_Board_Img.id)).where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()))
 				.where(comm.gubun.eq("B")).where(comm.boardType.eq("M")).fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
