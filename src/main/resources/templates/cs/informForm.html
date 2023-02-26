@@ -36,6 +36,20 @@
 			$('#btn_cancel3').hide();
 		})
 	})
+	
+	 function bindDomEvent(){
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+            fileExt = fileExt.toLowerCase(); //소문자 변환
+
+            if(fileExt == "jpg" && fileExt == "jpeg" && fileExt == "gif" && fileExt == "png" && fileExt == "bmp"){
+                alert("등록이 불가한 파일입니다.");
+                return;
+            }
+
+            $(this).siblings(".custom-file-label").html(fileName);
+        });
 
 </script>
 
@@ -61,17 +75,19 @@
 									<form action="uploadInform" method="post" enctype="multipart/form-data" th:object="${csInformDto}">
 										<input type="hidden" th:field="*{id}"/>
 										<input type="hidden" th:field="*{viewCount}"/>
+										<input type="hidden" name="userInfo" th:value="${email}"/>
+										
 										<div class="card-body">
 											<div class="mb-3">
 												<span>제목</span>
 												<input type="text" class="form-control" th:field="*{title}" placeholder="제목을 입력해 주세요.">
 												<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">제목을 입력해 주세요.</p>
 											</div>
-											<div>
-												<span>상단 고정 여부</span>
+											<div class="d-flex">
+												<span class="me-4">상단 고정 여부</span>
 												<label class="form-check">
 													<input class="form-check-input" type="radio" th:field="*{gubun}" value="f" name="radios-example">
-													<span class="form-check-label">고정함</span>
+													<span class="form-check-label me-2">고정함</span>
 												</label>
 												<label class="form-check">
 													<input class="form-check-input" type="radio" th:field="*{gubun}" value="n" name="radios-example">
@@ -91,17 +107,17 @@
 											
 											<div class="mb-3">
 												<label for="formFile" class="form-label d-block">첨부파일 1</label>
-												<input class="form-control w-75 d-inline-block" type="file" id="formFile1" name="csInformFile" onchange="changeDisplay('1')" >
+												<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formFile1" name="csInformFile" onchange="changeDisplay('1')" >
 												<i id="btn_cancel1" class="fa-solid fa-xmark cancelbtn"></i>
 											</div>
 											<div class="mb-3">
 												<label for="formFile" class="form-label d-block">첨부파일 2</label>
-												<input class="form-control w-75 d-inline-block" type="file" id="formFile2" name="csInformFile" onchange="changeDisplay('2')">
+												<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formFile2" name="csInformFile" onchange="changeDisplay('2')">
 												<i id="btn_cancel2" class="fa-solid fa-xmark cancelbtn"></i>
 											</div>
 											<div class="mb-3">
 												<label for="formFile" class="form-label d-block">첨부파일 3</label>
-												<input class="form-control w-75 d-inline-block" type="file" id="formFile3" name="csInformFile" onchange="changeDisplay('3')">
+												<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formFile3" name="csInformFile" onchange="changeDisplay('3')">
 												<i id="btn_cancel3" class="fa-solid fa-xmark cancelbtn"></i>
 											</div>
 											

@@ -90,3 +90,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     color: #ffff;
 }
 .btn-close{color: #fff;  opacity: 1;}
+
+.underline{
+	text-decoration: none;
+	color: black;	
+}
+
+.fixedInform{
+	background-color: #5fa7fb40;
+}

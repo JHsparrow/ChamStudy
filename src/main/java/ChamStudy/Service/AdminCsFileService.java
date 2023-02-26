@@ -60,5 +60,12 @@ public class AdminCsFileService {
 		}
 	}
 	
+	//파일 삭제
+	public void deleteInformFile(Long id) {
+		CsInformFile csInformFile = adminCsFileRepository.findById(id)
+														 .orElseThrow(EntityNotFoundException::new);
+		adminCsFileRepository.delete(csInformFile);
+	}
+	
 	
 }

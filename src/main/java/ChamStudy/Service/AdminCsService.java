@@ -88,5 +88,23 @@ public class AdminCsService {
 	public Page<CsInformListDto> getInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){
 		return adminCsRepository.getInformList(userSearchDto, csInformListDto, pageable);
 	}
-
+	
+	
+	//공지사항 상단 고정 리스트 가져오기
+	@Transactional(readOnly = true)
+	public Page<CsInformListDto> getFixedInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){
+		return adminCsRepository.getFixedInformList(userSearchDto, csInformListDto, pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public int NumberOfFixed() {
+		return adminCsRepository.findByGubun();
+	}
+	
+	public void deleteInform(Long id) {
+		CsInform csInform = adminCsRepository.findById(id)
+											 .orElseThrow(EntityNotFoundException::new);
+		adminCsRepository.delete(csInform);
+		
+	}
 }
