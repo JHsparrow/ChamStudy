@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+
+	<title>참스터디</title>
+	
+	<script type="text/javascript">
+	
+		$(document).ready(function(){ //페이지가 로딩이 완료 되었을 때 자동으로 호출된다
+	    	
+			//change이벤트를 호출하기 위해 함수 호출
+		    $('#inputSearch').on('keydown', function(event) {
+		        var keycode = (event.keyCode ? event.keyCode : event.which);
+		        if(keycode == '13') {
+		        	var frmObj = $('#frmClassList');
+		    		frmObj.attr('method', 'post');
+		    		frmObj.attr('action','/adminClass/classList');
+		    		frmObj.submit();
+		    		return false;
+		        } else {
+		        	return true;
+		        }
+		    });
+		    
+			
+		    $('.btn-class-upd').on('click', function(e) {
+ 				var btnUpdIndex = $('.btn-class-upd').index(this); //클릭한 수정 버튼의 index 확인. start index by 0
+ 				var id = $("input[name=id]:eq(" + btnUpdIndex + ")").val(); //화면에 표시된 class id 배열 가져오기
+ 				
+ 				if (confirm('정말로 수정하시겠습니까?')) {
+ 					$(location).attr('href', '/adminClass/classUpdate?id=' + id);
+ 				}
+			}); 
+		    
+ 			$('.btn-class-del').on('click', function(e) {
+ 				var btnDelIndex = $('.btn-class-del').index(this); //클릭한 삭제 버튼의 index 확인. start index by 0
+ 				
+ 				if (confirm('정말로 삭제하시겠습니까?')) {
+ 					$('#delIndex').val(btnDelIndex); //서버에 클릭한 삭제 버튼의 index 전달
+ 					
+					var mainFrm = $('#frmClassList');
+					mainFrm.attr('action', '/adminClass/classDelete');
+					mainFrm.attr('method', 'post');
+					mainFrm.submit();
+ 				}
+ 				else {
+ 					$('#delIndex').val(-1); //서버에 클릭한 삭제 버튼의 index 초기화
+ 				}
+			}); 
+			
+		});
+    
+	</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<form id="frmClassList" class="row g-3" method="post">
+		<div style="display: none;">
+			<input type="hidden" id="delIndex" name="delIndex" value="-1" />
+		</div>
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h1 class="h3 mb-3">Class Page</h1>
+					<div class="card">
+						<div class="card-header pb-0">
+							<div class="card-actions float-end">
+								<div class="dropdown position-relative">
+									<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+									</a>
+
+									<div class="dropdown-menu dropdown-menu-end">
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<h5 class="card-title mb-1">Orders</h5>
+						</div>
+						<div class="card-body">
+							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+								<div class="row">
+									<div class="col-sm-12 col-md-6">
+										<div class="dataTables_length" id="datatables-orders_length">
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
+											<label class="d-flex justify-content-end">
+												<input type="text" id="inputSearch" name="name" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
+										<colgroup> <!-- 너비 계산하기  -->
+											<col width="10%"><col width="30%"><col width="30%"><col width="10%"><col width="10%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>번호</th>
+												<th>콘텐츠</th>
+												<th>강의명</th>
+												<th>등록일</th>
+												<th colspan='2'>구분</th>
+										</thead>
+										<tbody th:each="ClassInfo, status: ${classInfo}">
+											<!--th:block th:each="ClassInfo, status: ${classInfo}"-->
+											<tr class="odd">
+												<input type="hidden" name="id" th:value="${ClassInfo.id}" />
+												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${ClassInfo.id}]]</strong></td>
+												<td><a href="#">콘텐츠명</a></td>
+												<td>[[${ClassInfo.name}]]</td>
+												<td>[[${ClassInfo.regDate}]]</td>
+												<td>
+													<input type="button" class="btn btn-primary btn-sm btn-class-upd" value="수정" />
+												</td>
+												<td>
+													
+													<input type="button" class="btn btn-primary btn-sm btn-class-del" value="삭제" />
+												</td>												
+											</tr>
+											<!--/th:block-->
+										</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="row" >
+									<div class="col-sm-12 col-md-3">
+									</div>
+									
+									<div class="col-sm-12 col-md-6 ">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+											<ul class="pagination">
+												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												</li>
+												<li class="paginate_button page-item active  mx-1">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+												</li>
+												<li class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+													<a href="#" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<a href="/adminClass/classNew" class="btn btn-primary btn-sm newbtn">등록하기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+		</form>
+	</div>
+</body>
+</html>
