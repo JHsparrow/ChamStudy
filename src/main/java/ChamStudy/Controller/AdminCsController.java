@@ -71,20 +71,13 @@ public class AdminCsController {
 	}
 	
 	//작성하기 버튼 클릭
-<<<<<<< HEAD
 	@GetMapping(value = "/informForm")
 	public String createInform(Model model) {
 		model.addAttribute("csInformDto", new CsInformDto());
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
 		return "cs/informForm";
-=======
-	@GetMapping(value = "/createInform")
-	public String createInform(Model model) {
-		model.addAttribute("csInformDto", new CsInformDto());
-		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
-		return "cs/createInform";
->>>>>>> cdc50b072a669073f53cc6e9258335863c9a3619
 	}
+
 	
 	//공지사항 등록 버튼
 	@PostMapping(value = "/uploadInform")
