@@ -24,7 +24,7 @@ public class Comm_Board_Img extends BaseTimeEntity{ //게시판 이미지
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //게시판 이미지 식별자
 	
-	private String url; //이미지 링크
+	private String imgUrl; //이미지 링크
 	
 	private String name; //이미지 이름
 	
@@ -34,10 +34,10 @@ public class Comm_Board_Img extends BaseTimeEntity{ //게시판 이미지
 	@JoinColumn(name = "board_id")
 	private Comm_Board board; //게시판 식별자
 	
-	public void updateBoardImg(String oriName, String name, String url) {
+	public void updateBoardImg(String oriName, String name, String imgUrl) {
 		this.oriName = oriName;
 		this.name = name;
-		this.url = url;
+		this.imgUrl = imgUrl;
 }
 	
 }

@@ -17,19 +17,7 @@ import lombok.Setter;
 public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 
 	//service에서 view에 보여줄 entity들 여기 담아서 view로 보내준다.
-	@QueryProjection
-	public AdminMainCommDto(Comm_Board comm_Board) {  
-		this.id = comm_Board.getId();
-		this.boardType = comm_Board.getBoardType();
-		this.Title = comm_Board.getTitle();
-		this.substance = comm_Board.getSubstance();
-		this.gubun = comm_Board.getGubun();
-		this.viewCount = comm_Board.getViewCount();
-		this.userInfo = comm_Board.getUserId();
-		this.regdate = comm_Board.getRegDate();
-		this.blockComment = comm_Board.getBlockComment();
-		this.openChat = comm_Board.getOpenChat();
-	}
+	
 	private Long id;
 	
 	private String Title;
@@ -42,20 +30,29 @@ public class AdminMainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String substance;
 	
-	private int viewCount;
+	private Integer viewCount;
 	
-	private String regdate;
+	private String regDate;
 	
 	private String blockComment;
 	
 	private String openChat;
 	
-	private List<CommImgDto> commImgDtos = new ArrayList<>();
+	private String imgUrl;
 	
-	private static ModelMapper modelMapper = new ModelMapper();
-	//이미지는 따로 담아야해서 따로 메소드를 만들어주었다.
-	public static CommImgDto of(Comm_Board board) {
-		return modelMapper.map(board, CommImgDto.class);
+	@QueryProjection
+	public AdminMainCommDto(Long id, String Title, String boardType, UserInfo userInfo, String gubun, String substance, Integer viewCount, String regDate, String blockComment, String openChat, String imgUrl) {  
+		this.id = id;
+		this.Title = Title;
+		this.boardType = boardType;
+		this.userInfo = userInfo;
+		this.gubun = gubun;
+		this.substance = substance;
+		this.viewCount = viewCount;
+		this.regDate = regDate;
+		this.blockComment = blockComment;
+		this.openChat = openChat;
+		this.imgUrl = imgUrl;
 	}
 	
 }

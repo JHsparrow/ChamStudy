@@ -1,5 +1,6 @@
 package ChamStudy.Controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,14 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,9 +101,9 @@ public class AdminUserController {
 	
 	//회원 리스트에 페이지 보여주기
 	@GetMapping(value = "userList")
-	public String userList(UserSearchDto userSearchDto,UserInfoDto userInfoDto, Optional<Integer> page, Model model) {
+	public String userList(UserSearchDto userSearchDto, UserInfoDto userInfoDto, Optional<Integer> page, Model model) {
 		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 15); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<UserListDto> users = userService.getUserPage(userSearchDto,userInfoDto, pageable);
 		
 		model.addAttribute("users", users);	//items는 page 객체임
@@ -119,6 +118,13 @@ public class AdminUserController {
 	public String userDetail (@PathVariable("id") Long Id, Model model) {
 		
 		return null;
+	}
+	
+	//회원탈퇴
+	@GetMapping(value = "delete/{id}")
+	public String userDelete(@PathVariable("id")Long id, Model model, Principal principal) {
+		userService.deleteUser(id);
+		return "redirect:/users/userList";
 	}
 	
 	

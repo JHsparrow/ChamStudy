@@ -2,49 +2,44 @@ package ChamStudy.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Table(name="content_video") //콘텐츠 비디어 테이블
-
-@Setter
+@Table(name = "study_history")
 @Getter
-@EntityListeners(value = {AuditingEntityListener.class})
-
-public class ContentVideo {
+@Setter
+@ToString
+public class StudyHistory extends BaseTimeEntity {
 	
 	@Id
-	@Column(name="video_id")
+	@Column(name = "history_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String name; 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "apply_id")
+	private ApplyList applyId;
 	
-	private String oriname;
-	
-	private String url;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "video_id")
+	private ContentVideo videoId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "content_id")
-	private ContentInfo contentInfo;
+	private ContentInfo contentId;
 	
-	@CreatedDate
-	@Column(updatable = false)
-	private String regDate;
-
+	
 }

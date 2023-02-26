@@ -100,6 +100,7 @@ public class AdminCsService {
 	public int NumberOfFixed() {
 		return adminCsRepository.findByGubun();
 	}
+<<<<<<< HEAD
 	
 	public void deleteInform(Long id) {
 		CsInform csInform = adminCsRepository.findById(id)
@@ -107,4 +108,6 @@ public class AdminCsService {
 		adminCsRepository.delete(csInform);
 		
 	}
+=======
+>>>>>>> cdc50b072a669073f53cc6e9258335863c9a3619
 }

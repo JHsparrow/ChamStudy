@@ -22,10 +22,20 @@ public class CommSearchService {
 	public Page<Comm_Board> getCommPage(CommSearchDto commSearchDto, Pageable pageable){
 		return commRepository.getAdminComm(commSearchDto, pageable);
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<AdminMainCommDto> getmainCommPage(CommSearchDto commSearchDto,AdminMainCommDto adminMainCommDto ,Pageable pageable){
+		return commRepository.getAdminMainCommDto(commSearchDto, adminMainCommDto ,pageable);
+	}
 
 	@Transactional(readOnly = true)
-	public Page<AdminMainCommDto> getmainCommPage(CommSearchDto commSearchDto, Pageable pageable){
-		return commRepository.getAdminCommDto(commSearchDto, pageable);
+	public Page<AdminMainCommDto> getQnACommPage(CommSearchDto commSearchDto,AdminMainCommDto adminMainCommDto ,Pageable pageable){
+		return commRepository.getAdminQnACommDto(commSearchDto, adminMainCommDto ,pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<AdminMainCommDto> getMentoCommPage(CommSearchDto commSearchDto,AdminMainCommDto adminMainCommDto ,Pageable pageable){
+		return commRepository.getAdminMentoCommDto(commSearchDto, adminMainCommDto ,pageable);
 	}
 	
 }

@@ -62,8 +62,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		
 		if(userEntity == null) {
 			userEntity = UserInfo.builder()
-					.name(username)
-					.email(email)
+					.name(email)
 					.password(password)
 					.phone(phone)
 					.role(role)

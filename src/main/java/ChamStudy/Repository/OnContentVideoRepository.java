@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
@@ -28,4 +29,17 @@ public interface OnContentVideoRepository extends JpaRepository<ContentVideo, Lo
 	 */
 	@EntityGraph(attributePaths = {"contentInfo"})
 	List<ContentVideo> findByContentInfo(ContentInfo contentInfo);
+	
+	
+	List<ContentVideo> findByContentInfoOrderById(ContentInfo contentInfo);
+	
+	@Query(value="select content_id from content_video where name = ?1 ",nativeQuery = true)
+	Long getContentId(String videoName); 
+	
+	@Query(value="select url from content_video where name = ?1 ",nativeQuery = true)
+	String getContentUrl(String videoUrl); 
+	
+	@Query(value="select * from content_video where name = ?1 ",nativeQuery = true)
+	ContentVideo getId(String videoName); 
+	
 }

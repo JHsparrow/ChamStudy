@@ -6,10 +6,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<th:block th:each="ContentVideo, status: ${contentVideoList}">
-	<p>[[ContentVideo.oriname]]</p>
-	<a href="@{${ContentVideo.url}}" class="btn btn-primary btn-sm">보여줘</a>
+	<video width="100%" height="480" controls>
+        <source th:src="${videoUrl}+'.mp4'">
+    </video>
 	<hr>
-	</th:block>
 </body>
 </html>
