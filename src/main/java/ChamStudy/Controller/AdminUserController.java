@@ -3,6 +3,7 @@ package ChamStudy.Controller;
 import java.security.Principal;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -75,6 +77,7 @@ public class AdminUserController {
 	@PostMapping(value = "/new")
 	public String addUser(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
 		
+		
 		if(bindingResult.hasErrors()) {
 			System.out.println("addUser 메소드 내 if문 오류");
 			return "users/user-sign-up";
@@ -109,6 +112,12 @@ public class AdminUserController {
 		model.addAttribute("users", users);	//items는 page 객체임
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
+		model.addAttribute("userListDto", new UserListDto());
+		
+		//org.springframework.security.core.userdetails.User [Username=test1@test.com, Password=[PROTECTED], Enabled=true, AccountNonExpi
+		Object user = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		System.out.println(user);
 		
 		return "users/user-list"; 
 	}
@@ -125,6 +134,35 @@ public class AdminUserController {
 	public String userDelete(@PathVariable("id")Long id, Model model, Principal principal) {
 		userService.deleteUser(id);
 		return "redirect:/users/userList";
+	}
+	
+	//회원정보 수정
+	@PostMapping(value = "update") 
+		public String updateUser(@Valid UserListDto userListDto,BindingResult bindingResult,
+				Model model) {
+		
+		System.out.println(userListDto.getEmail());
+		System.out.println(userListDto.getGubun());
+		System.out.println(userListDto.getName());
+		System.out.println(userListDto.getPassword());
+		System.out.println(userListDto.getPhone());
+		System.out.println(userListDto.getRegDate());
+		System.out.println(userListDto.getRole());
+		System.out.println(userListDto.getId());
+		
+		if(bindingResult.hasErrors()) {
+			return "users/user-list";
+		}
+		
+		try {
+			userService.updateUser(userListDto);
+		}catch (Exception e) {
+			model.addAttribute("errorMessage", "수정 중 에러 발생");
+			return "users/user-list";
+		}
+		
+			return "redirect://localhost/users/userList";
+		
 	}
 	
 	
