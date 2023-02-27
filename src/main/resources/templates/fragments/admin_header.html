@@ -9,7 +9,7 @@
 <body>
 	<nav id="sidebar" class="sidebar js-sidebar" th:fragment="header_side">
 		<div class="sidebar-content js-simplebar">
-			<a class="sidebar-brand" href="/"> <span class="align-middle">AdminKit</span>
+			<a class="sidebar-brand" href="/admin"> <span class="align-middle">AdminKit</span>
 			</a>
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">Pages</li>
@@ -52,6 +52,11 @@
 				<li class="sidebar-item" sec:authorize="isAuthenticated()">
 					<a class="sidebar-link" href="/users/logout">
 		            	<i class="align-middle" data-feather="book"> </i> <span class="align-middle">로그아웃</span>
+		            </a>
+				</li>
+				<li class="sidebar-item">
+					<a class="sidebar-link" href="/">
+		            	<i class="align-middle" data-feather="book"> </i> <span style="color: red;" class="align-middle">사용자 페이지 이동!!!</span>
 		            </a>
 				</li>
 				<!-- 로그인 테스트(김용수) end-->
