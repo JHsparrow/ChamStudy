@@ -3,16 +3,25 @@ package ChamStudy.Service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import ChamStudy.Dto.CategoryDto;
+import ChamStudy.Dto.ContentDto;
 import ChamStudy.Dto.OnContentDto;
+import ChamStudy.Entity.Category;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
+import ChamStudy.Entity.StudyHistory;
 import ChamStudy.Repository.OnContentRepository;
 import ChamStudy.Repository.OnContentVideoRepository;
+import ChamStudy.Repository.StudyHistortRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,6 +35,7 @@ public class OnContentService {
 	private final OnContentRepository onContentRepository;
 	private final OnContentVideoService onContentVideoService;
 	private final OnContentVideoRepository onContentVideoRepository;
+	private final StudyHistortRepository studyHistortRepository;
 	private final FileService fileService;
 	
 	
@@ -128,6 +138,23 @@ public class OnContentService {
 			onContentRepository.deleteById(contentId);
 			return 1;
 		}
+	}
+	
+	public Page<ContentDto> getAllContnetList(ContentDto contentDto,Pageable pageable){
+		return onContentRepository.getContentPage(contentDto, pageable);
+	}
+	
+	public void deleteContentInfo(Long contentId) throws Exception {
+		System.out.println(contentId);
+		List<StudyHistory> histories = studyHistortRepository.getHistoryList(contentId);
+		System.out.println("콘텐츠 비디오 : "+histories);
+		studyHistortRepository.deleteAll(histories);
+		
+		List<ContentVideo> contentVideo = onContentVideoRepository.getListContentId(contentId);  
+		onContentVideoRepository.deleteAll(contentVideo);
+		
+		ContentInfo contentInfo = onContentRepository.findById(contentId).orElseThrow(EntityNotFoundException::new);   
+		onContentRepository.delete(contentInfo);
 	}
 	
 }

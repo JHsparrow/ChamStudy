@@ -42,4 +42,8 @@ public interface OnContentVideoRepository extends JpaRepository<ContentVideo, Lo
 	@Query(value="select * from content_video where name = ?1 ",nativeQuery = true)
 	ContentVideo getId(String videoName); 
 	
+	
+	@Query(value="select * from content_video where content_id = ?1 ",nativeQuery = true)
+	List<ContentVideo> getListContentId(Long contentId);
+	
 }
