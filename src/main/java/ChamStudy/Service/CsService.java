@@ -88,7 +88,6 @@ public class CsService {
 			csFileService.updateFile(informFileIds.get(i), csInformFileList.get(i));
 		}
 		return csInform.getId();
-				
 	}
 	
 	//공지사항 첫 화면 리스트 가져오기
@@ -130,6 +129,36 @@ public class CsService {
 	@Transactional(readOnly = true)
 	public Page<CsFaqListDto> getFaqList (UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable){
 		return csFaqRepository.getFaqList(userSearchDto, csFaqListDto, pageable);
+	}
+	
+	//자주묻는질문 게시글 불러오기
+	@Transactional(readOnly = true)
+	public CsFaqDto getFaq(Long faqId) {
+		
+		//csInform 테이블에 있는 데이터를 가져온다.
+		CsFaq csFaq = csFaqRepository.findById(faqId)
+											 .orElseThrow(EntityNotFoundException::new);
+		
+		CsFaqDto csFaqDto = CsFaqDto.of(csFaq);
+		
+		return csFaqDto;
+	}
+	
+	//자주묻는질문 수정하기
+	public Long updateFaq(CsFaqDto csFaqDto) throws Exception {
+		CsFaq csFaq = csFaqRepository.findById(csFaqDto.getId())
+											 .orElseThrow(EntityNotFoundException::new);
+		csFaq.updateFaq(csFaqDto);
+		
+		return csFaq.getId();
+	}
+	
+	//자주묻는질문 삭제하기
+	public void deleteFaq(Long id) {
+		CsFaq csFaq = csFaqRepository.findById(id)
+											 .orElseThrow(EntityNotFoundException::new);
+		csFaqRepository.delete(csFaq);
+		
 	}
 
 }

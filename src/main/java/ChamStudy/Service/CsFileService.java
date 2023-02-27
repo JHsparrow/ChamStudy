@@ -1,5 +1,7 @@
 package ChamStudy.Service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -60,11 +62,19 @@ public class CsFileService {
 		}
 	}
 	
+	/*
 	//파일 삭제
 	public void deleteInformFile(Long id) {
 		CsInformFile csInformFile = adminCsFileRepository.findById(id)
 														 .orElseThrow(EntityNotFoundException::new);
 		adminCsFileRepository.delete(csInformFile);
+	}
+	*/
+	
+	//파일 리스트 삭제
+	public void deleteInformFile(Long id) {
+		List<CsInformFile> csInformFile = adminCsFileRepository.findByInformIdOrderByIdAsc(id);
+		adminCsFileRepository.deleteAll(csInformFile);
 	}
 	
 	

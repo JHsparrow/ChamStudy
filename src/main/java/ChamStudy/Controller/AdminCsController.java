@@ -162,9 +162,7 @@ public class AdminCsController {
 		
 		try {
 			CsInformDto csInformDto = csService.getInform(informId);
-			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(0).getId());
-			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(1).getId());
-			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(2).getId());
+			csFileService.deleteInformFile(informId);
 			csService.deleteInform(informId);
 			
 			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/inform");
@@ -176,7 +174,7 @@ public class AdminCsController {
 	
 	//=========================================== 자주 묻는 질문 ===========================================
 
-	//공지사항 리스트 (카테고리 첫 화면)
+	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
 
@@ -215,4 +213,64 @@ public class AdminCsController {
 		return showMessageAndRedirect(message, model);
 	}
 	
+	//자주묻는질문 수정 페이지 보기
+	@GetMapping(value="/faqMdf/{faqId}")
+	public String modifyFaq(@PathVariable("faqId") Long faqId, Model model) {
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			model.addAttribute("csFaqDto", csFaqDto);
+		} catch (Exception e) {
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/faq");
+			return showMessageAndRedirect(message, model);
+		}
+		return "cs/AdminFaqMdf";
+	}
+	
+	//게시글 수정 버튼 클릭
+	@PostMapping(value="/updateFaq/{faqId}")
+	public String updateInform(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model,
+			@PathVariable("faqId")Long faqId) {
+		if(bindingResult.hasErrors()) {
+			return "cs/AdminFaqMdf";
+		}
+		
+		try {
+			csService.updateFaq(csFaqDto);
+			message = new MessageDto("게시글 수정이 완료되었습니다.", "/cs/faqDtl/"+faqId);
+		} catch (Exception e) {
+			message = new MessageDto("게시글 수정이 실패하였습니다.", "/cs/inform");
+		}
+		
+		return showMessageAndRedirect(message, model);
+	}
+	
+	//자주묻는질문 게시글 상세 보기
+	@GetMapping(value="/faqDtl/{faqId}")
+	public String faqDetail(@PathVariable("faqId") Long faqId, Model model) { 
+		
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			model.addAttribute("csFaqDto", csFaqDto);
+		} catch (Exception e) {
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/AdminFaq");
+			return showMessageAndRedirect(message, model);
+		}
+		
+		return "cs/AdminFaqDtl";
+	 }
+	
+	//자주묻는질문 게시글 삭제
+	@GetMapping(value="/deleteFaq/{faqId}")
+	public String deleteFaq(@PathVariable("faqId") Long faqId, Model model) {
+		
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			csService.deleteFaq(faqId);
+			
+			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/faq");
+		} catch (Exception e) {
+			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/cs/faqDtl/"+faqId);
+		}
+		return showMessageAndRedirect(message, model);
+	}
 }
