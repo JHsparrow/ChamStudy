@@ -98,9 +98,9 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		MessageDto message;
 		try {
 			adminCommService.commDelete(boardId);
-			message = new MessageDto("글 삭제이 완료되었습니다.", "/adminForm/comm");
+			message = new MessageDto("글 삭제가 완료되었습니다.", "/adminForm/comm");
 		} catch (Exception e) {
-			message = new MessageDto("글 삭제이 실패되었습니다.", "/adminForm/comm");
+			message = new MessageDto("글 삭제가 실패되었습니다.", "/adminForm/comm");
 		}
 		return showMessageAndRedirect(message, model);
 	}
