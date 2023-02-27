@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
+import ChamStudy.Dto.CommFreeBoardFormDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,5 +48,12 @@ public class Comm_Board extends BaseTimeEntity{
 	private UserInfo userId; //작성자
 	
 	private Integer viewCount; //조회수
+	
+	public void updateComm(CommFreeBoardFormDto boardFormDto) {
+		this.Title = boardFormDto.getTitle();
+		this.substance = boardFormDto.getSubstance();
+		this.openChat = boardFormDto.getOpenChat();
+		
+	}
 	
 }

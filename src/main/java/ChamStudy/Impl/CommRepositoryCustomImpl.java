@@ -30,18 +30,22 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
+	//검색 관련 기능
 	private BooleanExpression searchByLike(String searchBy, String searchQuery) {
 		// 내용으로 검색하기
 		if (StringUtils.equals("substance", searchBy)) {
 			return QComm_Board.comm_Board.substance.like("%" + searchQuery + "%");
+		//작성자로 검색
 		} else if (StringUtils.equals("name", searchBy)) {
 			return QComm_Board.comm_Board.userId.name.like("%" + searchQuery + "%");
+		//제목으로 검색
 		} else if (StringUtils.equals("Title", searchBy)) {
 			return QComm_Board.comm_Board.Title.like("%" + searchQuery + "%");
 		}
 		return null;
 	}
 
+	
 	@Override
 	public Page<Comm_Board> getAdminComm(CommSearchDto commSearchDto, Pageable pageable) {
 		List<Comm_Board> content = queryFactory.selectFrom(QComm_Board.comm_Board) // select * from item
@@ -59,11 +63,8 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 
-	private BooleanExpression commNmLike(String searchQuery) {
-		return StringUtils.isEmpty(searchQuery) ? null
-				: QComm_Board.comm_Board.userId.name.like("%" + searchQuery + "%");
-	}
-
+	
+	//자유게시판 관리 페이지
 	@Override
 	public Page<MainCommDto> getAdminMainCommDto(CommSearchDto commSearchDto, MainCommDto adminMainCommDto,
 			Pageable pageable) {
@@ -86,6 +87,7 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 
+	//QnA관리페이지 
 	@Override
 	public Page<MainCommDto> getAdminQnACommDto(CommSearchDto commSearchDto, MainCommDto adminMainCommDto,
 			Pageable pageable) {
@@ -107,6 +109,7 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 
+	//멘토관리페이지
 	@Override
 	public Page<MainCommDto> getAdminMentoCommDto(CommSearchDto commSearchDto, MainCommDto adminMainCommDto,
 			Pageable pageable) {

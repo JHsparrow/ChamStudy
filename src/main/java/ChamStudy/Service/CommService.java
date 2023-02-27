@@ -8,10 +8,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommImgDto;
 import ChamStudy.Dto.CommDto;
+import ChamStudy.Dto.CommFreeBoardFormDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class CommService { // 관리자 커뮤니티 게시판 서비스
 	private final CommRepository commRepository;
 	private final CommImgRepository commImgRepository;
+	private final CommImgService commImgService;
 
 	public List<CommDto> getAdminComm() { // 관리자 메인 페이지에 뿌려줄 게시판 리스트를 불러온다. // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 	 List<Comm_Board> commList = commRepository.findF(); // 화면에 뿌려주기 위해 담을 Dto 리스트 작성 
@@ -35,6 +39,34 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	 for (Comm_Board board : commList) { CommDto commDto = new CommDto(board);  mainCommDtoList.add(commDto); } 
 	 return mainCommDtoList; }
 
+	
+	public Long saveComm(CommFreeBoardFormDto commImgDtoList, List<MultipartFile> commImgFileList) throws Exception{
+		Comm_Board board = commImgDtoList.createBoard();
+		commRepository.save(board);
+		
+		for(int i=0; i<commImgFileList.size(); i++) {
+			Comm_Board_Img commImg = new Comm_Board_Img();
+			commImg.setBoard(board);
+			
+			//첫번째 이미지 일때 대표 상품 이미지 여부 지정
+			commImgService.saveCommImg(commImg, commImgFileList.get(i));
+		}
+		return board.getId();
+	}
+	
+	public Long updateItem(CommFreeBoardFormDto boardFormDto, List<MultipartFile> commImgFileList) throws Exception {
+		Comm_Board board = commRepository.findById(boardFormDto.getId())
+				.orElseThrow(EntityNotFoundException::new);
+		
+		board.updateComm(boardFormDto);
+		
+		List<Long> commImgIds = boardFormDto.getCommImgIds(); //상품 이미지 아이디 리스트를 조회
+		
+		for(int i=0; i<commImgFileList.size(); i++) {
+			commImgService.updateItemImg(commImgIds.get(i), commImgFileList.get(i));
+		}
+		return board.getId();
+	}
 	
 	  public CommDto getAdminCommDtl(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다. 
 		  List<Comm_Board_Img> commImgList =
