@@ -32,6 +32,8 @@ public class UserListDto {
 	
 	private String gubun;
 	
+	public UserListDto() {
+	}
 	
     @QueryProjection	//querydsl로 결과 조회 시 MainItemDto객체로 바로 받아올 수 있음
     public UserListDto(Long id, String email, String name, String password,String phone, String role, String regDate,String gubun){

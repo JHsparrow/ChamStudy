@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.querydsl.core.annotations.QueryProjection;
 
 import ChamStudy.Dto.UserInfoDto;
+import ChamStudy.Dto.UserListDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -115,7 +116,17 @@ public class UserInfo {
 		return password;
 	}
 	
-	
+	//업데이트
+	public void updateUser(UserListDto userListDto) {
+		this.id = userListDto.getId();
+		this.email = userListDto.getEmail();
+		this.name = userListDto.getName();
+		this.password = userListDto.getPassword();
+		this.phone = userListDto.getPhone();
+		this.role = userListDto.getRole();
+		this.regDate = userListDto.getRegDate();
+		this.gubun = userListDto.getGubun();
+	}
 
 
 	

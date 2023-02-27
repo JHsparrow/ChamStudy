@@ -33,6 +33,8 @@ public class UserService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		UserInfo userInfo = userRepository.findByemail(email);
 		
+		
+		
 		if(userInfo == null) {
 			throw new UsernameNotFoundException(email);
 		}
@@ -42,6 +44,7 @@ public class UserService implements UserDetailsService{
 				.password(userInfo.getPassword())
 				.roles(userInfo.getRole())
 				.build();
+		
 	}
 	
 	
@@ -72,6 +75,17 @@ public class UserService implements UserDetailsService{
 		userRepository.delete(userInfo);
 	}
 	
+	//회원정보 수정
+	public Long updateUser(UserListDto userListDto) throws Exception{
+		
+		UserInfo userInfo = userRepository.findById(userListDto.getId())
+				.orElseThrow(EntityNotFoundException::new);
+		
+		userInfo.updateUser(userListDto);
+		
+		return userInfo.getId();
+		
+	}
 	
 	
 }

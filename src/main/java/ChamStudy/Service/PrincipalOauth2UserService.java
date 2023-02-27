@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	@Autowired
 	private UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final UserService userService;
 	
 	
 	//구글로 부터 받은 userrequest 데이터에 대한 후처리되는 함수
@@ -60,9 +62,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		
 		UserInfo userEntity =  userRepository.findByemail(email);
 		
+
+		
+		
+		
 		if(userEntity == null) {
 			userEntity = UserInfo.builder()
-					.name(email)
+					.name(username)
+					.email(email)
 					.password(password)
 					.phone(phone)
 					.role(role)
@@ -73,7 +80,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		}else {
 			
 		}
+			
 		
 		return new PrincipalDetails(userEntity, oauth2User.getAttributes());
 	}
+	
+
 }
