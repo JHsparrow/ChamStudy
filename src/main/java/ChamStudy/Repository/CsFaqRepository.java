@@ -4,14 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-import ChamStudy.Entity.CsInform;
-import ChamStudy.Impl.AdminCsInformRepositoryCustom;
+import ChamStudy.Entity.CsFaq;
+import ChamStudy.Impl.CsRepositoryCustom;
 
-public interface AdminCsRepository extends JpaRepository<CsInform, Long>, 
-	QuerydslPredicateExecutor<CsInform>, AdminCsInformRepositoryCustom {
+public interface CsFaqRepository extends JpaRepository<CsFaq, Long>,
+	QuerydslPredicateExecutor<CsFaq>, CsRepositoryCustom {
 	
-	@Query(value = "select count(*) from cs_inform where gubun = 'f'", nativeQuery = true)
-	int findByGubun();
+	
 	
 	/*
 	 * @Query(value = "select * from cs_inform_file where inform_id = ?1",
