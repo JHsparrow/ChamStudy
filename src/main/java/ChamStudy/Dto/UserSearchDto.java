@@ -9,4 +9,5 @@ public class UserSearchDto {
 	private String searchDateType;
 	private String searchBy;
 	private String searchQuery = "";
+	private String searchCategory;
 }
