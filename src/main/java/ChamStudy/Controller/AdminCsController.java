@@ -22,14 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ChamStudy.Dto.CsFaqDto;
+import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformDto;
 import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.CsInform;
-import ChamStudy.Service.AdminCsFileService;
-import ChamStudy.Service.AdminCsService;
+import ChamStudy.Service.CsFileService;
+import ChamStudy.Service.CsService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -37,10 +39,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminCsController {
 	
-	private final AdminCsService adminCsService;
-	private final AdminCsFileService adminCsFileService;
+	private final CsService csService;
+	private final CsFileService csFileService;
 	
-	MessageDto message;
+	private MessageDto message;
+	
+	private String showMessageAndRedirect(final MessageDto params, Model model) {
+        model.addAttribute("params", params);
+        return "common/messageRedirect";
+	}
+	
+	//=========================================== 공지사항 ===========================================
 	
 	//공지사항 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/inform")
@@ -48,7 +57,7 @@ public class AdminCsController {
 		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
 		
 		int maxPage = 10;
-		int fixedInform = adminCsService.NumberOfFixed();
+		int fixedInform = csService.NumberOfFixed();
 		
 		Pageable pageable = null;
 		
@@ -59,23 +68,23 @@ public class AdminCsController {
 			pageable = PageRequest.of(page.isPresent() ? page.get() : 0, maxPage); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		}
 		
-		Page<CsInformListDto> informList = adminCsService.getInformList(userSearchDto, csInformListDto, pageable);
-		Page<CsInformListDto> fixedInformList = adminCsService.getFixedInformList(userSearchDto, csInformListDto, pageable);
+		Page<CsInformListDto> informList = csService.getInformList(userSearchDto, csInformListDto, pageable);
+		Page<CsInformListDto> fixedInformList = csService.getFixedInformList(userSearchDto, csInformListDto, pageable);
 		
 		model.addAttribute("informList", informList);
 		model.addAttribute("fixedInformList", fixedInformList);
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
 		
-		return "cs/inform";
+		return "cs/AdminInform";
 	}
 	
-	//작성하기 버튼 클릭
+	//(첫 화면에서) 등록하기 버튼 클릭
 	@GetMapping(value = "/informForm")
 	public String createInform(Model model) {
 		model.addAttribute("csInformDto", new CsInformDto());
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
-		return "cs/informForm";
+		return "cs/AdminInformForm";
 	}
 
 	
@@ -85,62 +94,48 @@ public class AdminCsController {
 			Model model, @RequestParam("csInformFile") List<MultipartFile> informFileList) {
 		
 		if(bindingResult.hasErrors()) {
-			return "cs/informForm";
+			return "cs/AdminInformForm";
 		}
 		
 		try {
-			adminCsService.saveInform(csInformDto, informFileList);
+			csService.saveInform(csInformDto, informFileList);
 			message = new MessageDto("공지사항 등록이 완료되었습니다.", "/cs/inform");
 		} catch (Exception e) {
 			message = new MessageDto("공지사항 등록이 실패하였습니다.", "/cs/inform");
 		}
 		return showMessageAndRedirect(message, model);
 	}
+	
 	//공지사항 게시글 상세 보기
 	@GetMapping(value="/informDtl/{informId}")
 	public String informDetail(@PathVariable("informId") Long informId, Model model) { 
 		
 		
 		try {
-			CsInformDto csInformDto = adminCsService.getInform(informId);
+			CsInformDto csInformDto = csService.getInform(informId);
 			List<CsInformFileDto> csInformFileDtoList = csInformDto.getCsInformFileDtoList();
 			model.addAttribute("csInformDto", csInformDto);
 			model.addAttribute("csInformFileList",csInformFileDtoList);
 			
-			System.out.println("dddddddddddddddddd" + csInformFileDtoList.get(0).getFileName());
-			System.out.println("dddddddddddddddddd" + csInformFileDtoList.get(0).getOriFileName());
-			System.out.println("dddddddddddddddddd" + csInformFileDtoList.get(0).getFileUrl());
-			
-			
-			/*
-			 * model.addAttribute("csInformFileList", csInformDto.getCsInformFileDtoList());
-			 */
-			
-			/*
-			 * System.out.println("dddddddddddddddddd" +
-			 * csInformDto.getCsInformFileDtoList().get(0).getFileUrl());
-			 */
-			
-			
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/inform");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/AdminInform");
 			return showMessageAndRedirect(message, model);
 		}
 		
-		return "cs/informDtl";
+		return "cs/AdminInformDtl";
 	 }
 	
 	//게시글 수정 페이지 보기
 	@GetMapping(value="/informMdf/{informId}")
 	public String modifyInform(@PathVariable("informId") Long informId, Model model) {
 		try {
-			CsInformDto csInformDto = adminCsService.getInform(informId);
+			CsInformDto csInformDto = csService.getInform(informId);
 			model.addAttribute("csInformDto", csInformDto);
 		} catch (Exception e) {
 			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/inform");
 			return showMessageAndRedirect(message, model);
 		}
-		return "cs/informMdf";
+		return "cs/AdminInformMdf";
 	}
 	
 	//게시글 수정 버튼 클릭
@@ -148,11 +143,11 @@ public class AdminCsController {
 	public String updateInform(@Valid CsInformDto csInformDto, BindingResult bindingResult, Model model,
 			@RequestParam("csInformFile") List<MultipartFile> informFileList, @PathVariable("informId")Long informId) {
 		if(bindingResult.hasErrors()) {
-			return "cs/informMdf";
+			return "cs/AdminInformMdf";
 		}
 		
 		try {
-			adminCsService.updateInform(csInformDto, informFileList);
+			csService.updateInform(csInformDto, informFileList);
 			message = new MessageDto("게시글 수정이 완료되었습니다.", "/cs/informDtl/"+informId);
 		} catch (Exception e) {
 			message = new MessageDto("게시글 수정이 실패하였습니다.", "/cs/inform");
@@ -166,11 +161,11 @@ public class AdminCsController {
 	public String deleteInform(@PathVariable("informId") Long informId, Model model) {
 		
 		try {
-			CsInformDto csInformDto = adminCsService.getInform(informId);
-			adminCsFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(0).getId());
-			adminCsFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(1).getId());
-			adminCsFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(2).getId());
-			adminCsService.deleteInform(informId);
+			CsInformDto csInformDto = csService.getInform(informId);
+			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(0).getId());
+			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(1).getId());
+			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(2).getId());
+			csService.deleteInform(informId);
 			
 			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/inform");
 		} catch (Exception e) {
@@ -179,11 +174,59 @@ public class AdminCsController {
 		return showMessageAndRedirect(message, model);
 	}
 	
-	
-	private String showMessageAndRedirect(final MessageDto params, Model model) {
-        model.addAttribute("params", params);
-        return "common/messageRedirect";
+	//=========================================== 자주 묻는 질문 ===========================================
+
+	//공지사항 리스트 (카테고리 첫 화면)
+	@GetMapping(value = "/faq")
+	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
+
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
+		
+		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
+		
+		model.addAttribute("faqList", faqList);
+		
+		return "cs/AdminFaq";
 	}
 	
+	/*
+	@GetMapping(value = "/inform")
+	public String csInform(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
+		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
+		
+		Page<CsInformListDto> informList = adminCsService.getInformList(userSearchDto, csInformListDto, pageable);
+		Page<CsInformListDto> fixedInformList = adminCsService.getFixedInformList(userSearchDto, csInformListDto, pageable);
+		
+		model.addAttribute("informList", informList);
+		model.addAttribute("userSearchDto", userSearchDto);
+	}
+	*/
+	
+	
+	//(첫 화면에서) 등록하기 버튼 클릭
+	@GetMapping(value = "/createFaq")
+	public String createFaq(Model model) {
+		model.addAttribute("csFaqDto", new CsFaqDto());
+		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
+		return "cs/AdminFaqForm";
+	}
+	
+	//자주묻는 질문 등록 버튼
+	@PostMapping(value = "/uploadFaq")
+	public String uploadInform(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "cs/AdminFaqForm";
+		}
+		
+		try {
+			csService.saveFaq(csFaqDto);
+			message = new MessageDto("게시글 등록이 완료되었습니다.", "/cs/faq");
+		} catch (Exception e) {
+			message = new MessageDto("게시글 등록이 실패하였습니다.", "/cs/faq");
+		}
+		return showMessageAndRedirect(message, model);
+	}
 	
 }

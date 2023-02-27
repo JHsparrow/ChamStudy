@@ -15,16 +15,17 @@ import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.QCsInformListDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.QCsInform;
 
-public class AdminCsInformRepositoryCustomImpl implements AdminCsInformRepositoryCustom {
+public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 
 	private JPAQueryFactory queryFactory;
 	
-	public AdminCsInformRepositoryCustomImpl (EntityManager em) {
+	public CsRepositoryCustomImpl (EntityManager em) {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 	
@@ -34,6 +35,7 @@ public class AdminCsInformRepositoryCustomImpl implements AdminCsInformRepositor
 				
 	}
 	
+	//공지사항 리스트 불러오기
 	@Override
 	public Page<CsInformListDto> getInformList(UserSearchDto userSearchDto, CsInformListDto csInformListDto,
 			Pageable pageable) {
@@ -62,10 +64,9 @@ public class AdminCsInformRepositoryCustomImpl implements AdminCsInformRepositor
 		
 	}
 	
-	//상단 고정 게시글만 select하기
+	//공지사항 상단 고정 게시글만 select하기
 	public BooleanExpression getFixed(String searchQuery) {
 		return StringUtils.isEmpty(searchQuery) ? null : QCsInform.csInform.title.like("%" + searchQuery + "%");
-				
 	}
 	
 	@Override
@@ -96,6 +97,14 @@ public class AdminCsInformRepositoryCustomImpl implements AdminCsInformRepositor
 				.fetchOne();
 		
 		return new PageImpl<>(content, pageable, total);
+	}
+	
+	
+	//자주묻는질문 리스트 불러오기
+	@Override
+	public Page<CsFaqListDto> getFaqList(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

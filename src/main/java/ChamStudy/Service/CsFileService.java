@@ -9,18 +9,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import ChamStudy.Entity.CsInformFile;
-import ChamStudy.Repository.AdminCsFileRepository;
+import ChamStudy.Repository.CsInformFileRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AdminCsFileService {
+public class CsFileService {
 
 	@Value("${csFileLocation}")
 	private String csFileLocation;
 	
-	private final AdminCsFileRepository adminCsFileRepository;
+	private final CsInformFileRepository adminCsFileRepository;
 	
 	private final FileService fileService;
 	

@@ -8,7 +8,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import ChamStudy.Entity.CsInformFile;
 
-public interface AdminCsFileRepository extends JpaRepository<CsInformFile, Long>{
+public interface CsInformFileRepository extends JpaRepository<CsInformFile, Long>{
 
 	/* List<CsInformFile> findByInformIdOrderByIdAsc(Long informId); */
 	
