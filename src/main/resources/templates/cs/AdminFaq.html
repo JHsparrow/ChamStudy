@@ -22,10 +22,6 @@
 			page();
 		});
 		
-/*		$(".searchInput").on("change", function(e) {
-			e.preventDefault();
-			page(0);
-		}); */
 	})
 	
 	function page(){
@@ -38,7 +34,7 @@
 	
 	function delCheck(faqId){
 		if(confirm('삭제하시겠습니까?')){
-			$('#delInformId').val(informId);
+			$('#delFaqId').val(faqId);
 			$('#delFrm').attr("action","/cs/deleteFaq/"+faqId);
 			$('#delFrm').submit();
 		}else{ return false; }
@@ -118,13 +114,13 @@
 												<tr class="odd">
 													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${faq.id}]]</strong></td>
 													<td class="category">[[${faq.gubun}]]</td>
-													<td><a class="underline">[[${faq.title}]]</a></td>
+													<td><a class="underline" th:onclick="|location.href='@{/cs/faqDtl/}+${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
 													<td>[[${faq.update.substring(0,13)}]]</td>
 													<td>
-														<a class="btn btn-primary btn-sm">수정</a>
+														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/faqMdf/}+${faq.id}'|">수정</a>
 													</td>
 													<td>
-														<a class="btn btn-primary btn-sm">삭제</a>
+														<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${faq.id}]])">삭제</a>
 													</td>
 												</tr>
 											</th:block>

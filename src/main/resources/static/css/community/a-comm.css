@@ -219,3 +219,19 @@ button.Admin-reply-Block {
     border: none;
     border-radius: 25px;
 }
+
+button#searchBtn {
+    position: absolute;
+    right: 10px;
+    height: 40px !important;
+}
+
+input#searchQuery {
+    position: absolute;
+    right: 72px;
+}
+
+select#searchBy {
+    position: absolute;
+    right: 280px;
+}
