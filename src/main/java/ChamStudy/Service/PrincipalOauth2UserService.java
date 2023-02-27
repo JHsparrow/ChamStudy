@@ -43,7 +43,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		for (int i = 0; i < 7; i++) {
 		    temp+= Integer.toString(rand.nextInt(9));
 		}
-		
 		String password1 = passwordEncoder.encode(temp);
 		
 		
@@ -52,34 +51,45 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		System.out.println(time);
 
 		
-		String username = oauth2User.getAttribute("name");
 		String email = oauth2User.getAttribute("email");
+		String username = oauth2User.getAttribute("name");
 		String password = password1;
 		String role = "USER";
-//		String regDate = time;
+		String regDate = time;
 		String phone = "0";
 		String gubun = "G";
 		
 		UserInfo userEntity =  userRepository.findByemail(email);
 		
-
+		UserInfoDto userInfo = new UserInfoDto();
+		userInfo.setEmail(email);
+		userInfo.setName(username);
+		userInfo.setPassword(password);
+		userInfo.setPhone(phone);
+		userInfo.setRole(role);
+		userInfo.setRegTime(regDate);
+		userInfo.setGubun(gubun);
 		
 		
+		try {
+			UserInfo user = UserInfo.createUser(userInfo, passwordEncoder);
+			userService.saveUser(user);
+		} catch (Exception e) {
+			System.out.println("구글 트라이문 오류");
+		}
 		
 		if(userEntity == null) {
 			userEntity = UserInfo.builder()
-					.name(username)
-					.email(email)
+					.name(email)
 					.password(password)
-					.phone(phone)
 					.role(role)
-					.regDate(time)
-					.gubun(gubun)
 					.build();
-			userRepository.save(userEntity);
 		}else {
 			
 		}
+		
+		
+		
 			
 		
 		return new PrincipalDetails(userEntity, oauth2User.getAttributes());
