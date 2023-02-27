@@ -9,8 +9,9 @@ import org.springframework.data.repository.query.Param;
 
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.SubCategory;
+import ChamStudy.Impl.ContentRepositoryCustom;
 
-public interface OnContentRepository extends JpaRepository<ContentInfo, Long> {
+public interface OnContentRepository extends JpaRepository<ContentInfo, Long>, ContentRepositoryCustom {
 	List<ContentInfo> findAll();
 	
 	Optional<ContentInfo> findById(Long id);

@@ -23,6 +23,7 @@ import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Dto.SubCategoryDto;
 import ChamStudy.Dto.SubCategoryJsonDto;
 import ChamStudy.Dto.modifySubCategoryDto;
 import ChamStudy.Entity.Category;
@@ -48,12 +49,18 @@ public class AdminCategoryController {
 		return "AdminForm/adminCategory/mainList";
 	}
 	
-	@GetMapping(value = "/sub/{mainid}") //메인 카테고리 리스트
-	public String subCategoryList(@PathVariable("mainid") Long mainId, Model model) {
+	@GetMapping(value = "/sub/{mainid}") //서브 카테고리 리스트
+	public String subCategoryList(Optional<Integer> page, @PathVariable("mainid") Long mainId,SubCategoryDto subCategoryDto, Model model) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
 		Category mainInfo = adminCategoryService.getMainInfo(mainId);
-		List<SubCategory> subList = adminCategoryService.getAllSubList(mainId);
-		model.addAttribute("mainList", subList);
+		
+		Page<SubCategoryDto> subList = adminCategoryService.getSubList(subCategoryDto, pageable, mainInfo);
+		System.err.println(subList);
+		
+//		List<SubCategory> subList = adminCategoryService.getAllSubList(mainId);
+		model.addAttribute("subList", subList);
 		model.addAttribute("mainInfo", mainInfo);
+		model.addAttribute("maxPage", 5);
 		return "AdminForm/adminCategory/subList";
 	}
 	
