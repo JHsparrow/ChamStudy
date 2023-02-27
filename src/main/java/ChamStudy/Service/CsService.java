@@ -29,25 +29,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class CsService {
-	private final CsInformRepository adminCsInformRepository;
-	private final CsFileService adminCsFileService;
-	private final CsInformFileRepository adminCsInformFileRepository;
+	private final CsInformRepository csInformRepository;
+	private final CsFileService csFileService;
+	private final CsInformFileRepository csInformFileRepository;
 	
-	private final CsFaqRepository adminCsFaqRepository;
+	private final CsFaqRepository csFaqRepository;
 	
 	//========================================== 공지사항 ==========================================
 	
 	//공지사항 게시물 등록
 	public Long saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) throws Exception {
 		CsInform csInform = csInformDto.createCsInform();
-		adminCsInformRepository.save(csInform);
+		csInformRepository.save(csInform);
 		
 		//파일 등록
 		for(int i=0; i<csInformFileList.size(); i++) {
 			CsInformFile csInformFile = new CsInformFile();
 			csInformFile.setInformId(csInform);
 			
-			adminCsFileService.saveFile(csInformFile, csInformFileList.get(i));
+			csFileService.saveFile(csInformFile, csInformFileList.get(i));
 		}
 		return csInform.getId();
 	}
@@ -56,7 +56,7 @@ public class CsService {
 	@Transactional(readOnly = true)
 	public CsInformDto getInform(Long informId) {
 		//csInformFile 테이블의 파일을 가져온다.
-		List<CsInformFile> csInformFileList = adminCsInformFileRepository.findByInformIdOrderByIdAsc(informId);
+		List<CsInformFile> csInformFileList = csInformFileRepository.findByInformIdOrderByIdAsc(informId);
 		List<CsInformFileDto> csInformFileDtoList = new ArrayList<>();
 		
 		//엔티티 객체 -> DTO 객체로 변환
@@ -66,7 +66,7 @@ public class CsService {
 		}
 		
 		//csInform 테이블에 있는 데이터를 가져온다.
-		CsInform csInform = adminCsInformRepository.findById(informId)
+		CsInform csInform = csInformRepository.findById(informId)
 											 .orElseThrow(EntityNotFoundException::new);
 		
 		CsInformDto csInformDto = CsInformDto.of(csInform);
@@ -78,14 +78,14 @@ public class CsService {
 	
 	//게시물 수정하기
 	public Long updateInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) throws Exception {
-		CsInform csInform = adminCsInformRepository.findById(csInformDto.getId())
+		CsInform csInform = csInformRepository.findById(csInformDto.getId())
 											 .orElseThrow(EntityNotFoundException::new);
 		csInform.updateInform(csInformDto);
 		
 		List<Long> informFileIds = csInformDto.getInformFileIds();
 		
 		for(int i = 0; i < csInformFileList.size(); i++) {
-			adminCsFileService.updateFile(informFileIds.get(i), csInformFileList.get(i));
+			csFileService.updateFile(informFileIds.get(i), csInformFileList.get(i));
 		}
 		return csInform.getId();
 				
@@ -94,25 +94,25 @@ public class CsService {
 	//공지사항 첫 화면 리스트 가져오기
 	@Transactional(readOnly = true)
 	public Page<CsInformListDto> getInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){
-		return adminCsInformRepository.getInformList(userSearchDto, csInformListDto, pageable);
+		return csInformRepository.getInformList(userSearchDto, csInformListDto, pageable);
 	}
 	
 	
 	//공지사항 상단 고정 리스트 가져오기
 	@Transactional(readOnly = true)
 	public Page<CsInformListDto> getFixedInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){
-		return adminCsInformRepository.getFixedInformList(userSearchDto, csInformListDto, pageable);
+		return csInformRepository.getFixedInformList(userSearchDto, csInformListDto, pageable);
 	}
 	
 	@Transactional(readOnly = true)
 	public int NumberOfFixed() {
-		return adminCsInformRepository.findByGubun();
+		return csInformRepository.findByGubun();
 	}
 	
 	public void deleteInform(Long id) {
-		CsInform csInform = adminCsInformRepository.findById(id)
+		CsInform csInform = csInformRepository.findById(id)
 											 .orElseThrow(EntityNotFoundException::new);
-		adminCsInformRepository.delete(csInform);
+		csInformRepository.delete(csInform);
 		
 	}
 	
@@ -121,7 +121,7 @@ public class CsService {
 	//자주묻는질문 게시물 등록
 	public Long saveFaq(CsFaqDto csFaqDto) throws Exception {
 		CsFaq csFaq = csFaqDto.createCsFaq();
-		adminCsFaqRepository.save(csFaq);
+		csFaqRepository.save(csFaq);
 		
 		return csFaq.getId();
 	}
@@ -129,7 +129,7 @@ public class CsService {
 	//자주묻는질문 첫 화면 리스트 가져오기
 	@Transactional(readOnly = true)
 	public Page<CsFaqListDto> getFaqList (UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable){
-		return adminCsInformRepository.getFaqList(userSearchDto, csFaqListDto, pageable);
+		return csFaqRepository.getFaqList(userSearchDto, csFaqListDto, pageable);
 	}
 
 }

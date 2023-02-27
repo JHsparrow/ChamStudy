@@ -39,8 +39,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminCsController {
 	
-	private final CsService adminCsService;
-	private final CsFileService adminCsFileService;
+	private final CsService csService;
+	private final CsFileService csFileService;
 	
 	private MessageDto message;
 	
@@ -57,7 +57,7 @@ public class AdminCsController {
 		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
 		
 		int maxPage = 10;
-		int fixedInform = adminCsService.NumberOfFixed();
+		int fixedInform = csService.NumberOfFixed();
 		
 		Pageable pageable = null;
 		
@@ -68,8 +68,8 @@ public class AdminCsController {
 			pageable = PageRequest.of(page.isPresent() ? page.get() : 0, maxPage); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		}
 		
-		Page<CsInformListDto> informList = adminCsService.getInformList(userSearchDto, csInformListDto, pageable);
-		Page<CsInformListDto> fixedInformList = adminCsService.getFixedInformList(userSearchDto, csInformListDto, pageable);
+		Page<CsInformListDto> informList = csService.getInformList(userSearchDto, csInformListDto, pageable);
+		Page<CsInformListDto> fixedInformList = csService.getFixedInformList(userSearchDto, csInformListDto, pageable);
 		
 		model.addAttribute("informList", informList);
 		model.addAttribute("fixedInformList", fixedInformList);
@@ -98,7 +98,7 @@ public class AdminCsController {
 		}
 		
 		try {
-			adminCsService.saveInform(csInformDto, informFileList);
+			csService.saveInform(csInformDto, informFileList);
 			message = new MessageDto("공지사항 등록이 완료되었습니다.", "/cs/inform");
 		} catch (Exception e) {
 			message = new MessageDto("공지사항 등록이 실패하였습니다.", "/cs/inform");
@@ -112,7 +112,7 @@ public class AdminCsController {
 		
 		
 		try {
-			CsInformDto csInformDto = adminCsService.getInform(informId);
+			CsInformDto csInformDto = csService.getInform(informId);
 			List<CsInformFileDto> csInformFileDtoList = csInformDto.getCsInformFileDtoList();
 			model.addAttribute("csInformDto", csInformDto);
 			model.addAttribute("csInformFileList",csInformFileDtoList);
@@ -129,7 +129,7 @@ public class AdminCsController {
 	@GetMapping(value="/informMdf/{informId}")
 	public String modifyInform(@PathVariable("informId") Long informId, Model model) {
 		try {
-			CsInformDto csInformDto = adminCsService.getInform(informId);
+			CsInformDto csInformDto = csService.getInform(informId);
 			model.addAttribute("csInformDto", csInformDto);
 		} catch (Exception e) {
 			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/inform");
@@ -147,7 +147,7 @@ public class AdminCsController {
 		}
 		
 		try {
-			adminCsService.updateInform(csInformDto, informFileList);
+			csService.updateInform(csInformDto, informFileList);
 			message = new MessageDto("게시글 수정이 완료되었습니다.", "/cs/informDtl/"+informId);
 		} catch (Exception e) {
 			message = new MessageDto("게시글 수정이 실패하였습니다.", "/cs/inform");
@@ -161,11 +161,11 @@ public class AdminCsController {
 	public String deleteInform(@PathVariable("informId") Long informId, Model model) {
 		
 		try {
-			CsInformDto csInformDto = adminCsService.getInform(informId);
-			adminCsFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(0).getId());
-			adminCsFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(1).getId());
-			adminCsFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(2).getId());
-			adminCsService.deleteInform(informId);
+			CsInformDto csInformDto = csService.getInform(informId);
+			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(0).getId());
+			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(1).getId());
+			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(2).getId());
+			csService.deleteInform(informId);
 			
 			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/inform");
 		} catch (Exception e) {
@@ -182,7 +182,7 @@ public class AdminCsController {
 
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		
-		Page<CsFaqListDto> faqList = adminCsService.getFaqList(userSearchDto, csFaqListDto, pageable);
+		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
 		
 		model.addAttribute("faqList", faqList);
 		
@@ -221,7 +221,7 @@ public class AdminCsController {
 		}
 		
 		try {
-			adminCsService.saveFaq(csFaqDto);
+			csService.saveFaq(csFaqDto);
 			message = new MessageDto("게시글 등록이 완료되었습니다.", "/cs/faq");
 		} catch (Exception e) {
 			message = new MessageDto("게시글 등록이 실패하였습니다.", "/cs/faq");
