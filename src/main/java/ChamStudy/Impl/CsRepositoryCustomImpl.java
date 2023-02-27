@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
@@ -17,8 +17,10 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformListDto;
+import ChamStudy.Dto.QCsFaqListDto;
 import ChamStudy.Dto.QCsInformListDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Entity.QCsFaq;
 import ChamStudy.Entity.QCsInform;
 
 public class CsRepositoryCustomImpl implements CsRepositoryCustom {
@@ -29,11 +31,20 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 	
-	//제목으로 검색하기
+	//공지사항 제목으로 검색하기
 	public BooleanExpression titleLike(String searchQuery) {
 		return StringUtils.isEmpty(searchQuery) ? null : QCsInform.csInform.title.like("%" + searchQuery + "%");
 				
 	}
+	
+	/*
+	//카테고리 선택하기
+	private BooleanExpression selectCategory(String searchCategory) {
+		String category;
+		if(StringUtils.equals("A", searchCategory) || searchCategory == null)return null; 
+		else if (StringUtils.equals("", searchCategory)) category = "A";
+	}
+	*/
 	
 	//공지사항 리스트 불러오기
 	@Override
@@ -69,12 +80,11 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 		return StringUtils.isEmpty(searchQuery) ? null : QCsInform.csInform.title.like("%" + searchQuery + "%");
 	}
 	
+	//공지사항 상단 고정 게시글 불러오기
 	@Override
 	public Page<CsInformListDto> getFixedInformList(UserSearchDto userSearchDto, CsInformListDto csInformListDto,
 			Pageable pageable) {
 		QCsInform csFixedInform = QCsInform.csInform;
-		
-		
 		
 		List<CsInformListDto> content = queryFactory.select(
 				new QCsInformListDto (
@@ -99,14 +109,54 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 	
+	/*
+	//자주묻는질문 카테고리 검색하기 (정상 ver.)
+	public BooleanExpression selectCategory(String searchCategory) {
+		return StringUtils.isEmpty(searchCategory) ? null : QCsFaq.csFaq.gubun.eq(searchCategory);
+	}
+	*/
+	
+	//자주묻는질문 카테고리 검색하기
+	public BooleanExpression selectCategory(String searchCategory) {
+		if(searchCategory == null || searchCategory.equals("A")) {
+			return null;
+		}
+		return QCsFaq.csFaq.gubun.eq(searchCategory);
+	}
+	
+	//자주묻는질문 제목으로 검색하기
+	public BooleanExpression faqTitleLike(String searchQuery) {
+		return StringUtils.isEmpty(searchQuery) ? null : QCsFaq.csFaq.title.like("%" + searchQuery + "%");
+				
+	}
 	
 	//자주묻는질문 리스트 불러오기
 	@Override
 	public Page<CsFaqListDto> getFaqList(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		QCsFaq csFaq = QCsFaq.csFaq;
+		
+		List<CsFaqListDto> content = queryFactory.select(
+				new QCsFaqListDto(
+						csFaq.id,
+						csFaq.gubun,
+						csFaq.title,
+						csFaq.upDate)
+				)
+				.from(csFaq)
+				.where(selectCategory(userSearchDto.getSearchCategory()))
+				.where(faqTitleLike(userSearchDto.getSearchQuery()))
+				.orderBy(csFaq.id.desc())
+				.offset(pageable.getOffset())	//데이터를 가져올 시작 index
+				.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
+				.fetch();
+		
+		long total = queryFactory.select(Wildcard.count)
+				.from(csFaq)
+				.where(selectCategory(userSearchDto.getSearchCategory()))
+				.where(faqTitleLike(userSearchDto.getSearchQuery()))
+				.fetchOne();
+		
+		return new PageImpl<>(content, pageable, total);
 	}
-	
-	
 
 }
