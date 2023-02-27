@@ -180,34 +180,20 @@ public class AdminCsController {
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
 
+		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
-		
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
-		
 		model.addAttribute("faqList", faqList);
-		
+		model.addAttribute("maxPage", 5);
+		model.addAttribute("sValue",userSearchDto.getSearchCategory());
 		return "cs/AdminFaq";
 	}
-	
-	/*
-	@GetMapping(value = "/inform")
-	public String csInform(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
-		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
-		
-		Page<CsInformListDto> informList = adminCsService.getInformList(userSearchDto, csInformListDto, pageable);
-		Page<CsInformListDto> fixedInformList = adminCsService.getFixedInformList(userSearchDto, csInformListDto, pageable);
-		
-		model.addAttribute("informList", informList);
-		model.addAttribute("userSearchDto", userSearchDto);
-	}
-	*/
-	
 	
 	//(첫 화면에서) 등록하기 버튼 클릭
 	@GetMapping(value = "/createFaq")
 	public String createFaq(Model model) {
 		model.addAttribute("csFaqDto", new CsFaqDto());
+		
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
 		return "cs/AdminFaqForm";
 	}
