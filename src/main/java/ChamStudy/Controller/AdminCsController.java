@@ -29,6 +29,7 @@ import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Dto.WarnBoardDto;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Service.CsFileService;
 import ChamStudy.Service.CsService;
@@ -162,9 +163,7 @@ public class AdminCsController {
 		
 		try {
 			CsInformDto csInformDto = csService.getInform(informId);
-			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(0).getId());
-			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(1).getId());
-			csFileService.deleteInformFile(csInformDto.getCsInformFileDtoList().get(2).getId());
+			csFileService.deleteInformFile(informId);
 			csService.deleteInform(informId);
 			
 			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/inform");
@@ -176,38 +175,24 @@ public class AdminCsController {
 	
 	//=========================================== 자주 묻는 질문 ===========================================
 
-	//공지사항 리스트 (카테고리 첫 화면)
+	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
 
+		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
-		
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
-		
 		model.addAttribute("faqList", faqList);
-		
+		model.addAttribute("maxPage", 5);
+		model.addAttribute("sValue",userSearchDto.getSearchCategory());
 		return "cs/AdminFaq";
 	}
-	
-	/*
-	@GetMapping(value = "/inform")
-	public String csInform(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
-		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
-		
-		Page<CsInformListDto> informList = adminCsService.getInformList(userSearchDto, csInformListDto, pageable);
-		Page<CsInformListDto> fixedInformList = adminCsService.getFixedInformList(userSearchDto, csInformListDto, pageable);
-		
-		model.addAttribute("informList", informList);
-		model.addAttribute("userSearchDto", userSearchDto);
-	}
-	*/
-	
 	
 	//(첫 화면에서) 등록하기 버튼 클릭
 	@GetMapping(value = "/createFaq")
 	public String createFaq(Model model) {
 		model.addAttribute("csFaqDto", new CsFaqDto());
+		
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
 		return "cs/AdminFaqForm";
 	}
@@ -229,4 +214,80 @@ public class AdminCsController {
 		return showMessageAndRedirect(message, model);
 	}
 	
+
+	
+
+	//자주묻는질문 수정 페이지 보기
+	@GetMapping(value="/faqMdf/{faqId}")
+	public String modifyFaq(@PathVariable("faqId") Long faqId, Model model) {
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			model.addAttribute("csFaqDto", csFaqDto);
+		} catch (Exception e) {
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/faq");
+			return showMessageAndRedirect(message, model);
+		}
+		return "cs/AdminFaqMdf";
+	}
+	
+	//게시글 수정 버튼 클릭
+	@PostMapping(value="/updateFaq/{faqId}")
+	public String updateInform(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model,
+			@PathVariable("faqId")Long faqId) {
+		if(bindingResult.hasErrors()) {
+			return "cs/AdminFaqMdf";
+		}
+		
+		try {
+			csService.updateFaq(csFaqDto);
+			message = new MessageDto("게시글 수정이 완료되었습니다.", "/cs/faqDtl/"+faqId);
+		} catch (Exception e) {
+			message = new MessageDto("게시글 수정이 실패하였습니다.", "/cs/inform");
+		}
+		
+		return showMessageAndRedirect(message, model);
+	}
+	
+	//자주묻는질문 게시글 상세 보기
+	@GetMapping(value="/faqDtl/{faqId}")
+	public String faqDetail(@PathVariable("faqId") Long faqId, Model model) { 
+		
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			model.addAttribute("csFaqDto", csFaqDto);
+		} catch (Exception e) {
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/AdminFaq");
+			return showMessageAndRedirect(message, model);
+		}
+		
+		return "cs/AdminFaqDtl";
+	 }
+	
+	//자주묻는질문 게시글 삭제
+	@GetMapping(value="/deleteFaq/{faqId}")
+	public String deleteFaq(@PathVariable("faqId") Long faqId, Model model) {
+		
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			csService.deleteFaq(faqId);
+			
+			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/faq");
+		} catch (Exception e) {
+			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/cs/faqDtl/"+faqId);
+		}
+		return showMessageAndRedirect(message, model);
+
+	}
+	
+	//경고 게시판 리스트
+	@GetMapping(value="/warn")
+	public String warnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Optional<Integer> page, Model model) {
+
+		
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
+		Page<WarnBoardDto> warnList = csService.getWarnList(userSearchDto, warnBoardDto, pageable);
+		model.addAttribute("faqList", warnList);
+		model.addAttribute("maxPage", 5);
+		return "cs/AdminWarnBoard";
+	}
 }

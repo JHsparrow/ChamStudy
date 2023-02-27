@@ -155,39 +155,36 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-12 col-md-5">
-										<div class="dataTables_info" id="datatables-orders_info"
-											role="status" aria-live="polite"></div>
-									</div>
-									<div class="col-sm-12 col-md-7">
-										<div
-											class="dataTables_paginate paging_simple_numbers block-27"
-											id="datatables-orders_paginate"
-											th:with="start=${(comms.number/maxPage)*maxPage + 1}, end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage - 1) : comms.totalPages)})">
-											<ul class="pagination">
-												<li class="paginate_button page-item previous disabled mx-1"
-													id="datatables-orders_previous"
-													th:classappend="${comms.first}? 'disabled'"><a
-													th:href="@{'/adminForm/comm' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page=' +${comms.number-1}}"
-													aria-controls="datatables-orders" data-dt-idx="0"
-													tabindex="0" class="page-link">&lt </a></li>
-												<li class="paginate_button page-item active  mx-1"
-													th:each="page, status:${#numbers.sequence(start,end)}"
-													th:classappend="${comms.number eq page-1}? 'active':''"><a
-													th:href="@{'/adminForm/comm' + '?searchQuery='+${commSearchDto.searchQuery} + '&page=' +${page-1}}"
-													aria-controls="datatables-orders" data-dt-idx="1"
-													tabindex="0" class="page-link">[[${page}]]</a></li>
-
-
-												<li class="paginate_button page-item next"
-													id="datatables-orders_next  mx-1"
-													th:classappend="${comms.last}? 'disabled'"><a
-													th:href="@{'/adminForm/comm' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page='+${comms.number+1} }"
-													aria-controls="datatables-orders" data-dt-idx="3"
-													tabindex="0" class="page-link">&gt</a></li>
-											</ul>
+									<nav
+										th:with="start=${(comms.number/maxPage)*maxPage + 1},
+									end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage -1) : comms.totalPages)})">
+										<div class="col-sm-12 col-md-12 ">
+											<div
+												class="dataTables_paginate paging_simple_numbers block-27"
+												id="datatables-orders_paginate">
+												<ul class="pagination">
+													<li th:classappend="${comms.first}? 'disabled'"
+														class="paginate_button page-item previous disabled mx-1"
+														id="datatables-orders_previous"><a
+														th:href="@{'/adminForm/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
+														aria-controls="datatables-orders" data-dt-idx="0"
+														tabindex="0" class="page-link">&lt </a></li>
+													<li th:each="page: ${#numbers.sequence(start, end)}"
+														th:classappend="${comms.number eq page-1}?'active':''"
+														class="paginate_button page-item mx-1"><a
+														th:href="@{'/adminForm/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
+														aria-controls="datatables-orders" data-dt-idx="1"
+														tabindex="0" class="page-link">[[${page}]]</a></li>
+													<li th:classappend="${comms.last}? 'disabled'"
+														class="paginate_button page-item next"
+														id="datatables-orders_next  mx-1"><a
+														th:href="@{'/adminForm/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
+														aria-controls="datatables-orders" data-dt-idx="3"
+														tabindex="0" class="page-link">&gt</a></li>
+												</ul>
+											</div>
 										</div>
-									</div>
+									</nav>
 								</div>
 							</div>
 						</div>

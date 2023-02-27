@@ -145,9 +145,7 @@ public class OnContentService {
 	}
 	
 	public void deleteContentInfo(Long contentId) throws Exception {
-		System.out.println(contentId);
 		List<StudyHistory> histories = studyHistortRepository.getHistoryList(contentId);
-		System.out.println("콘텐츠 비디오 : "+histories);
 		studyHistortRepository.deleteAll(histories);
 		
 		List<ContentVideo> contentVideo = onContentVideoRepository.getListContentId(contentId);  

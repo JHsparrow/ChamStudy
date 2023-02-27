@@ -13,9 +13,9 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import ChamStudy.Dto.AdminMainCommDto;
+import ChamStudy.Dto.MainCommDto;
 import ChamStudy.Dto.CommSearchDto;
-import ChamStudy.Dto.QAdminMainCommDto;
+import ChamStudy.Dto.QMainCommDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.QComm_Board;
 import ChamStudy.Entity.QComm_Board_Img;
@@ -30,18 +30,22 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
+	//검색 관련 기능
 	private BooleanExpression searchByLike(String searchBy, String searchQuery) {
 		// 내용으로 검색하기
 		if (StringUtils.equals("substance", searchBy)) {
 			return QComm_Board.comm_Board.substance.like("%" + searchQuery + "%");
+		//작성자로 검색
 		} else if (StringUtils.equals("name", searchBy)) {
 			return QComm_Board.comm_Board.userId.name.like("%" + searchQuery + "%");
+		//제목으로 검색
 		} else if (StringUtils.equals("Title", searchBy)) {
 			return QComm_Board.comm_Board.Title.like("%" + searchQuery + "%");
 		}
 		return null;
 	}
 
+	
 	@Override
 	public Page<Comm_Board> getAdminComm(CommSearchDto commSearchDto, Pageable pageable) {
 		List<Comm_Board> content = queryFactory.selectFrom(QComm_Board.comm_Board) // select * from item
@@ -59,19 +63,16 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 
-	private BooleanExpression commNmLike(String searchQuery) {
-		return StringUtils.isEmpty(searchQuery) ? null
-				: QComm_Board.comm_Board.userId.name.like("%" + searchQuery + "%");
-	}
-
+	
+	//자유게시판 관리 페이지
 	@Override
-	public Page<AdminMainCommDto> getAdminMainCommDto(CommSearchDto commSearchDto, AdminMainCommDto adminMainCommDto,
+	public Page<MainCommDto> getAdminMainCommDto(CommSearchDto commSearchDto, MainCommDto adminMainCommDto,
 			Pageable pageable) {
 		QComm_Board comm = QComm_Board.comm_Board;
 		QComm_Board_Img comm_Board_Img = QComm_Board_Img.comm_Board_Img;
 
-		List<AdminMainCommDto> content = queryFactory
-				.select(new QAdminMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
+		List<MainCommDto> content = queryFactory
+				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
@@ -86,14 +87,15 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 
+	//QnA관리페이지 
 	@Override
-	public Page<AdminMainCommDto> getAdminQnACommDto(CommSearchDto commSearchDto, AdminMainCommDto adminMainCommDto,
+	public Page<MainCommDto> getAdminQnACommDto(CommSearchDto commSearchDto, MainCommDto adminMainCommDto,
 			Pageable pageable) {
 		QComm_Board comm = QComm_Board.comm_Board;
 		QComm_Board_Img comm_Board_Img = QComm_Board_Img.comm_Board_Img;
 
-		List<AdminMainCommDto> content = queryFactory
-				.select(new QAdminMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
+		List<MainCommDto> content = queryFactory
+				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
@@ -107,14 +109,15 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 
+	//멘토관리페이지
 	@Override
-	public Page<AdminMainCommDto> getAdminMentoCommDto(CommSearchDto commSearchDto, AdminMainCommDto adminMainCommDto,
+	public Page<MainCommDto> getAdminMentoCommDto(CommSearchDto commSearchDto, MainCommDto adminMainCommDto,
 			Pageable pageable) {
 		QComm_Board comm = QComm_Board.comm_Board;
 		QComm_Board_Img comm_Board_Img = QComm_Board_Img.comm_Board_Img;
 
-		List<AdminMainCommDto> content = queryFactory
-				.select(new QAdminMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
+		List<MainCommDto> content = queryFactory
+				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))

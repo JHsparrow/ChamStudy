@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +49,7 @@ public class AdminContentController {
 	public String contents(Model model, Optional<Integer> page, ContentDto contentDto) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
 		Page<ContentDto> contentInfo = onContentService.getAllContnetList(contentDto, pageable);
-		
+		Authentication id = SecurityContextHolder.getContext().getAuthentication();
 //		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo", contentInfo);
 		model.addAttribute("maxPage", 5);
@@ -105,7 +107,6 @@ public class AdminContentController {
 	public String CategoryDelete(@RequestParam(value = "contentId") Long contentId, Model model) {
 		MessageDto message;
 		try {
-			System.out.println("123");
 			onContentService.deleteContentInfo(contentId);
 			message = new MessageDto("콘텐츠 삭제가 완료되었습니다.", "/adminOnClass/contents");
 		} catch (Exception e) {
