@@ -162,11 +162,12 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 		return new PageImpl<>(content, pageable, total);
 	}
 	
-	//경고게사판
+	//경고게시판
 	public BooleanExpression warnRepoterLike(String searchQuery) {
 		return StringUtils.isEmpty(searchQuery) ? null : QWarnBoard.warnBoard.reportedId.like("%" + searchQuery + "%");
 	}
 	
+	//경고 게시판 리스트 불러오기
 	@Override
 	public Page<WarnBoardDto> getWarnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable) {
 		QWarnBoard warnBoard = QWarnBoard.warnBoard;

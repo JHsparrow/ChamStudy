@@ -213,9 +213,6 @@ public class AdminCsController {
 		}
 		return showMessageAndRedirect(message, model);
 	}
-	
-
-	
 
 	//자주묻는질문 수정 페이지 보기
 	@GetMapping(value="/faqMdf/{faqId}")
@@ -278,6 +275,8 @@ public class AdminCsController {
 		return showMessageAndRedirect(message, model);
 
 	}
+	
+	//=========================================== 경고 게시판 ===========================================
 	
 	//경고 게시판 리스트
 	@GetMapping(value="/warn")

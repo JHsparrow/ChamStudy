@@ -162,6 +162,8 @@ public class CsService {
 		csFaqRepository.delete(csFaq);
 	}
 	
+	//========================================== 경고게시판 ==========================================
+	
 	// 경고게시판 리스트 출력
 	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
 		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
