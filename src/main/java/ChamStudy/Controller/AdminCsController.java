@@ -180,11 +180,12 @@ public class AdminCsController {
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
 
+		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
 		model.addAttribute("faqList", faqList);
 		model.addAttribute("maxPage", 5);
-		
+		model.addAttribute("sValue",userSearchDto.getSearchCategory());
 		return "cs/AdminFaq";
 	}
 	

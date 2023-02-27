@@ -76,10 +76,14 @@
 										<div class="col-sm-12 col-md-6">
 											<div class="dataTables_length" id="datatables-orders_length">
 												<select name="searchCategory" aria-controls="datatables-orders" class="form-select form-select-sm width30 selectCategory">
-													<option value="A" onClick="page()">전체</option><option value="S">사이트 이용</option>
-													<option value="V">동영상</option><option value="P">결제/환불</option>
-													<option value="M">모바일</option><option value="F">증빙서류</option>
-													<option value="U">회원정보</option><option value="E">기타</option>
+													<option value="A" th:selected="${sValue}=='A'">전체</option>
+													<option value="S" th:selected="${sValue}=='S'">사이트 이용</option>
+													<option value="V" th:selected="${sValue}=='V'">동영상</option>
+													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
+													<option value="M" th:selected="${sValue}=='M'">모바일</option>
+													<option value="F" th:selected="${sValue}=='F'">증빙서류</option>
+													<option value="U" th:selected="${sValue}=='U'">회원정보</option>
+													<option value="E" th:selected="${sValue}=='E'">기타</option>
 												</select>
 											</div>
 										</div>
