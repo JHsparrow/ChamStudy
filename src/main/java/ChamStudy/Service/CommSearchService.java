@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ChamStudy.Dto.AdminMainCommDto;
+import ChamStudy.Dto.MainCommDto;
 import ChamStudy.Dto.CommSearchDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Repository.CommRepository;
@@ -24,17 +24,17 @@ public class CommSearchService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<AdminMainCommDto> getmainCommPage(CommSearchDto commSearchDto,AdminMainCommDto adminMainCommDto ,Pageable pageable){
+	public Page<MainCommDto> getmainCommPage(CommSearchDto commSearchDto,MainCommDto adminMainCommDto ,Pageable pageable){
 		return commRepository.getAdminMainCommDto(commSearchDto, adminMainCommDto ,pageable);
 	}
 
 	@Transactional(readOnly = true)
-	public Page<AdminMainCommDto> getQnACommPage(CommSearchDto commSearchDto,AdminMainCommDto adminMainCommDto ,Pageable pageable){
+	public Page<MainCommDto> getQnACommPage(CommSearchDto commSearchDto,MainCommDto adminMainCommDto ,Pageable pageable){
 		return commRepository.getAdminQnACommDto(commSearchDto, adminMainCommDto ,pageable);
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<AdminMainCommDto> getMentoCommPage(CommSearchDto commSearchDto,AdminMainCommDto adminMainCommDto ,Pageable pageable){
+	public Page<MainCommDto> getMentoCommPage(CommSearchDto commSearchDto,MainCommDto adminMainCommDto ,Pageable pageable){
 		return commRepository.getAdminMentoCommDto(commSearchDto, adminMainCommDto ,pageable);
 	}
 	

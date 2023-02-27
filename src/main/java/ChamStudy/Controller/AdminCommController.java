@@ -16,26 +16,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ChamStudy.Dto.AdminMainCommDto;
+import ChamStudy.Dto.MainCommDto;
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommSearchDto;
-import ChamStudy.Dto.MainCommDto;
+import ChamStudy.Dto.CommDto;
 import ChamStudy.Dto.MessageDto;
-import ChamStudy.Service.AdminCommService;
 import ChamStudy.Service.CommSearchService;
+import ChamStudy.Service.CommService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/adminForm")
 public class AdminCommController { // 관리자 커뮤니티 게시판
-	private final AdminCommService adminCommService;
+	private final CommService adminCommService;
 	private final CommSearchService commSearchService;
 
 	@GetMapping(value = {"/comm","comm/{page}"}) // 관리자 커뮤니티 게시판 메인겸 자유게시판 관리
-	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page") Optional<Integer> page,AdminMainCommDto adminMainCommDto) {
+	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page") Optional<Integer> page,MainCommDto adminMainCommDto) {
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
-		Page<AdminMainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, adminMainCommDto ,pageable);
+		Page<MainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, adminMainCommDto ,pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", comms);
 		model.addAttribute("commSearchDto",commSearchDto);
@@ -45,10 +45,10 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	}
 
 	@GetMapping(value = "/comm/mento")
-	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,AdminMainCommDto adminMainCommDto) {
+	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
-		Page<AdminMainCommDto> adminMainCommDtoList = commSearchService.getMentoCommPage(commSearchDto, adminMainCommDto, pageable);
+		Page<MainCommDto> adminMainCommDtoList = commSearchService.getMentoCommPage(commSearchDto, adminMainCommDto, pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto", commSearchDto);
@@ -57,10 +57,10 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	}
 
 	@GetMapping(value = "/comm/qna")
-	public String commQna(Model model,CommSearchDto commSearchDto,Optional<Integer> page,AdminMainCommDto adminMainCommDto) {
+	public String commQna(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
-		Page<AdminMainCommDto> adminMainCommDtoList = commSearchService.getQnACommPage(commSearchDto,adminMainCommDto,pageable);
+		Page<MainCommDto> adminMainCommDtoList = commSearchService.getQnACommPage(commSearchDto,adminMainCommDto,pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto",commSearchDto);
@@ -73,7 +73,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	public String commDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request) {
 		try {
 			//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
-			MainCommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
+			CommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
 			List<CommCommentDto> commentList = adminCommService.getCommentList(boardId);
 			List<CommCommentDto> replyList = adminCommService.getReplyList(boardId);
 			

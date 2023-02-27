@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommImgDto;
-import ChamStudy.Dto.MainCommDto;
+import ChamStudy.Dto.CommDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;
@@ -22,21 +22,21 @@ import lombok.RequiredArgsConstructor;
 @Transactional // 서비스 클래서에서 로직을 처리하다가 에러가 발생하면 로직을 수행하기 이전 상태로 되돌려준다.
 @RequiredArgsConstructor
 @Component
-public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
+public class CommService { // 관리자 커뮤니티 게시판 서비스
 	private final CommRepository commRepository;
 	private final CommImgRepository commImgRepository;
 
-	public List<MainCommDto> getAdminComm() { // 관리자 메인 페이지에 뿌려줄 게시판 리스트를 불러온다. // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
+	public List<CommDto> getAdminComm() { // 관리자 메인 페이지에 뿌려줄 게시판 리스트를 불러온다. // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 	 List<Comm_Board> commList = commRepository.findF(); // 화면에 뿌려주기 위해 담을 Dto 리스트 작성 
-	 List<MainCommDto> mainCommDtoList = new ArrayList<>();
+	 List<CommDto> mainCommDtoList = new ArrayList<>();
 	 
 	 // 담을 Dto리스트에 db에서 찾은 데이터들을 담아주는 작업 // 이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다.
 	 
-	 for (Comm_Board board : commList) { MainCommDto commDto = new MainCommDto(board);  mainCommDtoList.add(commDto); } 
+	 for (Comm_Board board : commList) { CommDto commDto = new CommDto(board);  mainCommDtoList.add(commDto); } 
 	 return mainCommDtoList; }
 
 	
-	  public MainCommDto getAdminCommDtl(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다. 
+	  public CommDto getAdminCommDtl(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다. 
 		  List<Comm_Board_Img> commImgList =
 	  commImgRepository.findByBoardIdOrderByIdAsc(boardId); List<CommImgDto>
 	  commImgDtoList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 	  // 2.item테이블에 있는 데이터를 가져온다. 
 	  Comm_Board board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 	  // 엔티티 객체 -> Dto객체로 변환 
-	  MainCommDto commDto = new MainCommDto(board);
+	  CommDto commDto = new CommDto(board);
 	  
 	  // 상품의 이미지 정보를 넣어준다. commDto.setCommImgDtos(commImgDtoList);
 	  
@@ -86,25 +86,25 @@ public class AdminCommService { // 관리자 커뮤니티 게시판 서비스
 	}
 
 	
-	  public List<MainCommDto> getAdminCommQna() { // 관리자 QnA 페이지에 뿌려줄 게시판 리스트를 불러온다. 
+	  public List<CommDto> getAdminCommQna() { // 관리자 QnA 페이지에 뿌려줄 게시판 리스트를 불러온다. 
 		  // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서 
 	  List<Comm_Board> commList = commRepository.findQ(); // 화면에 뿌려주기 위해 담을 Dto 리스트 작성 
-	  List<MainCommDto> mainCommDtoList = new ArrayList<>();
+	  List<CommDto> mainCommDtoList = new ArrayList<>();
 	  
 	  // 담을 Dto리스트에 db에서 찾은 데이터들을 담아주는 작업 // 이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다. 
-	  for (Comm_Board board : commList) {MainCommDto commDto = new
-	  MainCommDto(board); mainCommDtoList.add(commDto); } return
+	  for (Comm_Board board : commList) {CommDto commDto = new
+	  CommDto(board); mainCommDtoList.add(commDto); } return
 	  mainCommDtoList; }
 	 
 
 	
-	  public List<MainCommDto> getAdminCommMento() { // 관리자 Mento 페이지에 뿌려줄 게시판 리스트를 불러온다. 
+	  public List<CommDto> getAdminCommMento() { // 관리자 Mento 페이지에 뿌려줄 게시판 리스트를 불러온다. 
 		  // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서 
 		  List<Comm_Board> commList = commRepository.findM(); // 화면에 뿌려주기 위해 담을 Dto 리스트 작성 
-	  List<MainCommDto> mainCommDtoList = new ArrayList<>();
+	  List<CommDto> mainCommDtoList = new ArrayList<>();
 	  
 	  // 담을 Dto리스트에 db에서 찾은 데이터들을 담아주는 작업 // 이미지가 리스트로 되어있고 찾은 데이터도 리스트라 2중 for문으로 나눠주었다. 
-	  for (Comm_Board board : commList) { MainCommDto commDto = new MainCommDto(board); mainCommDtoList.add(commDto); } return
+	  for (Comm_Board board : commList) { CommDto commDto = new CommDto(board); mainCommDtoList.add(commDto); } return
 	  mainCommDtoList; }
 	 
 
