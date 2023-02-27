@@ -214,18 +214,9 @@ public class AdminCsController {
 		return showMessageAndRedirect(message, model);
 	}
 	
-<<<<<<< HEAD
-	//경고 게시판 리스트
-	@GetMapping(value="/warn")
-	public String warnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Optional<Integer> page, Model model) {
 
-		
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
-		Page<WarnBoardDto> warnList = csService.getWarnList(userSearchDto, warnBoardDto, pageable);
-		model.addAttribute("faqList", warnList);
-		model.addAttribute("maxPage", 5);
-		return "cs/AdminWarnBoard";
-=======
+	
+
 	//자주묻는질문 수정 페이지 보기
 	@GetMapping(value="/faqMdf/{faqId}")
 	public String modifyFaq(@PathVariable("faqId") Long faqId, Model model) {
@@ -285,6 +276,18 @@ public class AdminCsController {
 			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/cs/faqDtl/"+faqId);
 		}
 		return showMessageAndRedirect(message, model);
->>>>>>> 0e5541b7a042c86a1d13d078adb1c918ca2bd921
+
+	}
+	
+	//경고 게시판 리스트
+	@GetMapping(value="/warn")
+	public String warnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Optional<Integer> page, Model model) {
+
+		
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
+		Page<WarnBoardDto> warnList = csService.getWarnList(userSearchDto, warnBoardDto, pageable);
+		model.addAttribute("faqList", warnList);
+		model.addAttribute("maxPage", 5);
+		return "cs/AdminWarnBoard";
 	}
 }

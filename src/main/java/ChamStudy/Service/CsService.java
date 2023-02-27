@@ -131,11 +131,8 @@ public class CsService {
 	public Page<CsFaqListDto> getFaqList (UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable){
 		return csFaqRepository.getFaqList(userSearchDto, csFaqListDto, pageable);
 	}
+
 	
-<<<<<<< HEAD
-	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
-		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
-=======
 	//자주묻는질문 게시글 불러오기
 	@Transactional(readOnly = true)
 	public CsFaqDto getFaq(Long faqId) {
@@ -163,8 +160,11 @@ public class CsService {
 		CsFaq csFaq = csFaqRepository.findById(id)
 											 .orElseThrow(EntityNotFoundException::new);
 		csFaqRepository.delete(csFaq);
-		
->>>>>>> 0e5541b7a042c86a1d13d078adb1c918ca2bd921
+	}
+	
+	// 경고게시판 리스트 출력
+	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
+		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
 	}
 
 }
