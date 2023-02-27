@@ -24,7 +24,7 @@ public class CommSearchService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<MainCommDto> getmainCommPage(CommSearchDto commSearchDto,MainCommDto adminMainCommDto ,Pageable pageable){
+	public Page<MainCommDto> getmainCommPage(CommSearchDto commSearchDto,MainCommDto adminMainCommDto ,Pageable pageable){	
 		return commRepository.getAdminMainCommDto(commSearchDto, adminMainCommDto ,pageable);
 	}
 

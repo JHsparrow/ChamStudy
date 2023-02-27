@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/main")
+@RequestMapping(value = "/")
 public class CommController { //커뮤니티 컨트롤러
 	private final CommService adminCommService;
 	private final CommSearchService commSearchService;

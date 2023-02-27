@@ -30,16 +30,16 @@
 	<div layout:fragment="content">
 		<div class="body-wrap">
 			<div class="side-body">
-				<div>
-					<a>자유주제</a>
+				<div class="side-1">
+					<a class="side-a-1">자유주제</a>
 				</div>
-				<div>
-					<a>질문 & 답변</a>
+				<div class="side-2">
+					<a class="side-a-2">질문 & 답변</a>
 				</div>
 			</div>
 			<div class="main-body">
-				<div class="search-wrap"
-					th:object="${commSearchDto}" style="height: 40px;">
+				<div class="search-wrap" th:object="${commSearchDto}"
+					style="height: 40px;">
 					<!-- 상품 등록일 -->
 					<!-- 상품명, 등록자 선택 -->
 					<select th:field="*{searchBy}" class="form-select"
@@ -59,20 +59,25 @@
 				</div>
 				<div class="boards">
 					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
-						<div>
-							<ul class="comm-ul">
-								<li class="comm-li1"><a
-									th:href="'/adminForm/comm/dtl/'+${comm.id}"><span
-										th:if="${comm.boardType == 'F'}">자유게시판</span></a></li>
-								<li class="comm-li2"><a
-									th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.Title}]]</a></li>
-								<li class="comm-li3"><a
-									th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.userInfo.name}]]</a></li>
-								<li class="comm-li4"><a
-									th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.regDate}]]</a></li>
-								<li class="comm-li5"><a
-									th:href="'/adminForm/comm/dtl/'+${comm.id}">[[${comm.viewCount}]]</a></li>
-							</ul>
+						<div class="each">
+							<div class="comm-wrap">
+								<div class="comm-li1">
+									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
+									<a th:href="'/adminForm/comm/dtl/'+${comm.id}"
+										class="comm-li1-2">조회</a>
+								</div>
+								<div class="comm-wrap2">
+								<div class="comm-li2">
+									<a th:href="'/adminForm/comm/dtl/'+${comm.id}" class="comm-wrap-a2">[[${comm.Title}]]</a>
+								</div>
+								<div class="comm-li3-1">
+									<a th:href="'/adminForm/comm/dtl/'+${comm.id}" class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
+									<div class="comm-li3-2">
+										<a th:href="'/adminForm/comm/dtl/'+${comm.id}" class="comm-wrap-a4">[[${comm.regDate}]]</a>
+									</div>
+								</div>
+								</div>
+							</div>
 						</div>
 					</th:block>
 				</div>
