@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
@@ -19,9 +20,12 @@ import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.QCsFaqListDto;
 import ChamStudy.Dto.QCsInformListDto;
+import ChamStudy.Dto.QWarnBoardDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Dto.WarnBoardDto;
 import ChamStudy.Entity.QCsFaq;
 import ChamStudy.Entity.QCsInform;
+import ChamStudy.Entity.QWarnBoard;
 
 public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 
@@ -127,7 +131,6 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 	//자주묻는질문 제목으로 검색하기
 	public BooleanExpression faqTitleLike(String searchQuery) {
 		return StringUtils.isEmpty(searchQuery) ? null : QCsFaq.csFaq.title.like("%" + searchQuery + "%");
-				
 	}
 	
 	//자주묻는질문 리스트 불러오기
@@ -154,6 +157,43 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 				.from(csFaq)
 				.where(selectCategory(userSearchDto.getSearchCategory()))
 				.where(faqTitleLike(userSearchDto.getSearchQuery()))
+				.fetchOne();
+		
+		return new PageImpl<>(content, pageable, total);
+	}
+	
+	//경고게사판
+	public BooleanExpression warnRepoterLike(String searchQuery) {
+		return StringUtils.isEmpty(searchQuery) ? null : QWarnBoard.warnBoard.reportedId.like("%" + searchQuery + "%");
+	}
+	
+	@Override
+	public Page<WarnBoardDto> getWarnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable) {
+		QWarnBoard warnBoard = QWarnBoard.warnBoard;
+		
+		List<WarnBoardDto> content = queryFactory.select(
+				Projections.constructor(WarnBoardDto.class,
+						warnBoard.id,
+						warnBoard.reportedId,
+						warnBoard.reporterId,
+						warnBoard.warnType,
+						warnBoard.description,
+						warnBoard.userInfo,
+						warnBoard.boardType,
+						warnBoard.boardId,
+						warnBoard.regDate
+						)
+				)
+				.from(warnBoard)
+				.where(warnRepoterLike(userSearchDto.getSearchQuery()))
+				.orderBy(warnBoard.id.desc())
+				.offset(pageable.getOffset())	//데이터를 가져올 시작 index
+				.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
+				.fetch();
+		
+		long total = queryFactory.select(Wildcard.count)
+				.from(warnBoard)
+				.where(warnRepoterLike(userSearchDto.getSearchQuery()))
 				.fetchOne();
 		
 		return new PageImpl<>(content, pageable, total);

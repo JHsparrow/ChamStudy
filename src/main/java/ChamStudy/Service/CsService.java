@@ -17,6 +17,7 @@ import ChamStudy.Dto.CsInformDto;
 import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Dto.WarnBoardDto;
 import ChamStudy.Entity.CsFaq;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Entity.CsInformFile;
@@ -130,6 +131,10 @@ public class CsService {
 	@Transactional(readOnly = true)
 	public Page<CsFaqListDto> getFaqList (UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable){
 		return csFaqRepository.getFaqList(userSearchDto, csFaqListDto, pageable);
+	}
+	
+	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
+		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
 	}
 
 }

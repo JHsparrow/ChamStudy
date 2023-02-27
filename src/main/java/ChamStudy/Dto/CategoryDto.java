@@ -27,13 +27,13 @@ public class CategoryDto {
 	private Long count;
 	
 	
-	 @QueryProjection	//querydsl로 결과 조회 시 MainItemDto객체로 바로 받아올 수 있음
-	    public CategoryDto(Long id, String name, String date, Long count){
-	        this.id = id;
-	        this.name = name;
-	        this.date = date;
-	        this.count = count;
-	    }
+	@QueryProjection	//querydsl로 결과 조회 시 MainItemDto객체로 바로 받아올 수 있음
+    public CategoryDto(Long id, String name, String date, Long count){
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.count = count;
+    }
 	
 }
 

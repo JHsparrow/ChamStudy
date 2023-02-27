@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
+<head>
+<meta charset="UTF-8">
+<script>
+	function delCheck(informId){
+		if(confirm('삭제하시겠습니까?')){
+			$('#delInformId').val(informId);
+			$('#delFrm').attr("action","/cs/deleteInform/"+informId);
+			$('#delFrm').submit();
+		}else{ return false; }
+	}
+</script>
+<title>관리자페이지 - 공지사항</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h1 class="h3 mb-3">공지사항 관리</h1>
+					<div class="card">
+						<div class="card-header pb-0">
+							<div class="card-actions float-end">
+								<div class="dropdown position-relative">
+									<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+									</a>
+
+									<div class="dropdown-menu dropdown-menu-end">
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<h5 class="card-title mb-0">공지사항</h5>
+						</div>
+						<div class="card-body">
+							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+								<div class="row">
+									<div class="col-sm-12 col-md-6">
+										<div class="dataTables_length" id="datatables-orders_length">
+											<select name="datatables-orders_length" aria-controls="datatables-orders" class="form-select form-select-sm width30">
+												<option value="10">10</option><option value="25">25</option>
+												<option value="50">50</option><option value="100">100</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
+										<form th:action="@{/cs/inform}" method="get" role="search">
+											<label class="d-flex justify-content-end">
+												<input name="searchQuery" type="search" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
+												<!-- <button class="btn btn-primary" style="margin-left: 20px;" type="submit">Search</button> -->
+											</label>
+										</form>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
+										<colgroup> <!-- 너비 계산하기  -->
+											<col width="10%"><col width="40%"><col width="10%"><col width="20%"><col width="10%"><col width="10%">
+										</colgroup>
+										<thead>
+											<tr >
+												<th>No.</th>
+												<th>제목</th>
+												<th>조회수</th>
+												<th>작성일</th>
+												<th>수정</th>
+												<th>삭제</th>
+											</tr>
+										</thead>
+										<tbody>
+										<div th:if="${not #lists.isEmpty(fixedInformList.getContent())}">
+											<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
+											<tr class="fixedInform">
+												<td class="dtr-control sorting_1" tabindex="0"><i class="align-middle me-2" data-feather="volume-2"></i></td>
+												<td><a class="underline" th:onclick="|location.href='@{/cs/informDtl/}+${fixedInform.id}'|"><strong>[[${fixedInform.title}]]</strong></a></td>
+												<td class="text-center">[[${fixedInform.viewCount}]]</td>
+												<td>[[${fixedInform.update.substring(0,13)}]]</td>
+												<td>
+													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}+${fixedInform.id}'|">수정</a>
+												</td>
+												<td>
+													<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${fixedInform.id}]])">삭제</a>
+												</td>
+											</tr>
+											</th:block>
+										</div>
+
+										<th:block th:each="inform, status : ${informList.getContent()}">
+										<tr class="odd">
+											<td class="dtr-control sorting_1" tabindex="0"><strong>[[${inform.id}]]</strong></td>
+											<td><a class="underline" th:onclick="|location.href='@{/cs/informDtl/}+${inform.id}'|">[[${inform.title}]]</a></td>
+											<td class="text-center">[[${inform.viewCount}]]</td>
+											<td>[[${inform.update.substring(0,13)}]]</td>
+											<td>
+												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}+${inform.id}'|">수정</a>
+											</td>
+											<td>
+												<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${inform.id}]])">삭제</a>
+											</td>
+										</tr>
+										</th:block>
+ 										<tr th:if="${informList.getTotalElements()==0}">
+											<td colspan="6" class="dtr-control sorting_1" tabindex="0"><strong>등록된 게시글이 없습니다.</strong></td>
+										</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<form id="delFrm">
+									<input type="hidden" id="delInformId" name="informId" />
+								</form>
+								
+								<div class="row">
+									<div class="col-sm-12 col-md-3">
+										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<nav th:with="start=${(informList.number/maxPage)*maxPage + 1},
+										end=(${(informList.totalPages == 0) ? 1 : (start + (maxPage -1) < informList.totalPages ? start + (maxPage -1) : informList.totalPages)})">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+										
+											<ul class="pagination">
+												<li th:classappend="${informList.first}? 'disabled'"
+												class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
+													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number-1}}"
+													 aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												</li>
+												
+												
+												<li th:each="page: ${#numbers.sequence(start, end)}"
+												th:classappend="${informList.number eq page-1}?'active':''"
+												class="paginate_button page-item mx-1">
+													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
+												</li>
+												
+												
+												<li th:classappend="${informList.last}? 'disabled'"
+												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number+1}}"
+													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												</li>
+											</ul>
+										</div>
+									</nav>
+									</div>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/informForm}'|">등록하기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</body>
+</html>

@@ -7,9 +7,14 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -36,6 +41,21 @@ public class WarnBoard {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserInfo userInfo;
+	
+	private String boardType; //신고 게시판 구분
+	
+	private Long boardId; // 신고 게시판 아이디
+	
+	@CreatedDate
+	@Column(updatable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일 HH:mm:ss")
+	private String regDate;
+	
+	@PrePersist
+    public void onPrePersist(){
+        this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
+    }
+	
 	
 	
 	
