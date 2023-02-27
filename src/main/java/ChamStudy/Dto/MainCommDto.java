@@ -40,6 +40,10 @@ public class MainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String imgUrl;
 	
+	public MainCommDto() {
+		
+	}
+	
 	@QueryProjection
 	public MainCommDto(Long id, String Title, String boardType, UserInfo userInfo, String gubun, String substance, Integer viewCount, String regDate, String blockComment, String openChat, String imgUrl) {  
 		this.id = id;

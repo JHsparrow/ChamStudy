@@ -33,9 +33,9 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	private final CommSearchService commSearchService;
 
 	@GetMapping(value = {"/comm","comm/{page}"}) // 관리자 커뮤니티 게시판 메인겸 자유게시판 관리
-	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page") Optional<Integer> page,MainCommDto adminMainCommDto) {
+	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page") Optional<Integer> page,MainCommDto MainCommDto) {
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
-		Page<MainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, adminMainCommDto ,pageable);
+		Page<MainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, MainCommDto ,pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", comms);
 		model.addAttribute("commSearchDto",commSearchDto);
