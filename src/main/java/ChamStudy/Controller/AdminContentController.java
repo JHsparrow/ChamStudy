@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +48,8 @@ public class AdminContentController {
 	public String contents(Model model, Optional<Integer> page, ContentDto contentDto) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
 		Page<ContentDto> contentInfo = onContentService.getAllContnetList(contentDto, pageable);
-		
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(id);
 //		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo", contentInfo);
 		model.addAttribute("maxPage", 5);
