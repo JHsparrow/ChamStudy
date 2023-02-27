@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
+import ChamStudy.Dto.SubCategoryDto;
 import ChamStudy.Dto.modifySubCategoryDto;
 import ChamStudy.Entity.Category;
 import ChamStudy.Entity.SubCategory;
@@ -30,6 +31,10 @@ public class AdminCategoryService {
 	
 	public Page<CategoryDto> getAllMainList(CategoryDto categoryDto,Pageable pageable){
 		return categoryRepository.getMainPage(categoryDto,pageable);
+	}
+	
+	public Page<SubCategoryDto> getSubList(SubCategoryDto categoryDto,Pageable pageable, Category mainId){
+		return subCategoryRepository.getSubPage(categoryDto,pageable, mainId);
 	}
 	
 	

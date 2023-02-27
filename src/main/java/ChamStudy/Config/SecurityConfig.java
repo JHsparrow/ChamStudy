@@ -69,10 +69,10 @@ public class SecurityConfig {
 
 		
 		//페이지의 접근에 관한 설정
-		http.authorizeRequests()
-		    .mvcMatchers("/css/**", "/js/**", "/img/**","/video/**").permitAll()
-		    .mvcMatchers("/", "/users/**", "/adminForm/**","/contents/**" , "/images/**", "/adminClass/**", "/adminCategory/**", "/cs/**", "/adminOnClass/**").permitAll() //모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
-		    .mvcMatchers("/admin/**").hasRole("ADMIN") // '/admin' 으로 시작하는 경로는 계정이 ADMIN role일 경우에만 접근 가능하도록 설정
+		http.authorizeRequests() 
+		    .mvcMatchers("/css/**", "/js/**", "/img/**","/video/**",   "/main/css/**", "/main/js/**","/main/img/**","/main/video/**", "/main/lib/**" ).permitAll()
+		    .mvcMatchers("/","/admin/**", "/users/**","/contents/**" , "/images/**", "/adminClass/**", "/adminCategory/**", "/cs/**", "/adminOnClass/**", "/mainForm/**").permitAll() //모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
+		    .mvcMatchers("/test/**").hasRole("ADMIN") // '/admin' 으로 시작하는 경로는 계정이 ADMIN role일 경우에만 접근 가능하도록 설정
 		    .mvcMatchers("/seller/**").hasRole("SELLER") // '/admin' 으로 시작하는 경로는 계정이 ADMIN role일 경우에만 접근 가능하도록 설정
 		    .anyRequest().authenticated(); //그 외에 페이지는 모두 로그인(인증)을 받아야 한다.
 		

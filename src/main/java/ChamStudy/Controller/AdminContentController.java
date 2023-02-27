@@ -2,10 +2,14 @@ package ChamStudy.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ChamStudy.Dto.CategoryDto;
+import ChamStudy.Dto.ContentDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.OnContentDto;
 import ChamStudy.Dto.OnContentVideoDto;
@@ -38,10 +44,13 @@ public class AdminContentController {
 	
 	//콘텐츠
 	@GetMapping(value = "/adminOnClass/contents") //콘텐츠 관리페이지
-	public String contents(Model model) {
+	public String contents(Model model, Optional<Integer> page, ContentDto contentDto) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Page<ContentDto> contentInfo = onContentService.getAllContnetList(contentDto, pageable);
 		
-		List<ContentInfo> contentInfo = onContentService.getAllContent();
+//		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo", contentInfo);
+		model.addAttribute("maxPage", 5);
 		return "/AdminForm/AdminOnClass/contentList";
 	}
 	
@@ -61,9 +70,6 @@ public class AdminContentController {
 		model.addAttribute("videoUrl",url);
 		return "/AdminForm/AdminOnClass/contentVideo";
 	}
-	
-	
-	
 	
 	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentForm(Model model) throws Exception {
@@ -90,37 +96,21 @@ public class AdminContentController {
 		return showMessageAndRedirect(message, model);
 	}
 	
-	@GetMapping(value = "/adminOnClass/contentUpdate/{contentId}") //수정할 컨텐츠 조회
-	public String contentUpdateGet(Model model, @PathVariable(value = "contentId") Long contentId) {
-		
-		try {
-			//contentInfo데이터 조회
-			ContentInfo contentInfo = null;
-			contentInfo = onContentService.getIdContent(contentId);
-			
-			if (contentInfo == null) {
-				model.addAttribute("errorMessage", "존재하지 않는 콘텐츠 입니다.");
-				model.addAttribute("onContentDto", new OnContentDto());
-				model.addAttribute("onContentVideoDtoList", new ArrayList<OnContentVideoDto>());
-				model.addAttribute("onContentVideoDtoListSize", 0);
-				
-				return "/AdminForm/AdminOnClass/contentNew";
-			}
-			else {
-				OnContentDto onContentDto = OnContentDto.of(contentInfo);
-				model.addAttribute("errorMessage", "정상적으로 조회되었습니다");
-				model.addAttribute("onContentDto", onContentDto);
-				return "/AdminForm/AdminOnClass/contentUpdate";
-			}
-		} catch(EntityNotFoundException e) {
-			model.addAttribute("errorMessage", "조회 중 에러가 발생했습니다.");
-			model.addAttribute("onContentDto", new OnContentDto());
-			return "/AdminForm/AdminOnClass/contentList";
-		}
-	}
-	
 	private String showMessageAndRedirect(final MessageDto params, Model model) {
         model.addAttribute("params", params);
         return "common/messageRedirect";
+	}
+	
+	@GetMapping(value = "/adminOnClass/del") //메인 카테고리 삭제 처리 페이지
+	public String CategoryDelete(@RequestParam(value = "contentId") Long contentId, Model model) {
+		MessageDto message;
+		try {
+			System.out.println("123");
+			onContentService.deleteContentInfo(contentId);
+			message = new MessageDto("콘텐츠 삭제가 완료되었습니다.", "/adminOnClass/contents");
+		} catch (Exception e) {
+			message = new MessageDto("콘텐츠 삭제가 실패하였습니다.", "/adminOnClass/contents");
+		}
+        return showMessageAndRedirect(message, model);
 	}
 }
