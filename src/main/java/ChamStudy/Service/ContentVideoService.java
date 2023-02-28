@@ -11,6 +11,7 @@ import ChamStudy.Dto.VideoDto;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Entity.StudyHistory;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.OnContentRepository;
 import ChamStudy.Repository.OnContentVideoRepository;
 import ChamStudy.Repository.StudyHistortRepository;
@@ -53,15 +54,17 @@ public class ContentVideoService {
 		ContentVideo videoId = contentVideoRepository.getId(videoName);
 		ContentInfo getContentId = onContentRepository.getContentId(contentId);
 		Long history_id = studyHistortRepository.getVideoId(videoId.getId());
-		
+		UserInfo userId = userRepository.getUserId(email);
 		StudyHistory studyHistory = new StudyHistory();
 		if(history_id == null) {
 			studyHistory.setVideoId(videoId);
 			studyHistory.setContentId(getContentId);
+			studyHistory.setUserId(userId);
 		} else {
 			studyHistory.setVideoId(videoId);
 			studyHistory.setContentId(getContentId);
 			studyHistory.setId(history_id);
+			studyHistory.setUserId(userId);
 		}
 		studyHistortRepository.save(studyHistory);
 	}

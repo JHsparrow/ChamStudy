@@ -30,8 +30,8 @@ public class StudyHistory extends BaseTimeEntity {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "apply_id")
-	private ApplyList applyId;
+	@JoinColumn(name = "user_id")
+	private UserInfo userId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "video_id")
