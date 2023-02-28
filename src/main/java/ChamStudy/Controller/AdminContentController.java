@@ -67,7 +67,10 @@ public class AdminContentController {
 	public String showContentVideo(@PathVariable("videoUrl") String videoUrl, Model model) {	
 		Long contentId = videoService.getContentId(videoUrl);
 		String url = videoService.getContentUrl(videoUrl);
-		videoService.createStudyHistory(videoUrl,contentId);
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		
+		videoService.createStudyHistory(videoUrl,contentId,email);
 		model.addAttribute("contentId",contentId);
 		model.addAttribute("videoUrl",url);
 		return "/AdminForm/AdminClass/contentVideo";
@@ -117,7 +120,6 @@ public class AdminContentController {
 		MessageDto message;
 		try {
 			ContentInfo contentInfo = onContentService.getContentId(contentId);
-			System.out.println("아이디가져와" + contentId);
 			
 			 if(contentInfo == null) {
 				 model.addAttribute("onContentDto", new OnContentDto());

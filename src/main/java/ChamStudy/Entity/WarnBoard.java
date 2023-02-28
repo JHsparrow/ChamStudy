@@ -27,10 +27,11 @@ public class WarnBoard {
 	private Long id;
 	
 	@Column(name = "reporter_id") // 신고하는 사람의 아이디
-	private Long reporterId;
+	private String reporterId;
 	
-	@Column(name = "reported_id") // 신고를 받는 대상자의 아이디
-	private Long reportedId;
+	@ManyToOne
+	@JoinColumn(name = "user_id") // 신고 받는사람
+	private UserInfo reportedId;
 	
 	@Column(name = "warn_type") // 신고 유형
 	private String warnType;
@@ -38,9 +39,7 @@ public class WarnBoard {
 	@Column(name = "descripton")
 	private String description; //기타 설명(신고 사유)
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserInfo userInfo;
+	
 	
 	private String boardType; //신고 게시판 구분
 	

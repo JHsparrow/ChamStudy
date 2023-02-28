@@ -63,7 +63,7 @@
 				<select id="categorySelect" name="categoryId" class=" col-sm-2" onchange="getSubcategories()">
 					<option hidden>메인 카테고리</option>
 					<th:block th:each=" cateLists : ${cateList} ">
-						<option th:value="${cateLists.id}">[[${cateLists.name}]]</option>
+						<option th:selected="${cateLists.id==onContentDto.getCategoryId}" th:value="${cateLists.id}">[[${cateLists.name}]]</option>
 					</th:block>
 				</select>
 				<select id="subcategorySelect" name="subCategoryId" class=" col-sm-2">
@@ -91,6 +91,35 @@
 				<input type="button" id="btnContentSave" class="btn btn-primary mb-3" value="저장" />
 			</div>
 		</form>
+		<script th:inline="javascript">
+		$(function(){
+			var categoryId = /*[[${onContentDto.getCategoryId}]]*/
+			var subcategoryId = /*[[${onContentDto.getSubCategoryId}]]*/
+		    $.ajax({
+		        url: "/adminCategory/consub/" + categoryId,
+	            type: 'GET',
+	            dataType: 'json',
+	            success: function(data) {
+	                var subcategorySelect = $('#subcategorySelect');
+	                subcategorySelect.empty();
+	                $.each(data, function(index, subcategory) {
+	                	if(subcategory.id==subcategoryId){
+	                		subcategorySelect.append($('<option/>', {
+		                        value: subcategory.id,
+		                        text: subcategory.name,
+		                        selected: true,
+		                    }));	
+	                	} else{
+	                		subcategorySelect.append($('<option/>', {
+		                        value: subcategory.id,
+		                        text: subcategory.name,
+		                    }));
+	                	}
+	                });
+	            }
+		    });
+		})
+		</script>
 		<script>
 		function getSubcategories() {
 		    var categoryId = $('#categorySelect').val();
