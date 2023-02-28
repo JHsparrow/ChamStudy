@@ -39,7 +39,7 @@ public class CsInform extends BaseTimeEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserInfo userInfo;
+	private UserInfo userId;
 	
 
 	public void updateInform(CsInformDto csInformDto) {

@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,6 +86,7 @@ public class AdminCsController {
 	public String createInform(Model model) {
 		model.addAttribute("csInformDto", new CsInformDto());
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
+		System.out.println("작성자 아이디: " + SecurityContextHolder.getContext().getAuthentication().getName());
 		return "cs/AdminInformForm";
 	}
 
@@ -94,13 +96,16 @@ public class AdminCsController {
 	public String uploadInform(@Valid CsInformDto csInformDto, BindingResult bindingResult, 
 			Model model, @RequestParam("csInformFile") List<MultipartFile> informFileList) {
 		
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(bindingResult.hasErrors()) {
 			return "cs/AdminInformForm";
 		}
 		
 		try {
-			csService.saveInform(csInformDto, informFileList);
+			csService.saveInform(csInformDto, informFileList, email);
 			message = new MessageDto("공지사항 등록이 완료되었습니다.", "/cs/inform");
+			
+			
 		} catch (Exception e) {
 			message = new MessageDto("공지사항 등록이 실패하였습니다.", "/cs/inform");
 		}
@@ -110,7 +115,6 @@ public class AdminCsController {
 	//공지사항 게시글 상세 보기
 	@GetMapping(value="/informDtl/{informId}")
 	public String informDetail(@PathVariable("informId") Long informId, Model model) { 
-		
 		
 		try {
 			CsInformDto csInformDto = csService.getInform(informId);

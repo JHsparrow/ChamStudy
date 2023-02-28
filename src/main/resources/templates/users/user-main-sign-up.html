@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<th:block layout:fragment="css">
+  <style>
+     .fieldError {
+        color: #bd2130;
+     }
+  </style>
+</th:block>
+</head>
+<body>
+	<div layout:fragment="content">
+				<div class="container d-flex flex-column">
+			<div class="row vh-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+						<div class="text-center mtW-4">
+							<h1 class="h2">회원가입</h1>
+							<p class="lead">환영합니다!</p>
+						</div>
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+									<form id="frm" action="/users/signUp" method="post" th:object="${userInfoDto}">
+									<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+										<div class="mb-3">
+											<label class="form-label" th:for="email">이메일</label> 
+											<input th:field="*{email}" class="form-control form-control-lg" type="email" id="email" name="email" placeholder="이메일을 입력 해주세요" />
+											<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+										</div>
+										<div class="mb-3">
+											<label class="form-label" th:for="name">이름</label> 
+											<input th:field="*{name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
+											<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
+										</div>
+										<div class="mb-3">
+											<label class="form-label" th:for="password">비밀번호</label> 
+											<input th:field="*{password}" class="form-control form-control-lg" type="password" id="password" name="password" placeholder="비밀번호를 입력 해주세요" />
+											<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">비밀번호 확인</label> 
+											<input class="form-control form-control-lg" type="password"
+												id="passwordck" name="password_ck" placeholder="비밀번호를 확인 해주세요" />
+										</div>
+										<div class="mb-3">
+											<label class="form-label" th:for="phone">휴대폰 번호</label> 
+											<input th:field="*{phone}" class="form-control form-control-lg" type="text" id="phone" name="phone" placeholder="비밀번호를 확인 해주세요" />
+											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
+										</div>
+										<div class="text-center mt-3">
+										<button class="btn btn-lg btn-primary" type="submit" onclick="passwordCk()">sign up</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!--  		<script>
+			function passwordCk() {
+				var p1 = document.getElementById('password').value;
+				var p2 = document.getElementById('passwordck').value;
+		      	if( p1 != p2 ) {
+		          alert("비밀번호가 일치 하지 않습니다");
+		          return false;
+		        } else{
+		        	$('#frm').submit();
+		        }
+			}
+		</script> -->
+		
+	</div>
+</body>
+</html>

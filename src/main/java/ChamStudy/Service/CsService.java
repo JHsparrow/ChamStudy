@@ -21,9 +21,11 @@ import ChamStudy.Dto.WarnBoardDto;
 import ChamStudy.Entity.CsFaq;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Entity.CsInformFile;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.CsFaqRepository;
 import ChamStudy.Repository.CsInformFileRepository;
 import ChamStudy.Repository.CsInformRepository;
+import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -33,14 +35,18 @@ public class CsService {
 	private final CsInformRepository csInformRepository;
 	private final CsFileService csFileService;
 	private final CsInformFileRepository csInformFileRepository;
+	private final UserRepository userRepository;
 	
 	private final CsFaqRepository csFaqRepository;
 	
 	//========================================== 공지사항 ==========================================
 	
 	//공지사항 게시물 등록
-	public Long saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList) throws Exception {
+	public Long saveInform(CsInformDto csInformDto, List<MultipartFile> csInformFileList, String email) throws Exception {
+		System.out.println(" 이메일: " + email);
+		UserInfo userId = userRepository.getUserId(csInformDto.getEmail());
 		CsInform csInform = csInformDto.createCsInform();
+		csInform.setUserId(userId);
 		csInformRepository.save(csInform);
 		
 		//파일 등록
@@ -72,6 +78,7 @@ public class CsService {
 		
 		CsInformDto csInformDto = CsInformDto.of(csInform);
 		
+		csInformDto.setEmail(csInform.getUserId().getEmail());
 		csInformDto.setCsInformFileDtoList(csInformFileDtoList);
 		
 		return csInformDto;

@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommFreeBoardFormDto {
+public class CommWriteFormDto {
 
 	private Long id;
 	
