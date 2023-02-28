@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.ClassInfoDto;
+import ChamStudy.Dto.ClassInfoListDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Repository.ClassInfoRepository;
@@ -57,8 +58,8 @@ public class ClassInfoService {
 	
 	//강의리스트 전체조회(페이징)
 	@Transactional(readOnly = true)
-	public Page<ClassInfo> getAllClassPage(Pageable pageable) {
-		Page<ClassInfo> classInfo = classInfoRepository.findAll(pageable);
+	public Page<ClassInfoListDto> getAllClassPage(Pageable pageable) {
+		Page<ClassInfoListDto> classInfo = classInfoRepository.joinContent(pageable);
 		
 		return classInfo;
 	}
