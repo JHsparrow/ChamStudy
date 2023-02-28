@@ -1,7 +1,6 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		layout:decorate="~{layouts/layout_admin2}">
+	layout:decorate="~{layouts/layout_admin}">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,13 +14,9 @@
 	<script th:inline="javascript">
 
 		$(document).ready(function(){ //페이지가 로딩이 완료 되었을 때 자동으로 호출된다
- 			var errorMessage = [[${errorMessage}]];
-        	if(errorMessage != null){
-            	alert(errorMessage);
-        	}
+ 			
         	
 			bindDomEvent(); //change이벤트를 호출하기 위해 함수 호출
-			bindDomEvent2();
 			bindDomEvent3();
 		});
 		
@@ -41,28 +36,11 @@
                 $(this).siblings(".class-file-input").html(fileName);
 			});
 		}
-		
-	    //파일 첨부시 동영상 파일인지 검사하기 위해 change이벤트를 등록한다.
-	    function bindDomEvent2(){
-	        $(".class-file-input2").on("change", function() {
-	            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-	            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-	            fileExt = fileExt.toLowerCase(); //소문자 변환
-	
-	            if(fileExt != "mp4" && fileExt != "mov" && fileExt != "wmv" && fileExt != "avi" && fileExt != "flv"){
-	                alert("동영상 파일만 등록이 가능합니다.");
-	                $(this).val(""); //파일명 공란으로 설정
-	                return;
-	            }
-	
-	            $(this).siblings(".class-file-input2").html(fileName);
-			});
-	    }
 	    
 	    function bindDomEvent3(){
 	    	$('#btnContentSave').on("click", function() {
-	    		$('#frmContentUpdate').attr('action','/adminOnClass/contentUpdate');
-	    		$('#frmContentUpdate').submit();
+	    		$('#frmContentNew').attr('action','/adminOnClass/contentNew');
+	    		$('#frmContentNew').submit();
 	    	});
 	    }
 	</script>
@@ -77,44 +55,63 @@
 
 <body>
 	<div layout:fragment="content">
-		<form id="frmContentUpdate" class="row g-3" method="post" >
-		<div enctype="multipart/form-data" th:object="${onContentDto}">
+
+			<form id="frmContentNew" class="row g-3" method="post" enctype="multipart/form-data" th:object="${onContentDto}">
 			<h1 class="h3 mb-3">콘텐츠 수정</h1>
-				<input type="hidden" th:field="*{id}" />
-			
+			<input type="hidden" th:field="*{id}" />
+			<div class="row mb-3">
+				<select id="categorySelect" name="categoryId" class=" col-sm-2" onchange="getSubcategories()">
+					<option hidden>메인 카테고리</option>
+					<th:block th:each=" cateLists : ${cateList} ">
+						<option th:value="${cateLists.id}">[[${cateLists.name}]]</option>
+					</th:block>
+				</select>
+				<select id="subcategorySelect" name="subCategoryId" class=" col-sm-2">
+					<option hidden>서브 카테고리</option>
+					
+				</select>
+			</div>
 			<div class="row mb-3">
 				<label class="col-sm-2 col-form-label">콘텐츠 이름</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" th:field="*{name}" placeholder="콘텐츠명 입력">
-				</div>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" th:field="*{name}" placeholder="콘텐츠명 입력">
+			</div>
 				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
 			</div>
-		
+			
 			<!-- 수정할때 -->
 			<div class="mb-3">
 				<label for="formFile" class="form-label class-file-label" th:text="${#strings.defaultString(onContentDto.oriImgName, '콘텐츠이미지')}"></label>
 				<input class="form-control class-file-input" type="file" id="contentImgFile" name="itemImgFile">
 			</div>
 			
-			<div th:each="onContentVideoDto, status: ${onContentVideoDtoList}">
-				<div class="mb-3">
- 						<label for="formFile" class="form-label class-file-label2" th:text="${#strings.defaultString(onContentVideoDto.oriname, ('콘텐츠비디오 : ' + status.count))}"></label>
- 						<input class="form-control class-file-input2" type="file" name="contentVideoFileList">
-				</div>
-			</div>
 			
-			<div th:each="num: ${#numbers.sequence(1,(5 - onContentVideoDtoListSize))}">
-				<div class="mb-3">
- 						<label for="formFile" class="form-label class-file-label2" th:text="${'콘텐츠비디오 ' + (num + onContentVideoDtoListSize)}"></label>
- 						<input class="form-control class-file-input2" type="file" name="contentVideoFileList">
-				</div>
-			</div>
 			
 			<div th:if="${not #strings.isEmpty(onContentDto.id)}">
 				<input type="button" id="btnContentSave" class="btn btn-primary mb-3" value="저장" />
 			</div>
-		</div>
 		</form>
+		<script>
+		function getSubcategories() {
+		    var categoryId = $('#categorySelect').val();
+			console.log(categoryId);
+		    $.ajax({
+		        url: "/adminCategory/consub/" + categoryId,
+	            type: 'GET',
+	            dataType: 'json',
+	            success: function(data) {
+	                var subcategorySelect = $('#subcategorySelect');
+	                subcategorySelect.empty();
+	                $.each(data, function(index, subcategory) {
+	                    subcategorySelect.append($('<option/>', {
+	                        value: subcategory.id,
+	                        text: subcategory.name
+	                    }));
+	                });
+	            }
+		    });
+		}
+		</script>
 	</div>
 </body>
 

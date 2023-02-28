@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ChamStudy.Dto.AdminClassDto;
+import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Service.ClassInfoService;
@@ -42,7 +42,7 @@ public class AdminClassController {
 	}
 	
 	@PostMapping(value = "/classList")
-	public String classList(AdminClassDto adminClassDto, Model model) {
+	public String classList(ClassInfoDto adminClassDto, Model model) {
 		List<ClassInfo> classInfo = classInfoService.getSearch(adminClassDto);
 		model.addAttribute("classInfo", classInfo);
 		return "/AdminForm/AdminOnClass/classList";
@@ -53,12 +53,12 @@ public class AdminClassController {
 	public String classNew(Model model) {
 //		List<ContentInfo> contentInfo = classInfoService.getAllContents();
 //		model.addAttribute("contentInfo", contentInfo);
-		model.addAttribute("adminClassDto", new AdminClassDto());
+		model.addAttribute("adminClassDto", new ClassInfoDto());
 		return "/AdminForm/AdminOnClass/classNew";
 	}
 	
 	@PostMapping(value = "/classNew") //강의 정보 등록
-	public String classNew(@Valid AdminClassDto adminClassDto, BindingResult bindingResult, Model model) {
+	public String classNew(@Valid ClassInfoDto adminClassDto, BindingResult bindingResult, Model model) {
 		
 		MessageDto message;
 		if(bindingResult.hasErrors()) {
@@ -74,7 +74,7 @@ public class AdminClassController {
 	}
 	
 	@GetMapping(value = "/classUpdate") //강의정보 수정
-	public String classUpdate(AdminClassDto adminClassDto, Model model) {
+	public String classUpdate(ClassInfoDto adminClassDto, Model model) {
 		
 
 		StringBuffer sb = new StringBuffer();
@@ -85,11 +85,11 @@ public class AdminClassController {
 		MessageDto message;
 		
 		try {
-			AdminClassDto adminClass = classInfoService.getId(adminClassDto.getId());
+			ClassInfoDto adminClass = classInfoService.getId(adminClassDto.getId());
 			model.addAttribute("adminClassDto", adminClass);
 		} catch(EntityNotFoundException e) {
 			message = new MessageDto("존재하지 않는 강의 입니다.", "/adminClass/classList");
-			model.addAttribute("adminClassDto", new AdminClassDto());
+			model.addAttribute("adminClassDto", new ClassInfoDto());
 			return showMessageAndRedirect(message, model);
 		}
 		
@@ -97,7 +97,7 @@ public class AdminClassController {
 	}
 	
     @PostMapping(value ="/classUpdate")
-    public String itemUpdate(@Valid AdminClassDto adminClassDto, BindingResult bindingResult, Model model){
+    public String itemUpdate(@Valid ClassInfoDto adminClassDto, BindingResult bindingResult, Model model){
        
     	MessageDto message;
     	

@@ -53,14 +53,14 @@ public class AdminContentController {
 //		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo", contentInfo);
 		model.addAttribute("maxPage", 5);
-		return "/AdminForm/AdminOnClass/contentList";
+		return "/AdminForm/AdminClass/contentList";
 	}
 	
 	@GetMapping(value = "/adminOnClass/contentVideoList/{contentId}") //콘텐츠비디오 교안보기 리스트
 	public String contentVideoList(@PathVariable("contentId") ContentInfo contentId, Model model) {	
 		List<ContentVideo> videoLists = videoService.videoList(contentId);
 		model.addAttribute("videoLists",videoLists);
-		return "/AdminForm/AdminOnClass/contentVideoList";
+		return "/AdminForm/AdminClass/contentVideoList";
 	}
 	
 	@GetMapping(value = "/adminOnClass/video/{videoUrl}") //콘텐츠비디오 재생페이지
@@ -70,7 +70,7 @@ public class AdminContentController {
 		videoService.createStudyHistory(videoUrl,contentId);
 		model.addAttribute("contentId",contentId);
 		model.addAttribute("videoUrl",url);
-		return "/AdminForm/AdminOnClass/contentVideo";
+		return "/AdminForm/AdminClass/contentVideo";
 	}
 	
 	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
@@ -78,14 +78,14 @@ public class AdminContentController {
 		model.addAttribute("cateList",adminCategoryService.getCategory());
 
 		model.addAttribute("onContentDto", new OnContentDto());
-		return "/AdminForm/AdminOnClass/contentNew";
+		return "/AdminForm/AdminClass/contentNew";
 	}
 	
 	@PostMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentNew(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model) {
 		MessageDto message;
 		if(bindingResult.hasErrors()) {
-			return "/AdminForm/AdminOnClass/contentNew";
+			return "/AdminForm/AdminClass/contentNew";
 		}
 		try {
 			onContentService.saveOnContent(onContentDto);
@@ -93,14 +93,9 @@ public class AdminContentController {
 			videoService.insertVideoData(conId,5);
 			message = new MessageDto("콘텐츠 등록이 완료되었습니다.", "/adminOnClass/contents");
 		} catch (Exception e) {
-			message = new MessageDto("콘텐츠 등록이 실패하였습니다.", "/AdminForm/AdminOnClass/contentNew");
+			message = new MessageDto("콘텐츠 등록이 실패하였습니다.", "/AdminForm/AdminClass/contentNew");
 		}
 		return showMessageAndRedirect(message, model);
-	}
-	
-	private String showMessageAndRedirect(final MessageDto params, Model model) {
-        model.addAttribute("params", params);
-        return "common/messageRedirect";
 	}
 	
 	@GetMapping(value = "/adminOnClass/del") //메인 카테고리 삭제 처리 페이지
@@ -113,5 +108,58 @@ public class AdminContentController {
 			message = new MessageDto("콘텐츠 삭제가 실패하였습니다.", "/adminOnClass/contents");
 		}
         return showMessageAndRedirect(message, model);
+	}
+	
+	// 콘텐츠 수정
+	@GetMapping(value = "/adminOnClass/contentUpdate/{contentId}") // 콘텐츠 수정
+	public String contentUpdate(@PathVariable("contentId")Long contentId, Model model) throws Exception {
+		
+		MessageDto message;
+		try {
+			ContentInfo contentInfo = onContentService.getContentId(contentId);
+			System.out.println("아이디가져와" + contentId);
+			
+			 if(contentInfo == null) {
+				 model.addAttribute("onContentDto", new OnContentDto());
+				 message = new MessageDto("존재하지 않는 콘텐츠 입니다.", "/adminOnClass/contents");
+				 return "/AdminForm/AdminClass/contentNew";
+			 } else {
+				 model.addAttribute("cateList", adminCategoryService.getCategory());
+				 OnContentDto onContentDto = OnContentDto.of(contentInfo);
+				 model.addAttribute("onContentDto", onContentDto);
+				 return "/AdminForm/AdminClass/contentUpdate";
+			 }
+		} catch(EntityNotFoundException e) {
+			model.addAttribute("onContentDto", new OnContentDto());
+			message = new MessageDto("존재하지 않는 콘텐츠 입니다.", "/adminOnClass/contents");
+		}
+
+		return showMessageAndRedirect(message, model);
+	}
+	
+	
+	@PostMapping(value = "/adminOnClass/contentUpdate/{contentId}")
+	public String contentUpdate(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model, 
+			@RequestParam(value="itemImgFile") MultipartFile itemImgFile) throws Exception {
+		
+		MessageDto message;
+		if (bindingResult.hasErrors()) {
+			return "/AdminForm/AdminClass/contentList";
+		}
+		try {
+			onContentService.saveOnContent(onContentDto);
+			onContentService.updateContent(onContentDto, itemImgFile);
+			message = new MessageDto("콘텐츠 수정이 완료되었습니다.", "/adminOnClass/contents");
+			
+		} catch(EntityNotFoundException e) {
+			model.addAttribute("onContentDto", new OnContentDto());
+			 message = new MessageDto("콘텐츠 수정에 실패했습니다.", "/adminOnClass/contents");
+		}
+		return showMessageAndRedirect(message, model);
+	}
+	
+	private String showMessageAndRedirect(final MessageDto params, Model model) {
+		model.addAttribute("params", params);
+		return "common/messageRedirect";
 	}
 }
