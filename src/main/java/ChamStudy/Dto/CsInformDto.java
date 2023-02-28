@@ -31,8 +31,10 @@ public class CsInformDto {
 	private String gubun;
 	
 	private String update;
+	
+	private Long userId;
 
-	private String userInfo;
+	private String email;
 	
 	private List<CsInformFileDto> csInformFileDtoList = new ArrayList<>();
 	
@@ -47,5 +49,17 @@ public class CsInformDto {
 	
 	public static CsInformDto of (CsInform csInform) {
 		return modelMapper.map(csInform, CsInformDto.class);
+	}
+	
+	public CsInformDto() {};
+	
+	public CsInformDto(CsInform csInform) {
+		this.id = csInform.getId();
+		this.title = csInform.getTitle();
+		this.substance = csInform.getSubstance();
+		this.viewCount = csInform.getViewCount();
+		this.gubun = csInform.getGubun();
+		this.update = csInform.getUpDate();
+		this.email = csInform.getUserId().getEmail();
 	}
 }
