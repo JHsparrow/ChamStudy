@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import ChamStudy.Dto.AdminClassDto;
+import ChamStudy.Dto.ClassInfoDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -61,7 +61,7 @@ public class ClassInfo {
 	@JoinColumn(name = "content_id")
 	private ContentInfo contentInfo;
 	
-	public void updateClass(AdminClassDto adminClassDto) {
+	public void updateClass(ClassInfoDto adminClassDto) {
 		this.name = adminClassDto.getName();
 		this.price = adminClassDto.getPrice();
 		this.peopleNum = adminClassDto.getPeopleNum();

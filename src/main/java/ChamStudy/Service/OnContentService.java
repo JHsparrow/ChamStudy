@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.ContentDto;
@@ -153,6 +154,38 @@ public class OnContentService {
 		
 		ContentInfo contentInfo = onContentRepository.findById(contentId).orElseThrow(EntityNotFoundException::new);   
 		onContentRepository.delete(contentInfo);
+	}
+	
+	@Transactional(readOnly = true)
+	public ContentInfo getContentId(Long contentId) {
+		//content테이블에서 contentId 조회
+		ContentInfo contentInfo = onContentRepository.getContentId(contentId);
+		return contentInfo;
+	}
+	
+	//콘텐츠 수정하기
+	public Long updateContent(OnContentDto onContentDto, MultipartFile itemImgFile) throws Exception {
+		
+		ContentInfo contentInfo = onContentRepository.findById(onContentDto.getId()).orElseThrow(EntityNotFoundException::new);
+		
+		
+		if(!itemImgFile.isEmpty()) { //파일이 있으면
+			ContentInfo saveImg = onContentRepository.findById(onContentDto.getId()).orElseThrow(EntityNotFoundException::new);
+			
+			//기존 이미지 파일 삭제
+			if(!StringUtils.isEmpty(saveImg.getImgName())) {
+				fileService.deleteFile(itemImgLocation + "/" + saveImg.getImgName());
+			}
+			
+			//수정된 이미지 파일 업로드
+			String oriImgName = itemImgFile.getOriginalFilename();
+			String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+			String imgUrl = "/contents/" + imgName;
+			
+			saveImg.updateItemImg(oriImgName, imgName, imgUrl);
+			
+		}
+		return contentInfo.getId();
 	}
 	
 }
