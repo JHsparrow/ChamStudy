@@ -4,9 +4,11 @@
 	layout:decorate="~{layouts/layout_admin}">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+
 <script>
 
-	$(function(){
+/* 	$(function(){
 		$('.category').each(function(){
 			if($(this).text()=='S'){$(this).text('사이트 이용')}
 			if($(this).text()=='V'){$(this).text('동영상')}
@@ -30,24 +32,24 @@
 
         location.href="/cs/faq/"+ "?searchCategory=" + searchCategory
         + "&searchQuery=" + searchQuery;
-    }
+    } */
 	
-	function delCheck(faqId){
+	function delCheck(qnaId){
 		if(confirm('삭제하시겠습니까?')){
-			$('#delFaqId').val(faqId);
-			$('#delFrm').attr("action","/cs/deleteFaq/"+faqId);
+			$('#delQnaId').val(qnaId);
+			$('#delFrm').attr("action","/cs/deleteQna/"+qnaId);
 			$('#delFrm').submit();
 		}else{ return false; }
 	}
 </script>
-<title>관리자페이지 - 자주묻는질문</title>
+<title>관리자페이지 - 1:1문의</title>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="main">
 			<main class="content">
 				<div class="container-fluid p-0">
-					<h1 class="h3 mb-3">자주묻는질문 관리</h1>
+					<h1 class="h3 mb-3">1:1 문의 게시판 관리</h1>
 					<div class="card">
 						<div class="card-header pb-0">
 							<div class="card-actions float-end">
@@ -63,7 +65,7 @@
 									</div>
 								</div>
 							</div>
-							<h5 class="card-title mb-0">자주묻는질문</h5>
+							<h5 class="card-title mb-0">1:1 문의</h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -72,19 +74,23 @@
 										<div class="col-sm-12 col-md-6">
 											<div class="dataTables_length" id="datatables-orders_length">
 												<select name="searchCategory" aria-controls="datatables-orders" class="form-select form-select-sm width30 selectCategory">
-													<option value="A" th:selected="${sValue}=='A'">전체</option>
-													<option value="S" th:selected="${sValue}=='S'">사이트 이용</option>
-													<option value="V" th:selected="${sValue}=='V'">동영상</option>
+													<option value="A">전체</option>
+													<option value="S">수강신청</option>
+													<option value="V">강의</option>
+													<option value="P">결제/환불</option>
+													<option value="E">기타</option>
+													
+													<!-- <option value="A" th:selected="${sValue}=='A'">전체</option>
+													<option value="S" th:selected="${sValue}=='S'">수강신청</option>
+													<option value="V" th:selected="${sValue}=='V'">강의</option>
 													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
-													<option value="M" th:selected="${sValue}=='M'">모바일</option>
-													<option value="F" th:selected="${sValue}=='F'">증빙서류</option>
-													<option value="U" th:selected="${sValue}=='U'">회원정보</option>
-													<option value="E" th:selected="${sValue}=='E'">기타</option>
+													<option value="M" th:selected="${sValue}=='M'">기타</option> -->
 												</select>
 											</div>
 										</div>
 										<div class="col-sm-12 col-md-6">
 											<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
+												
 												<label class="d-flex justify-content-end">
 													<input name="searchQuery" type="search" class="form-control form-control-sm width30 searchInput" placeholder="검색창" aria-controls="datatables-orders">
 												</label>
@@ -96,37 +102,38 @@
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 										<colgroup> <!-- 너비 계산하기  -->
-											<col width="10%"><col width="10%"><col width="40%"><col width="20%"><col width="10%"><col width="10%">
+											<col width="10%"><col width="10%"><col width="40%"><col width="10%"><col width="8%"><col width="12%"><col width="10%">
 										</colgroup>
 										<thead>
 											<tr >
 												<th>No.</th>
 												<th>카테고리</th>
 												<th>제목</th>
-												<th>작성일</th>
-												<th>수정</th>
-												<th>삭제</th>
+												<th>작성자</th>
+												<th>공개여부</th>
+												<th>등록일</th>
+												<th>답변여부</th>
 											</tr>
 										</thead>
 										<tbody>
-
-											<th:block th:each="faq, status : ${faqList.getContent()}">
-												<tr class="odd">
-													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${faq.id}]]</strong></td>
-													<td class="category">[[${faq.gubun}]]</td>
-													<td><a class="underline" th:onclick="|location.href='@{/cs/faqDtl/}+${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
-													<td>[[${faq.update.substring(0,13)}]]</td>
-													<td>
-														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/faqMdf/}+${faq.id}'|">수정</a>
-													</td>
-													<td>
-														<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${faq.id}]])">삭제</a>
-													</td>
-												</tr>
-											</th:block>
-		 										<tr th:if="${faqList.getTotalElements()==0}">
-													<td colspan="6" class="dtr-control sorting_1" tabindex="0"><strong>등록된 게시글이 없습니다.</strong></td>
-												</tr>
+											<tr class="odd">
+												<td class="dtr-control sorting_1" tabindex="0"><strong>1001</strong></td>
+												<td class="category">수강신청</td>
+												<td><a class="underline" href="#"><strong>제목</strong></a></td>
+												<td>test@test.com</td>
+												<td><i class="fa-solid fa-lock"></i></td>
+												<td>2023년 02월 27일</td>
+												<td>답변 완료</td>
+											</tr>
+											<tr class="odd">
+												<td class="dtr-control sorting_1" tabindex="0"><strong>1000</strong></td>
+												<td class="category">결제/환불</td>
+												<td><a class="underline" href="#"><strong>제목</strong></a></td>
+												<td>asdf@test.com</td>
+												<td><i class="fa-solid fa-lock-open"></i></td>
+												<td>2023년 02월 28일</td>
+												<td>답변 대기</td>
+											</tr>
 											</tbody>
 										</table>
 									</div>
@@ -139,7 +146,7 @@
 									<div class="col-sm-12 col-md-3">
 										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
 									</div>
-									<div class="col-sm-12 col-md-6">
+									<!-- <div class="col-sm-12 col-md-6">
   	 									<nav th:with="start=${(faqList.number/maxPage)*maxPage + 1},
 										end=(${(faqList.totalPages == 0) ? 1 : (start + (maxPage -1) < faqList.totalPages ? start + (maxPage -1) : faqList.totalPages)})">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
@@ -168,7 +175,7 @@
 											</ul>
 										</div>
 									</nav>
-									</div>
+									</div> -->
 									<div class="col-sm-12 col-md-3 newbtnwrap">
 										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/createFaq}'|">등록하기</a>
 									</div>

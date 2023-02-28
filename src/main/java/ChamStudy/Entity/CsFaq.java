@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -23,6 +24,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@SequenceGenerator(
+		name="Faq_GEN_GEN",	//자주묻는질문 시퀀스
+		sequenceName="Faq_SEQ",	//시퀀스 이름
+		initialValue=1000	//시작값
+		)
 public class CsFaq extends BaseTimeEntity {
 	
 	@Id
