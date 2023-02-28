@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommImgDto;
 import ChamStudy.Dto.CommDto;
-import ChamStudy.Dto.CommFreeBoardFormDto;
+import ChamStudy.Dto.CommWriteFormDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Repository.CommImgRepository;
@@ -40,7 +40,7 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	 return mainCommDtoList; }
 
 	
-	public Long saveComm(CommFreeBoardFormDto commImgDtoList, List<MultipartFile> commImgFileList) throws Exception{
+	public Long saveComm(CommWriteFormDto commImgDtoList, List<MultipartFile> commImgFileList) throws Exception{
 		Comm_Board board = commImgDtoList.createBoard();
 		commRepository.save(board);
 		
@@ -54,7 +54,7 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		return board.getId();
 	}
 	
-	public Long updateItem(CommFreeBoardFormDto boardFormDto, List<MultipartFile> commImgFileList) throws Exception {
+	public Long updateItem(CommWriteFormDto boardFormDto, List<MultipartFile> commImgFileList) throws Exception {
 		Comm_Board board = commRepository.findById(boardFormDto.getId())
 				.orElseThrow(EntityNotFoundException::new);
 		

@@ -20,7 +20,7 @@
 			var searchBy = $("#searchBy").val();
 			var searchQuery = $("#searchQuery").val();
 
-			location.href = "/main/comm/" + page + "?searchBy=" + searchBy
+			location.href = "/comm/" + page + "?searchBy=" + searchBy
 					+ "&searchQuery=" + searchQuery;
 		}
 	</script>
@@ -34,7 +34,7 @@
 					<a class="side-a-1">자유주제</a>
 				</div>
 				<div class="side-2">
-					<a class="side-a-2">질문 & 답변</a>
+					<a class="side-a-2" href="/comm/qna">질문 & 답변</a>
 				</div>
 			</div>
 			<div class="main-body">
@@ -54,7 +54,7 @@
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
 					<div class="write-btn">
-						<a class="write-btn-a">글쓰기</a>
+						<a class="write-btn-a" th:onclick="|location.href='@{/comm/create}'|">글쓰기</a>
 					</div>
 				</div>
 				<div class="boards">
@@ -63,19 +63,19 @@
 							<div class="comm-wrap">
 								<div class="comm-li1">
 									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<a th:href="'/adminForm/comm/dtl/'+${comm.id}"
+									<a th:href="'/comm/dtl/'+${comm.id}"
 										class="comm-li1-2">조회</a>
 								</div>
 								<div class="comm-wrap2">
 									<div class="comm-li2">
-										<a th:href="'/adminForm/comm/dtl/'+${comm.id}"
+										<a th:href="'/comm/dtl/'+${comm.id}"
 											class="comm-wrap-a2">[[${comm.Title}]]</a>
 									</div>
 									<div class="comm-li3-1">
-										<a th:href="'/adminForm/comm/dtl/'+${comm.id}"
+										<a th:href="'/comm/dtl/'+${comm.id}"
 											class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
 										<div class="comm-li3-2">
-											<a th:href="'/adminForm/comm/dtl/'+${comm.id}"
+											<a th:href="'/comm/dtl/'+${comm.id}"
 												class="comm-wrap-a4">[[${comm.regDate}]]</a>
 										</div>
 									</div>

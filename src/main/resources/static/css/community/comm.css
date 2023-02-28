@@ -104,6 +104,7 @@ a.comm-wrap-a3 {
 
 a{
 	color:black;
+    text-decoration: none;	
 }
 
 .comm-li1 {
@@ -123,3 +124,7 @@ a{
     justify-content: center;
     margin-top: 20px;
 }
+
+.write-btn:hover {
+cursor: pointer;
+	}

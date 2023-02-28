@@ -120,13 +120,20 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
 						comm_Board_Img.imgUrl))
-				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
+				.from(comm).leftJoin(comm_Board_Img)
+				.on(comm.id.eq(comm_Board_Img.id))
 				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()), comm.gubun.eq("B"), comm.boardType.eq("M"))
-				.orderBy(comm.regDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+				.orderBy(comm.regDate.desc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetch();
 
-		long total = queryFactory.select(Wildcard.count).from(comm).leftJoin(comm_Board_Img)
-				.on(comm.id.eq(comm_Board_Img.id)).where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()))
-				.where(comm.gubun.eq("B")).where(comm.boardType.eq("M")).fetchOne();
+		long total = queryFactory.select(Wildcard.count)
+				.from(comm).leftJoin(comm_Board_Img)
+				.on(comm.id.eq(comm_Board_Img.id))
+				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()))
+				.where(comm.gubun.eq("B"))
+				.where(comm.boardType.eq("M")).fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
 	}
