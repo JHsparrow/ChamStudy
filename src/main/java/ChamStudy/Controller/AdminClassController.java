@@ -38,14 +38,14 @@ public class AdminClassController {
 		//List<ClassInfo> classInfo = classInfoService.getAllClass();
 		Page<ClassInfo> classInfo = classInfoService.getAllClassPage(pageable);
 		model.addAttribute("classInfo", classInfo);
-		return "/AdminForm/AdminOnClass/classList";
+		return "/AdminForm/AdminClass/classList";
 	}
 	
 	@PostMapping(value = "/classList")
 	public String classList(ClassInfoDto adminClassDto, Model model) {
 		List<ClassInfo> classInfo = classInfoService.getSearch(adminClassDto);
 		model.addAttribute("classInfo", classInfo);
-		return "/AdminForm/AdminOnClass/classList";
+		return "/AdminForm/AdminClass/classList";
 	}
 	
 	
@@ -54,7 +54,7 @@ public class AdminClassController {
 //		List<ContentInfo> contentInfo = classInfoService.getAllContents();
 //		model.addAttribute("contentInfo", contentInfo);
 		model.addAttribute("adminClassDto", new ClassInfoDto());
-		return "/AdminForm/AdminOnClass/classNew";
+		return "/AdminForm/AdminClass/classNew";
 	}
 	
 	@PostMapping(value = "/classNew") //강의 정보 등록
@@ -62,7 +62,7 @@ public class AdminClassController {
 		
 		MessageDto message;
 		if(bindingResult.hasErrors()) {
-			return "/AdminForm/AdminOnClass/classNew";
+			return "/AdminForm/AdminClass/classNew";
 		}
 		try {
 			classInfoService.saveClass(adminClassDto);
@@ -93,7 +93,7 @@ public class AdminClassController {
 			return showMessageAndRedirect(message, model);
 		}
 		
-		return "/AdminForm/AdminOnClass/classUpdate";
+		return "/AdminForm/AdminClass/classUpdate";
 	}
 	
     @PostMapping(value ="/classUpdate")

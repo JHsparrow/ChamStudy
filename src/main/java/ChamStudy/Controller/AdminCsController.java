@@ -296,7 +296,8 @@ public class AdminCsController {
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<WarnBoardDto> warnList = csService.getWarnList(userSearchDto, warnBoardDto, pageable);
-		model.addAttribute("faqList", warnList);
+		model.addAttribute("warnLists", warnList);
+		System.out.println(warnList);
 		model.addAttribute("maxPage", 5);
 		return "cs/AdminWarnBoard";
 	}

@@ -14,6 +14,7 @@ import ChamStudy.Entity.StudyHistory;
 import ChamStudy.Repository.OnContentRepository;
 import ChamStudy.Repository.OnContentVideoRepository;
 import ChamStudy.Repository.StudyHistortRepository;
+import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,6 +25,7 @@ public class ContentVideoService {
     private final OnContentVideoRepository contentVideoRepository;
 	private final StudyHistortRepository studyHistortRepository;
 	private final OnContentRepository onContentRepository;
+	private final UserRepository userRepository;
 	
 	public void insertVideoData(ContentInfo contentId, int count) {
         for (int i = 1; i <= count; i++) {
@@ -47,7 +49,7 @@ public class ContentVideoService {
 		return contentVideoRepository.getContentUrl(videoUrl);
 	}
 	
-	public void createStudyHistory(String videoName, Long contentId) {
+	public void createStudyHistory(String videoName, Long contentId, String email) {
 		ContentVideo videoId = contentVideoRepository.getId(videoName);
 		ContentInfo getContentId = onContentRepository.getContentId(contentId);
 		Long history_id = studyHistortRepository.getVideoId(videoId.getId());

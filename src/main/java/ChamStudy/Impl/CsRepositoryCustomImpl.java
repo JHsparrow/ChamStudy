@@ -20,7 +20,6 @@ import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.QCsFaqListDto;
 import ChamStudy.Dto.QCsInformListDto;
-import ChamStudy.Dto.QWarnBoardDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Dto.WarnBoardDto;
 import ChamStudy.Entity.QCsFaq;
@@ -163,9 +162,9 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 	}
 	
 	//경고게시판
-	public BooleanExpression warnRepoterLike(String searchQuery) {
-		return StringUtils.isEmpty(searchQuery) ? null : QWarnBoard.warnBoard.reportedId.like("%" + searchQuery + "%");
-	}
+//	public BooleanExpression warnRepoterLike(String searchQuery) {
+//		return StringUtils.isEmpty(searchQuery) ? null : QWarnBoard.warnBoard.reportedId.like("%" + searchQuery + "%");
+//	}
 	
 	//경고 게시판 리스트 불러오기
 	@Override
@@ -179,14 +178,12 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 						warnBoard.reporterId,
 						warnBoard.warnType,
 						warnBoard.description,
-						warnBoard.userInfo,
 						warnBoard.boardType,
 						warnBoard.boardId,
 						warnBoard.regDate
 						)
 				)
 				.from(warnBoard)
-				.where(warnRepoterLike(userSearchDto.getSearchQuery()))
 				.orderBy(warnBoard.id.desc())
 				.offset(pageable.getOffset())	//데이터를 가져올 시작 index
 				.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
@@ -194,7 +191,6 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 		
 		long total = queryFactory.select(Wildcard.count)
 				.from(warnBoard)
-				.where(warnRepoterLike(userSearchDto.getSearchQuery()))
 				.fetchOne();
 		
 		return new PageImpl<>(content, pageable, total);
