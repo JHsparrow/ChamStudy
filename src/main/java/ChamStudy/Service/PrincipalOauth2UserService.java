@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -59,40 +61,44 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		String phone = "0";
 		String gubun = "G";
 		
-		UserInfo userEntity =  userRepository.findByemail(email);
+		UserInfoDto userInfoDto = new UserInfoDto();
 		
-		UserInfoDto userInfo = new UserInfoDto();
-		userInfo.setEmail(email);
-		userInfo.setName(username);
-		userInfo.setPassword(password);
-		userInfo.setPhone(phone);
-		userInfo.setRole(role);
-		userInfo.setRegTime(regDate);
-		userInfo.setGubun(gubun);
+		userInfoDto.setEmail(email);
+		userInfoDto.setName(username);
+		userInfoDto.setPassword(temp);
+		userInfoDto.setPhone(phone);
+		userInfoDto.setRole(role);
+		userInfoDto.setGubun(gubun);
+		userInfoDto.setRegTime(regDate);
+		
+		//빌드 메소드를 공유.
+		userService.loadUserByUsername(email);
+		
+		UserInfo user = UserInfo.createUser(userInfoDto, passwordEncoder);
+		userService.saveUser(user); //회원정보 저장
+		
+
+		
+//		try {
+//			UserInfo user = UserInfo.createUser(userInfo, passwordEncoder);
+//			userService.saveUser(user);
+//		} catch (Exception e) {
+//			System.out.println("구글 트라이문 오류");
+//		}
+//		
+//		if(userEntity == null) {
+//			userEntity = UserInfo.builder()
+//					.name(email)
+//					.password(password)
+//					.role(role)
+//					.build();
+//		}
+		//빌더 메소드를 호출해서 작성하자
 		
 		
-		try {
-			UserInfo user = UserInfo.createUser(userInfo, passwordEncoder);
-			userService.saveUser(user);
-		} catch (Exception e) {
-			System.out.println("구글 트라이문 오류");
-		}
-		
-		if(userEntity == null) {
-			userEntity = UserInfo.builder()
-					.name(email)
-					.password(password)
-					.role(role)
-					.build();
-		}else {
 			
-		}
 		
-		
-		
-			
-		
-		return new PrincipalDetails(userEntity, oauth2User.getAttributes());
+		return new PrincipalDetails(user, oauth2User.getAttributes());
 	}
 	
 

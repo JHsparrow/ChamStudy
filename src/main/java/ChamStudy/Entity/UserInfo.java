@@ -102,8 +102,12 @@ public class UserInfo {
 		user.setRole(role);
 		
 		user.setRegDate(time);
+		if(userDto.getPhone().equals("0")) {
+			user.setGubun("G");
+		} else {
+			user.setGubun("N");
+		}
 		
-		user.setGubun("N");
 		
 		return user;
 	}
