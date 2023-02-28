@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ChamStudy.Dto.ClassInfoDto;
+import ChamStudy.Dto.ClassInfoListDto;
+import ChamStudy.Dto.ContentDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Entity.ClassInfo;
+import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Service.ClassInfoService;
+import ChamStudy.Service.OnContentService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -30,14 +36,17 @@ import lombok.RequiredArgsConstructor;
 public class AdminClassController {
 	
 	private final ClassInfoService classInfoService;
+	private final OnContentService onContentService;
 
 	@GetMapping(value = "/classList") //강의 리스트 페이지
 	public String classList(Optional<Integer> page, Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		
 		//List<ClassInfo> classInfo = classInfoService.getAllClass();
-		Page<ClassInfo> classInfo = classInfoService.getAllClassPage(pageable);
-		model.addAttribute("classInfo", classInfo);
+		Page<ClassInfoListDto> classInfoDto = classInfoService.getAllClassPage(pageable);
+		model.addAttribute("classInfoDto", classInfoDto);
+		model.addAttribute("maxPage",5);
+		//model.addAttribute("classInfo", classInfo);
 		return "/AdminForm/AdminClass/classList";
 	}
 	
@@ -51,8 +60,8 @@ public class AdminClassController {
 	
 	@GetMapping(value = "/classNew") //강의 등록 페이지
 	public String classNew(Model model) {
-//		List<ContentInfo> contentInfo = classInfoService.getAllContents();
-//		model.addAttribute("contentInfo", contentInfo);
+		List<ContentInfo> contentInfo = onContentService.getAllContent();
+		model.addAttribute("contentInfo",contentInfo);
 		model.addAttribute("adminClassDto", new ClassInfoDto());
 		return "/AdminForm/AdminClass/classNew";
 	}

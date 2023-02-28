@@ -32,7 +32,7 @@ public class ClassInfoDto {
 	
 	private String regDate;	//등록일
 	
-	//private String contentName; //콘텐츠이름
+	private String contentId; //콘텐츠아이디
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
