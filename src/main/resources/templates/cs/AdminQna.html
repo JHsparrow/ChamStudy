@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
+<head>
+<meta charset="UTF-8">
+<script>
+
+	$(function(){
+		$('.category').each(function(){
+			if($(this).text()=='S'){$(this).text('사이트 이용')}
+			if($(this).text()=='V'){$(this).text('동영상')}
+			if($(this).text()=='P'){$(this).text('결제/환불')}
+			if($(this).text()=='M'){$(this).text('모바일')}
+			if($(this).text()=='F'){$(this).text('증빙서류')}
+			if($(this).text()=='U'){$(this).text('회원정보')}
+			if($(this).text()=='E'){$(this).text('기타')}
+		})
+		
+  		$(".selectCategory").on("change", function(e) {
+			e.preventDefault();
+			page();
+		});
+		
+	})
+	
+	function page(){
+        var searchCategory = $(".selectCategory").val();
+        var searchQuery = $(".searchInput").val();
+
+        location.href="/cs/faq/"+ "?searchCategory=" + searchCategory
+        + "&searchQuery=" + searchQuery;
+    }
+	
+	function delCheck(faqId){
+		if(confirm('삭제하시겠습니까?')){
+			$('#delFaqId').val(faqId);
+			$('#delFrm').attr("action","/cs/deleteFaq/"+faqId);
+			$('#delFrm').submit();
+		}else{ return false; }
+	}
+</script>
+<title>관리자페이지 - 자주묻는질문</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h1 class="h3 mb-3">자주묻는질문 관리</h1>
+					<div class="card">
+						<div class="card-header pb-0">
+							<div class="card-actions float-end">
+								<div class="dropdown position-relative">
+									<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+									</a>
+
+									<div class="dropdown-menu dropdown-menu-end">
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<h5 class="card-title mb-0">자주묻는질문</h5>
+						</div>
+						<div class="card-body">
+							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+								<form th:action="@{/cs/faq}" method="get" role="search">
+									<div class="row">
+										<div class="col-sm-12 col-md-6">
+											<div class="dataTables_length" id="datatables-orders_length">
+												<select name="searchCategory" aria-controls="datatables-orders" class="form-select form-select-sm width30 selectCategory">
+													<option value="A" th:selected="${sValue}=='A'">전체</option>
+													<option value="S" th:selected="${sValue}=='S'">사이트 이용</option>
+													<option value="V" th:selected="${sValue}=='V'">동영상</option>
+													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
+													<option value="M" th:selected="${sValue}=='M'">모바일</option>
+													<option value="F" th:selected="${sValue}=='F'">증빙서류</option>
+													<option value="U" th:selected="${sValue}=='U'">회원정보</option>
+													<option value="E" th:selected="${sValue}=='E'">기타</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-6">
+											<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
+												<label class="d-flex justify-content-end">
+													<input name="searchQuery" type="search" class="form-control form-control-sm width30 searchInput" placeholder="검색창" aria-controls="datatables-orders">
+												</label>
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
+										<colgroup> <!-- 너비 계산하기  -->
+											<col width="10%"><col width="10%"><col width="40%"><col width="20%"><col width="10%"><col width="10%">
+										</colgroup>
+										<thead>
+											<tr >
+												<th>No.</th>
+												<th>카테고리</th>
+												<th>제목</th>
+												<th>작성일</th>
+												<th>수정</th>
+												<th>삭제</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<th:block th:each="faq, status : ${faqList.getContent()}">
+												<tr class="odd">
+													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${faq.id}]]</strong></td>
+													<td class="category">[[${faq.gubun}]]</td>
+													<td><a class="underline" th:onclick="|location.href='@{/cs/faqDtl/}+${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
+													<td>[[${faq.update.substring(0,13)}]]</td>
+													<td>
+														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/faqMdf/}+${faq.id}'|">수정</a>
+													</td>
+													<td>
+														<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${faq.id}]])">삭제</a>
+													</td>
+												</tr>
+											</th:block>
+		 										<tr th:if="${faqList.getTotalElements()==0}">
+													<td colspan="6" class="dtr-control sorting_1" tabindex="0"><strong>등록된 게시글이 없습니다.</strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+ 								<form id="delFrm">
+									<input type="hidden" id="delFaqId" name="faqId" />
+								</form>
+								
+								<div class="row">
+									<div class="col-sm-12 col-md-3">
+										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
+									</div>
+									<div class="col-sm-12 col-md-6">
+  	 									<nav th:with="start=${(faqList.number/maxPage)*maxPage + 1},
+										end=(${(faqList.totalPages == 0) ? 1 : (start + (maxPage -1) < faqList.totalPages ? start + (maxPage -1) : faqList.totalPages)})">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+										
+											<ul class="pagination">
+												<li th:classappend="${faqList.first}? 'disabled'"
+												class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
+													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number-1}}"
+													 aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												</li>
+												
+												
+												<li th:each="page: ${#numbers.sequence(start, end)}"
+												th:classappend="${faqList.number eq page-1}?'active':''"
+												class="paginate_button page-item mx-1">
+													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
+												</li>
+												
+												
+												<li th:classappend="${faqList.last}? 'disabled'"
+												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number+1}}"
+													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												</li>
+											</ul>
+										</div>
+									</nav>
+									</div>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/createFaq}'|">등록하기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</body>
+</html>
