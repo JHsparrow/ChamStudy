@@ -13,7 +13,7 @@ import lombok.ToString;
 @Setter @SequenceGenerator(
 		name="INFORM_GEN_GEN",	//공지사항 시퀀스
 		sequenceName="INFORM_SEQ",	//시퀀스 이름
-		initialValue=4000	//시작값
+		initialValue=1000	//시작값
 		)
 @ToString
 public class CsInform extends BaseTimeEntity {

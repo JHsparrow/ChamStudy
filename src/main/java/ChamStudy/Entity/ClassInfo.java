@@ -1,5 +1,8 @@
 package ChamStudy.Entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -9,11 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import ChamStudy.Dto.ClassInfoDto;
 import lombok.Getter;
@@ -55,7 +61,13 @@ public class ClassInfo {
 	
 	@CreatedDate
 	@Column(updatable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일")
 	private String regDate;
+	
+	@PrePersist
+    public void onPrePersist(){
+        this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+    }
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "content_id")

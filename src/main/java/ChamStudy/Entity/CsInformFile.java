@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter @SequenceGenerator(
 		name="INFORMFILE_GEN_GEN",	//공지사항 시퀀스
 		sequenceName="INFORMFILE_SEQ",	//시퀀스 이름
-		initialValue=5000	//시작값
+		initialValue=100	//시작값
 		)
 @ToString
 public class CsInformFile {

@@ -280,8 +280,18 @@ public class AdminCsController {
 
 	}
 	
+	//=========================================== 1:1 문의 게시판 ===========================================
+	
+	@GetMapping(value="/qna")
+	public String csQna() {
+		return "cs/AdminQna";
+	}
+	
+	
+	
 	//=========================================== 경고 게시판 ===========================================
 	
+	/*
 	//경고 게시판 리스트
 	@GetMapping(value="/warn")
 	public String warnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Optional<Integer> page, Model model) {
@@ -294,4 +304,5 @@ public class AdminCsController {
 		model.addAttribute("maxPage", 5);
 		return "cs/AdminWarnBoard";
 	}
+	*/
 }
