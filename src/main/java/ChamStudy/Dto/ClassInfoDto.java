@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminClassDto {
+public class ClassInfoDto {
 
 	private Long id; //클래스 번호
 	
@@ -40,7 +40,7 @@ public class AdminClassDto {
 		return modelMapper.map(this, ClassInfo.class);
 	}
 	
-	public static AdminClassDto of(ClassInfo classInfo) {
-		return modelMapper.map(classInfo, AdminClassDto.class);
+	public static ClassInfoDto of(ClassInfo classInfo) {
+		return modelMapper.map(classInfo, ClassInfoDto.class);
 	}
 }

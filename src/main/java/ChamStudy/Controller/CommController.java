@@ -26,7 +26,7 @@ import ChamStudy.Dto.MainCommDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommDto;
-import ChamStudy.Dto.CommFreeBoardFormDto;
+import ChamStudy.Dto.CommWriteFormDto;
 import ChamStudy.Dto.CommSearchDto;
 import ChamStudy.Service.CommService;
 import ChamStudy.Service.CommSearchService;
@@ -40,7 +40,7 @@ public class CommController { //커뮤니티 컨트롤러
 	private final CommSearchService commSearchService;
 	
 	@GetMapping(value = {"/comm","comm/{page}"})
-	public String commMain(Model model,CommSearchDto commSearchDto,@PathVariable("page") Optional<Integer> page,MainCommDto adminMainCommDto) {
+	public String commMain(Model model,CommSearchDto commSearchDto, Optional<Integer> page,MainCommDto adminMainCommDto) {
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
 		Page<MainCommDto> comms = commSearchService.getmainCommPage(commSearchDto, adminMainCommDto ,pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
@@ -52,17 +52,17 @@ public class CommController { //커뮤니티 컨트롤러
 	}
 	
 
-	@PostMapping(value = "/comm/new")
-	public String commNew(@Valid CommFreeBoardFormDto boardFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList) {
+	@PostMapping(value = "/comm/create")
+	public String commWrite(@Valid CommWriteFormDto boardFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList) {
 		if(bindingResult.hasErrors()) {
-			return "";
+			return "MainForm/community/commWrite";
 		} 
 		
 		try {
 			adminCommService.saveComm(boardFormDto, commImgFileList);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "글 등록 중 에러가 발생했습니다.");
-			return "";
+			return "MainForm/community/commWrite";
 		}
 		return "redirect:/";
 	}
@@ -89,7 +89,7 @@ public class CommController { //커뮤니티 컨트롤러
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("maxPage",5);
-		return "AdminForm/AdminComm/comm-qna";
+		return "MainForm/community/commQna";
 	}
 	
 	//게시판 상세 페이지

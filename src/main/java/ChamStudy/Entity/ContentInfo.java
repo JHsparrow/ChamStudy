@@ -61,4 +61,11 @@ public class ContentInfo {
     public void onPrePersist(){
         this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
     }
+	
+	//원본이미지 파일명, 업데이트할 이미지 파일명, 이미지 경로를 파라메터로 받아서 이미지 정보를 업데이트 하는 메소드.
+	public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
+		this.oriImgName = oriImgName;
+		this.imgName = imgName;
+		this.imgUrl = imgUrl;
+	}
 }

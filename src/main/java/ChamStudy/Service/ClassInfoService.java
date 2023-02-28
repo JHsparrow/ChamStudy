@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ChamStudy.Dto.AdminClassDto;
+import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Repository.ClassInfoRepository;
@@ -26,7 +26,7 @@ public class ClassInfoService {
 	private final OnContentRepository onContentRepository;
 	
 	//강의 등록
-	public Long saveClass(AdminClassDto adminClassDto) throws Exception {
+	public Long saveClass(ClassInfoDto adminClassDto) throws Exception {
 		
 		try {
 			
@@ -65,7 +65,7 @@ public class ClassInfoService {
 	
 	//강의리스트 검색
 	@Transactional(readOnly = true)
-	public List<ClassInfo> getSearch(AdminClassDto adminClassDto) {
+	public List<ClassInfo> getSearch(ClassInfoDto adminClassDto) {
 		
 		List<ClassInfo> classInfo = classInfoRepository.findByNameByNative(adminClassDto.getName());
 		
@@ -91,16 +91,16 @@ public class ClassInfoService {
     }
     
     //강의아이디로 조회
-    public AdminClassDto getId(Long classId) {
+    public ClassInfoDto getId(Long classId) {
     	ClassInfo classInfo = classInfoRepository.findById(classId).orElseThrow(EntityNotFoundException::new);
 
-    	AdminClassDto adminClassDto = AdminClassDto.of(classInfo);
+    	ClassInfoDto adminClassDto = ClassInfoDto.of(classInfo);
     	
     	return adminClassDto;
     }
     
     //강의 수정
-    public Long updateClass(AdminClassDto adminClassDto) throws Exception {
+    public Long updateClass(ClassInfoDto adminClassDto) throws Exception {
         //상품 수정
     	ClassInfo classInfo = classInfoRepository.findById(adminClassDto.getId())
                 .orElseThrow(EntityNotFoundException::new);

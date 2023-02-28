@@ -97,7 +97,7 @@
 													</td>
 													<td th:onclick="createNew(900,600,[[${ContentInfo.id}]])"><input type="button" value="보기" class="popUp"/></td>
 													<td>
-														<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">수정</button>
+														<a th:href="@{/adminOnClass/contentUpdate/{contentId}(contentId=${ContentInfo.id})}"class="btn btn-primary btn-sm">수정</a>
 														<button type="button" th:onclick="delCheck([[${ContentInfo.id}]])" class="btn btn-primary btn-sm">삭제</button>
 													</td>
 												</tr>
