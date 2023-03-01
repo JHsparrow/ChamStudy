@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<title>Detail</title>
+	<style>
+		.class_header {
+			height: 250px;	
+		}
+	</style>
+</head>
+<body>
+
+	<div layout:fragment="content">
+   <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5 class_header">
+        <th:block th:each="classDetail: ${classDetail}">
+            <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
+                            <a class="position-relative d-block overflow-hidden" href="">
+                                <img class="img-fluid" src="{}" alt="">
+                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
+                                    <h5 class="m-0">[[${classDetail.name}]]</h5>
+                                    <small class="text-primary">49 Courses</small>
+                                </div>
+                            </a>
+                        </div>
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Class</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Class</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </th:block>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+	</div>
+</body>
+</html>
