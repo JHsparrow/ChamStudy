@@ -17,6 +17,7 @@ import ChamStudy.Dto.SubCategoryDto;
 import ChamStudy.Dto.modifySubCategoryDto;
 import ChamStudy.Entity.Category;
 import ChamStudy.Entity.SubCategory;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Entity.Visitor;
 import ChamStudy.Repository.CategoryRepository;
 import ChamStudy.Repository.ClassInfoRepository;
@@ -54,6 +55,10 @@ public class AdminMainService {
 	
 	public Long countSubCategoryIt() {
 		return subCategoryRepository.count();
+	}
+	
+	public UserInfo findByEmail(String email) {
+		return userRepository.findByemail(email);
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
+import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Impl.ClassInfoRepositoryCustom;
 
@@ -16,8 +17,5 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 										, ClassInfoRepositoryCustom {
 	List<ClassInfo> findAll();
 	
-	@Query(value="select * from class_info c where c.class_name like %:name%", nativeQuery = true)
-	List<ClassInfo> findByNameByNative(@Param("name")String name);	
-	
-	Optional<ClassInfo> findById(Long id);
+	Optional<ClassInfo> findById(Long id); //강의리스트 삭제를 위한 아이디조회
 }
