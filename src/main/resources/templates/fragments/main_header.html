@@ -18,13 +18,13 @@
 					<i class="fa fa-book me-3"></i>eLEARNING
 				</h2>
 			</a>
-			<button type="button" class="navbar-toggler me-4"
+			<button type="button" class="navbar-toggler me-4 "
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav ms-auto p-4 p-lg-0">
-					<a href="/" class="nav-item nav-link active">Home</a> <a
+					<a href="/" class="nav-item nav-link active ">Home</a> <a
 						style="color: red;" href="/admin" class="nav-item nav-link active">관리자
 						페이지 이동!!!</a> <a href="/mainForm/about" class="nav-item nav-link">About</a>
 					<a href="/mainForm/courses" class="nav-item nav-link">Courses</a>
@@ -37,117 +37,13 @@
 							<a href="/mainForm/404" class="dropdown-item">404 Page</a>
 						</div>
 					</div>
-					<a href="/mainForm/contact" class="nav-item nav-link">Contact</a>
-					<button type="button"
-						class="btn btn-primary m-3"
-						data-bs-toggle="modal" sec:authorize="isAnonymous()"
-						data-bs-target="#staticBackdrop">L o g I n</button>
-					<a href="/users/logout" sec:authorize="isAuthenticated()">
-						<button type="button" class="btn btn-primary m-3">L o g o u t</button>
-					</a>
+					<a href="/mypage/main" class="nav-item nav-link" >마이페이지</a>
+					<a href="/users/signUpCk" class="nav-item nav-link" >회원가입</a>
+					<a href="/users/signIn" class="nav-item nav-link" sec:authorize="isAnonymous()">login</a>
+					<a href="/users/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">logout</a>
 				</div>
-
-
 			</div>
-
 		</nav>
-		<!-- Navbar End -->
-		<!-- Button trigger modal -->
-
-
-		<!-- Modal -->
-		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-			data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="staticBackdropLabel">로그인</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-
-						<!-- 회원가입 폼 start -->
-
-						<form action="/users/signIn" method="post" role="form">
-							<div class="mb-3">
-								<label class="form-label" th:for="email">이메일</label> <input
-									class="form-control form-control-lg" type="email" name="email"
-									id="email" placeholder="이메일을 입력 하세요" />
-							</div>
-							<div class="mb-3">
-								<label class="form-label" th:for="password">비밀번호</label> <input
-									class="form-control form-control-lg" type="password"
-									name="password" id="password" placeholder="비밀번호를 입력 하세요" /> <small>
-									<a href="index.html">비밀번호 찾기</a> 
-									<br> 
-									<a href="/users/signUp">회원가입</a>
-								</small> 
-							</div>
-							<div>
-								<p th:if="${loginErrorMsg}" class="error"
-									th:text="${loginErrorMsg}"></p>
-								<label class="form-check"> <input
-									class="form-check-input" type="checkbox" id="id_save"
-									name="id_save">아이디 기억하기
-								</label>
-							</div>
-							<div class="text-center mt-3">
-								<button type="submit" class="btn btn-lg btn-primary"
-									id="loginbtn">Sign in</button>
-							</div>
-							<div class="text-center mt-3" style="margin: 0 auto;">
-								<a type="submit" class="btn btn-lg btn-primary" id="loginbtn"
-									style="width: 400px;" href="/oauth2/authorization/google">구글
-									로그인</a>
-							</div>
-							<input type="hidden" th:name="${_csrf?.parameterName}"
-								th:value="${_csrf?.token}">
-						</form>
-
-						<!-- 회원가입 폼 end -->
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">로그인</button>
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">닫기</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
-		<script>
-			//쿠키를 이용한 아이디 기억
-			$(document).ready(function() {
-				var userInputId = getCookie("userInputId"); //쿠키의 key! 키로 값을 가져온다. (현재 상태에는 저장된 것이 없어서 가져올 것이 없다.)
-				var setCookieYN = getCookie("setCookieYN");
-
-				//제이쿼리로 작성 !
-				if (setCookieYN == 'Y') {
-					$("#id_save").prop("checked", true); //체크 박스를 체크 상태로 만들어준다.
-					$("#email").val(userInputId); //이메일 인풋 창에 저장된 이메일을 띄워준다.
-				} else {
-					$("#id_save").prop("checked", false); //체크 해제
-				}
-
-				//로그인 버튼 클릭
-				$('#loginbtn').click(function() {
-					//아이디를 쿠키에 저장
-					if ($("#id_save").is(":checked")) { //아이디 기억하기 체크박스가 체크되어있으면 true 리턴 !
-						var userInputId = $("#email").val(); //input창에 입력된 email 값을 가져온다.
-						setCookie("userInputId", userInputId, 60); //60일 동안 쿠키 저장
-						setCookie("setCookieYN", "Y", 60); //쿠키 저장 여부 파악
-					} else { //체크박스가 해제되면 쿠키를 삭제한다.
-						deleteCookie("userInputId");
-						deleteCookie("setCookieYN");
-					}
-				});
-			});
-		</script>
 	</div>
-
 </body>
 </html>
