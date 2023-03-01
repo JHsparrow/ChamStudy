@@ -25,7 +25,9 @@ public class AdminMainController {
 	public String main(Model model) {
 		
 //		adminMainService.addCount();
-		model.addAttribute("countVisitor",adminMainService.countVisitor());
+		model.addAttribute("countVisitor",adminMainService.countVisitor()); //방문자 수
+		model.addAttribute("countMember",adminMainService.countMember()); //전체 회원 수
+		model.addAttribute("countClass",adminMainService.countClass()); //전체 클래스 수
 		return "index";
 	}
 }

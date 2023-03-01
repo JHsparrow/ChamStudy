@@ -19,7 +19,9 @@ import ChamStudy.Entity.Category;
 import ChamStudy.Entity.SubCategory;
 import ChamStudy.Entity.Visitor;
 import ChamStudy.Repository.CategoryRepository;
+import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.SubCategoryRepository;
+import ChamStudy.Repository.UserRepository;
 import ChamStudy.Repository.VisitorRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -30,15 +32,28 @@ public class AdminMainService {
 	
 	private final CategoryRepository categoryRepository;
 	private final SubCategoryRepository subCategoryRepository;
+	private final UserRepository userRepository;
 	private final VisitorRepository visitorRepository;
+	private final ClassInfoRepository classInfoRepository;
 	
 	public void addCount() {
 		Visitor visitor = new Visitor();
 		visitorRepository.save(visitor);
 	}
 	
-	public Integer countVisitor() {
-		return visitorRepository.findCountVisitor();
+	public Long countVisitor() {
+		return visitorRepository.count();
+	}
+	public Long countMember() {
+		return userRepository.count();
+	}
+	
+	public Long countClass() {
+		return classInfoRepository.count();
+	}
+	
+	public Long countSubCategoryIt() {
+		return subCategoryRepository.count();
 	}
 	
 	

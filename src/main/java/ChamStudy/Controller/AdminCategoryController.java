@@ -41,7 +41,7 @@ public class AdminCategoryController {
 	
 	@GetMapping(value = "/main") //메인 카테고리 리스트
 	public String mainCategoryList(Optional<Integer> page,CategoryDto categoryDto ,Model model) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Page<CategoryDto> mainList = adminCategoryService.getAllMainList(categoryDto, pageable);
 		
 		model.addAttribute("mainList", mainList);
@@ -51,7 +51,7 @@ public class AdminCategoryController {
 	
 	@GetMapping(value = "/sub/{mainid}") //서브 카테고리 리스트
 	public String subCategoryList(Optional<Integer> page, @PathVariable("mainid") Long mainId,SubCategoryDto subCategoryDto, Model model) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Category mainInfo = adminCategoryService.getMainInfo(mainId);
 		
 		Page<SubCategoryDto> subList = adminCategoryService.getSubList(subCategoryDto, pageable, mainInfo);
