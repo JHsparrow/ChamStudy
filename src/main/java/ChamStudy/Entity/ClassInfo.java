@@ -73,13 +73,4 @@ public class ClassInfo {
 	@JoinColumn(name = "content_id")
 	private ContentInfo contentInfo;
 	
-	public void updateClass(ClassInfoDto adminClassDto) {
-		this.name = adminClassDto.getName();
-		this.price = adminClassDto.getPrice();
-		this.peopleNum = adminClassDto.getPeopleNum();
-		this.teacherName = adminClassDto.getTeacherName();
-		this.sDate = adminClassDto.getSDate();
-		this.eDate = adminClassDto.getEDate();
-	}
-	
 }

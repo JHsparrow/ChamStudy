@@ -274,27 +274,6 @@
 		$('.modiBt').css('display','none');
 	}
 	
-	function modiok() {
-		$('.userEmail').css('display','none');
-		$('.userId').css('display','none');
-		$('.userPhone').css('display','none');
-		$('.userRegDate').css('display','none');
-		$('.gubun').css('display','none');
-		$('.view').css('display','block');
-		$('#frm').submit();
-	}
-	
-	//<button type="button" class="btn btn-secondary" onclick="close()" data-bs-dismiss="modal">닫기</button>
-	function close() {
-		$('.userEmail').css('display','none');
-		$('.userId').css('display','none');
-		$('.userPhone').css('display','none');
-		$('.userRegDate').css('display','none');
-		$('.gubun').css('display','none');
-		$('.closeBt').css('display','none');
-	}
-	
-	
 	//모달 닫기
 	  $('#closeModalBtn').on('click', function(){
 			$('.userEmail').css('display','none');
@@ -306,6 +285,29 @@
 			$('.closeBt').css('display','none');
 			$('.modiBt').css('display','block');
 		  });
+	
+	function modiok() {
+		$('.userEmail').css('display','none');
+		$('.userId').css('display','none');
+		$('.userPhone').css('display','none');
+		$('.userRegDate').css('display','none');
+		$('.gubun').css('display','none');
+		$('.view').css('display','block');
+		$('#frm').submit();
+	}
+	
+	//<button type="button" class="btn btn-secondary" onclick="close()" data-bs-dismiss="modal">닫기</button>
+/* 	function close() {
+		$('.userEmail').css('display','none');
+		$('.userId').css('display','none');
+		$('.userPhone').css('display','none');
+		$('.userRegDate').css('display','none');
+		$('.gubun').css('display','none');
+		$('.closeBt').css('display','none');
+	} */
+	
+	
+
     </script>
 
 		
