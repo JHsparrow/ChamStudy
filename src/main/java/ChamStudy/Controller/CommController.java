@@ -52,8 +52,14 @@ public class CommController { //커뮤니티 컨트롤러
 	}
 	
 
+	@GetMapping(value = "/comm/create")
+	public String MainWriteForm(Model model) {
+		model.addAttribute("boardFormDto", new CommWriteFormDto());
+		return "MainForm/community/commWrite";
+	}
+	
 	@PostMapping(value = "/comm/create")
-	public String commWrite(@Valid CommWriteFormDto boardFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList) {
+	public String MainBoardCreate(@Valid CommWriteFormDto boardFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList) {
 		if(bindingResult.hasErrors()) {
 			return "MainForm/community/commWrite";
 		} 
@@ -71,13 +77,13 @@ public class CommController { //커뮤니티 컨트롤러
 	@GetMapping(value = "/comm/mento")
 	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
-		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
+		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 12);
 		Page<MainCommDto> adminMainCommDtoList = commSearchService.getMentoCommPage(commSearchDto, adminMainCommDto, pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto", commSearchDto);
 		model.addAttribute("maxPage", 5);
-		return "";
+		return "MainForm/community/commMento";
 	}
 	
 	@GetMapping(value = "/comm/qna")
