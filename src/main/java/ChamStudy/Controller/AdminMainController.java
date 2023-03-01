@@ -31,17 +31,5 @@ public class AdminMainController {
 		model.addAttribute("countClass",adminMainService.countClass()); //전체 클래스 수
 		return "index";
 	}
-	
-	@ResponseBody
-	@GetMapping(value = "/admin/loginName")
-	public String loginName() {
-		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		String userName = null;
-		System.out.println(email);
-		if(email != "anonymousUser") {
-			userName = adminMainService.findByEmail(email).getName();
-		}
-		return userName;
-	} 
 }
 
