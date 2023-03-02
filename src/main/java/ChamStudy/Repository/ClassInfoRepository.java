@@ -20,8 +20,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	
 	Optional<ClassInfo> findById(Long id); //강의리스트 삭제를 위한 아이디조회
 	
-<<<<<<< HEAD
-=======
+
 	@Query(value="select A.class_name as className, "
 			+ " (select count(*)*20/count(A.class_id) from study_history where content_id = a.content_id ) as progressRate, "
 			+ " (select count(*)*100 / (select count(*) from apply_list where class_id = a.class_id) from apply_list where com_flag='Y' and class_id = a.class_id) as completionRate "
@@ -30,6 +29,4 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ " group by A.class_id", nativeQuery = true)
 	List<EducationInfoInterface> educationInfo();
 	
-	
->>>>>>> 02172895da323f79c2e2bd92cc791deb16e1b9f0
 }

@@ -1,18 +1,12 @@
 package ChamStudy.Controller;
 
-<<<<<<< HEAD
-=======
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
->>>>>>> 02172895da323f79c2e2bd92cc791deb16e1b9f0
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-<<<<<<< HEAD
-=======
 import ChamStudy.Entity.UserInfo;
->>>>>>> 02172895da323f79c2e2bd92cc791deb16e1b9f0
 import ChamStudy.Service.AdminMainService;
 import lombok.RequiredArgsConstructor;
 
