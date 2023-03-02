@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="UTF-8">
@@ -27,7 +28,7 @@
 
 									<h6 class="section-title bg-white text-start text-primary pe-3">my
 										page</h6>
-									<h1 class="mb-4">홍길동</h1>
+									<h1 class="mb-4" sec:authentication="principal.name"></h1>
 								</div>
 								<hr class="my-0" />
 								<div class="card-body">
