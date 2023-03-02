@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout_main}">
+	layout:decorate="~{layouts/layout_main}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
@@ -27,7 +28,7 @@
 
 									<h6 class="section-title bg-white text-start text-primary pe-3">my
 										page</h6>
-									<h1 class="mb-4">홍길동</h1>
+									<h1 sec:authentication="principal.name" class="mb-4"></h1>
 								</div>
 								<hr class="my-0" />
 								<div class="card-body">
@@ -53,7 +54,7 @@
 						<div class="col-md-8 col-xl-9">
 							<div class="card">
 								<div class="card-header">
-									<h2>홍길동님 환영합니다.</h2>
+									<h2 class="d-inline-block" sec:authentication="principal.name"></h2><h2 class="d-inline-block">님 반갑습니다.</h2>
 								</div>
 								<div class="row">
 
