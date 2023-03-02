@@ -94,6 +94,9 @@ public class AdminUserController {
 		return "users/user-main-sign-up";
 	}
 	
+	
+	
+	
 
 	
 	//회원가입 버튼 눌렀을때 작동(유저 홈페이지)
@@ -128,6 +131,7 @@ public class AdminUserController {
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
 		model.addAttribute("userListDto", new UserListDto());
+		model.addAttribute("userInfoDto", new UserInfoDto());
 		
 		//org.springframework.security.core.userdetails.User [Username=test1@test.com, Password=[PROTECTED], Enabled=true, AccountNonExpi
 		Object user = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -180,30 +184,33 @@ public class AdminUserController {
 		
 	}
 	
-//	//회원가입 화면 보여주기(관리자 홈페이지)
-//	@GetMapping(value = "/signUpp")
-//	public String signUpp(Model model) {
-//		model.addAttribute("userInfoDto", new UserInfoDto());
-//		return "users/user-sign-up";
-//	}
 	
 	
-//	//회원가입 버튼 눌렀을때 작동(관리자)
-//	@PostMapping(value = "/new")
-//	public String addUser(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
-//		if(bindingResult.hasErrors()) {
-//			System.out.println("addUser 메소드 내 if문 오류");
-//			return "users/user-sign-up";
-//		}
-//		try {
-//			UserInfo user = UserInfo.createUser(userInfoDto, passwordEncoder);
-//			userService.saveUser(user);
-//		} catch (Exception e) {
-//			model.addAttribute("errorMessage", e.getMessage());
-//			System.out.println("addUser 메소드 내 catch문 오류");
-//			return "users/user-sign-up";
-//		}
-//		return "redirect:/";
-//	}
+	
+	//회원가입 화면 보여주기(관리자 홈페이지)
+	@GetMapping(value = "/signUpp")
+	public String signUpp(Model model) {
+		model.addAttribute("userInfoDto", new UserInfoDto());
+		return "users/user-sign-up";
+	}
+	
+	
+	//회원가입 버튼 눌렀을때 작동(관리자)
+	@PostMapping(value = "/new")
+	public String addUserAdmin(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("addUser 메소드 내 if문 오류");
+			return "users/user-sign-up";
+		}
+		try {
+			UserInfo user = UserInfo.createUser(userInfoDto, passwordEncoder);
+			userService.saveUser(user);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			System.out.println("addUser 메소드 내 catch문 오류");
+			return "users/user-sign-up";
+		}
+		return "redirect:/users/userList";
+	}
 	
 }

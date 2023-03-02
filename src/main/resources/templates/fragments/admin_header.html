@@ -24,13 +24,8 @@
 				</li>
 				<!-- 로그인 테스트(김용수) -->
 				<li class="sidebar-item" sec:authorize="isAnonymous()">
-<<<<<<< HEAD
-					<a class="sidebar-link" href="/users/admin/signIn">
-		            	<i class="align-middle" data-feather="book"></i> <span class="align-middle">로그인</span>
-=======
 					<a class="sidebar-link" href="/users/signIn">
 		            	<i class="fa-solid fa-right-to-bracket"></i><span>로그인</span>
->>>>>>> 949c09a5593bac540a0b3b8a5fda283b437a5025
 		            </a>
 				</li>
 
@@ -41,11 +36,6 @@
 				</li>
 
 
-				<li class="sidebar-item" sec:authorize="isAuthenticated()">
-					<a class="sidebar-link" href="/users/logout">
-		            	<i class="align-middle" data-feather="book"> </i><span>로그아웃</span>
-		            </a>
-				</li>
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="/">
 		            	<i class="align-middle" data-feather="book"> </i><span class="text-danger">사용자 페이지 이동!!!</span>
