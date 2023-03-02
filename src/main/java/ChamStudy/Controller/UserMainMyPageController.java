@@ -49,9 +49,18 @@ public class UserMainMyPageController {
 		return "mypage/my-page-update";
 	}
 	
+<<<<<<< HEAD
+	//========================================== 나의 강의실 ==========================================
+	
+	@GetMapping(value="/myclass")
+	public String myClass(Model model){
+		return "mypage/my-page-class";
+	}
+=======
 	@GetMapping(value = "/learning/watch")
 	public String learningLecture() {
 		return "MainForm/community/Learning-Lecture";
 	}
 	
+>>>>>>> edeaded45ce205805d0a8c7794f83da31f713666
 }

@@ -106,7 +106,6 @@ public class AdminCsController {
 			csService.saveInform(csInformDto, informFileList, email);
 			message = new MessageDto("공지사항 등록이 완료되었습니다.", "/cs/inform");
 			
-			
 		} catch (Exception e) {
 			message = new MessageDto("공지사항 등록이 실패하였습니다.", "/cs/inform");
 		}
@@ -184,7 +183,10 @@ public class AdminCsController {
 	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
+<<<<<<< HEAD
 		model.addAttribute("active","csFaq"); // 사이드 바 액티브
+=======
+>>>>>>> 5024fd846190a7e979070bf9074d4371326779c1
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
@@ -289,6 +291,32 @@ public class AdminCsController {
 	public String csQna(Model model) {
 		model.addAttribute("active","csQna"); // 사이드 바 액티브
 		return "cs/AdminQna";
+	}
+	
+	/*
+	//공지사항 리스트 (카테고리 첫 화면)
+	@GetMapping(value = "/inform")
+	public String csInform(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
+		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+		Page<CsInformListDto> informList = csService.getInformList(userSearchDto, csInformListDto, pageable);
+		
+		model.addAttribute("informList", informList);
+		model.addAttribute("userSearchDto", userSearchDto);
+		model.addAttribute("maxPage", 5);
+		
+		return "cs/AdminInform";
+	}
+	*/
+	
+	@GetMapping(value="/createQna")
+	public String createQna(){
+		return "cs/AdminQnaForm";
+	}
+	
+	@GetMapping(value="/qnaDtl")
+	public String qnaDetail() {
+		return "cs/AdminQnaDtl";
 	}
 	
 	

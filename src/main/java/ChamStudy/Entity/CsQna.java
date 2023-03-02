@@ -42,18 +42,11 @@ public class CsQna extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String substance;
 	
-	@Column(nullable = false, columnDefinition = "CHAR", length = 1)
-	private String gubun;
-	
 	private Long conId;
 	
-	//게시글 공개 여부
+	//답변여부
 	@Column(nullable = false, columnDefinition = "CHAR", length = 1)
-	private String flag;
-	
-	//카테고리 선택
-	@Column(nullable = false, columnDefinition = "CHAR", length = 1)
-	private String category;
+	private String checked;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -62,7 +55,5 @@ public class CsQna extends BaseTimeEntity {
 	public void updateQna(CsQnaDto csQnaDto) {
 		this.title = csQnaDto.getTitle();
 		this.substance = csQnaDto.getSubstance();
-		this.category = csQnaDto.getCategory();
-		this.flag = csQnaDto.getFlag();
 	}
 }
