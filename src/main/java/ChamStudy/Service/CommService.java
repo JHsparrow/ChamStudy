@@ -15,10 +15,13 @@ import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommImgDto;
 import ChamStudy.Dto.CommDto;
 import ChamStudy.Dto.CommWriteFormDto;
+import ChamStudy.Dto.MainCommDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.CommImgRepository;
 import ChamStudy.Repository.CommRepository;
+import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,7 +32,9 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	private final CommRepository commRepository;
 	private final CommImgRepository commImgRepository;
 	private final CommImgService commImgService;
-
+	private final UserRepository userRepository;
+	
+	
 	public List<CommDto> getAdminComm() { // 관리자 메인 페이지에 뿌려줄 게시판 리스트를 불러온다. // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 	 List<Comm_Board> commList = commRepository.findF(); // 화면에 뿌려주기 위해 담을 Dto 리스트 작성 
 	 List<CommDto> mainCommDtoList = new ArrayList<>();
@@ -40,17 +45,28 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	 return mainCommDtoList; }
 
 	
-	public Long saveComm(CommWriteFormDto commImgDtoList, List<MultipartFile> commImgFileList) throws Exception{
-		Comm_Board board = commImgDtoList.createBoard();
+	public Long saveComm(CommWriteFormDto CommFormDto, List<MultipartFile> commImgFileList,String email) throws Exception{
+		UserInfo userInfo = userRepository.findByemail(email);
+		Comm_Board board = CommFormDto.createBoard();
+		board.setUserId(userInfo);
 		commRepository.save(board);
 		
 		for(int i=0; i<commImgFileList.size(); i++) {
 			Comm_Board_Img commImg = new Comm_Board_Img();
 			commImg.setBoard(board);
 			
-			//첫번째 이미지 일때 대표 상품 이미지 여부 지정
+			//이미지 저장
 			commImgService.saveCommImg(commImg, commImgFileList.get(i));
 		}
+		return board.getId();
+	}
+
+	public Long saveMentoComm(CommWriteFormDto MentoFormDto,String email) throws Exception{
+		UserInfo userInfo = userRepository.findByemail(email);
+		Comm_Board board = MentoFormDto.createBoard();
+		board.setUserId(userInfo);
+		commRepository.save(board);
+		
 		return board.getId();
 	}
 	
@@ -155,5 +171,12 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	public void commBlock(Long boardId) throws Exception { // 게시글 차단 메소드
 		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 		comm_Board.setBlockComment("Y");
+	}
+	
+	public CommDto getBeforeComm() {
+		Comm_Board board = commRepository.findBeforeComm();
+		CommDto commDto = new CommDto(board);
+		commDto.setId(commDto.getId() + 1000000);
+		return commDto;
 	}
 }

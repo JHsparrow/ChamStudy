@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<link th:href="@{/css/community/comm.css}" rel="stylesheet">
+<title>참스터디</title>
+<script type="text/javascript">
+function valinput() {
+	// name 값 설정
+	$('input[name=boardType]').val("M");
+	$('input[name=gubun]').val("B");
+	$('input[name=blockComment]').val("N");
+	$('input[name=viewCount]').val("0");
+}
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<form class="row g-3" role="form" method="post"
+			enctype="multipart/form-data" th:object="${commWriteFormDto}">
+			<p class="h2">멘토 소개글 쓰기</p>
+			<div class="input-1">
+				<input type="hidden" name="id" th:value="${comm.id}" id="id" />
+			</div>
+			<div class="input-2">
+			<span>제목</span>
+				<input type="text" th:field="*{Title}" />
+			</div>
+			<div class="input-3">
+			<span>내용</span>
+				<input type="text" th:field="*{substance}" />
+			</div>
+			<div class="input-4">
+				<input type="hidden" th:field="*{boardType}" name="boardType" value=""/>
+			</div>
+			
+			<div class="input-5">
+				<input type="hidden" th:field="*{gubun}" name="gubun" value=""/>
+			</div>
+
+			<div class="input-6">
+				<input type="hidden" th:field="*{blockComment}" name="blockComment" value=""/>
+			</div>
+		
+			<div class="input-7">
+				<input type="hidden" th:field="*{viewCount}" name="viewCount" value=""/>
+			</div>
+
+			<div class="input-8">
+			<span>오픈채팅 링크</span>
+				<input type="text" th:field="*{openChat}" name="viewCount" value=""/>
+			</div>
+			
+			<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
+				<button th:formaction="@{/comm/Mentocreate}" type="submit" onclick="valinput()" class="btn btn-primary mb-3">저장</button>
+			</div>
+			
+			<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
+				<button th:formaction="@{'/comm/Mentocreate/' + ${boardFormDto.id} }" type="submit" class="btn btn-primary mb-3">수정</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

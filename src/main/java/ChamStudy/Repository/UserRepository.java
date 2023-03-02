@@ -13,6 +13,9 @@ QuerydslPredicateExecutor<UserInfo>, UserRepositoryCustom{
 	
 	UserInfo findByemail(String email);
 	
-	@Query(value="select * from user_info where user_email = ?1 ",nativeQuery = true)
+	@Query(value="select * from user_info where user_email = ?1 ", nativeQuery = true)
 	UserInfo getUserId(String email);
+	
+	@Query(value="select role from user_info where user_id =?1", nativeQuery = true)
+	String getRole(Long id);
 }

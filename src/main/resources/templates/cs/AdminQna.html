@@ -75,10 +75,8 @@
 											<div class="dataTables_length" id="datatables-orders_length">
 												<select name="searchCategory" aria-controls="datatables-orders" class="form-select form-select-sm width30 selectCategory">
 													<option value="A">전체</option>
-													<option value="S">수강신청</option>
-													<option value="V">강의</option>
-													<option value="P">결제/환불</option>
-													<option value="E">기타</option>
+													<option value="N">답변 대기</option>
+													<option value="Y">답변 완료</option>
 													
 													<!-- <option value="A" th:selected="${sValue}=='A'">전체</option>
 													<option value="S" th:selected="${sValue}=='S'">수강신청</option>
@@ -102,36 +100,33 @@
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 										<colgroup> <!-- 너비 계산하기  -->
-											<col width="10%"><col width="10%"><col width="40%"><col width="10%"><col width="8%"><col width="12%"><col width="10%">
+											<col width="10%"><col width="40%"><col width="10%"><col width="15%"><col width="15%"><col width="10%">
 										</colgroup>
 										<thead>
 											<tr >
 												<th>No.</th>
-												<th>카테고리</th>
 												<th>제목</th>
 												<th>작성자</th>
-												<th>공개여부</th>
 												<th>등록일</th>
+												<th>답변일</th>
 												<th>답변여부</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>1001</strong></td>
-												<td class="category">수강신청</td>
-												<td><a class="underline" href="#"><strong>제목</strong></a></td>
+												<td><a class="underline" onClick="location.href='/cs/qnaDtl'"><strong>제목</strong></a></td>
 												<td>test@test.com</td>
-												<td><i class="fa-solid fa-lock"></i></td>
+												<td>2023년 02월 27일</td>
 												<td>2023년 02월 27일</td>
 												<td>답변 완료</td>
 											</tr>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>1000</strong></td>
-												<td class="category">결제/환불</td>
-												<td><a class="underline" href="#"><strong>제목</strong></a></td>
+												<td><a class="underline"><strong>제목</strong></a></td>
 												<td>asdf@test.com</td>
-												<td><i class="fa-solid fa-lock-open"></i></td>
 												<td>2023년 02월 28일</td>
+												<td>-</td>
 												<td>답변 대기</td>
 											</tr>
 											</tbody>
@@ -177,7 +172,7 @@
 									</nav>
 									</div> -->
 									<div class="col-sm-12 col-md-3 newbtnwrap">
-										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/createFaq}'|">등록하기</a>
+										<a class="btn btn-primary btn-sm newbtn" onClick="location.href='/cs/createQna'">등록하기</a>
 									</div>
 								</div>
 							</div>

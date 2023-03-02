@@ -3,6 +3,8 @@ package ChamStudy.Dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import org.modelmapper.ModelMapper;
 
 import ChamStudy.Entity.CsQna;
@@ -15,17 +17,13 @@ public class CsQnaDto {
 	
 	private Long id;
 	
-	private String category;
-	
+	@NotBlank(message="제목을 입력해 주세요.")
 	private String title;
 	
+	@NotBlank(message="문의 내용을 입력해 주세요.")
 	private String substance;
 	
 	private String update;
-	
-	private String flag;
-	
-	private String gubun;
 
 	private Long conId;
 	

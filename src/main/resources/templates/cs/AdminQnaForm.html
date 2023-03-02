@@ -79,25 +79,6 @@
 												<span>제목</span>
 												<input type="text" class="form-control" placeholder="제목을 입력해 주세요.">
 											</div>
-											<div class="d-flex">
-												<span class="me-4">상단 고정 여부</span>
-												<label class="form-check">
-													<input class="form-check-input" type="radio" value="S" name="radios-example">
-													<span class="form-check-label me-2">수강신청</span>
-												</label>
-												<label class="form-check">
-													<input class="form-check-input" type="radio" value="V" name="radios-example">
-													<span class="form-check-label">강의</span>
-												</label>
-												<label class="form-check">
-													<input class="form-check-input" type="radio" value="P" name="radios-example">
-													<span class="form-check-label me-2">결제/환불</span>
-												</label>
-												<label class="form-check">
-													<input class="form-check-input" type="radio" value="E" name="radios-example">
-													<span class="form-check-label">기타</span>
-												</label>
-											</div>
 
 											<div class="mb-3">
 												<span>내용</span>
@@ -107,20 +88,32 @@
 											
 											<div class="col-sm-6">
 											
-											<div class="mb-3">
-												<label for="formFile" class="form-label d-block">첨부파일 1</label>
-												<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formImg1" name="csQnaImg" onchange="changeDisplay('1')" >
-												<i id="btn_cancel1" class="fa-solid fa-xmark cancelbtn"></i>
+												<div class="mb-3">
+													<label for="formFile" class="form-label d-block">첨부파일 1</label>
+													<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formImg1" name="csQnaImg" onchange="changeDisplay('1')" >
+													<i id="btn_cancel1" class="fa-solid fa-xmark cancelbtn"></i>
+												</div>
+												<div class="mb-3">
+													<label for="formFile" class="form-label d-block">첨부파일 2</label>
+													<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formImg2" name="csQnaImg" onchange="changeDisplay('2')">
+													<i id="btn_cancel2" class="fa-solid fa-xmark cancelbtn"></i>
+												</div>
+												<div class="mb-3">
+													<label for="formFile" class="form-label d-block">첨부파일 3</label>
+													<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formImg3" name="csQnaImg" onchange="changeDisplay('3')">
+													<i id="btn_cancel3" class="fa-solid fa-xmark cancelbtn"></i>
 											</div>
-											<div class="mb-3">
-												<label for="formFile" class="form-label d-block">첨부파일 2</label>
-												<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formImg2" name="csQnaImg" onchange="changeDisplay('2')">
-												<i id="btn_cancel2" class="fa-solid fa-xmark cancelbtn"></i>
-											</div>
-											<div class="mb-3">
-												<label for="formFile" class="form-label d-block">첨부파일 3</label>
-												<input class="form-control w-75 d-inline-block custom-file-input" type="file" id="formImg3" name="csQnaImg" onchange="changeDisplay('3')">
-												<i id="btn_cancel3" class="fa-solid fa-xmark cancelbtn"></i>
+											
+											<div class="d-flex">
+												<span class="me-4">비밀글 체크</span>
+												<label class="form-check">
+													<input class="form-check-input" type="radio" value="U" name="radios-example">
+													<span class="form-check-label me-2">공개</span>
+												</label>
+												<label class="form-check">
+													<input class="form-check-input" type="radio" value="L" name="radios-example">
+													<span class="form-check-label">비공개</span>
+												</label>
 											</div>
 											
 											</div>

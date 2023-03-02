@@ -18,12 +18,16 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformListDto;
+import ChamStudy.Dto.CsQnaListDto;
 import ChamStudy.Dto.QCsFaqListDto;
 import ChamStudy.Dto.QCsInformListDto;
+import ChamStudy.Dto.QCsQnaListDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Dto.WarnBoardDto;
+import ChamStudy.Entity.CsQna;
 import ChamStudy.Entity.QCsFaq;
 import ChamStudy.Entity.QCsInform;
+import ChamStudy.Entity.QCsQna;
 import ChamStudy.Entity.QWarnBoard;
 
 public class CsRepositoryCustomImpl implements CsRepositoryCustom {
@@ -160,6 +164,33 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 		
 		return new PageImpl<>(content, pageable, total);
 	}
+	
+	//1:1 게시판 리스트 불러오기(관리자 페이지)
+	@Override
+	public Page<CsQnaListDto> getQnaList(UserSearchDto userSearchDto, CsQnaListDto csQnaListDto, Pageable pageable) {
+		QCsQna csQna = QCsQna.csQna;
+		
+//		List<CsQnaListDto> content = queryFactory.select(
+//				new QCsQnaListDto(
+//						csQna.id,
+//						csQna.title,
+//						csQna.userId,
+//						csQna.upDate,
+//						csQna.checked,
+//						csQna.conId)
+//				)
+//				.from(csQna)
+//				.where(csQna.id.eq(csQna.conId))
+//				.orderBy(csQna.id.desc())
+//				.offset(pageable.getOffset())	//데이터를 가져올 시작 index
+//				.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
+//				.fetch();
+		
+		return null;
+	}
+	
+	
+	
 	
 	//경고게시판
 //	public BooleanExpression warnRepoterLike(String searchQuery) {

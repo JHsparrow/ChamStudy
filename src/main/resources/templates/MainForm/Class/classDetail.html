@@ -4,30 +4,186 @@
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="utf-8">
-<title>Detail</title>
-	<style>
-		.class_header {
-			height: 250px;	
-		}
-	</style>
+
+<script>
+
+	document.addEventListener('DOMContentLoaded', function(){
+	    //별점선택 이벤트 리스너
+	    document.querySelector('.rating').addEventListener('click',function(e){
+	        let elem = e.target;
+	        if(elem.classList.contains('rate_radio')){
+	            rating.setRate(parseInt(elem.value));
+	        }
+	    })
+	});
+	
+    document.querySelector('.review_textarea').addEventListener('keydown',function(){
+        //리뷰 400자 초과 안되게 자동 자름
+        let review = document.querySelector('.review_textarea');
+        let lengthCheckEx = /^.{400,}$/;
+        if(lengthCheckEx.test(review.value)){
+            //400자 초과 컷
+            review.value = review.value.substr(0,400);
+        }
+    });
+
+    //저장 전송전 필드 체크 이벤트 리스너
+    document.querySelector('#save').addEventListener('click', function(e){
+        //별점 선택 안했으면 메시지 표시
+        if(rating.rate == 0){
+            rating.showMessage('rate');
+            return false;
+        }
+        //리뷰 5자 미만이면 메시지 표시
+        if(document.querySelector('.review_textarea').value.length < 5){
+            rating.showMessage('review');
+            return false;
+        }
+        //폼 서밋
+    });
+    
+    Rating.prototype.showMessage = function(type){//경고메시지 표시
+        switch(type){
+            case 'rate':
+                //안내메시지 표시
+                document.querySelector('.review_rating .warning_msg').style.display = 'block';
+                //지정된 시간 후 안내 메시지 감춤
+                setTimeout(function(){
+                    document.querySelector('.review_rating .warning_msg').style.display = 'none';
+                },1000);            
+                break;
+            case 'review':
+                //안내메시지 표시
+                document.querySelector('.review_contents .warning_msg').style.display = 'block';
+                //지정된 시간 후 안내 메시지 감춤
+                setTimeout(function(){
+                    document.querySelector('.review_contents .warning_msg').style.display = 'none';
+                },1000);    
+                break;
+        }
+    }
+    
+    /*
+    function classAdd(){
+    	
+        var url = "/detail/applyList";
+
+        var dataList = new Array();
+        var paramData = new Object();
+
+        $("input[name=cartChkBox]:checked").each(function() {
+            var cartItemId = $(this).val();
+            var data = new Object();
+            data["cartItemId"] = cartItemId;
+            dataList.push(data);
+        });
+
+        paramData['cartOrderDtoList'] = dataList;
+
+        var param = JSON.stringify(paramData);
+
+        $.ajax({
+            url      : url,
+            type     : "POST",
+            contentType : "application/json",
+            data     : param,
+            beforeSend : function(xhr){
+                xhr.setRequestHeader(header, token);
+            },
+            dataType : "json",
+            cache   : false,
+            success  : function(result, status){
+                alert("주문이 완료 되었습니다.");
+                location.href='/orders';
+            },
+            error : function(jqXHR, status, error){
+
+                if(jqXHR.status == '401'){
+                    alert('로그인 후 이용해주세요');
+                    location.href='/members/login';
+                } else{
+                    alert(jqXHR.responseJSON.message);
+                }
+
+            }
+        });
+    } */
+
+</script>
+
+<style>
+img{
+	width: 300px;
+	height: 500px;
+}
+
+/* 레이아웃 외곽 너비 400px 제한*/
+.wrap{
+    max-width: 480px;
+    margin: 0 auto; /* 화면 가운데로 */
+    background-color: #fff;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+.reviewform textarea{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.rating .rate_radio {
+    position: relative;
+    display: inline-block;
+    z-index: 20;
+    opacity: 0.001;
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    cursor: pointer;
+    vertical-align: top;
+    display: none;
+}
+.rating .rate_radio + label {
+    position: relative;
+    display: inline-block;
+    margin-left: -4px;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    background-image: url('/img/icons/star.png');
+    background-repeat: no-repeat;
+    background-size: 60px 60px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+.rating .rate_radio:checked + label {
+    background-color: #ff8;
+}
+
+.warning_msg {
+    display: none;
+    position: relative;
+    text-align: center;
+    background: #ffffff;
+    line-height: 26px;
+    width: 100%;
+    color: red;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+}
+</style>
+
+<title>courses</title>
 </head>
 <body>
 
 	<div layout:fragment="content">
    <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
-        <div class="container py-5 class_header">
-        <th:block th:each="classDetail: ${classDetail}">
+        <div class="container py-5">
             <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{}" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">[[${classDetail.name}]]</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
                 <div class="col-lg-10 text-center">
                     <h1 class="display-3 text-white animated slideInDown">Courses</h1>
                     <nav aria-label="breadcrumb">
@@ -39,12 +195,88 @@
                     </nav>
                 </div>
             </div>
-        </th:block>
         </div>
     </div>
     <!-- Header End -->
+		<form id="frmClassDetail" class="row g-3" method="post" th:object="${classDetail}">
+	    <div class="course-details__content">
+	       <div class="course__img w-img mb-30">
+	          <img th:src="${classDetail.imgUrl}" th:alt="이미지">
+	       </div>
+	       
+	           <div class="col-lg-3 col-sm-4 wow fadeInUp">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                            <h5 class="mb-3">무료</h5>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="classAdd()">수강신청</button>
+                        </div>
+                    </div>
+                </div>
+	       
+	       <div class="course__tab-2 mb-45">
+	          <ul class="nav nav-tabs" id="courseTab" role="tablist">
+	             <li class="nav-item" role="presentation">
+	               <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true"> <i class="icon_ribbon_alt"></i> <span>Discription</span> </button>
+	             </li>
+	             <li class="nav-item" role="presentation">
+	               <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false"> <i class="icon_star_alt"></i> <span>Reviews</span> </button>
+	             </li>
+	           </ul>
+	       </div>
+	    </div>
+	    
+	    
+	    </form>
+	    		<!-- 커리큘럼 -->
+                <div class="course__tab-content mb-95">
+              <div class="tab-content" id="courseTabContent">
+                 <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    <div class="course__description">
+                       <h3>Course Overview</h3>
+                       <p>Only a quid me old mucker squiffy tomfoolery grub cheers ruddy cor blimey guvnor in my flat, up the duff Eaton car boot up the kyver pardon you A bit of how's your father David skive off sloshed, don't get shirty with me chip shop vagabond crikey bugger Queen's English chap. Matie boy nancy boy bite your arm off up the kyver old no biggie fantastic boot, David have it show off show off pick your nose and blow off lost the plot porkies bits and bobs only a quid bugger all mate, absolutely bladdered bamboozled it's your round don't get shirty with me down the pub well. Give us a bell bits and bobs Charles he lost his bottle super my lady cras starkers bite your arm off Queen's English, pardon me horse play Elizabeth a blinding shot chinwag knees up do one David, blag cup of tea Eaton so I said bleeding haggle James Bond cup of char. Gosh William ummm I'm telling crikey burke I don't want no agro A bit of how's your father bugger all mate off his nut that, what a plonker cuppa owt to do with me nancy boy show off show off pick your nose and blow off spiffing good time lavatory me old mucker, chimney pot what a load of rubbish boot squiffy lost the plot brolly wellies excuse my french.</p>
 
-
+                 	</div>
+                 </div>
+                 <!-- 리뷰 -->
+                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                    <div class="course__review">
+                       <h3>Reviews</h3>
+                    </div>
+                    <div class="wrap">
+					    <h1>후기</h1>
+					    <form name="reviewform" class="reviewform" method="post" action="/save">
+					        <input type="hidden" name="rate" id="rate" value="0"/>
+					        <p class="title_star">별점과 리뷰를 남겨주세요.</p>
+					 
+					        <div class="review_rating">
+					            <div class="warning_msg">별점을 선택해 주세요.</div>
+					            <div class="rating">
+					                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+					                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
+					                <label for="rating1"></label>
+					                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
+					                <label for="rating2"></label>
+					                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" >
+					                <label for="rating3"></label>
+					                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점">
+					                <label for="rating4"></label>
+					                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점">
+					                <label for="rating5"></label>
+					            </div>
+					        </div>
+					        <div class="review_contents">
+					            <div class="warning_msg">5자 이상으로 작성해 주세요.</div>
+					            <textarea rows="10" class="review_textarea"></textarea>
+					        </div>   
+					        <div class="cmd">
+					            <input type="button" name="save" id="save" value="등록">
+					        </div>
+					    </form>
+					</div>
+                 </div>
+               </div>
+           </div>
 	</div>
 </body>
 </html>

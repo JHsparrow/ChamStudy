@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformListDto;
+import ChamStudy.Dto.CsQnaListDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Dto.WarnBoardDto;
 
@@ -18,6 +19,9 @@ public interface CsRepositoryCustom {
 
 	//자주묻는 질문 리스트 가져오기
 	Page<CsFaqListDto> getFaqList(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Pageable pageable);
+	
+	//1:1 문의 리스트 가져오기
+	Page<CsQnaListDto> getQnaList(UserSearchDto userSearchDto, CsQnaListDto csQnaListDto, Pageable pageable);
 	
 	//경고게시판 리스트
 	Page<WarnBoardDto> getWarnList(UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable);
