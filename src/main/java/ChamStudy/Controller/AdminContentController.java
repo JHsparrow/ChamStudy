@@ -1,6 +1,5 @@
 package ChamStudy.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,25 +14,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.ContentDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.OnContentDto;
-import ChamStudy.Dto.OnContentVideoDto;
-import ChamStudy.Dto.VideoDto;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Service.AdminCategoryService;
 import ChamStudy.Service.ContentVideoService;
 import ChamStudy.Service.OnContentService;
-import ChamStudy.Service.OnContentVideoService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -44,9 +38,11 @@ public class AdminContentController {
 	private final OnContentService onContentService;
 	private final AdminCategoryService adminCategoryService;
 	
+	MessageDto message;
 	//콘텐츠
 	@GetMapping(value = "/adminOnClass/contents") //콘텐츠 관리페이지
 	public String contents(Model model, Optional<Integer> page, ContentDto contentDto) {
+		model.addAttribute("active","contentInfo"); // 사이드 바 액티브
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
 		Page<ContentDto> contentInfo = onContentService.getAllContnetList(contentDto, pageable);
 		Authentication id = SecurityContextHolder.getContext().getAuthentication();
@@ -78,15 +74,14 @@ public class AdminContentController {
 	
 	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentForm(Model model) throws Exception {
+		model.addAttribute("active","contentInfo"); // 사이드 바 액티브
 		model.addAttribute("cateList",adminCategoryService.getCategory());
-
 		model.addAttribute("onContentDto", new OnContentDto());
 		return "/AdminForm/AdminClass/contentNew";
 	}
 	
 	@PostMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentNew(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model) {
-		MessageDto message;
 		if(bindingResult.hasErrors()) {
 			return "/AdminForm/AdminClass/contentNew";
 		}
@@ -103,7 +98,6 @@ public class AdminContentController {
 	
 	@GetMapping(value = "/adminOnClass/del") //메인 카테고리 삭제 처리 페이지
 	public String CategoryDelete(@RequestParam(value = "contentId") Long contentId, Model model) {
-		MessageDto message;
 		try {
 			onContentService.deleteContentInfo(contentId);
 			message = new MessageDto("콘텐츠 삭제가 완료되었습니다.", "/adminOnClass/contents");
@@ -116,8 +110,7 @@ public class AdminContentController {
 	// 콘텐츠 수정
 	@GetMapping(value = "/adminOnClass/contentUpdate/{contentId}") // 콘텐츠 수정
 	public String contentUpdate(@PathVariable("contentId")Long contentId, Model model) throws Exception {
-		
-		MessageDto message;
+		model.addAttribute("active","contentInfo"); // 사이드 바 액티브
 		try {
 			ContentInfo contentInfo = onContentService.getContentId(contentId);
 			
@@ -143,8 +136,6 @@ public class AdminContentController {
 	@PostMapping(value = "/adminOnClass/contentUpdate/{contentId}")
 	public String contentUpdate(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model, 
 			@RequestParam(value="itemImgFile") MultipartFile itemImgFile) throws Exception {
-		
-		MessageDto message;
 		if (bindingResult.hasErrors()) {
 			return "/AdminForm/AdminClass/contentList";
 		}

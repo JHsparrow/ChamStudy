@@ -17,8 +17,8 @@
 			</a>
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">Pages</li>
-				<li class="sidebar-item active" >
-					<a class="sidebar-link" href="/">
+				<li class="sidebar-item" th:classappend="${active} == 'dash' ? 'active'">
+					<a class="sidebar-link" href="/admin">
            				<i class="fa-solid fa-sliders"></i><span>Dashboard</span>
            			</a>
 				</li>
@@ -43,20 +43,20 @@
 				</li>
 				<!-- 로그인 테스트(김용수) end-->
 				
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="/users/userList">
+				<li class="sidebar-item" th:classappend="${active} == 'user' ? 'active'">
+					<a class="sidebar-link" href="/users/userList" >
 		            	<i class="fa-solid fa-people-roof"></i><span>회원관리</span>
 		            </a>
 				</li>
 				<!-- 전은미 온라인강의 start -->
 				
 				<li class="sidebar-header">Online Class</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'classInfo' ? 'active'">
 					<a class="sidebar-link" href="/adminClass/classList">
 						<i class="fa-solid fa-chalkboard"></i><span>실시간강의 관리</span>
 					</a>
 				</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'contentInfo' ? 'active'">
 					<a class="sidebar-link" href="/adminOnClass/contents">
 						<i class="fa-regular fa-folder"></i><span>콘텐츠 관리</span>
 					</a>
@@ -64,7 +64,7 @@
 				<!-- 전은미 온라인강의 end -->
 				<!-- 커뮤니티 게시판 관리  -->
 				<li class="sidebar-header">User board management</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'comm' ? 'active'">
 					<a class="sidebar-link" href="/adminForm/comm">
 						<i class="fa-regular fa-comments"></i>
 						<span>커뮤니티 게시판 관리</span>
@@ -73,40 +73,27 @@
 				<!-- 커뮤니티 게시판 관리 end -->
 				<!-- 고객센터 nav -->
 				<li class="sidebar-header">Customer Service</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'csInform' ? 'active'">
 					<a class="sidebar-link" href="/cs/inform">
 						<i class="fa-regular fa-clipboard"></i>
 						<span>공지사항</span>
 					</a>
 				</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'csFaq' ? 'active'">
 					<a class="sidebar-link" href="/cs/faq">
 						<i class="fa-regular fa-circle-question"></i>
 						<span>자주묻는 질문</span>
 					</a>
 				</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'csQna' ? 'active'">
 					<a class="sidebar-link" href="/cs/qna">
 						<i class="fa-solid fa-headset"></i>
 						<span>1:1 문의</span>
 					</a>
 				</li>
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="/cs/warn">
-						<i class="align-middle me-2" data-feather="users"></i>
-						<span>경고게시판</span>
-					</a>
-				</li>
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="/cs/blackList">
-						<i class="align-middle me-2" data-feather="users"></i>
-						<span>블랙리스트</span>
-					</a>
-				</li>
-				
 				<!-- 고객센터 nav end-->
 				<li class="sidebar-header">카테고리 관리</li>
-				<li class="sidebar-item">
+				<li class="sidebar-item" th:classappend="${active} == 'category' ? 'active'">
 					<a class="sidebar-link" href="/adminCategory/main">
 						<i class="align-middle me-2" data-feather="users"></i>
 						<span>카테고리 관리</span>

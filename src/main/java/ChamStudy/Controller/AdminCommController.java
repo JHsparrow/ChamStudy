@@ -40,7 +40,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		model.addAttribute("comms", comms);
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("maxPage",5);
-
+		model.addAttribute("active","comm"); // 사이드 바 액티브
 		return "AdminForm/AdminComm/comm-main";
 	}
 
@@ -53,6 +53,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto", commSearchDto);
 		model.addAttribute("maxPage", 5);
+		model.addAttribute("active","comm"); // 사이드 바 액티브
 		return "AdminForm/AdminComm/comm-mento";
 	}
 
@@ -65,6 +66,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("maxPage",5);
+		model.addAttribute("active","comm"); // 사이드 바 액티브
 		return "AdminForm/AdminComm/comm-qna";
 	}
 	
@@ -73,6 +75,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 	public String commDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request) {
 		try {
 			//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
+			model.addAttribute("active","comm"); // 사이드 바 액티브
 			CommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
 			List<CommCommentDto> commentList = adminCommService.getCommentList(boardId);
 			List<CommCommentDto> replyList = adminCommService.getReplyList(boardId);

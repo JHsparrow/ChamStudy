@@ -126,7 +126,7 @@ public class AdminUserController {
 		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<UserListDto> users = userService.getUserPage(userSearchDto,userInfoDto, pageable);
-		
+		model.addAttribute("active","user"); //사이드바 액티브
 		model.addAttribute("users", users);	//items는 page 객체임
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
@@ -181,6 +181,7 @@ public class AdminUserController {
 	//회원가입 화면 보여주기(관리자 홈페이지)
 	@GetMapping(value = "/signUpp")
 	public String signUpp(Model model) {
+		model.addAttribute("active","user"); //사이드바 액티브
 		model.addAttribute("userInfoDto", new UserInfoDto());
 		return "users/user-sign-up";
 	}
