@@ -2,6 +2,8 @@ package ChamStudy.Entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,9 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,7 +47,7 @@ import lombok.ToString;
         initialValue=10001 //시작값
         )
 @ToString
-public class UserInfo {
+public class UserInfo implements UserDetails {
 	
 	@Id
 	@Column(name="user_id")
@@ -133,6 +138,42 @@ public class UserInfo {
 		this.role = userListDto.getRole();
 		this.regDate = userListDto.getRegDate();
 		this.gubun = userListDto.getGubun();
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+		auth.add(new SimpleGrantedAuthority(role.toString()));
+		return auth;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	public String getUname() {
+		return name;
 	}
 
 

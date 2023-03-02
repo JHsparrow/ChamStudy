@@ -22,12 +22,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		});
 		document.addEventListener("DOMContentLoaded", function() {
+			data1 = $('#sCate1').text()
+			data2 = $('#sCate2').text()
+			data3 = $('#sCate3').text()
 			new Chart(document.getElementById("chartjs-dashboard-pie2"), {
 				type: "doughnut",
 				data: {
 					labels: ["Chrome", "Firefox", "IE"],
 					datasets: [{
-						data: [4306, 3801, 1689],
+						data: [data1, data2, data3],
 						backgroundColor: [
 							'rgb(255, 99, 132)',
 					      	'rgb(54, 162, 235)',
@@ -40,12 +43,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		});
 		document.addEventListener("DOMContentLoaded", function() {
+			data1 = $('#sCate4').text()
+			data2 = $('#sCate5').text()
+			data3 = $('#sCate6').text()
 			new Chart(document.getElementById("chartjs-dashboard-pie3"), {
 				type: "doughnut",
 				data: {
 					labels: ["Chrome", "Firefox", "IE"],
 					datasets: [{
-						data: [4306, 3801, 1689],
+						data: [data1, data2, data3],
 						backgroundColor: [
 							'rgb(255, 99, 132)',
 					      	'rgb(54, 162, 235)',
@@ -58,12 +64,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		});
 		document.addEventListener("DOMContentLoaded", function() {
+			data1 = $('#sCate7').text()
+			data2 = $('#sCate8').text()
+			data3 = $('#sCate9').text()
 			new Chart(document.getElementById("chartjs-dashboard-pie4"), {
 				type: "doughnut",
 				data: {
 					labels: ["Chrome", "Firefox", "IE"],
 					datasets: [{
-						data: [4306, 3801, 1689],
+						data: [data1, data2, data3],
 						backgroundColor: [
 							'rgb(255, 99, 132)',
 					      	'rgb(54, 162, 235)',
