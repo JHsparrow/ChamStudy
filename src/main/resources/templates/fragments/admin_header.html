@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="/css/app.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 	<nav id="sidebar" class="sidebar js-sidebar" th:fragment="header_side">
@@ -32,11 +36,6 @@
 				</li>
 
 
-				<li class="sidebar-item" sec:authorize="isAuthenticated()">
-					<a class="sidebar-link" href="/users/logout">
-		            	<i class="align-middle" data-feather="book"> </i><span>로그아웃</span>
-		            </a>
-				</li>
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="/">
 		            	<i class="align-middle" data-feather="book"> </i><span class="text-danger">사용자 페이지 이동!!!</span>

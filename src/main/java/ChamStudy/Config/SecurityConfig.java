@@ -33,7 +33,7 @@ public class SecurityConfig {
 		//로그인에 대한 설정
 		http.formLogin()
 		    .loginPage("/users/signIn") //로그인 페이지 url설정
-			.defaultSuccessUrl("/admin") //로그인 성공시 이동할 페이지
+			.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지
 			.usernameParameter("email") //로그인시 사용할 파라메터 이름
 			.failureUrl("/users/signIn/error") //로그인 실패시 이동할 url
 			.and()
@@ -71,9 +71,8 @@ public class SecurityConfig {
 		//페이지의 접근에 관한 설정
 		http.authorizeRequests() 
 		    .mvcMatchers("/css/**", "/js/**", "/img/**","/video/**",   "/main/css/**", "/main/js/**","/main/img/**","/main/video/**", "/main/lib/**" ).permitAll()
-		    .mvcMatchers("/","/admin/**", "/users/**","/contents/**" , "/images/**", "/adminClass/**", "/adminCategory/**", "/cs/**", "/adminOnClass/**", "/mainForm/**", "/mypage/**").permitAll() //모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
-		    .mvcMatchers("/test/**").hasRole("ADMIN") // '/admin' 으로 시작하는 경로는 계정이 ADMIN role일 경우에만 접근 가능하도록 설정
-		    .mvcMatchers("/seller/**").hasRole("SELLER") // '/admin' 으로 시작하는 경로는 계정이 ADMIN role일 경우에만 접근 가능하도록 설정
+		    .mvcMatchers("/","/users/**","/contents/**" , "/images/**", "/adminClass/**", "/adminCategory/**", "/cs/**", "/adminOnClass/**", "/mainForm/**", "/mypage/**").permitAll() //모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
+		    .mvcMatchers("/admin/**").hasRole("ADMIN") // '/admin' 으로 시작하는 경로는 계정이 ADMIN role일 경우에만 접근 가능하도록 설정
 		    .anyRequest().authenticated(); //그 외에 페이지는 모두 로그인(인증)을 받아야 한다.
 		
 		//인증되지 않은 사용자가 리소스(페이지, 이미지 등..)에 접근했을때 설정
