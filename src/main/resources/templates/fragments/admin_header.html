@@ -17,7 +17,7 @@
 			</a>
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">Pages</li>
-				<li class="sidebar-item active" >
+				<li class="sidebar-item" th:classappend="${active} == 'dash' ? 'active'">
 					<a class="sidebar-link" href="/">
            				<i class="fa-solid fa-sliders"></i><span>Dashboard</span>
            			</a>
@@ -43,8 +43,8 @@
 				</li>
 				<!-- 로그인 테스트(김용수) end-->
 				
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="/users/userList">
+				<li class="sidebar-item" th:classappend="${active} == 'user' ? 'active'">
+					<a class="sidebar-link" href="/users/userList" >
 		            	<i class="fa-solid fa-people-roof"></i><span>회원관리</span>
 		            </a>
 				</li>

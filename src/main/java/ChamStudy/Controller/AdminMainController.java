@@ -19,7 +19,7 @@ public class AdminMainController {
 	
 	@GetMapping(value = "/admin")
 	public String main(Model model, Authentication authentication, @AuthenticationPrincipal UserInfo userInfo) {
-		
+		model.addAttribute("active","dash"); // 사이드 바 액티브
 		model.addAttribute("countVisitor",adminMainService.countVisitor()); //방문자 수
 		model.addAttribute("countMember",adminMainService.countMember()); //전체 회원 수
 		model.addAttribute("countClass",adminMainService.countClass()); //전체 클래스 수

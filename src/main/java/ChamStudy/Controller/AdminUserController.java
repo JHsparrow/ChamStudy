@@ -126,7 +126,7 @@ public class AdminUserController {
 		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<UserListDto> users = userService.getUserPage(userSearchDto,userInfoDto, pageable);
-		
+		model.addAttribute("active","user");
 		model.addAttribute("users", users);	//items는 page 객체임
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
