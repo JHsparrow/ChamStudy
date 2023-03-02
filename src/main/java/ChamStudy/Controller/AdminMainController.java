@@ -23,6 +23,7 @@ public class AdminMainController {
 		model.addAttribute("countVisitor",adminMainService.countVisitor()); //방문자 수
 		model.addAttribute("countMember",adminMainService.countMember()); //전체 회원 수
 		model.addAttribute("countClass",adminMainService.countClass()); //전체 클래스 수
+		model.addAttribute("countApply",adminMainService.countApplyList()); //수강신청 수
 		
 		model.addAttribute("countMainIt",adminMainService.countApplyListMainIt()); //IT 신청자 수
 		model.addAttribute("countMainLi",adminMainService.countApplyListMainLi()); //자격증 신청자 수
@@ -39,7 +40,6 @@ public class AdminMainController {
 		model.addAttribute("countChinese",adminMainService.countApplyListMainLaSubC()); //어학 중국어 신청자 수
 		model.addAttribute("countEnglish",adminMainService.countApplyListMainLaSubE()); //어학 영어 신청자 수
 		model.addAttribute("countLaEtc",adminMainService.countApplyListMainLaSubEt()); //어학 기타 신청자 수
-		System.err.println(adminMainService.educationInfo());
 		model.addAttribute("eduInfo",adminMainService.educationInfo());
 		
 		return "index";

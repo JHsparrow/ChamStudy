@@ -66,6 +66,10 @@ public class AdminMainService {
 		return userRepository.findByemail(email);
 	}
 	
+	public Long countApplyList() {
+		return applyRepository.count();
+	}
+	
 	public Long countApplyListMainIt() { return applyRepository.countMain("IT");}
 	public Long countApplyListMainLi() { return applyRepository.countMain("자격증");}
 	public Long countApplyListMainLa() { return applyRepository.countMain("어학");}
@@ -82,7 +86,7 @@ public class AdminMainService {
 	public Long countApplyListMainLaSubE() { return applyRepository.countMainSub("어학","영어");}
 	public Long countApplyListMainLaSubEt() { return applyRepository.countMainSub("어학","기타");}
 	
-	public List<EducationInfoDto> educationInfo(){
+	public List<EducationInfoInterface> educationInfo(){
 		return classInfoRepository.educationInfo();
 	}
 	

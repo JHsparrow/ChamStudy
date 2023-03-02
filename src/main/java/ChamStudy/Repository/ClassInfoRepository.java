@@ -9,7 +9,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import ChamStudy.Dto.ClassInfoDto;
-import ChamStudy.Dto.EducationInfoDto;
 import ChamStudy.Dto.EducationInfoInterface;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Impl.ClassInfoRepositoryCustom;
@@ -21,13 +20,13 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	
 	Optional<ClassInfo> findById(Long id); //강의리스트 삭제를 위한 아이디조회
 	
-	@Query("SELECT c.className, " +
-		       "COUNT(*)*20/COUNT(c.classId) AS progressRate, " +
-		       "COUNT(*)*100/(SELECT COUNT(*) FROM ApplyList al WHERE al.classId = c.classId AND al.comFlag = 'Y') AS completionRate " +
-		       "FROM ClassInfo c " +
-		       "JOIN ApplyList al ON c.classId = al.classId " +
-		       "GROUP BY c.classId")
-	List<EducationInfoDto> educationInfo();
+	@Query(value="select A.class_name as className, "
+			+ " (select count(*)*20/count(A.class_id) from study_history where content_id = a.content_id ) as progressRate, "
+			+ " (select count(*)*100 / (select count(*) from apply_list where class_id = a.class_id) from apply_list where com_flag='Y' and class_id = a.class_id) as completionRate "
+			+ " from class_info A "
+			+ " join apply_list B on a.class_id = b.class_id "
+			+ " group by A.class_id", nativeQuery = true)
+	List<EducationInfoInterface> educationInfo();
 	
 	
 }
