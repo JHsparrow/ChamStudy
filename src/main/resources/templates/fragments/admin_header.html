@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="/css/app.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 	<nav id="sidebar" class="sidebar js-sidebar" th:fragment="header_side">
@@ -28,7 +32,7 @@
 				
 				<!-- 로그인 테스트(김용수) -->
 				<li class="sidebar-item" sec:authorize="isAnonymous()">
-					<a class="sidebar-link" href="/users/signIn">
+					<a class="sidebar-link" href="/users/admin/signIn">
 		            	<i class="align-middle" data-feather="book"></i> <span class="align-middle">로그인</span>
 		            </a>
 				</li>

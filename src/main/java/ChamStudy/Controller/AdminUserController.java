@@ -61,10 +61,16 @@ public class AdminUserController {
 		return "users/user-sign-in";
 	}
 
-	//로그인 화면 보여주기(관리자 홈페이지)
+	//로그인 화면 보여주기(유저 홈페이지)
 	@GetMapping(value = "/signIn")
 	public String signIn() {
 		return "users/user-main-sign-in";
+	}
+	
+	//로그인 화면 보여주기(관리자 홈페이지)
+	@GetMapping(value = "/admin/signIn")
+	public String signInAdmin() {
+		return "users/user-sign-in";
 	}
 	
 	//회원가입 오류 날때
