@@ -114,10 +114,10 @@
 												<tr class="odd">
 													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${faq.id}]]</strong></td>
 													<td class="category">[[${faq.gubun}]]</td>
-													<td><a class="underline" th:onclick="|location.href='@{/cs/faqDtl/}+${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
+													<td><a class="underline" th:onclick="|location.href='@{/cs/faqDtl/}${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
 													<td>[[${faq.update.substring(0,13)}]]</td>
 													<td>
-														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/faqMdf/}+${faq.id}'|">수정</a>
+														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/faqMdf/}${faq.id}'|">수정</a>
 													</td>
 													<td>
 														<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${faq.id}]])">삭제</a>
