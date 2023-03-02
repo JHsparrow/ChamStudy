@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<title>about</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<!-- Header Start -->
+		<div class="container-fluid bg-primary py-5 mb-5 page-header">
+			<div class="container py-5">
+				<div class="row justify-content-center">
+					<div class="col-lg-10 text-center">
+						<h1 class="display-3 text-white animated slideInDown">고객센터</h1>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb justify-content-center">
+								<li class="breadcrumb-item"><a class="text-white" href="#">공지사항</a></li>
+								<li class="breadcrumb-item"><a class="text-white" href="#">자주 묻는 질문</a></li>
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/voc/qna'">1:1 문의</a></li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+
+		<!-- Service Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="row g-4">
+					<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+						<div class="service-item text-center pt-3">
+							<div class="p-4">
+								<i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+								<h5 class="mb-3">공지사항</h5>
+								<p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed
+									clita amet diam</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+						<div class="service-item text-center pt-3">
+							<div class="p-4">
+								<i class="fa fa-3x fa-globe text-primary mb-4"></i>
+								<h5 class="mb-3">자주 묻는 질문</h5>
+								<p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed
+									clita amet diam</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+						<div class="service-item text-center pt-3">
+							<div class="p-4" onClick="location.href='/voc/qna'">
+								<i class="fa fa-3x fa-home text-primary mb-4"></i>
+								<h5 class="mb-3">1:1 문의</h5>
+								<p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed
+									clita amet diam</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Service End -->
+		
+		<!-- 공지사항 Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3">announcemen</h6>
+					<h1 class="mb-5">공지사항</h1>
+				</div>
+			</div>
+		</div>
+		<!-- 공지사항 End -->
+		
+		
+		<!-- 자주묻는질문 Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3"f->faq</h6>
+					<h1 class="mb-5">자주 묻는 질문</h1>
+				</div>
+			</div>
+		</div>
+		<!-- 자주묻는질문 End -->
+		
+		<!-- 1:1 문의 Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3"f->qna</h6>
+					<h1 class="mb-5">1:1 문의</h1>
+				</div>
+			</div>
+		</div>
+		<!-- 1:1 문의 End -->
+
+
+		<!-- About Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="row g-5">
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"
+						style="min-height: 400px;">
+						<div class="position-relative h-100">
+							<img class="img-fluid position-absolute w-100 h-100"
+								src="/main/img/about.jpg" alt="" style="object-fit: cover;">
+						</div>
+					</div>
+					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+						<h6 class="section-title bg-white text-start text-primary pe-3">About
+							Us</h6>
+						<h1 class="mb-4">Welcome to eLEARNING</h1>
+						<p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor
+							diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et
+							lorem et sit.</p>
+						<p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor
+							diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et
+							lorem et sit, sed stet lorem sit clita duo justo magna dolore
+							erat amet</p>
+						<div class="row gy-2 gx-4 mb-4">
+							<div class="col-sm-6">
+								<p class="mb-0">
+									<i class="fa fa-arrow-right text-primary me-2"></i>Skilled
+									Instructors
+								</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="mb-0">
+									<i class="fa fa-arrow-right text-primary me-2"></i>Online
+									Classes
+								</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="mb-0">
+									<i class="fa fa-arrow-right text-primary me-2"></i>International
+									Certificate
+								</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="mb-0">
+									<i class="fa fa-arrow-right text-primary me-2"></i>Skilled
+									Instructors
+								</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="mb-0">
+									<i class="fa fa-arrow-right text-primary me-2"></i>Online
+									Classes
+								</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="mb-0">
+									<i class="fa fa-arrow-right text-primary me-2"></i>International
+									Certificate
+								</p>
+							</div>
+						</div>
+						<a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- About End -->
+
+
+		<!-- Team Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
+					<h1 class="mb-5">Expert Instructors</h1>
+				</div>
+			</div>
+		</div>
+		<!-- Team End -->
+	</div>
+</body>
+</html>

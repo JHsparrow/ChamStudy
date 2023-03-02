@@ -41,8 +41,9 @@ public class CsQnaImg {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "qna_id")
-	private CsQna csQna;
+	private CsQna qnaId;
 	
+	//이미지 업로드
 	public void updateCsQnaImg(String oriImgName, String imgName, String imgUrl) {
 		this.oriImgName = oriImgName;
 		this.imgName = imgName;
