@@ -31,6 +31,8 @@ public class ApplyList{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private String comFlag; //수료여부
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserInfo userId;

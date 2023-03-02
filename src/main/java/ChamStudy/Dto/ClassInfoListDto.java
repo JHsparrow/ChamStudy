@@ -27,21 +27,24 @@ public class ClassInfoListDto {
 	
 	private Long contentId; //콘텐츠아이디
 	
-	private String contentName;
+	private String contentName; //콘텐츠명
+	
+	private String imgUrl; //이미지url
 	
 	@QueryProjection //querydsl로 결과 조회 시 MainItemDto객체로 바로 받아올 수 있음
     public ClassInfoListDto(Long id, String name, Integer price, Integer peopleNum, String regDate,
-    		String teacherName, String sDate, String eDate, Long contentId, String contentName ){
+    		String teacherName, String sDate, String eDate, Long contentId, String contentName, String imgUrl ){
         this.id = id;
         this.name = name;
+        this.price = price;
         this.peopleNum = peopleNum;
         this.teacherName = teacherName;
-        this.price = price;
-        this.regDate = regDate;
         this.sDate = sDate;
         this.eDate = eDate;
+        this.regDate = regDate;
         this.contentId = contentId;
         this.contentName = contentName;
+        this.imgUrl = imgUrl;
     }
 	
 	

@@ -2,6 +2,8 @@ package ChamStudy.Entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +14,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 
 import ChamStudy.Dto.UserInfoDto;
@@ -40,7 +47,7 @@ import lombok.ToString;
         initialValue=10001 //시작값
         )
 @ToString
-public class UserInfo {
+public class UserInfo implements UserDetails {
 	
 	@Id
 	@Column(name="user_id")
@@ -62,9 +69,15 @@ public class UserInfo {
 	
 	private String role; //회원 등급	
 	
-	@CreatedDate 
+	@CreatedDate
 	@Column(updatable = false)
-	private String regDate; //회원 가입일
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일 HH:mm:ss")
+	private String regDate;
+	
+	@PrePersist
+    public void onPrePersist(){
+        this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
+    }
 	
 	@Column(columnDefinition = "CHAR", length=1) 
 	private String gubun;
@@ -85,10 +98,6 @@ public class UserInfo {
 	
 	public static UserInfo createUser(UserInfoDto userDto, PasswordEncoder passwordEncoder) {
 		String role = "USER";
-		LocalDateTime localDateTime = LocalDateTime.now();
-		String time = localDateTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));
-		
-		
 		
 		UserInfo user = new UserInfo();
 		user.setEmail(userDto.getEmail());
@@ -101,7 +110,6 @@ public class UserInfo {
 		
 		user.setRole(role);
 		
-		user.setRegDate(time);
 		if(userDto.getPhone().equals("0")) {
 			user.setGubun("G");
 		} else {
@@ -130,6 +138,42 @@ public class UserInfo {
 		this.role = userListDto.getRole();
 		this.regDate = userListDto.getRegDate();
 		this.gubun = userListDto.getGubun();
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+		auth.add(new SimpleGrantedAuthority(role.toString()));
+		return auth;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	public String getUname() {
+		return name;
 	}
 
 

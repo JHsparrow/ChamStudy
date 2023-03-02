@@ -4,51 +4,66 @@
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>마이페이지</title>
 
-<th:block layout:fragment="script">
-	<script th:inline="javascript">
-		//회원가입이 실패했을 때
-		$(document).ready(function(){
-			var errorMessage = [[${errorMessage}]];	//중괄호로 감싸서 값을 받아온다.
-			if(errorMessage != null) {
-				alert(errorMessage);
-			}
-		});
-	</script>
-</th:block>
+<!-- 관리자 css -->
+<link href="/css/app.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 
-<th:block layout:fragment="css">
-  <style>
-     .fieldError {
-        color: #bd2130;
-     }
-  </style>
-</th:block>
 </head>
 <body>
 	<div layout:fragment="content">
-			<div class="container d-flex flex-column">
-			<div class="row vh-100">
-				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-					<div class="d-table-cell align-middle">
-						<div class="text-center mtW-4">
-							<h1 class="h2">회원가입</h1>
-							<p class="lead">회원가입 설명</p>
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<div class="row">
+						<div class="col-md-4 col-xl-3">
+							<div class="card mb-3">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Profile Details</h5>
+								</div>
+								<div class="card-body text-center">
+
+									<h6 class="section-title bg-white text-start text-primary pe-3">my
+										page</h6>
+									<h1 class="mb-4">홍길동</h1>
+								</div>
+								<hr class="my-0" />
+								<div class="card-body">
+									<h1 class="section-title bg-white text-start text-primary pe-3">menu</h1>
+									<hr class="my-4" />
+									<ul class="list-unstyled mb-0">
+										<li class="mb-4"><a href="/mypage/update"><h4>내
+													정보 수정</h4></a></li>
+										<hr class="my-4" />
+										<li class="mb-4"><a href="#"><h4>수료증 확인</h4></a></li>
+										<hr class="my-4" />
+										<li class="mb-4"><a href="#"><h4>나의 강의실</h4></a></li>
+										<hr class="my-4" />
+										<li class="mb-4"><a href="#"><h4>강의 구매 내역</h4></a></li>
+										<hr class="my-4" />
+										<li class="mb-4"><a href="#"><h4>메뉴1</h4></a></li>
+										<hr class="my-4" />
+										<li class="mb-4"><a href="#"><h4>메뉴2</h4></a></li>
+									</ul>
+								</div>
+							</div>
 						</div>
+						<div class="col-md-4">
 						<div class="card">
 							<div class="card-body">
-								<div class="m-sm-4">
+								<div class="m-sm-2">
 									<form id="frm" action="/users/signUp" method="post" th:object="${userInfoDto}">
 									
 										<div class="mb-3">
 											<label class="form-label" th:for="email">이메일</label> 
-											<input th:field="*{email}" class="form-control form-control-lg" type="email" id="email" name="email" placeholder="이메일을 입력 해주세요" />
+											<input th:value="${userInfoDtoUser.email}" class="form-control form-control-lg" type="email" id="email" name="email" placeholder="이메일을 입력 해주세요" />
 											<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="name">이름</label> 
-											<input th:field="*{name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
+											<input th:value="${userInfoDtoUser.name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
 											<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="mb-3">
@@ -63,7 +78,7 @@
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="phone">휴대폰 번호</label> 
-											<input class="form-control form-control-lg" id="phone" name="phone" th:field="*{phone}" type="text" oninput="autoHyphen2(this)" maxlength="13" placeholder="-를 빼고 입력 해주세요">
+											<input th:value="${userInfoDtoUser.phone}" class="form-control form-control-lg" id="phone" name="phone" type="text" oninput="autoHyphen2(this)" maxlength="13" placeholder="-를 빼고 입력 해주세요">
 											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="text-center mt-3">
@@ -74,30 +89,15 @@
 								</div>
 							</div>
 						</div>
+						</div>
+						
+
 					</div>
 				</div>
-			</div>
+			</main>
+
 		</div>
-		<script>
-			function passwordCk() {
-				var p1 = document.getElementById('password').value;
-				var p2 = document.getElementById('passwordck').value;
-		      	if( p1 != p2 ) {
-		      		console.log(p1);
-		      		console.log(p2);
-		          alert("비밀번호가 일치 하지 않습니다");
-		          return false;
-		        } else{
-		        	$('#frm').submit();
-		        }
-			}
-			
-			const autoHyphen2 = (target) => {
-				 target.value = target.value
-				   .replace(/[^0-9]/g, '')
-				  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
-				}
-		</script>
 	</div>
+
 </body>
 </html>

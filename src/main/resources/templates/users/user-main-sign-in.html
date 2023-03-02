@@ -1,28 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout_admin}">
+	layout:decorate="~{layouts/layout_main}">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description"
-	content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-<meta name="author" content="AdminKit">
-<meta name="keywords"
-	content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
-
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
-
+<meta charset="UTF-8">
 <title>로그인</title>
-<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
-<!-- 각 페이지에 script가 작성될 위치 -->
 
 <th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+
 	<script th:inline="javascript">
 	//쿠키를 이용한 아이디 기억
 	$(document).ready(function() {
@@ -52,7 +38,6 @@
 	});
 	</script>
 </th:block>
-
 <th:block layout:fragment="css">
   <style>
      .error {
@@ -60,7 +45,6 @@
      }
   </style>
 </th:block>
-
 </head>
 <body>
 	<div layout:fragment="content">
@@ -78,10 +62,8 @@
 							<div class="card-body">
 								<div class="m-sm-4">
 									<div class="text-center">
-										<img src="/img/avatars/avatar.jpg" alt="Charles Hall"
-											class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form action="/admin/signIn" method="post" role="form">
+									<form action="/users/signIn" method="post" role="form">
 										<div class="mb-3">
 											<label class="form-label" th:for="email">이메일</label> 
 											<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="이메일을 입력 하세요" />
@@ -89,9 +71,9 @@
 										<div class="mb-3">
 											<label class="form-label" th:for="password">비밀번호</label> 
 											<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력 하세요" /> 
-											<small>
-												<a href="index.html">Forgot password?</a>
-											</small>
+											<p>
+												<a href="/users/signUpCk">회원가입</a>
+											</p>
 										</div>
 										<div>
 										
@@ -119,6 +101,5 @@
 			</div>
 		</div>
 	</div>
-	
 </body>
 </html>

@@ -1,5 +1,6 @@
 package ChamStudy.Controller;
 
+import java.io.Console;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -60,18 +61,31 @@ public class AdminUserController {
 		return "users/user-sign-in";
 	}
 
-	//로그인 화면 보여주기(관리자 홈페이지)
+	//로그인 화면 보여주기(유저 홈페이지)
 	@GetMapping(value = "/signIn")
 	public String signIn() {
+		return "users/user-main-sign-in";
+	}
+	
+	//로그인 화면 보여주기(관리자 홈페이지)
+	@GetMapping(value = "/admin/signIn")
+	public String signInAdmin() {
 		return "users/user-sign-in";
 	}
 	
-//	//회원가입 화면 보여주기(관리자 홈페이지)
-//	@GetMapping(value = "/signUpp")
-//	public String signUpp(Model model) {
-//		model.addAttribute("userInfoDto", new UserInfoDto());
-//		return "users/user-sign-up";
-//	}
+	//회원가입 오류 날때
+	@GetMapping(value = "/signIn/error")
+	public String loginError(Model model) {
+		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+		return "users/user-main-sign-in";
+	}
+	
+	
+	//회원가입 전 약관 페이지 이동(유져 홈페이지)
+	@GetMapping(value = "/signUpCk")
+	public String signUpCk() {
+		return "users/user-main-sign-up-ck";
+	}
 	
 	//회원가입 창 이동(유져 홈페이지)
 	@GetMapping(value = "/signUp")
@@ -80,25 +94,12 @@ public class AdminUserController {
 		return "users/user-main-sign-up";
 	}
 	
-//	//회원가입 버튼 눌렀을때 작동(관리자)
-//	@PostMapping(value = "/new")
-//	public String addUser(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
-//		if(bindingResult.hasErrors()) {
-//			System.out.println("addUser 메소드 내 if문 오류");
-//			return "users/user-sign-up";
-//		}
-//		try {
-//			UserInfo user = UserInfo.createUser(userInfoDto, passwordEncoder);
-//			userService.saveUser(user);
-//		} catch (Exception e) {
-//			model.addAttribute("errorMessage", e.getMessage());
-//			System.out.println("addUser 메소드 내 catch문 오류");
-//			return "users/user-sign-up";
-//		}
-//		return "redirect:/";
-//	}
 	
-	//회원가입 버튼 눌렀을때 작동(사용자)
+	
+	
+
+	
+	//회원가입 버튼 눌렀을때 작동(유저 홈페이지)
 	@PostMapping(value = "/signUp")
 	public String addUser(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
@@ -114,14 +115,10 @@ public class AdminUserController {
 			return "users/user-main-sign-up";
 		}
 		return "redirect:/";
+		
 	}
 	
-	//회원가입 오류 날때
-	@GetMapping(value = "/signIn/error")
-	public String loginError(Model model) {
-		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
-		return "users/user-main-sign-up";
-	}
+
 	
 	//회원 리스트에 페이지 보여주기
 	@GetMapping(value = "userList")
@@ -134,6 +131,7 @@ public class AdminUserController {
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
 		model.addAttribute("userListDto", new UserListDto());
+		model.addAttribute("userInfoDto", new UserInfoDto());
 		
 		//org.springframework.security.core.userdetails.User [Username=test1@test.com, Password=[PROTECTED], Enabled=true, AccountNonExpi
 		Object user = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -186,5 +184,33 @@ public class AdminUserController {
 		
 	}
 	
+	
+	
+	
+	//회원가입 화면 보여주기(관리자 홈페이지)
+	@GetMapping(value = "/signUpp")
+	public String signUpp(Model model) {
+		model.addAttribute("userInfoDto", new UserInfoDto());
+		return "users/user-sign-up";
+	}
+	
+	
+	//회원가입 버튼 눌렀을때 작동(관리자)
+	@PostMapping(value = "/new")
+	public String addUserAdmin(@Valid UserInfoDto userInfoDto, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("addUser 메소드 내 if문 오류");
+			return "users/user-sign-up";
+		}
+		try {
+			UserInfo user = UserInfo.createUser(userInfoDto, passwordEncoder);
+			userService.saveUser(user);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			System.out.println("addUser 메소드 내 catch문 오류");
+			return "users/user-sign-up";
+		}
+		return "redirect:/users/userList";
+	}
 	
 }

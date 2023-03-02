@@ -107,11 +107,10 @@
 												<th:block th:each="user, status: ${users.getContent()}">
 													<tr class="odd">
 														<td class="dtr-control sorting_1" tabindex="0"><strong>[[${user.id}]]</strong></td>
-														<td><a th:href="'/users/' + ${user.id}">[[${user.name}]]</a></td>
+														<td>[[${user.name}]]</td>
 														<td>[[${user.email}]]</td>
 														<td>[[${user.regDate}]]</td>
-														<td><a th:href="'/users/' + ${user.id}"
-															class="btn btn-primary btn-sm">[[${user.gubun}]]</a></td>
+														<td>[[${user.gubun}]]</td>
 														<td style="text-align: center;" >
 														<button type="button" class="btn btn-primary"
 																data-bs-toggle="modal" th:data-bs-target="'#a' + ${user.id}">조회</button>
@@ -133,7 +132,6 @@
 																		data-bs-dismiss="modal	" aria-label="Close"></button>
 																</div>
 																<div class="modal-body row">
-
 																	<div class="col-md-12">
 																		<div class="card mb-12 col-12">
 																			<div class="card-header ">
@@ -193,9 +191,6 @@
 																					<input name="name" th:value="${user.name}" type="hidden">
 																					<input name="role" th:value="${user.role}" type="hidden">
 																					</li>
-																					
-	
-																					
 																					<!-- 수정하는 영역 end -->
 																				</ul>
 																			</div>
@@ -209,7 +204,7 @@
 																<div class="modal-footer">
         															<button type="button" class="btn btn-primary modiBt" onclick="modi()">수정하기</button>
         															<button style="display: none;" type="button" class="btn btn-primary closeBt" onclick="modiok()">수정완료</button>
-																	<button id="closeModalBtn" type="button" class="btn btn-secondary" onclick="close()" data-bs-dismiss="modal">닫기</button>
+																	<button id="closeModalBtn" type="button" class="btn btn-secondary" onclick="close(); closeHide();" data-bs-dismiss="modal">닫기</button>
 																</div>
 															</div>
 														</div>
@@ -222,9 +217,10 @@
 								</div>
 								
 								<div class="row" >
+								<div class="col-sm-12 col-md-3"> </div>
+									<div class="col-sm-12 col-md-6 ">
 									<nav th:with="start=${(users.number/maxPage)*maxPage + 1},
 									end=(${(users.totalPages == 0) ? 1 : (start + (maxPage -1) < users.totalPages ? start + (maxPage -1) : users.totalPages)})">
-									<div class="col-sm-12 col-md-12 ">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
 											<ul class="pagination">
 												<li th:classappend="${users.first}? 'disabled'"
@@ -245,8 +241,11 @@
 												</li>
 											</ul>
 										</div>
-									</div>
 									</nav>
+									</div>
+									<div class="col-sm-12 col-md-3 newbtnwrap">
+										<a class="btn btn-primary btn-sm newbtn" href="/users/signUpp">등록하기</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -255,7 +254,7 @@
 			</main>
 		</div>
     	
-	<script>
+	<script th:inline="javascript">
 	
 	function delCheck(value){
 		if(confirm('정말 삭제하시겠습니까?')){
@@ -274,6 +273,20 @@
 		$('.modiBt').css('display','none');
 	}
 	
+	//모달 닫기
+	
+	function closeHide() {
+		$('.userEmail').css('display','none');
+		$('.userId').css('display','none');
+		$('.userPhone').css('display','none');
+		$('.userRegDate').css('display','none');
+		$('.gubun').css('display','none');
+		$('.view').css('display','block');
+		$('.closeBt').css('display','none');
+		$('.modiBt').css('display','block');
+	}
+	
+	
 	function modiok() {
 		$('.userEmail').css('display','none');
 		$('.userId').css('display','none');
@@ -285,27 +298,17 @@
 	}
 	
 	//<button type="button" class="btn btn-secondary" onclick="close()" data-bs-dismiss="modal">닫기</button>
-	function close() {
+/* 	function close() {
 		$('.userEmail').css('display','none');
 		$('.userId').css('display','none');
 		$('.userPhone').css('display','none');
 		$('.userRegDate').css('display','none');
 		$('.gubun').css('display','none');
 		$('.closeBt').css('display','none');
-	}
+	} */
 	
 	
-	//모달 닫기
-	  $('#closeModalBtn').on('click', function(){
-			$('.userEmail').css('display','none');
-			$('.userId').css('display','none');
-			$('.userPhone').css('display','none');
-			$('.userRegDate').css('display','none');
-			$('.gubun').css('display','none');
-			$('.view').css('display','block');
-			$('.closeBt').css('display','none');
-			$('.modiBt').css('display','block');
-		  });
+
     </script>
 
 		

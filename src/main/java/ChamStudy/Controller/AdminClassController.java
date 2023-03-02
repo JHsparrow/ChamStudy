@@ -1,5 +1,6 @@
 package ChamStudy.Controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -7,11 +8,11 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +25,6 @@ import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
 import ChamStudy.Dto.ContentDto;
 import ChamStudy.Dto.MessageDto;
-import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Service.ClassInfoService;
 import ChamStudy.Service.OnContentService;
@@ -35,25 +35,29 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/adminClass")
 public class AdminClassController {
 	
+	@Value("${classCountInPage}")
+	private int classCountInPage;
+	
 	private final ClassInfoService classInfoService;
 	private final OnContentService onContentService;
 
 	@GetMapping(value = "/classList") //강의 리스트 페이지
 	public String classList(Optional<Integer> page, Model model) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
 		
 		//List<ClassInfo> classInfo = classInfoService.getAllClass();
-		Page<ClassInfoListDto> classInfoDto = classInfoService.getAllClassPage(pageable);
-		model.addAttribute("classInfoDto", classInfoDto);
-		model.addAttribute("maxPage",5);
+		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
+		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		//model.addAttribute("classInfo", classInfo);
 		return "/AdminForm/AdminClass/classList";
 	}
 	
 	@PostMapping(value = "/classList")
-	public String classList(ClassInfoDto adminClassDto, Model model) {
-		List<ClassInfo> classInfo = classInfoService.getSearch(adminClassDto);
-		model.addAttribute("classInfo", classInfo);
+	public String classList(ClassInfoDto adminClassDto, @RequestParam(value = "page") Optional<Integer> page, Model model) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
+		
+		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getSearch(adminClassDto, pageable);
+		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		return "/AdminForm/AdminClass/classList";
 	}
 	
@@ -94,10 +98,27 @@ public class AdminClassController {
 		MessageDto message;
 		
 		try {
+			/*
+			 * 편법으로 전체 개수 가져오는 방법
+			 * 1. 컨텐츠 데이터를 1개 조회한다 getAllContnetList(null, pageable)
+			 * 2. 넘겨받은 값에서 전체 건수를 가져온다 : getTotalElements()
+			 * 3. 2번에서 가져온 전체 건수만큼 조회하여 가져온다
+			 * 4. 3번에서 조회한 데이터를 화면에서 select list 출력 시 사용한다
+			 */
+			Pageable pageable = PageRequest.of(0, 1);
+			
+			Page<ContentDto> contentInfoList = onContentService.getAllContnetList(null, pageable);
+			long maxPage = contentInfoList.getTotalElements();
+			
+			pageable = PageRequest.of(0, (int) maxPage); // 실제 개수만큼 가져오기 위한 페이징 설정
+			contentInfoList = onContentService.getAllContnetList(null, pageable);
+			
 			ClassInfoDto adminClass = classInfoService.getId(adminClassDto.getId());
+			model.addAttribute("contentInfoList", contentInfoList);
 			model.addAttribute("adminClassDto", adminClass);
 		} catch(EntityNotFoundException e) {
 			message = new MessageDto("존재하지 않는 강의 입니다.", "/adminClass/classList");
+			model.addAttribute("contentInfoList", new PageImpl<>(new ArrayList<ContentDto>(), PageRequest.of(0, 1), 0));
 			model.addAttribute("adminClassDto", new ClassInfoDto());
 			return showMessageAndRedirect(message, model);
 		}
