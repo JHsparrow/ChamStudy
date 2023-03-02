@@ -33,6 +33,8 @@ public interface CommRepository extends JpaRepository<Comm_Board, Long> , Queryd
 	@Query(value = "SELECT * FROM comm_board c WHERE c.board_id - :boardId > 0 and c.board_id - :boardId < 1000000 and gubun = 'R';",nativeQuery = true)
 	List<Comm_Board> findreply(@Param("boardId") Long boardId);
 
-	
+	//이전 게시물을 가져와준다
+	@Query(value = "SELECT * FROM comm_board c where gubun = 'B' order by c.board_id desc limit 1;",nativeQuery = true)
+	Comm_Board findBeforeComm();
 	
 }

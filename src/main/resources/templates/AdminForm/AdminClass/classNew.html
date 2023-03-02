@@ -85,12 +85,14 @@
 			<h1 class="h3 mb-3">강의 등록</h1>
 			<input type="hidden" th:field="*{id}" />
 			<div class="row mb-3">
+				<label class="col-sm-2 col-form-label">콘텐츠명</label>
+			<div class="col-sm-10">
 				<select id="contentSel" name="contentId" class=" col-sm-2" >
-					<option>콘텐츠</option>
 					<th:block th:each="ContentInfo, status: ${contentInfo}">
 						<option th:value="${ContentInfo.id}">[[${ContentInfo.name}]]</option>
 					</th:block>
 				</select>
+			</div>
 			</div>
 			<div class="row mb-3">
 				<label class="col-sm-2 col-form-label">강의 이름</label>
