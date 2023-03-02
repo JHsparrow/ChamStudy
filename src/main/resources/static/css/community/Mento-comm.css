@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+ul.pagination {
+    justify-content: center;
+        margin-top: 100px;
+    
+}
+
+.mento-header {
+    background-color: #C9FCFF;
+    height: 150px;
+}
+
+h2.mento-header1 {
+    font-size: 1.9rem;
+}
+
+.header-font-wrap {
+    margin-left: 12vw;
+    padding-top: 17px;
+}
+
+.search-wrap {
+    display: flex;
+    position: absolute;
+    top: 275px;
+    left: 5%;
+}
+
+button#searchBtn {
+    border-radius: 0px 5px 5px 0px / 0px 5px 5px 0px;
+    border: none;
+}
+
+.boards {
+    margin-left: 30%;
+    margin-right: 10%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-gap: 15px;
+}
+
+input#searchQuery {
+    margin-left: 10px;
+    border: solid 1px gainsboro;
+    border-radius: 5px 0px 0px 5px / 5px 0px 0px 5px;
+}
+
+.each {
+    width: 195px;
+    height: 208px;
+    background-color: #FFF1E3;
+    margin-top: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+a.comm-wrap-a2 {
+    margin-left: 10px;
+}
+
+.comm-li2-1 {
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.comm-li2-2 {
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+a.comm-wrap-a3 {
+    margin-left: 10px;
+}
+
+.comm-li1 {
+    padding-top: 10px;
+}
+
+.comm-wrap {
+    height: 208px;
+}
+
+.comm-li3 {
+    position: absolute;
+    bottom: 10px;
+}
