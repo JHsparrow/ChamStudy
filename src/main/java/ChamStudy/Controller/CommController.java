@@ -36,7 +36,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping(value = "/")
 public class CommController { //커뮤니티 컨트롤러
-	private final CommService adminCommService;
+	private final CommService commService;
 	private final CommSearchService commSearchService;
 	
 	@GetMapping(value = {"/comm","comm/{page}"})
@@ -51,24 +51,64 @@ public class CommController { //커뮤니티 컨트롤러
 		return "MainForm/community/commMain";
 	}
 	
-
+	@GetMapping(value = "/comm/learning")
+	public String learningLecture() {
+		return "MainForm/community/Learning-Lecture";
+	}
+	
+	//자유게시판 글쓰기 페이지 불러오기
 	@GetMapping(value = "/comm/create")
 	public String MainWriteForm(Model model) {
-		model.addAttribute("boardFormDto", new CommWriteFormDto());
+		CommDto commDto = commService.getBeforeComm();
+		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
+		model.addAttribute("comm", commDto);
 		return "MainForm/community/commWrite";
 	}
 	
+	//멘토게시판 글쓰기 페이지 불러오기
+	@GetMapping(value = "/comm/Mentocreate")
+	public String MentoWriteForm(Model model) {
+		CommDto commDto = commService.getBeforeComm();
+		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
+		model.addAttribute("comm", commDto);
+		return "MainForm/community/commMentoWrite";
+	}
+	
+	//자유게시판 글쓰기 저장
 	@PostMapping(value = "/comm/create")
-	public String MainBoardCreate(@Valid CommWriteFormDto boardFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList) {
+	public String MainBoardCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList,Principal principal) {
+		MessageDto message;
+		String email = principal.getName();
 		if(bindingResult.hasErrors()) {
 			return "MainForm/community/commWrite";
 		} 
 		
 		try {
-			adminCommService.saveComm(boardFormDto, commImgFileList);
+			commService.saveComm(commWriteFormDto, commImgFileList,email);
+			message = new MessageDto("글 등록을 완료했습니다.", "/comm");
 		} catch (Exception e) {
-			model.addAttribute("errorMessage", "글 등록 중 에러가 발생했습니다.");
+			message = new MessageDto("글 등록을 실패했습니다.", "/comm");
 			return "MainForm/community/commWrite";
+		}
+		return "redirect:/";
+	}
+	
+	//멘토게시판 글쓰기 저장
+	@PostMapping(value = "/comm/Mentocreate")
+	public String MentoBoardCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal) {
+		MessageDto message;
+		String email = principal.getName();
+		
+		if(bindingResult.hasErrors()) {
+			return "MainForm/community/commMentoWrite";
+		} 
+		
+		try {
+			commService.saveMentoComm(commWriteFormDto,email);
+			message = new MessageDto("글 등록을 성공했습니다.", "/comm");
+		} catch (Exception e) {
+			message = new MessageDto("글 등록을 실패했습니다.", "/comm");
+			return "MainForm/community/commMentoWrite";
 		}
 		return "redirect:/";
 	}
@@ -103,9 +143,9 @@ public class CommController { //커뮤니티 컨트롤러
 		public String commDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request) {
 			try {
 				//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
-				CommDto adminMainCommDto = adminCommService.getAdminCommDtl(boardId);
-				List<CommCommentDto> commentList = adminCommService.getCommentList(boardId);
-				List<CommCommentDto> replyList = adminCommService.getReplyList(boardId);
+				CommDto adminMainCommDto = commService.getAdminCommDtl(boardId);
+				List<CommCommentDto> commentList = commService.getCommentList(boardId);
+				List<CommCommentDto> replyList = commService.getReplyList(boardId);
 				
 				//담아준 Dto를 view로 보내준다
 				model.addAttribute("comm",adminMainCommDto);
@@ -127,7 +167,7 @@ public class CommController { //커뮤니티 컨트롤러
 		public String commDelete(Long boardId, HttpServletRequest request,Model model) throws Exception {
 			MessageDto message;
 			try {
-				adminCommService.commDelete(boardId);
+				commService.commDelete(boardId);
 				message = new MessageDto("글 삭제가 완료되었습니다.", "/adminForm/comm");
 			} catch (Exception e) {
 				message = new MessageDto("글 삭제가 실패되었습니다.", "/adminForm/comm");
