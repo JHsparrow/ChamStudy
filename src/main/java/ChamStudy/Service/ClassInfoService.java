@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,11 +65,21 @@ public class ClassInfoService {
 		return classInfo;
 	}
 	
+	//강의상세페이지 조회
+	@Transactional(readOnly = true)
+	public ClassInfoListDto getClassInfo(ClassInfoDto adminClassDto) {
+		
+		ClassInfoListDto classDetail = classInfoRepository.findByClassDetail(adminClassDto);
+		
+		return classDetail;
+	}
+	
 	//강의리스트 검색
 	@Transactional(readOnly = true)
-	public List<ClassInfo> getSearch(ClassInfoDto adminClassDto) {
+	public Page<ClassInfoListDto> getSearch(ClassInfoDto adminClassDto, Pageable pageable) {
 		
-		List<ClassInfo> classInfo = classInfoRepository.findByNameByNative(adminClassDto.getName());
+		//List<ClassInfo> classInfo = classInfoRepository.findByNameByNative(adminClassDto.getName());
+		Page<ClassInfoListDto> classInfo = classInfoRepository.findByClassList(adminClassDto, pageable);
 		
 		return classInfo;
 	}
@@ -105,7 +116,14 @@ public class ClassInfoService {
         //상품 수정
     	ClassInfo classInfo = classInfoRepository.findById(adminClassDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
-    	classInfo.updateClass(adminClassDto);
+    	//classInfo.updateClass(adminClassDto);
+    	long updCnt = classInfoRepository.updateByClassDetail(adminClassDto);
+    	
+    	if (updCnt > 0) {
+    		System.out.println("업데이트 성공 (classId=" + classInfo.getId() + ")");
+    	} else {
+    		System.out.println("업데이트 실패 (classId=" + classInfo.getId() + ")");
+    	}
 
         return classInfo.getId();
     }

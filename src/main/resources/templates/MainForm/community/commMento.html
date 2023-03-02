@@ -4,7 +4,7 @@
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="utf-8">
-<link th:href="@{/css/community/comm.css}" rel="stylesheet">
+<link th:href="@{/css/community/Mento-comm.css}" rel="stylesheet">
 <title>참스터디</title>
 
 <th:block layout:fragment="script">
@@ -29,56 +29,48 @@
 <body>
 	<div layout:fragment="content">
 		<div class="body-wrap">
-			<div class="side-body">
-				<div class="side-1">
-					<a class="side-a-1" href="/comm">자유주제</a>
-				</div>
-				<div class="side-2">
-					<a class="side-a-2" href="/comm/qna" style="color: #329A28;">질문 & 답변</a>
+			<div class="mento-header">
+				<div class="header-font-wrap">
+					<h2 class="mento-header1">멘토링</h2>
+					<div class="mento-header2-1">업계 선배들 혹은 동료들과 인사이트를 나눠보세요</div>
+					<div class="mento-header2-2">더 빨리,더 멀리 갈 수 있어요</div>
+					<div class="mento-write">
+						<a class="mento-write-a">멘토 지원하기</a>
+					</div>
 				</div>
 			</div>
-			<div class="main-body">
+			<div class="side-body">
 				<div class="search-wrap" th:object="${commSearchDto}"
 					style="height: 40px;">
 					<!-- 상품 등록일 -->
 					<!-- 상품명, 등록자 선택 -->
 					<select th:field="*{searchBy}" class="form-select"
 						style="width: auto;">
-						<option value="substance">글 내용</option>
-						<option value="name">작성자</option>
+						<option value="name">멘토</option>
+						<option value="substance">내용</option>
 						<option value="Title">글 제목</option>
 					</select>
 					<!-- 검색창 -->
 					<input type="text" th:field="*{searchQuery}" class="search-input"
-						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;">
+						placeholder="검색" style="width: auto;">
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
-					<div class="write-btn">
-						<a class="write-btn-a" th:onclick="|location.href='@{/comm/create}'|">글쓰기</a>
-					</div>
 				</div>
+			</div>
+			<div class="main-body">
 				<div class="boards">
 					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
 						<div class="each">
 							<div class="comm-wrap">
 								<div class="comm-li1">
-									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<a th:href="'/comm/dtl/'+${comm.id}"
-										class="comm-li1-2">조회</a>
+									<a class="comm-wrap-a2" style="color: black; text-decoration: none;">[[${comm.Title}]]</a>
 								</div>
-								<div class="comm-wrap2">
-									<div class="comm-li2">
-										<a th:href="'/comm/dtl/'+${comm.id}"
-											class="comm-wrap-a2">[[${comm.Title}]]</a>
-									</div>
-									<div class="comm-li3-1">
-										<a th:href="'/comm/dtl/'+${comm.id}"
-											class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
-										<div class="comm-li3-2">
-											<a th:href="'/comm/dtl/'+${comm.id}"
-												class="comm-wrap-a4">[[${comm.regDate}]]</a>
-										</div>
-									</div>
+								<div class="comm-li2">
+									<div class="comm-li2-1">프론트 엔드</div>
+									<div class="comm-li2-2">부트캠프에서 만든 고농축 프론트엔드 코스</div>
+								</div>
+								<div class="comm-li3">
+									<a class="comm-wrap-a3" style="color: black; text-decoration: none;">[[${comm.userInfo.name}]]</a>
 								</div>
 							</div>
 						</div>
@@ -95,19 +87,19 @@
 									<li th:classappend="${comms.first}? 'disabled'"
 										class="paginate_button page-item previous disabled mx-1"
 										id="datatables-orders_previous"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
+										th:href="@{'/comm/mento' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
 										aria-controls="datatables-orders" data-dt-idx="0" tabindex="0"
 										class="page-link">&lt </a></li>
 									<li th:each="page: ${#numbers.sequence(start, end)}"
 										th:classappend="${comms.number eq page-1}?'active':''"
 										class="paginate_button page-item mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
+										th:href="@{'/comm/mento' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
 										aria-controls="datatables-orders" data-dt-idx="1" tabindex="0"
 										class="page-link">[[${page}]]</a></li>
 									<li th:classappend="${comms.last}? 'disabled'"
 										class="paginate_button page-item next"
 										id="datatables-orders_next  mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
+										th:href="@{'/comm/mento' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
 										aria-controls="datatables-orders" data-dt-idx="3" tabindex="0"
 										class="page-link">&gt</a></li>
 								</ul>

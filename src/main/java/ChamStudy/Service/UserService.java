@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserListDto;
 import ChamStudy.Dto.UserSearchDto;
@@ -39,12 +38,14 @@ public class UserService implements UserDetailsService{
 			throw new UsernameNotFoundException(email);
 		}
 		
+		
+		
+		
 		return User.builder()
 				.username(userInfo.getEmail())
 				.password(userInfo.getPassword())
 				.roles(userInfo.getRole())
 				.build();
-		
 	}
 	
 	

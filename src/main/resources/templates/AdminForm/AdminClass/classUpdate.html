@@ -81,9 +81,8 @@
 			<input type="hidden" th:field="*{id}" />
 			<div class="row mb-3">
 				<select id="contentSel" name="contentId" class=" col-sm-2" >
-					<option>콘텐츠</option>
-					<th:block th:each="ContentInfo, status: ${contentInfo}">
-						<option th:value="${ContentInfo.id}">[[${ContentInfo.name}]]</option>
+					<th:block th:each="contentInfo, status: ${contentInfoList}">
+						<option th:value="${contentInfo.id}" th:selected="${contentInfo.id} == ${adminClassDto.contentId}">[[${contentInfo.name}]]</option>
 					</th:block>
 				</select>
 			</div>

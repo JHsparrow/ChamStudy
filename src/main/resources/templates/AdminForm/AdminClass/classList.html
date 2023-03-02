@@ -59,17 +59,22 @@
  			
  			$(".btn-class-Dt").on("click", function(){
  				var data = $(this).siblings('input[name="infoName"]').val();
- 			    $("#model_name").val(data);
+ 			    $("#modal_name").val(data);
+ 			    
  				var data = $(this).siblings('input[name="infoPrice"]').val();
- 			    $("#model_price").val(data);
+ 			    $("#modal_price").val(data);
+ 			    
  				var data = $(this).siblings('input[name="infoTeacherName"]').val();
- 			    $("#model_teacherName").val(data);
+ 			    $("#modal_teacherName").val(data);
+ 			    
  				var data = $(this).siblings('input[name="infoPeopleNum"]').val();
- 			    $("#model_peopleNum").val(data);
+ 			    $("#modal_peopleNum").val(data);
+ 			    
  				var data = $(this).siblings('input[name="infoSDate"]').val();
- 			    $("#model_sDate").val(data);
+ 			    $("#modal_sDate").val(data);
+ 			    
  				var data = $(this).siblings('input[name="infoEDate"]').val();
- 			    $("#model_eDate").val(data);
+ 			    $("#modal_eDate").val(data);
 
  			});
 			
@@ -134,23 +139,23 @@
 												<th>구분</th>
 										</thead>
 										<tbody>
-											<th:block th:each="ClassInfoListDto: ${classInfoDto}">
+											<th:block th:each="classInfoDto: ${classInfoDtoList}">
 											<tr class="odd">
-												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${ClassInfoListDto.id}]]</strong></td>
+												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${classInfoDto.id}]]</strong></td>
 												<td> <!-- Button trigger modal -->
-													<input type="hidden" th:value=${ClassInfoListDto.name} name="infoName">
-													<input type="hidden" th:value=${ClassInfoListDto.price} name="infoPrice">
-													<input type="hidden" th:value=${ClassInfoListDto.teacherName} name="infoTeacherName">
-													<input type="hidden" th:value=${ClassInfoListDto.peopleNum} name="infoPeopleNum">
-													<input type="hidden" th:value=${ClassInfoListDto.sDate} name="infoSDate">
-													<input type="hidden" th:value=${ClassInfoListDto.eDate} name="infoEDate">
-													<input type="hidden" name="id" th:value="${ClassInfoListDto.id}">
+													<input type="hidden" name="id" th:value="${classInfoDto.id}">
+													<input type="hidden" th:value=${classInfoDto.name} name="infoName">
+													<input type="hidden" th:value=${classInfoDto.price} name="infoPrice">
+													<input type="hidden" th:value=${classInfoDto.teacherName} name="infoTeacherName">
+													<input type="hidden" th:value=${classInfoDto.peopleNum} name="infoPeopleNum">
+													<input type="hidden" th:value=${classInfoDto.sDate} name="infoSDate">
+													<input type="hidden" th:value=${classInfoDto.eDate} name="infoEDate">
 													<a class="btn-class-Dt" data-bs-toggle="modal" data-bs-target="#exampleModal">
-													  [[${ClassInfoListDto.contentName}]]
+													  [[${classInfoDto.contentName}]]
 													</a>												
 												</td>
-												<td>[[${ClassInfoListDto.name}]]</td>
-												<td>[[${ClassInfoListDto.regDate}]]</td>
+												<td>[[${classInfoDto.name}]]</td>
+												<td>[[${classInfoDto.regDate}]]</td>
 												<td>
 													<input type="button" class="btn btn-primary btn-sm btn-class-upd" value="수정" />
 													<input type="button" class="btn btn-primary btn-sm btn-class-del" value="삭제" />
@@ -166,18 +171,18 @@
 									<div class="col-sm-12 col-md-3"></div>
 									<div class="col-sm-12 col-md-5">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
-											th:with="start=${(classInfoDto.number/maxPage)*maxPage + 1}, end=(${(classInfoDto.totalPages == 0) ? 1 : (start + (maxPage - 1) < classInfoDto.totalPages ? start + (maxPage - 1) : classInfoDto.totalPages)})">
+											th:with="currPageIndex=${classInfoDtoList.number}, maxPage=${classInfoDtoList.totalPages}, start=(${(maxPage == 0) ? 1 : (currPageIndex/maxPage)*maxPage + 1}), end=(${(maxPage == 0) ? 1 : (start + (maxPage - 1) < maxPage ? start + (maxPage - 1) : maxPage)})">
 											<ul class="pagination">
-												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous" th:classappend="${classInfoDto.first}?'disabled'" >
-													<a th:href="@{'/adminClass/classList' + '?page=' + ${classInfoDto.number-1}}"  aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt</a>
+												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous" th:classappend="${maxPage == 0 || currPageIndex == 0}?'disabled'" >
+													<a th:href="@{'/adminClass/classList' + '?page=' + ${currPageIndex - 1}}"  aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt</a>
 												</li>
 												<th:block th:each="page: ${#numbers.sequence(start, end)}" >
-												<li class="paginate_button page-item mx-1" th:classappend="${classInfoDto.number eq page-1}?'active':''">
+												<li class="paginate_button page-item mx-1" th:classappend="${classInfoDtoList.number eq page-1}?'active':''">
 													<a th:href="@{'/adminClass/classList' + '?page=' + ${page-1}}" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
 												</li>
 												</th:block>
-												<li class="paginate_button page-item next" id="datatables-orders_next  mx-1">
-													<a th:href="@{'/adminClass/classList' + '?page=' + ${classInfoDto.number+1}}" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												<li class="paginate_button page-item next" id="datatables-orders_next mx-1" th:classappend="${maxPage == 0 || currPageIndex == (maxPage - 1)}?'disabled'">
+													<a th:href="@{'/adminClass/classList' + '?page=' + ${currPageIndex + 1}}" aria-controls="datatables-orders" data-dt-idx="2" tabindex="0" class="page-link">&gt</a>
 												</li>
 											</ul>
 										</div>
@@ -204,27 +209,27 @@
 				<div class="container-fluid">
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">강의명</label>
-						<input type="text" class="form-control" id="model_name"  >
+						<input type="text" class="form-control" id="modal_name"  >
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">수강료</label>
-						<input type="text" class="form-control" id="model_price" >
+						<input type="text" class="form-control" id="modal_price" >
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">강사명</label>
-						<input type="text" class="form-control" id="model_teacherName">
+						<input type="text" class="form-control" id="modal_teacherName">
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">인원제한수</label>
-						<input type="text" class="form-control" id="model_peopleNum" >
+						<input type="text" class="form-control" id="modal_peopleNum" >
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">시작일</label>
-						<input type="text" class="form-control" id="model_sDate" >
+						<input type="text" class="form-control" id="modal_sDate" >
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">종료일</label>
-						<input type="text" class="form-control" id="model_eDate" >
+						<input type="text" class="form-control" id="modal_eDate" >
 					</div>
 					
 				</div>
