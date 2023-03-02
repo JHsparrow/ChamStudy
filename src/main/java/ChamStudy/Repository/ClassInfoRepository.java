@@ -18,4 +18,5 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	List<ClassInfo> findAll();
 	
 	Optional<ClassInfo> findById(Long id); //강의리스트 삭제를 위한 아이디조회
+	
 }

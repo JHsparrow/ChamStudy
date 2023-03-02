@@ -45,10 +45,8 @@ public class AdminClassController {
 	public String classList(Optional<Integer> page, Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
 		
-		//List<ClassInfo> classInfo = classInfoService.getAllClass();
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
-		//model.addAttribute("classInfo", classInfo);
 		return "/AdminForm/AdminClass/classList";
 	}
 	

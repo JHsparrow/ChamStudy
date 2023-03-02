@@ -95,7 +95,6 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
                 .from(classInfo)
                 .join(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
                 .where(classInfo.id.eq(adminClassDto.getId()))
-                .orderBy(QClassInfo.classInfo.id.desc()) //order by class_id desc
                 .fetchOne(); //조회된 결과 단일 객체로 받을 때 사용
 		
 		return classDetail;
@@ -110,7 +109,7 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
                 .update(classInfo) //update class_info
                 .set(classInfo.name, adminClassDto.getName())
                 .set(classInfo.teacherName, adminClassDto.getTeacherName())
-                .set(classInfo.contentInfo.id, Long.parseLong(adminClassDto.getContentId()))
+                .set(classInfo.contentInfo.id, adminClassDto.getContentId())
                 .set(classInfo.peopleNum, adminClassDto.getPeopleNum())
                 //.set(classInfo.regDate, adminClassDto.getRegDate())
                 .set(classInfo.sDate, adminClassDto.getSDate())
