@@ -49,4 +49,9 @@ public class UserMainMyPageController {
 		return "mypage/my-page-update";
 	}
 	
+	@GetMapping(value = "/learning/watch")
+	public String learningLecture() {
+		return "MainForm/community/Learning-Lecture";
+	}
+	
 }

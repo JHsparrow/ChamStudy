@@ -51,10 +51,6 @@ public class CommController { //커뮤니티 컨트롤러
 		return "MainForm/community/commMain";
 	}
 	
-	@GetMapping(value = "/comm/learning")
-	public String learningLecture() {
-		return "MainForm/community/Learning-Lecture";
-	}
 	
 	//자유게시판 글쓰기 페이지 불러오기
 	@GetMapping(value = "/comm/create")
