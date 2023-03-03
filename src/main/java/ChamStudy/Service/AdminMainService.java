@@ -6,13 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
-import ChamStudy.Dto.CategoryDto;
-import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.ChartInterface;
-import ChamStudy.Dto.EducationInfoDto;
->>>>>>> a6cb03f3b1917f376fd9d084551a4550dc4fb373
 import ChamStudy.Dto.EducationInfoInterface;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Entity.Visitor;
