@@ -9,12 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.VideoDto;
 import ChamStudy.Entity.ApplyList;
+import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Entity.StudyHistory;
 import ChamStudy.Entity.StudyResult;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.ApplyListRepository;
+import ChamStudy.Repository.CompletionRepository;
 import ChamStudy.Repository.OnContentRepository;
 import ChamStudy.Repository.OnContentVideoRepository;
 import ChamStudy.Repository.StudyHistortRepository;
@@ -33,6 +35,7 @@ public class ContentVideoService {
 	private final UserRepository userRepository;
 	private final ApplyListRepository applyListRepository;
 	private final StudyResultRepository studyResultRepository;
+	private final CompletionRepository completionRepository;
 	
 	
 	public void insertVideoData(ContentInfo contentId, int count) {
@@ -73,6 +76,7 @@ public class ContentVideoService {
 			studyHistory.setVideoId(videoId);
 			studyHistory.setContentId(getContentId);
 			studyHistory.setId(history_id);
+			studyHistory.setApplyId(applyList);
 		}
 		studyHistortRepository.save(studyHistory);
 	}
@@ -82,16 +86,23 @@ public class ContentVideoService {
 		UserInfo userId = userRepository.getUserId(email);
 		ApplyList applyId = applyListRepository.findByUserId(userId.getId());
 		Long progress = studyHistortRepository.getProgress(applyId.getId(),contentId);
-		Long validResult = studyResultRepository.getResultId(applyId.getId());
+		StudyResult validResult = studyResultRepository.getResultId(applyId.getId());
 		
 		StudyResult studyResult = new StudyResult();
-		
-		if(validResult != null) {
-			studyResult.setId(validResult);
+		 
+		//study_result id가 중복할경우(=applyId가 중복확인)
+		if(validResult.getId() != null) {
+			studyResult.setId(validResult.getId());
 		}
 		studyResult.setApplyId(applyId);
 		studyResult.setProgress(progress);
 		studyResultRepository.save(studyResult);
+		
+		if(validResult.getProgress()>=100) {
+			Completion completion = new Completion();
+			completion.setResultId(validResult);
+			completionRepository.save(completion);
+		}
 	}
 	
 	

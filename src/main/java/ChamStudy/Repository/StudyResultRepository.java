@@ -8,6 +8,6 @@ import ChamStudy.Entity.StudyResult;
 
 public interface StudyResultRepository extends JpaRepository<StudyResult, Long> {
 	
-	@Query(value="select result_id from study_result where apply_id = ?1", nativeQuery = true)
-	Long getResultId(Long applyId);
+	@Query(value="select * from study_result where apply_id = ?1", nativeQuery = true)
+	StudyResult getResultId(Long applyId);
 }
