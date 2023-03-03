@@ -91,23 +91,11 @@
 		<div class="main">
 			<main class="content">
 				<div class="container-fluid p-0">
-					<h1 class="h3 mb-3">Class Page</h1>
+					<h1 class="h3 mb-3">강의 관리</h1>
 					<div class="card">
 						<div class="card-header pb-0">
-							<div class="card-actions float-end">
-								<div class="dropdown position-relative">
-									<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-									</a>
-
-									<div class="dropdown-menu dropdown-menu-end">
-										<a class="dropdown-item" href="#">Action</a>
-										<a class="dropdown-item" href="#">Another action</a>
-										<a class="dropdown-item" href="#">Something else here</a>
-									</div>
-								</div>
-							</div>
-							<h5 class="card-title mb-1">Orders</h5>
+							
+							<h5 class="card-title mb-2">강의 리스트</h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -126,7 +114,7 @@
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
-										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline" aria-describedby="datatables-orders_info" >
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 										<colgroup> <!-- 너비 계산하기  -->
 											<col width="10%"><col width="30%"><col width="30%"><col width="10%"><col width="10%">
 										</colgroup>
@@ -162,14 +150,21 @@
 												</td>												
 											</tr>
 											</th:block>
+											<th:block th:if="${classInfoDtoList.getContent().size() == 0 }">
+											<tr>
+												<td colspan="5"><strong>등록된 강의가 없습니다.</strong></td>
+											</tr>
+											</th:block>
 										</tbody>
 										</table>
 									</div>
 								</div>
 								</div>
 								<div class="row" >
-									<div class="col-sm-12 col-md-3"></div>
-									<div class="col-sm-12 col-md-5">
+									<div class="col-sm-12 col-md-2">
+										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
+									</div>
+									<div class="col-sm-12 col-md-8">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
 											th:with="currPageIndex=${classInfoDtoList.number}, maxPage=${classInfoDtoList.totalPages}, start=(${(maxPage == 0) ? 1 : (currPageIndex/maxPage)*maxPage + 1}), end=(${(maxPage == 0) ? 1 : (start + (maxPage - 1) < maxPage ? start + (maxPage - 1) : maxPage)})">
 											<ul class="pagination">
@@ -187,7 +182,7 @@
 											</ul>
 										</div>
 									</div>
-									<div class="col-sm-12 col-md-3 newbtnwrap">
+									<div class="col-sm-12 col-md-2 newbtnwrap">
 										<a href="/adminClass/classNew" class="btn btn-primary btn-sm newbtn">등록하기</a>
 									</div>
 							</div>

@@ -82,7 +82,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 .newbtn{
 	width: 100px;
-    padding: 10px 0;
+    padding: 10px 0 !important;
     margin-right: 35px;
 }
 .modal-header{
