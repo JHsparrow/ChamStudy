@@ -30,7 +30,9 @@ public class Completion {
 	@Column(name="completion_id")
 	private Long id;  
 	
-	private Long resultId ;  
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "result_id")
+	private StudyResult resultId ;  
 	
 	
 	@CreatedDate 

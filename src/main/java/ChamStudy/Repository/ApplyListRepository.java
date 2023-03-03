@@ -8,6 +8,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import ChamStudy.Dto.ChartInterface;
 import ChamStudy.Entity.ApplyList;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Impl.ApplyListRepositoryCustom;
 
 public interface ApplyListRepository extends JpaRepository<ApplyList, Long>
@@ -34,5 +35,12 @@ public interface ApplyListRepository extends JpaRepository<ApplyList, Long>
 	List<ChartInterface> countChartSubCertificate();
 	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='어학' group by a.class_id order by e.name", nativeQuery = true)
 	List<ChartInterface> countChartSubLanguage();
+	
+	@Query(value="select * from apply_list A join user_info B on a.user_id = b.user_id where b.user_email = ?1 ", nativeQuery = true)
+	ApplyList getApplyId(String email);
+	
+	@Query(value="select * from apply_list where user_id = ?1 ", nativeQuery = true)
+	ApplyList findByUserId(Long userId);
+	
 
 }
