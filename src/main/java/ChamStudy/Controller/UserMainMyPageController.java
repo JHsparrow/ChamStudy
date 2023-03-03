@@ -77,10 +77,15 @@ public class UserMainMyPageController {
 	public String myClass(Model model){
 		return "mypage/my-page-class";
 	}
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> bc0bfb56ca532216a835d01d4e5afd762579103b
 	@GetMapping(value = "/learning/watch")
 	public String learningLecture() {
 		return "MainForm/community/Learning-Lecture";
 	}
 	
+
 }

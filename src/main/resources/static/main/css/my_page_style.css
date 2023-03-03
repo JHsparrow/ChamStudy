@@ -3,3 +3,135 @@
 .minheight {
     min-height: 97.8%;
 }
+
+.card-ttl {
+	color: black;
+	text-align: left;
+}
+
+.class-title {
+	font-size: 1rem;
+}
+
+.pd-07 {
+	padding: 0.7rem;
+}
+
+.pd-0 {
+	padding: 0 !important;
+}
+
+.fa-circle-play {
+	color: #0d6efd;
+    font-size: 2rem;
+}
+
+.pagination { -
+	-bs-pagination-padding-x: 0.75rem; -
+	-bs-pagination-padding-y: 0.3rem; -
+	-bs-pagination-font-size: 0.875rem; -
+	-bs-pagination-color: #6c757d; -
+	-bs-pagination-bg: #fff; -
+	-bs-pagination-border-width: 1px; -
+	-bs-pagination-border-color: #dee2e6; -
+	-bs-pagination-border-radius: 0.2rem; -
+	-bs-pagination-hover-color: #343a40; -
+	-bs-pagination-hover-bg: #e9ecef; -
+	-bs-pagination-hover-border-color: #dee2e6; -
+	-bs-pagination-focus-color: var(- -bs-link-hover-color); -
+	-bs-pagination-focus-bg: #e9ecef; -
+	-bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgba(59, 125, 221, .25);
+	-
+	-bs-pagination-active-color: #fff; -
+	-bs-pagination-active-bg: #3b7ddd; -
+	-bs-pagination-active-border-color: #3b7ddd; -
+	-bs-pagination-disabled-color: #6c757d; -
+	-bs-pagination-disabled-bg: #fff; -
+	-bs-pagination-disabled-border-color: #dee2e6;
+	display: flex;
+	list-style: none;
+	padding-left: 0;
+}
+
+.page-item:first-child .page-link {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+div.dataTables_paginate {
+	margin: 0;
+	text-align: right;
+	white-space: nowrap;
+}
+
+div.dataTables_paginate ul.pagination {
+	justify-content: center;
+	margin: 2px 0;
+	white-space: nowrap;
+}
+
+div.dataTables_paginate {
+	margin: 0;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.block-27 ul {
+	padding: 0;
+	margin: 0;
+}
+
+.block-27 ul li {
+	display: inline-block;
+	margin-bottom: 4px;
+	font-weight: 400;
+}
+
+.block-27 ul li a, .block-27 ul li span {
+	color: gray;
+	text-align: center;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 25px;
+	border-radius: 50% !important;
+	border: 1px solid #e6e6e6;
+}
+
+.block-27 ul li.active a, .block-27 ul li.active span {
+	background: #4ba1fa;
+	color: #fff;
+	border: 1px solid transparent;
+}
+
+.width30 {
+	width: 30% !important;
+}
+
+.height35 {
+	height: 35px !important;
+}
+
+.accor-font {
+    font-size: 1.09375rem;
+    color: black;
+}
+
+.accor-card{
+	backgroun-color: white;
+	border: none;
+}
+
+.accor-header{
+	background-color: white;
+}
+
+.accor-btn{
+	padding: 0;
+	background-color: white;
+	color: black;
+}
+
+.accor-body {
+	background-color: white;
+}
