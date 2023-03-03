@@ -1,5 +1,7 @@
 package ChamStudy.Service;
 
+import java.util.Optional;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -24,15 +26,31 @@ public class ApplyListService {
 	private final ApplyListRepository applyListRepository;
 	
 	
-	public Long addClass(ApplyListDto applyListDto, UserInfo session) {
+	public Long addClass(ApplyListDto applyListDto, String email) {
 		//class id 에 해당하는 정보가 있는지 확인
 		ClassInfo classInfo = classInfoRepository.findById(applyListDto.getClassId())
 				 .orElseThrow(EntityNotFoundException::new);
 		
-		Long applyId = applyListRepository.saveApplyClass(applyListDto, session);
+		UserInfo userInfo = userRepository.findByemail(email);
 		
+		//Long applyId = applyListRepository.saveApplyClass(applyListDto, session);
 		//ApplyList applyList = ApplyList.createApplyList(classInfo, session);
 		
-		return applyId;
+		ApplyList applyList = applyListRepository.findByUserInfoId(userInfo.getId());
+		
+		if(applyList == null) {
+			applyList = ApplyList.createApplyList(classInfo, userInfo);
+			applyListRepository.save(applyList);
+		}
+		
+		ApplyList savedClass = applyListRepository.findByClassInfoIdAndUserInfoId(classInfo.getId(), userInfo.getId());
+		
+        if(savedClass != null){
+            return savedClass.getId();
+        } else {
+        	ApplyList applyListAdd = ApplyList.createApplyList(classInfo, userInfo);
+        	applyListRepository.save(applyListAdd);
+            return applyListAdd.getId();
+        }
 	}
 }

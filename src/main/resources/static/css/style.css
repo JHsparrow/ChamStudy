@@ -112,6 +112,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
  
  .jua{font-family: jua;}
+ 
  .topH{
  	position:relative;
  	top:2px !important; 
@@ -121,6 +122,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
  .topH:hover {
 	color:#3b7ddd !important;
 }
+
+
 /* 차트 없을때 삽입 */
 .nochart{
     text-align: center;
@@ -128,3 +131,4 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     font-size: 30px;
     font-family: jua;
 }
+
