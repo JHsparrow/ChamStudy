@@ -42,7 +42,8 @@
 										<hr class="my-4" />
 										<li class="mb-4"><a href="#"><h4>수료증 확인</h4></a></li>
 										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>나의 강의실</h4></a></li>
+										<li class="mb-4"><a href="/mypage/myclass"><h4>나의
+													강의실</h4></a></li>
 										<hr class="my-4" />
 										<li class="mb-4"><a href="#"><h4>강의 구매 내역</h4></a></li>
 										<hr class="my-4" />
@@ -54,42 +55,30 @@
 							</div>
 						</div>
 						<div class="col-md-8 col-xl-9">
-							<div class="card">
+							<div class="card minheight">
 								<div class="card-header">
-									<h2 class="d-inline-block" sec:authentication="principal.name"></h2><h2 class="d-inline-block">님 반갑습니다.</h2>
+									<h2 class="d-inline-block" sec:authentication="principal.name"></h2>
+									<h2 class="d-inline-block">님 반갑습니다.</h2>
 								</div>
-								<div class="row text-center justify-content-center">
+								<div class="row text-center justify-content-start">
 
 									<div class="col-12 col-md-3 mx-4">
 										<div class="card">
 											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
 												alt="Unsplash">
-											<div class="card-header">
-												<h5 class="card-title mb-0">내 잔고</h5>
+											<div class="card-header pd-07 d-flex">
+												<div class="d-inline-block">
+													<p class="card-ttl mb-0">IT</p>
+													<p class="card-ttl class-title mb-0">초보도 쉽게 배우는 JAVA</p>
+												</div>
+												<div class="d-inline-block">
+													<i class="fa-regular fa-circle-play"></i>
+												</div>
 											</div>
-											<div class="card-body">
+											<div class="card-body pd-0">
 												<p class="card-text">수강중인 강의</p>
 												<button type="submit" class="btn btn-lg btn-primary"
 													id="loginbtn">학습일기</button>
-												<button type="submit" class="btn btn-lg btn-primary"
-													id="loginbtn">바로보기</button>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-12 col-md-3 mx-4">
-										<div class="card">
-											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
-												alt="Unsplash">
-											<div class="card-header">
-												<h5 class="card-title mb-0">Card with image and links</h5>
-											</div>
-											<div class="card-body">
-												<p class="card-text">수강중인 강의</p>
-												<button type="submit" class="btn btn-lg btn-primary"
-													id="loginbtn">학습일기</button>
-												<button type="submit" class="btn btn-lg btn-primary"
-													id="loginbtn">바로보기</button>
 											</div>
 										</div>
 									</div>
@@ -111,7 +100,23 @@
 										</div>
 									</div>
 
-									<div class="col-12 col-md-8">
+									<div class="col-12 col-md-3 mx-4">
+										<div class="card">
+											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
+												alt="Unsplash">
+											<div class="card-header">
+												<h5 class="card-title mb-0">Card with image and links</h5>
+											</div>
+											<div class="card-body">
+												<p class="card-text">수강중인 강의</p>
+												<button type="submit" class="btn btn-lg btn-primary"
+													id="loginbtn">학습일기</button>
+												<button type="submit" class="btn btn-lg btn-primary"
+													id="loginbtn">바로보기</button>
+											</div>
+										</div>
+									</div>
+									<div class="col-12 col-md-3 mx-4">
 										<div class="card">
 											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
 												alt="Unsplash">
@@ -128,22 +133,49 @@
 										</div>
 									</div>
 
-									<div class="col-12 col-md-4">
-										<div class="card">
-											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
-												alt="Unsplash">
-											<div class="card-header">
-												<h5 class="card-title mb-0">Card with image and links</h5>
-											</div>
-											<div class="card-body">
-												<p class="card-text">수강중인 강의</p>
-												<button type="submit" class="btn btn-lg btn-primary"
-													id="loginbtn">학습일기</button>
-												<button type="submit" class="btn btn-lg btn-primary"
-													id="loginbtn">바로보기</button>
-											</div>
+									<!-- 페이징 버튼 -->
+									<div class="row justify-content-center">
+										<div class="col-sm-12 col-md-6">
+											<nav>
+												<div
+													class="dataTables_paginate paging_simple_numbers block-27"
+													id="datatables-orders_paginate">
+
+													<ul class="pagination justify-content-center">
+														<li
+															class="paginate_button page-item previous disabled mx-1"
+															id="datatables-orders_previous"><a
+															aria-controls="datatables-orders" data-dt-idx="0"
+															tabindex="0" class="page-link">&lt </a></li>
+
+
+														<li class="paginate_button page-item mx-1"><a
+															aria-controls="datatables-orders" data-dt-idx="1"
+															tabindex="0" class="page-link">1</a></li>
+														<li class="paginate_button page-item mx-1"><a
+															aria-controls="datatables-orders" data-dt-idx="1"
+															tabindex="0" class="page-link">2</a></li>
+														<li class="paginate_button page-item mx-1"><a
+															aria-controls="datatables-orders" data-dt-idx="1"
+															tabindex="0" class="page-link">3</a></li>
+														<li class="paginate_button page-item mx-1"><a
+															aria-controls="datatables-orders" data-dt-idx="1"
+															tabindex="0" class="page-link">4</a></li>
+														<li class="paginate_button page-item mx-1"><a
+															aria-controls="datatables-orders" data-dt-idx="1"
+															tabindex="0" class="page-link">5</a></li>
+
+
+														<li class="paginate_button page-item next"
+															id="datatables-orders_next  mx-1"><a
+															aria-controls="datatables-orders" data-dt-idx="3"
+															tabindex="0" class="page-link">&gt</a></li>
+													</ul>
+												</div>
+											</nav>
 										</div>
 									</div>
+									<!-- 페이징 버튼 -->
 
 								</div>
 							</div>

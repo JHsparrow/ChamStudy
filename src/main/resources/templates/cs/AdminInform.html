@@ -101,7 +101,7 @@
 											<td class="text-center">[[${inform.viewCount}]]</td>
 											<td>[[${inform.update.substring(0,13)}]]</td>
 											<td>
-												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}+${inform.id}'|">수정</a>
+												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}${inform.id}'|">수정</a>
 											</td>
 											<td>
 												<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${inform.id}]])">삭제</a>
