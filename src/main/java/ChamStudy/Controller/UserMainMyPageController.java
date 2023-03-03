@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class UserMainMyPageController {
 	
 	private final UserService userService;
-
+	private final PasswordEncoder passwordEncoder;
 	private final UserMainMyPageService userMainMyPageService;
 	
 	//마이페이지 화면 보여주기
@@ -56,7 +56,7 @@ public class UserMainMyPageController {
 	@PostMapping(value = "update") 
 	public String updateUser(@Valid UserInfoDto userInfoDto,BindingResult bindingResult,
 			Model model) {
-	
+	//컨트롤러에서 엔티티에 업데이트를 실행
 	if(bindingResult.hasErrors()) {
 		return "mypage/my-page-update";
 	}
@@ -67,9 +67,7 @@ public class UserMainMyPageController {
 		model.addAttribute("errorMessage", "수정 중 에러 발생");
 		return "mypage/my-page-update";
 	}
-	
 		return "mypage/my-page";
-	
 }
 	
 	

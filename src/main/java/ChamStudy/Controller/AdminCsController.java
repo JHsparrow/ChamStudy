@@ -183,10 +183,7 @@ public class AdminCsController {
 	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
-<<<<<<< HEAD
 		model.addAttribute("active","csFaq"); // 사이드 바 액티브
-=======
->>>>>>> 5024fd846190a7e979070bf9074d4371326779c1
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);

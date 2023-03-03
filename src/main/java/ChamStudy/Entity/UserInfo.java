@@ -146,9 +146,8 @@ public class UserInfo implements UserDetails {
 		this.name = userInfoDto.getName();
 		this.password = userInfoDto.getPassword();
 		this.phone = userInfoDto.getPhone();
-		this.role = userInfoDto.getRole();
 		this.regDate = userInfoDto.getRegTime();
-		this.gubun = userInfoDto.getGubun();
+		
 	}
 
 	@Override
