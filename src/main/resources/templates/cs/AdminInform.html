@@ -80,12 +80,12 @@
 										<div th:if="${not #lists.isEmpty(fixedInformList.getContent())}">
 											<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
 											<tr class="fixedInform">
-												<td class="dtr-control sorting_1" tabindex="0"><i class="align-middle me-2" data-feather="volume-2"></i></td>
-												<td><a class="underline" th:onclick="|location.href='@{/cs/informDtl/}+${fixedInform.id}'|"><strong>[[${fixedInform.title}]]</strong></a></td>
+												<td class="dtr-control sorting_1" tabindex="0"><i class="fa-solid fa-volume-high"></i></td>
+												<td><a class="underline" th:onclick="|location.href='@{/cs/informDtl/}${fixedInform.id}'|"><strong>[[${fixedInform.title}]]</strong></a></td>
 												<td class="text-center">[[${fixedInform.viewCount}]]</td>
 												<td>[[${fixedInform.update.substring(0,13)}]]</td>
 												<td>
-													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}+${fixedInform.id}'|">수정</a>
+													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}${fixedInform.id}'|">수정</a>
 												</td>
 												<td>
 													<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${fixedInform.id}]])">삭제</a>
@@ -101,7 +101,7 @@
 											<td class="text-center">[[${inform.viewCount}]]</td>
 											<td>[[${inform.update.substring(0,13)}]]</td>
 											<td>
-												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}+${inform.id}'|">수정</a>
+												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}${inform.id}'|">수정</a>
 											</td>
 											<td>
 												<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${inform.id}]])">삭제</a>
