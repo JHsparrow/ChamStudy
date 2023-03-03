@@ -1,24 +1,14 @@
 package ChamStudy.Impl;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.EntityManager;
-
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import ChamStudy.Dto.ApplyListDto;
-import ChamStudy.Entity.QApplyList;
-import ChamStudy.Entity.QApplySeq;
-import ChamStudy.Entity.UserInfo;
-
 public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom {
 	
+		/*
 	private JPAQueryFactory queryFactory;
 	
 	public ApplyListRepositoryCustomImpl(EntityManager em) {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
+
 
 	@Override
 	public Long saveApplyClass(ApplyListDto applyListDto, UserInfo session) {
@@ -53,21 +43,22 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 				//.set(applyList.classInfo.id, applyListDto.getClassId())
 				//.set(applyList.regDate, Expressions.stringTemplate("DATE_FORMAT(NOW(), '%Y년 %m월 %d일')"))
 				//.execute()
-//				.set(applyList.id, 1000l)
-//				.set(applyList.comFlag, "N")
-//				.set(applyList.userInfo.id, 1001l)
-//				.set(applyList.classInfo.id, 1002l)
-//				.set(applyList.regDate, "2023년 03월 02일")
-//				.execute();
+				.set(applyList.id, 1000l)
+				.set(applyList.comFlag, "N")
+				.set(applyList.userInfo.id, 1001l)
+				.set(applyList.classInfo.id, 1002l)
+				.set(applyList.regDate, "2023년 03월 02일")
+				.execute();
 				.values(1, 1000)
-//				.values(2, "N")
-//				.values(3, "2023년 03월 02일")
-//				.values(4, 1002)
-//				.values(5, 1001)
+				.values(2, "N")
+				.values(3, "2023년 03월 02일")
+				.values(4, 1002)
+				.values(5, 1001)
 				.execute();
 		
 		return applyId;
 	}
+	*/
 	
 	
 }

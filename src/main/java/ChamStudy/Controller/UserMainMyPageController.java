@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ChamStudy.Dto.UserInfoDto;
-import ChamStudy.Dto.UserListDto;
-import ChamStudy.Repository.UserRepository;
 import ChamStudy.Service.UserMainMyPageService;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -77,11 +75,7 @@ public class UserMainMyPageController {
 	public String myClass(Model model){
 		return "mypage/my-page-class";
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> bc0bfb56ca532216a835d01d4e5afd762579103b
 	@GetMapping(value = "/learning/watch")
 	public String learningLecture() {
 		return "MainForm/community/Learning-Lecture";
