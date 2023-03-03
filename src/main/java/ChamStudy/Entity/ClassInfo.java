@@ -43,7 +43,7 @@ public class ClassInfo {
 	@Id
 	@Column(name="class_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CLASS_SEQ_GEN")
-	//generator="CLASS_SEQ_GEN" : 시퀀스 generator설정해놓은 이름으로 설정
+	//generator="CLASS_SEQ_GEN" : 시퀀스 name(generator)설정해놓은 이름으로 설정
 	private Long id;
 	
 	@Column(name="class_name")

@@ -82,7 +82,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 .newbtn{
 	width: 100px;
-    padding: 10px 0;
+    padding: 10px 0 !important;
     margin-right: 35px;
 }
 .modal-header{
@@ -109,9 +109,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
  .sidebar-content::-webkit-scrollbar-track {
    background-color: grey;
  }
-<<<<<<< HEAD
- 
-=======
+
  
  .jua{font-family: jua;}
  .topH{
@@ -123,4 +121,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
  .topH:hover {
 	color:#3b7ddd !important;
 }
->>>>>>> 02172895da323f79c2e2bd92cc791deb16e1b9f0
+/* 차트 없을때 삽입 */
+.nochart{
+    text-align: center;
+    padding: 180px 0;
+    font-size: 30px;
+    font-family: jua;
+}

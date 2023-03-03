@@ -53,12 +53,17 @@
 				<li class="sidebar-header">Online Class</li>
 				<li class="sidebar-item" th:classappend="${active} == 'classInfo' ? 'active'">
 					<a class="sidebar-link" href="/adminClass/classList">
-						<i class="fa-solid fa-chalkboard"></i><span>실시간강의 관리</span>
+						<i class="fa-solid fa-chalkboard"></i><span>강의 관리</span>
 					</a>
 				</li>
 				<li class="sidebar-item" th:classappend="${active} == 'contentInfo' ? 'active'">
 					<a class="sidebar-link" href="/adminOnClass/contents">
 						<i class="fa-regular fa-folder"></i><span>콘텐츠 관리</span>
+					</a>
+				</li>
+				<li class="sidebar-item" th:classappend="${active} == 'contentInfo' ? 'active'">
+					<a class="sidebar-link" href="/adminOnClass/contents">
+						<i class="fa-regular fa-folder"></i><span>수료 관리</span>
 					</a>
 				</li>
 				<!-- 전은미 온라인강의 end -->
@@ -95,7 +100,7 @@
 				<li class="sidebar-header">카테고리 관리</li>
 				<li class="sidebar-item" th:classappend="${active} == 'category' ? 'active'">
 					<a class="sidebar-link" href="/adminCategory/main">
-						<i class="align-middle me-2" data-feather="users"></i>
+						<i class="fa-solid fa-list-ul"></i>
 						<span>카테고리 관리</span>
 					</a>
 				</li>

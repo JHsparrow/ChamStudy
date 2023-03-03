@@ -41,19 +41,9 @@
 					<div class="card">
 						<div class="card-header pb-0">
 							<div class="card-actions float-end">
-								<div class="dropdown position-relative">
-									<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-									</a>
-
-									<div class="dropdown-menu dropdown-menu-end">
-										<a class="dropdown-item" href="#">Action</a>
-										<a class="dropdown-item" href="#">Another action</a>
-										<a class="dropdown-item" href="#">Something else here</a>
-									</div>
-								</div>
+								
 							</div>
-							<h5 class="card-title mb-1"></h5>
+							<h5 class="card-title mb-3"></h5>
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -102,14 +92,18 @@
 													</td>
 												</tr>
 												</th:block>
+												<th:block th:if="${contentInfo.getContent().size() == 0 }">
+												<tr>
+													<td colspan="6"><strong>등록된 콘텐츠가 없습니다.</strong></td>
+												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
 								<div class="row" >
-									<div class="col-sm-12 col-md-3">
+									<div class="col-sm-12 col-md-2">
 									</div>		
-									<div class="col-sm-12 col-md-6 ">
+									<div class="col-sm-12 col-md-8 ">
 										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
 											th:with="start=${(contentInfo.number/maxPage)*maxPage + 1},
 													end=${(contentInfo.getTotalPages() == 0) ? 1 : (start + (maxPage - 1) < contentInfo.getTotalPages() ? start + (maxPage - 1) : contentInfo.getTotalPages())}"	>
