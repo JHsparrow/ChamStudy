@@ -8,20 +8,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Service.ApplyListService;
 import ChamStudy.Service.ClassInfoService;
 import lombok.RequiredArgsConstructor;
 
@@ -34,10 +30,11 @@ public class ClassController { //강의 페이지
 	private int classCountInPage;
 	
 	private final ClassInfoService classInfoService;
+	private final ApplyListService applyListService;
 	
 	@GetMapping(value="/class")
 	public String classView(Optional<Integer> page, Model model) { //강의 리스트
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
@@ -72,16 +69,33 @@ public class ClassController { //강의 페이지
 		
 	}
 	
-	/*
-	@PostMapping(value="/detail/applyList")
-	public @ResponseBody ResponseEntity applyList(@RequestBody ClassInfoDto classInfoDto) {
-		
-		Long classId = classInfoService.getId(classInfoDto.getId());
-		
-		return new ResponseEntity<Long>(classId, HttpStatus.OK );
+//	@PostMapping(value="/detail/applyList")
+//	public @ResponseBody ResponseEntity applyList(@RequestBody ApplyListDto applyListDto,  BindingResult bindingResult,  Principal principal) {
+//		
+//		if(bindingResult.hasErrors()) {
+//			StringBuilder sb = new StringBuilder();
+//			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+//			
+//            for (FieldError fieldError : fieldErrors) {
+//                sb.append(fieldError.getDefaultMessage());
+//            }
+//            
+//            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		String email = principal.getName();
+//		Long applyListId;
+//		
+//		try {
+//			applyListId = applyService.addClass(applyListDto, email);
+//		} catch(Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		return new ResponseEntity<Long>(applyListId, HttpStatus.OK );
+//	
+//	}
 	
-	}
-	*/
 	
 	private String showMessageAndRedirect(final MessageDto params, Model model) {
 		model.addAttribute("params", params);

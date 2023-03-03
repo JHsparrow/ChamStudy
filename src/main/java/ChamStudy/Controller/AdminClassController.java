@@ -43,8 +43,10 @@ public class AdminClassController {
 
 	@GetMapping(value = "/classList") //강의 리스트 페이지
 	public String classList(Optional<Integer> page, Model model) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 9);
 		
+
+		model.addAttribute("active","classInfo"); // 사이드 바 액티브
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		return "/AdminForm/AdminClass/classList";
@@ -53,7 +55,6 @@ public class AdminClassController {
 	@PostMapping(value = "/classList")
 	public String classList(ClassInfoDto adminClassDto, @RequestParam(value = "page") Optional<Integer> page, Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
-		
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getSearch(adminClassDto, pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		return "/AdminForm/AdminClass/classList";
@@ -62,6 +63,7 @@ public class AdminClassController {
 	
 	@GetMapping(value = "/classNew") //강의 등록 페이지
 	public String classNew(Model model) {
+		model.addAttribute("active","classInfo"); // 사이드 바 액티브
 		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo",contentInfo);
 		model.addAttribute("adminClassDto", new ClassInfoDto());
@@ -86,7 +88,7 @@ public class AdminClassController {
 	
 	@GetMapping(value = "/classUpdate") //강의정보 수정
 	public String classUpdate(ClassInfoDto adminClassDto, Model model) {
-		
+		model.addAttribute("active","classInfo"); // 사이드 바 액티브
 
 		StringBuffer sb = new StringBuffer();
     	sb.append("\n\n");

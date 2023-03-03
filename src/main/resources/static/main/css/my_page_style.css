@@ -103,3 +103,35 @@ div.dataTables_paginate {
 	color: #fff;
 	border: 1px solid transparent;
 }
+
+.width30 {
+	width: 30% !important;
+}
+
+.height35 {
+	height: 35px !important;
+}
+
+.accor-font {
+    font-size: 1.09375rem;
+    color: black;
+}
+
+.accor-card{
+	backgroun-color: white;
+	border: none;
+}
+
+.accor-header{
+	background-color: white;
+}
+
+.accor-btn{
+	padding: 0;
+	background-color: white;
+	color: black;
+}
+
+.accor-body {
+	background-color: white;
+}

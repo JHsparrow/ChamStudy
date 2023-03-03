@@ -109,6 +109,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
  .sidebar-content::-webkit-scrollbar-track {
    background-color: grey;
  }
+
  
  .jua{font-family: jua;}
  
@@ -121,3 +122,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
  .topH:hover {
 	color:#3b7ddd !important;
 }
+
+
+/* 차트 없을때 삽입 */
+.nochart{
+    text-align: center;
+    padding: 180px 0;
+    font-size: 30px;
+    font-family: jua;
+}
+

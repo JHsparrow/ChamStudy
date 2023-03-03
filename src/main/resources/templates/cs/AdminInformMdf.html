@@ -7,14 +7,7 @@
 <title>관리자페이지 - 공지사항 작성</title>
 
 <!-- 각 페이지에 script가 작성될 위치 -->
-<script th:inline="javascript">
-
-	$(document).ready(function(){
-		var errorMessage = [[${errorMessage}]];
-		if(errorMessage!=null){
-			alert(errorMessage);
-		}
-	});
+<script th:inline="javascript">	
 	
 	function changeDisplay(val){
 		if(val=='1') $('#btn_cancel1').show();
@@ -95,7 +88,8 @@
 														<label class="form-label custom-file-label" th:text="${not #strings.isEmpty(csInformFileDto.oriFileName)}
 														? '첨부파일' + ${status.index+1} + ' (' + ${csInformFileDto.oriFileName} + ')' : '첨부파일' + ${status.index+1}"></label>
 														<input type="hidden" name="informFileIds" th:value="${csInformFileDto.id}">
-														<input class="form-control w-75 d-inline-block" type="file" th:value="${csInformFileDto.fileUrl}" id="csInformFile" name="csInformFile"/>
+														<input class="form-control w-75 d-inline-block" type="file" th:value="${csInformFileDto.fileUrl}" th:id="'formFile'+${status.count}" name="csInformFile" th:onchange="'changeDisplay('+${status.count}+')'" />
+														<i th:id="'btn_cancel'+${status.count}" class="fa-solid fa-xmark cancelbtn"></i>
 													</div>
 												</div>
 											</div>

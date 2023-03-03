@@ -9,18 +9,10 @@
 <!-- 각 페이지에 script가 작성될 위치 -->
 <script th:inline="javascript">
 
-	$(document).ready(function(){
-		var errorMessage = [[${errorMessage}]];
-		if(errorMessage!=null){
-			alert(errorMessage);
-		}
-	});
-	
 	function changeDisplay(val){
 		if(val=='1') $('#btn_cancel1').show();
 		if(val=='2') $('#btn_cancel2').show();
 		if(val=='3') $('#btn_cancel3').show();
-		
 	}
 	$(function(){
 		$('#btn_cancel1').click(function(){
@@ -50,7 +42,7 @@
             }
 
             $(this).siblings(".custom-file-label").html(fileName);
-        });
+        })};
 
 </script>
 

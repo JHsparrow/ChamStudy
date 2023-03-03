@@ -57,7 +57,7 @@ public class AdminCsController {
 	@GetMapping(value = "/inform")
 	public String csInform(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
 		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
-		
+		model.addAttribute("active","csInform"); // 사이드 바 액티브
 		int maxPage = 10;
 		int fixedInform = csService.NumberOfFixed();
 		
@@ -84,6 +84,7 @@ public class AdminCsController {
 	//(첫 화면에서) 등록하기 버튼 클릭
 	@GetMapping(value = "/informForm")
 	public String createInform(Model model) {
+		model.addAttribute("active","csInform"); // 사이드 바 액티브
 		model.addAttribute("csInformDto", new CsInformDto());
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
 		System.out.println("작성자 아이디: " + SecurityContextHolder.getContext().getAuthentication().getName());
@@ -114,7 +115,7 @@ public class AdminCsController {
 	//공지사항 게시글 상세 보기
 	@GetMapping(value="/informDtl/{informId}")
 	public String informDetail(@PathVariable("informId") Long informId, Model model) { 
-		
+		model.addAttribute("active","csInform"); // 사이드 바 액티브
 		try {
 			CsInformDto csInformDto = csService.getInform(informId);
 			List<CsInformFileDto> csInformFileDtoList = csInformDto.getCsInformFileDtoList();
@@ -132,6 +133,7 @@ public class AdminCsController {
 	//게시글 수정 페이지 보기
 	@GetMapping(value="/informMdf/{informId}")
 	public String modifyInform(@PathVariable("informId") Long informId, Model model) {
+		model.addAttribute("active","csInform"); // 사이드 바 액티브
 		try {
 			CsInformDto csInformDto = csService.getInform(informId);
 			model.addAttribute("csInformDto", csInformDto);
@@ -181,6 +183,7 @@ public class AdminCsController {
 	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
+		model.addAttribute("active","csFaq"); // 사이드 바 액티브
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
@@ -193,8 +196,8 @@ public class AdminCsController {
 	//(첫 화면에서) 등록하기 버튼 클릭
 	@GetMapping(value = "/createFaq")
 	public String createFaq(Model model) {
+		model.addAttribute("active","csFaq"); // 사이드 바 액티브
 		model.addAttribute("csFaqDto", new CsFaqDto());
-		
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
 		return "cs/AdminFaqForm";
 	}
@@ -219,6 +222,7 @@ public class AdminCsController {
 	//자주묻는질문 수정 페이지 보기
 	@GetMapping(value="/faqMdf/{faqId}")
 	public String modifyFaq(@PathVariable("faqId") Long faqId, Model model) {
+		model.addAttribute("active","csFaq"); // 사이드 바 액티브
 		try {
 			CsFaqDto csFaqDto = csService.getFaq(faqId);
 			model.addAttribute("csFaqDto", csFaqDto);
@@ -250,7 +254,7 @@ public class AdminCsController {
 	//자주묻는질문 게시글 상세 보기
 	@GetMapping(value="/faqDtl/{faqId}")
 	public String faqDetail(@PathVariable("faqId") Long faqId, Model model) { 
-		
+		model.addAttribute("active","csFaq"); // 사이드 바 액티브
 		try {
 			CsFaqDto csFaqDto = csService.getFaq(faqId);
 			model.addAttribute("csFaqDto", csFaqDto);
@@ -281,7 +285,8 @@ public class AdminCsController {
 	//=========================================== 1:1 문의 게시판 ===========================================
 	
 	@GetMapping(value="/qna")
-	public String csQna() {
+	public String csQna(Model model) {
+		model.addAttribute("active","csQna"); // 사이드 바 액티브
 		return "cs/AdminQna";
 	}
 	

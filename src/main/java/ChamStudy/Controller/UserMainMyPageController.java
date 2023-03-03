@@ -49,7 +49,6 @@ public class UserMainMyPageController {
 		return "mypage/my-page-update";
 	}
 	
-
 	//========================================== 나의 강의실 ==========================================
 	
 	@GetMapping(value="/myclass")

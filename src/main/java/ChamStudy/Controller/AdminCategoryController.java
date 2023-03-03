@@ -43,7 +43,7 @@ public class AdminCategoryController {
 	public String mainCategoryList(Optional<Integer> page,CategoryDto categoryDto ,Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Page<CategoryDto> mainList = adminCategoryService.getAllMainList(categoryDto, pageable);
-		
+		model.addAttribute("active","category"); // 사이드 바 액티브
 		model.addAttribute("mainList", mainList);
 		model.addAttribute("maxPage", 5);
 		return "AdminForm/adminCategory/mainList";
@@ -53,11 +53,8 @@ public class AdminCategoryController {
 	public String subCategoryList(Optional<Integer> page, @PathVariable("mainid") Long mainId,SubCategoryDto subCategoryDto, Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Category mainInfo = adminCategoryService.getMainInfo(mainId);
-		
 		Page<SubCategoryDto> subList = adminCategoryService.getSubList(subCategoryDto, pageable, mainInfo);
-		System.err.println(subList);
-		
-//		List<SubCategory> subList = adminCategoryService.getAllSubList(mainId);
+		model.addAttribute("active","category"); // 사이드 바 액티브
 		model.addAttribute("subList", subList);
 		model.addAttribute("mainInfo", mainInfo);
 		model.addAttribute("maxPage", 5);
