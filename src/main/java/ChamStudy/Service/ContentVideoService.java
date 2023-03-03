@@ -85,23 +85,27 @@ public class ContentVideoService {
 	public void createStudyResult(String email,Long contentId) {
 		UserInfo userId = userRepository.getUserId(email);
 		ApplyList applyId = applyListRepository.findByUserId(userId.getId());
+		System.err.println(applyId.getId());
 		Long progress = studyHistortRepository.getProgress(applyId.getId(),contentId);
 		StudyResult validResult = studyResultRepository.getResultId(applyId.getId());
-		
 		StudyResult studyResult = new StudyResult();
 		 
 		//study_result id가 중복할경우(=applyId가 중복확인)
-		if(validResult.getId() != null) {
+		if(validResult != null) {
 			studyResult.setId(validResult.getId());
 		}
 		studyResult.setApplyId(applyId);
 		studyResult.setProgress(progress);
 		studyResultRepository.save(studyResult);
-		
-		if(validResult.getProgress()>=100) {
-			Completion completion = new Completion();
-			completion.setResultId(validResult);
-			completionRepository.save(completion);
+		if(validResult != null) {
+			if(validResult.getProgress()>=100) {
+				Completion compleId = completionRepository.getCompletion(validResult.getId());
+				if(compleId==null) {
+					Completion completion = new Completion();
+					completion.setResultId(validResult);
+					completionRepository.save(completion);
+				}
+			}
 		}
 	}
 	

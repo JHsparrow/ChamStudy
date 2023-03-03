@@ -32,7 +32,7 @@ public class Class_review {
 	
 	private String description;
 	
-	private int starPoint;
+	private Integer starPoint;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
