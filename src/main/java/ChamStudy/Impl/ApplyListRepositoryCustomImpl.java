@@ -20,6 +20,7 @@ import ChamStudy.Entity.QApplyList;
 import ChamStudy.Entity.QApplySeq;
 import ChamStudy.Entity.QCategory;
 import ChamStudy.Entity.QContentInfo;
+import ChamStudy.Entity.QStudyResult;
 import ChamStudy.Entity.UserInfo;
 
 public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom {
@@ -85,6 +86,7 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 		QApplyList apply  = QApplyList.applyList;
 		QContentInfo contentInfo = QContentInfo.contentInfo;
 		QCategory category = QCategory.category;
+		QStudyResult studyResult = QStudyResult.studyResult;
 		
 		List<MyClassLearningDto> content = queryFactory
 				.select(new QMyClassLearningDto(
@@ -93,15 +95,18 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 									apply.userInfo,
 									apply.classInfo,
 									contentInfo.imgUrl,
-									category.name)
+									category.name,
+									studyResult.progress)
 						)
 						.from(apply)
-						.leftJoin(contentInfo)
+						.innerJoin(contentInfo)
 						.on(apply.classInfo.contentInfo.id
 								.eq(contentInfo.id))
-						.leftJoin(category)
+						.innerJoin(category)
 						.on(apply.classInfo.contentInfo.categoryId.id
 								.eq(category.id))
+						.innerJoin(studyResult)
+						.on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
 						.where(selectCategory(classLearningSearchDto.getSearchCategory()))
 						.orderBy(apply.regDate.desc())
@@ -111,12 +116,14 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 
 		long total = queryFactory.select(Wildcard.count)
 				.from(apply)
-				.leftJoin(contentInfo)
+				.innerJoin(contentInfo)
 				.on(apply.classInfo.contentInfo.id
 						.eq(contentInfo.id))
-				.leftJoin(category)
+				.innerJoin(category)
 				.on(apply.classInfo.contentInfo.categoryId.id
 						.eq(category.id))
+				.innerJoin(studyResult)
+				.on(apply.id.eq(studyResult.applyId.id))
 				.where(apply.userInfo.email.eq(email))
 				.where(selectCategory(classLearningSearchDto.getSearchCategory()))
 				.fetchOne();

@@ -27,8 +27,8 @@ public class ApplyListDto {
 		return modelMapper.map(this, ApplyList.class);
 	}
 	
-	public static ApplyList of(ApplyList applyList) {
-		return modelMapper.map(applyList, ApplyList.class);
+	public static ApplyListDto of(ApplyList applyList) {
+		return modelMapper.map(applyList, ApplyListDto.class);
 	}
 	
 	@QueryProjection

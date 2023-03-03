@@ -67,6 +67,7 @@ public class AdminContentController {
 		
 		
 		videoService.createStudyHistory(videoUrl,contentId,email);
+		videoService.createStudyResult(email, contentId);
 		model.addAttribute("contentId",contentId);
 		model.addAttribute("videoUrl",url);
 		return "/AdminForm/AdminClass/contentVideo";

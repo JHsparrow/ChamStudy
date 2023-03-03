@@ -84,14 +84,7 @@ public class UserMainMyPageController {
 	//========================================== 나의 강의실 ==========================================
 	
 	@GetMapping(value="/myclass")
-	public String myClass(Model model, Optional<Integer> page, MyClassLearningDto myClassLearningDto,MyClassLearningSearchDto classLearningSearchDto,Principal principal){
-		String email = principal.getName();
-		
-		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
-		Page<MyClassLearningDto> classLearningDtoList = myClassService.getLearningPage(myClassLearningDto,pageable,classLearningSearchDto,email);
-		model.addAttribute("classSearchDto",classLearningSearchDto);
-		model.addAttribute("class",classLearningDtoList);
-		model.addAttribute("maxPage",5);
+	public String myClass(Model model){
 		return "mypage/my-page-class";
 	}
 
