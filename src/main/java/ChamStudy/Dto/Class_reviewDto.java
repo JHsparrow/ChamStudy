@@ -5,13 +5,13 @@ import ChamStudy.Entity.UserInfo;
 
 public interface Class_reviewDto {
 	
-	Long id;
-	
-	String description;
-	
-	Integer starPoint;
-	
-	UserInfo userInfo;
-	
-	ClassInfo classInfo;
+//	Long id;
+//	
+//	String description;
+//	
+//	Integer starPoint;
+//	
+//	UserInfo userInfo;
+//	
+//	ClassInfo classInfo;
 }
