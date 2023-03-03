@@ -1,28 +1,15 @@
 package ChamStudy.Service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import ChamStudy.Dto.CategoryDto;
-import ChamStudy.Dto.CategoryInterface;
-import ChamStudy.Dto.EducationInfoDto;
 import ChamStudy.Dto.EducationInfoInterface;
-import ChamStudy.Dto.MainCategoryDto;
-import ChamStudy.Dto.SubCategoryDto;
-import ChamStudy.Dto.modifySubCategoryDto;
-import ChamStudy.Entity.Category;
-import ChamStudy.Entity.SubCategory;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Entity.Visitor;
-import ChamStudy.Repository.ApplyRepository;
+import ChamStudy.Repository.ApplyListRepository;
 import ChamStudy.Repository.CategoryRepository;
 import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.SubCategoryRepository;
@@ -40,7 +27,7 @@ public class AdminMainService {
 	private final UserRepository userRepository;
 	private final VisitorRepository visitorRepository;
 	private final ClassInfoRepository classInfoRepository;
-	private final ApplyRepository applyRepository;
+	private final ApplyListRepository applyRepository;
 	
 	public void addCount() {
 		Visitor visitor = new Visitor();

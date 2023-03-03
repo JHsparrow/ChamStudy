@@ -43,7 +43,7 @@ public class AdminClassController {
 
 	@GetMapping(value = "/classList") //강의 리스트 페이지
 	public String classList(Optional<Integer> page, Model model) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, classCountInPage);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 9);
 		
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
