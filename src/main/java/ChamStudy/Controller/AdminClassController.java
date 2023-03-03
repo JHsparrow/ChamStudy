@@ -43,12 +43,18 @@ public class AdminClassController {
 
 	@GetMapping(value = "/classList") //강의 리스트 페이지
 	public String classList(Optional<Integer> page, Model model) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> f2dfe47bd63879969f3333bcacafab13b7f4c30e
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 9);
 		
 
 		model.addAttribute("active","classInfo"); // 사이드 바 액티브
+<<<<<<< HEAD
 
+=======
+>>>>>>> f2dfe47bd63879969f3333bcacafab13b7f4c30e
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		return "/AdminForm/AdminClass/classList";
