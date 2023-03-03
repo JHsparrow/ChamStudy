@@ -139,6 +139,16 @@ public class UserInfo implements UserDetails {
 		this.regDate = userListDto.getRegDate();
 		this.gubun = userListDto.getGubun();
 	}
+	
+	//업데이트(mypage)
+	public void updateUserMypage(UserInfoDto userInfoDto) {
+		this.email = userInfoDto.getEmail();
+		this.name = userInfoDto.getName();
+		this.password = userInfoDto.getPassword();
+		this.phone = userInfoDto.getPhone();
+		this.regDate = userInfoDto.getRegTime();
+		
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

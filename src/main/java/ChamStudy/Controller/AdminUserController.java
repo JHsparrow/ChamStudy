@@ -160,15 +160,6 @@ public class AdminUserController {
 		public String updateUser(@Valid UserListDto userListDto,BindingResult bindingResult,
 				Model model) {
 		
-		System.out.println(userListDto.getEmail());
-		System.out.println(userListDto.getGubun());
-		System.out.println(userListDto.getName());
-		System.out.println(userListDto.getPassword());
-		System.out.println(userListDto.getPhone());
-		System.out.println(userListDto.getRegDate());
-		System.out.println(userListDto.getRole());
-		System.out.println(userListDto.getId());
-		
 		if(bindingResult.hasErrors()) {
 			return "users/user-list";
 		}
