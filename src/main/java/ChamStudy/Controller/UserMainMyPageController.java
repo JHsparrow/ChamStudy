@@ -1,7 +1,13 @@
 package ChamStudy.Controller;
 
+import java.security.Principal;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,9 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ChamStudy.Dto.MyClassLearningDto;
+import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserListDto;
 import ChamStudy.Repository.UserRepository;
+import ChamStudy.Service.MyClassService;
 import ChamStudy.Service.UserMainMyPageService;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +35,7 @@ public class UserMainMyPageController {
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final UserMainMyPageService userMainMyPageService;
+	private final MyClassService myClassService;
 	
 	//마이페이지 화면 보여주기
 	@GetMapping(value = "/main")
@@ -74,14 +84,17 @@ public class UserMainMyPageController {
 	//========================================== 나의 강의실 ==========================================
 	
 	@GetMapping(value="/myclass")
-	public String myClass(Model model){
+	public String myClass(Model model, Optional<Integer> page, MyClassLearningDto myClassLearningDto,MyClassLearningSearchDto classLearningSearchDto,Principal principal){
+		String email = principal.getName();
+		
+		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
+		Page<MyClassLearningDto> classLearningDtoList = myClassService.getLearningPage(myClassLearningDto,pageable,classLearningSearchDto,email);
+		model.addAttribute("classSearchDto",classLearningSearchDto);
+		model.addAttribute("class",classLearningDtoList);
+		model.addAttribute("maxPage",5);
 		return "mypage/my-page-class";
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> bc0bfb56ca532216a835d01d4e5afd762579103b
 	@GetMapping(value = "/learning/watch")
 	public String learningLecture() {
 		return "MainForm/community/Learning-Lecture";

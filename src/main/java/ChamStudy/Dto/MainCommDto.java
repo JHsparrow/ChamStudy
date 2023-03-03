@@ -1,13 +1,8 @@
 package ChamStudy.Dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.modelmapper.ModelMapper;
 
 import com.querydsl.core.annotations.QueryProjection;
 
-import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
