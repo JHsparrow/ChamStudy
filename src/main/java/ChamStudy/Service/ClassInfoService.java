@@ -128,8 +128,6 @@ public class ClassInfoService {
 
         return classInfo.getId();
     }
-    
-    //강의수강신청확인
-    
+     
 	
 }

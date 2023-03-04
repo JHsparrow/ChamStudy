@@ -13,27 +13,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import ChamStudy.Dto.ClassInfoDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 //https://dololak.tistory.com/479 시퀀스 참조사이트
 @Entity
-@SequenceGenerator(
-        name="CLASS_SEQ_GEN", //시퀀스 generator 이름
-        sequenceName="CLASS_SEQ", //시퀀스 이름
-        initialValue=1000, //시작값
-        allocationSize = 1 //증가값 (기본증가가 50이라 설정해주어야함)
-        )
+@TableGenerator(
+		name = "CLASS_SEQ_GEN",
+	    table = "CUSTOM_SEQUENCE",
+	    pkColumnValue = "CLASS_SEQ",
+	    initialValue=1000, //시작값
+	    allocationSize = 1
+	)
 @Table(name="class_info") // 클래스 정보
 @Getter
 @Setter
@@ -42,7 +42,7 @@ import lombok.ToString;
 public class ClassInfo {
 	@Id
 	@Column(name="class_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CLASS_SEQ_GEN")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator="CLASS_SEQ_GEN")
 	//generator="CLASS_SEQ_GEN" : 시퀀스 name(generator)설정해놓은 이름으로 설정
 	private Long id;
 	

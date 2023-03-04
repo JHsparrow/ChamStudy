@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.AdminApplyListDto;
 import ChamStudy.Dto.ApplyListDto;
+import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.ApplyList;
 import ChamStudy.Entity.ClassInfo;
@@ -39,16 +40,6 @@ public class ApplyListService {
 		
 		UserInfo userInfo = userRepository.findByemail(email);
 		
-		//Long applyId = applyListRepository.saveApplyClass(applyListDto, session);
-		//ApplyList applyList = ApplyList.createApplyList(classInfo, session);
-		
-		List<ApplyList> applyList = applyListRepository.findByUserInfoId(userInfo.getId());
-		
-//		if(applyList == null) {
-//			applyList = ApplyList.createApplyList(classInfo, userInfo);
-//			applyListRepository.save(applyList);
-//		}
-		
 		ApplyList savedClass = applyListRepository.findByClassInfoIdAndUserInfoId(classInfo.getId(), userInfo.getId());
 		
         if(savedClass != null){
@@ -58,6 +49,31 @@ public class ApplyListService {
         	applyListRepository.save(applyListAdd);
             return applyListAdd.getId();
         }
+	}
+	
+	public Long getApplyId(ApplyListDto applyListDto, String email) {
+		//class id 에 해당하는 정보가 있는지 확인
+		ClassInfo classInfo = classInfoRepository.findById(applyListDto.getClassId())
+				 .orElseThrow(EntityNotFoundException::new);
+		
+		UserInfo userInfo = userRepository.findByemail(email);
+		
+		if (userInfo == null) {
+			new EntityNotFoundException("userInfo is null.");
+		}
+		
+		ApplyList getApplyClass = applyListRepository.findByClassInfoIdAndUserInfoId(classInfo.getId(), userInfo.getId());
+		
+		Long applyId = (long) -1;
+		
+		if (getApplyClass == null) {
+			applyId = (long) -1;
+		} else {
+			applyId = getApplyClass.getId();
+		}
+		
+		return applyId;
+	
 	}
 	
 	public Page<AdminApplyListDto> getAdminApplyList(AdminApplyListDto adminApplyListDto, Pageable pageable,UserSearchDto userSearchDto){
