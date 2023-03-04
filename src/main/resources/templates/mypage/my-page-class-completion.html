@@ -33,7 +33,6 @@
 								</div>
 
 								<!-- 컨텐츠 상단(검색) -->
-<<<<<<< HEAD
 								<div class="row ms-5 mb-4">
 									<div class="col-sm-6 col-md-6">
 										<div class="dataTables_length" id="datatables-orders_length">
@@ -46,24 +45,6 @@
 										</div>
 									</div>
 								</div>
-
-=======
-								<form th:action="@{/mypage/completion}" method="get"
-									role="search">
-									<div class="row ms-5 mb-4">
-										<div class="col-sm-6 col-md-6">
-											<div class="dataTables_length" id="datatables-orders_length">
-												<select name="searchQuery" aria-controls="datatables-orders"
-													class="form-select form-select-sm width30 height35">
-													<option value="IT">IT</option>
-													<option value="자격증">자격증</option>
-													<option value="어학">어학</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</form>
->>>>>>> ad6083d2f79728e494ecf806688c10bf88c57304
 
 								<!-- 강의 목록 -->
 								<th:block th:each="completion, status : ${completionList.getContent()}">
