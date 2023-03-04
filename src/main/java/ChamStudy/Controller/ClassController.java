@@ -67,7 +67,7 @@ public class ClassController { //강의 페이지
 			ClassInfoListDto classDetail = classInfoService.getClassInfo(adminClassDto);
 			model.addAttribute("classDetail", classDetail);
 			
-		} catch(EntityNotFoundException e) {	
+		} catch(EntityNotFoundException e) {
 			e.printStackTrace();
 			message = new MessageDto("존재하지 않는 콘텐츠 입니다.", "/mainForm/class");
 			return showMessageAndRedirect(message, model);

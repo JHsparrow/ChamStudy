@@ -57,11 +57,12 @@ public class ApplyListController {
 		
 		//String email = principal.getName();
 		
-		Long applyListId;
+		Long applyListId = (long) -1;
 		
 		try {
 			applyListId = applyListService.addClass(applyListDto, session.getEmail());
 		} catch(Exception e) {
+			applyListId = (long) -9;
 			e.printStackTrace();
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
