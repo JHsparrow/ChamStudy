@@ -17,11 +17,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserListDto;
+<<<<<<< HEAD
+import ChamStudy.Dto.UserSearchDto;
+=======
 import ChamStudy.Entity.UserInfo;
+>>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
 import ChamStudy.Repository.UserRepository;
 import ChamStudy.Service.MyClassService;
 import ChamStudy.Service.UserMainMyPageService;
@@ -102,9 +107,30 @@ public class UserMainMyPageController {
 	
 	//마이페이지 - 나의 강의실 - 완강 페이지 
 	@GetMapping(value="/completion")
-	public String getCompletionList(Model model) {
+	public String getCompletionList(UserSearchDto userSearchDto, CompletionListDto completionListDto, Optional<Integer> page, Model model) {
 		
-		String name = userMainMyPageService.getCategoryName();
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+		
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long userId = userMainMyPageService.getUserId(email);
+		Page<CompletionListDto> completionList = userMainMyPageService.getCompletionList(userSearchDto, completionListDto, pageable, userId);
+		
+		model.addAttribute("email",email);
+		model.addAttribute("completionList", completionList);
+		model.addAttribute("maxPage", 5);
+		
+		System.out.println("이메일 알려주세ㅛㅇ " + email);
+		System.out.println("강의명 : " + completionList.getContent().get(0).getClassName());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getCategoryName());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getEndDate());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getImgUrl());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getOriImgName());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getStartDate());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getSubCategoryName());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getContentId());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getId());
+		System.out.println("강의명 : " + completionList.getContent().get(0).getProgress());
+		System.out.println("강의명 : " + completionList.getContent().get(0).toString());
 		
 		return "mypage/my-page-class-completion";
 	}
