@@ -102,9 +102,9 @@ public class ContentVideoService {
 		studyResult.setApplyId(applyId);
 		studyResult.setProgress(progress);
 		studyResultRepository.save(studyResult);
-		if(validResult != null) {
-			if(validResult.getProgress()>=100) {
-				Completion compleId = completionRepository.getCompletion(validResult.getId());
+		if(validResult != null) { //study_result에 갑이 있는지?
+			if(validResult.getProgress()>=100) { //study_result의 progress값이 100점인지
+				Completion compleId = completionRepository.getCompletion(validResult.getId()); //수료테이블에 데이터가 있는지?
 				if(compleId==null) {
 					Completion completion = new Completion();
 					completion.setResultId(validResult);
