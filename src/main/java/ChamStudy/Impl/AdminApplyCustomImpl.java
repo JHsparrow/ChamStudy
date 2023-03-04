@@ -39,7 +39,6 @@ public class AdminApplyCustomImpl implements AdminApplyCustom{
 		return StringUtils.isEmpty(searchQuery) ? null : QUserInfo.userInfo.name.like("%" + searchQuery + "%");
 	}
 	
-	
 	@Override
 	public Page<AdminApplyListDto> getAdminApplyList(AdminApplyListDto adminApplyListDto, Pageable pageable, UserSearchDto userSearchDto) {
 		QApplyList applyList = QApplyList.applyList;
@@ -65,8 +64,6 @@ public class AdminApplyCustomImpl implements AdminApplyCustom{
 		            .offset(pageable.getOffset())	//데이터를 가져올 시작 index
 					.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
 		            .fetch();
-				
-				
 		
 		long total = queryFactory.select(Wildcard.count)
 				.from(applyList)
