@@ -17,7 +17,7 @@
         };
 
         var param = JSON.stringify(paramData);
-
+        
         $.ajax({
             url      : url,
             type     : "POST",
@@ -34,13 +34,19 @@
             	
             	if (applyId > 0) {
                 	alert("수강신청이 완료되었습니다.");
+            		$("#classOff").css("display","none"); //표시하지않는다               	
+                    $("#classOn").css("display",""); //표시한다
             	} else {
             		alert("수강신청에 실패하였습니다.");
+                    $("#classOff").css("display",""); //표시한다
+            		$("#classOn").css("display","none"); //표시하지않는다
             	}
 //                location.href='/';
 				},
             error : function(jqXHR, status, error){
-
+                $("#classOff").css("display",""); //표시한다
+            	$("#classOn").css("display","none"); //표시하지않는다
+            	
                 if(jqXHR.status == '401'){
                     alert('로그인 후 이용해주세요');
                     location.href='/users/signIn';
@@ -152,7 +158,8 @@ img{
                         <div class="p-4">
                             <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
                             <h5 class="mb-3">무료</h5>
-                            <input type="button" class="btn btn-primary btn-lg" onclick="classAdd()" value="수강신청">
+                            <input type="button" class="btn btn-primary btn-lg" id="classOff" th:style="${isApplyListNew == 'Y' ? 'display: block;' : 'display: none;'}" onclick="classAdd()" value="수강신청">
+                            <input type="button" class="btn btn-primary btn-lg" id="classOn" th:style="${isApplyListNew != 'Y' ? 'display: block;' : 'display: none;'}" value="수강완료">
                         </div>
                     </div>
                 </div>
