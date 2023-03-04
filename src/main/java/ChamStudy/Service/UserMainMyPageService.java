@@ -57,6 +57,7 @@ public class UserMainMyPageService {
 		return userInfo.getId();
 	
 }
+
 	public String getCategoryName() {
 		String cateName = completionRepository.getCategoryName();
 		return cateName;
