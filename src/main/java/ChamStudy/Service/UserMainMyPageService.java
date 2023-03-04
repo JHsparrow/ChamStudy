@@ -1,9 +1,13 @@
 package ChamStudy.Service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.UserInfoDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.CompletionRepository;
 import ChamStudy.Repository.UserMainMypageRepository;
@@ -31,9 +35,20 @@ public class UserMainMyPageService {
 		return userInfoDto;
 	}
 	
+	public Long getUserId(String email) {
+		Long userId = userMainMypageRepository.getUserId(email);
+		return userId;
+	}
+	
 	public String getCategoryName() {
 		String cateName = completionRepository.getCategoryName();
 		return cateName;
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<CompletionListDto> getCompletionList(UserSearchDto userSearchDto, CompletionListDto completionListDto, Pageable pageable, Long id){
+		return completionRepository.getCompletionList(userSearchDto, completionListDto, pageable, id);
+	}
+	
 	
 }

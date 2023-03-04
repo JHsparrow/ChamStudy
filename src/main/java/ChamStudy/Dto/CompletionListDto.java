@@ -1,5 +1,7 @@
 package ChamStudy.Dto;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +21,7 @@ public class CompletionListDto {
 	private String className;
 	
 	//학습률
-	private int progress;
+	private Long progress;
 	
 	//학습 시작일
 	private String startDate;
@@ -35,5 +37,20 @@ public class CompletionListDto {
 	
 	//콘텐츠 이미지 이름
 	private String oriImgName;
+	
+	@QueryProjection
+	public CompletionListDto(Long id, String categoryName, String subCategoryName, String className,
+			Long progress, String startDate, String endDate, Long contentId, String imgUrl, String oriImgName) {
+		this.id = id;
+		this.categoryName = categoryName;
+		this.subCategoryName = subCategoryName;
+		this.className = className;
+		this.progress = progress;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.contentId = contentId;
+		this.imgUrl = imgUrl;
+		this.oriImgName = oriImgName;
+	}
 	
 }
