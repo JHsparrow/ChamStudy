@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.VideoDto;
 import ChamStudy.Entity.ApplyList;
+import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
@@ -16,6 +17,7 @@ import ChamStudy.Entity.StudyHistory;
 import ChamStudy.Entity.StudyResult;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.ApplyListRepository;
+import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.CompletionRepository;
 import ChamStudy.Repository.OnContentRepository;
 import ChamStudy.Repository.OnContentVideoRepository;
@@ -30,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class ContentVideoService {
 	
     private final OnContentVideoRepository contentVideoRepository;
+    private final ClassInfoRepository classInfoRepository;
 	private final StudyHistortRepository studyHistortRepository;
 	private final OnContentRepository onContentRepository;
 	private final UserRepository userRepository;
@@ -63,10 +66,10 @@ public class ContentVideoService {
 	public void createStudyHistory(String videoName, Long contentId, String email) {
 		ContentVideo videoId = contentVideoRepository.getId(videoName);
 		ContentInfo getContentId = onContentRepository.getContentId(contentId);
+		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
 		Long history_id = studyHistortRepository.getVideoId(videoId.getId());
 		UserInfo userId = userRepository.getUserId(email);
-		ApplyList applyList = applyListRepository.findByUserId(userId.getId());
-		
+		ApplyList applyList = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
 		StudyHistory studyHistory = new StudyHistory();
 		if(history_id == null) {
 			studyHistory.setVideoId(videoId);
@@ -84,7 +87,8 @@ public class ContentVideoService {
 	
 	public void createStudyResult(String email,Long contentId) {
 		UserInfo userId = userRepository.getUserId(email);
-		ApplyList applyId = applyListRepository.findByUserId(userId.getId());
+		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
+		ApplyList applyId = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
 		System.err.println(applyId.getId());
 		Long progress = studyHistortRepository.getProgress(applyId.getId(),contentId);
 		StudyResult validResult = studyResultRepository.getResultId(applyId.getId());

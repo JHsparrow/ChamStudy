@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ChamStudy.Dto.AdminApplyListDto;
 import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
 import ChamStudy.Dto.MainCategoryDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.SubCategoryDto;
 import ChamStudy.Dto.SubCategoryJsonDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Dto.modifySubCategoryDto;
 import ChamStudy.Entity.Category;
 import ChamStudy.Entity.SubCategory;
 import ChamStudy.Service.AdminCategoryService;
+import ChamStudy.Service.ApplyListService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -36,15 +39,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminApplyController {
 	
-	private final AdminCategoryService adminCategoryService;
+	private final ApplyListService applyListService;
 	
 	
 	@GetMapping(value = "/list") //메인 카테고리 리스트
-	public String applyList(Optional<Integer> page,CategoryDto categoryDto ,Model model) {
+	public String applyList(Optional<Integer> page,AdminApplyListDto adminApplyListDto ,Model model, UserSearchDto userSearchDto) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-		Page<CategoryDto> mainList = adminCategoryService.getAllMainList(categoryDto, pageable);
+		Page<AdminApplyListDto> Lists = applyListService.getAdminApplyList(adminApplyListDto, pageable, userSearchDto);
 		model.addAttribute("active","category"); // 사이드 바 액티브
-		model.addAttribute("mainList", mainList);
+		model.addAttribute("applyList", Lists);
 		model.addAttribute("maxPage", 5);
 		return "AdminForm/adminCategory/mainList";
 	}

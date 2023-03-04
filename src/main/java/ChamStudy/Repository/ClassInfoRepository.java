@@ -29,4 +29,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ " group by A.class_id", nativeQuery = true)
 	List<EducationInfoInterface> educationInfo();
 	
+	@Query(value="select * from class_info where content_id = ?1", nativeQuery = true)
+	ClassInfo getClassInfo(Long contentId );
+
 }

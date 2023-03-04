@@ -39,8 +39,8 @@ public interface ApplyListRepository extends JpaRepository<ApplyList, Long>
 	@Query(value="select * from apply_list A join user_info B on a.user_id = b.user_id where b.user_email = ?1 ", nativeQuery = true)
 	ApplyList getApplyId(String email);
 	
-	@Query(value="select * from apply_list where user_id = ?1 ", nativeQuery = true)
-	ApplyList findByUserId(Long userId);
+	@Query(value="select * from apply_list where user_id = ?1 and class_id = ?2 ", nativeQuery = true)
+	ApplyList findByUserId(Long userId, Long classId);
 	
 
 }
