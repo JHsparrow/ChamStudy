@@ -34,22 +34,15 @@ public class Class_review extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String description; //리뷰내용
-	
-	private Integer starPoint; //별점
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-<<<<<<< HEAD
 	private UserInfo userInfo; //회원객체
-=======
-	private UserInfo userId;
 	
 	private String description;
 	
 	private Integer starPoint;
 	
->>>>>>> b22efb2eacf44308368d39611644ad033d034301
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_admin}">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+
+	<title>참스터디</title>
+	<script>
+		
+	</script>
+	<style>
+		.popUp {
+		border:none;
+		}
+	</style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h1 class="h3 mb-3">콘텐츠 관리</h1>
+					<div class="card">
+						<div class="card-header pb-0">
+							<div class="card-actions float-end">
+								
+							</div>
+							<h5 class="card-title mb-3"></h5>
+						</div>
+						<div class="card-body">
+							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+								<div class="row">
+									<div class="col-sm-12 col-md-6">
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
+											<label class="d-flex justify-content-end">
+												<input type="search" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
+											<colgroup> <!-- 너비 계산하기  -->
+												<col width="10%"><col width="30%"><col width="30%"><col width="10%"><col width="10%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th>아이디</th>
+													<th>Content Name</th>
+													<th>Date</th>
+													<th>컨트롤</th>
+											</thead>
+											<tbody>
+												
+												<th:block th:each="applyList, status: ${applyLists}">
+												<tr class="odd">
+													<td class="dtr-control sorting_1" tabindex="0"><strong></strong></td>
+													<td></td>
+													<td></td>
+													<td>
+														<a class="btn btn-primary btn-sm">수정</a>
+														<button type="button" th:onclick="" class="btn btn-primary btn-sm">삭제</button>
+													</td>
+												</tr>
+												</th:block>
+												<th:block th:if="${applyLists.getContent().size() == 0 }">
+												<tr>
+													<td colspan="6"><strong>등록된 콘텐츠가 없습니다.</strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="row" >
+									<div class="col-sm-12 col-md-2">
+									</div>		
+									<div class="col-sm-12 col-md-8 ">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
+											th:with="start=${(applyLists.number/maxPage)*maxPage + 1},
+													end=${(applyLists.getTotalPages() == 0) ? 1 : (start + (maxPage - 1) < applyLists.getTotalPages() ? start + (maxPage - 1) : applyLists.getTotalPages())}"	>
+											<ul class="pagination">
+												<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous" th:classappend="${applyLists.first}?'disabled'">
+													<a th:href="'/adminOnClass/contents?page='+${(applyLists.number-1)}" aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												</li>
+												<th:block th:each="page: ${#numbers.sequence(start, end)}" >
+													<li th:classappend="${applyLists.number eq page-1}?'active':''" class="paginate_button page-item mx-1" >
+														<a th:href="@{'/adminOnClass/contents?page=' + ${page-1}}" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
+													</li>
+												</th:block>
+												<li class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+													<a th:href="@{'/adminOnClass/contents?page=' + ${applyLists.number+1}}" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-2 newbtnwrap">
+										<a href="/adminOnClass/contentNew" class="btn btn-primary btn-sm newbtn">등록하기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form id="delFrm" action="/adminOnClass/del">
+					<input type="hidden" id="delContentId" name="contentId" />
+				</form>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="ModalLabel">콘텐츠 수정</h5>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				      	<form id="frm" action="/adminOnClass/del" method="get">
+				      		<input type="hidden" id="mainId" name="mainId">
+				      		<div class="form-group">
+						    	<label for="cateName">콘텐츠 이름</label>
+						    	<input type="email" class="form-control" id="contentName" name="contentName" placeholder="콘텐츠 이름">
+						  	</div>
+				      	</form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button id="sbtBtn" onclick="frmsbt()" type="button" class="btn btn-primary">등록</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</main>
+			<script>
+				function contentModify(){
+					
+				}
+				function delCheck(contentId){
+					if(confirm('삭제하시겠습니까?')){
+						$('#delContentId').val(contentId);
+						$('#delFrm').submit();
+					}else{ return false; }
+				}
+			</script>
+		</div>
+		
+	</div>
+</body>
+</html>
