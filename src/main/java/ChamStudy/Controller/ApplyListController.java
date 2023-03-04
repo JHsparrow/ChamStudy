@@ -48,6 +48,7 @@ public class ApplyListController {
             return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
 		}
 		
+		//Authentication 객체가 null 이면 세션에 값이 없다 (=로그인하지 않았다)
 		//401에러
 		if (authentication == null) {
 			return new ResponseEntity<String>("로그인 후 이용해 주세요", HttpStatus.UNAUTHORIZED );
@@ -57,11 +58,12 @@ public class ApplyListController {
 		
 		//String email = principal.getName();
 		
-		Long applyListId;
+		Long applyListId = (long) -1;
 		
 		try {
 			applyListId = applyListService.addClass(applyListDto, session.getEmail());
 		} catch(Exception e) {
+			applyListId = (long) -9;
 			e.printStackTrace();
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

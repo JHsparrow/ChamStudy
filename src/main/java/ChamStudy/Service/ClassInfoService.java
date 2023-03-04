@@ -128,35 +128,6 @@ public class ClassInfoService {
 
         return classInfo.getId();
     }
-    
-    //나의 강의실 넘겨주기
-    public Long orderCartItem(ClassInfoDto classInfoDto, Long classId){
-    	
-    	ClassInfo classInfo = classInfoRepository.findById(classId).orElseThrow(EntityNotFoundException::new);
-    	/*
-        for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository
-                            .findById(cartOrderDto.getCartItemId())
-                            .orElseThrow(EntityNotFoundException::new);
-
-            OrderDto orderDto = new OrderDto();
-            orderDto.setItemId(cartItem.getItem().getId());
-            orderDto.setCount(cartItem.getCount());
-            orderDtoList.add(orderDto);
-        }
-
-        Long orderId = orderService.orders(orderDtoList, email);
-        for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository
-                            .findById(cartOrderDto.getCartItemId())
-                            .orElseThrow(EntityNotFoundException::new);
-            cartItemRepository.delete(cartItem);
-        }
-		
-		*/
-    	
-        return classId;
-    }
-
+     
 	
 }

@@ -2,9 +2,7 @@ package ChamStudy.Dto;
 
 import org.modelmapper.ModelMapper;
 
-import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.Class_review;
-import ChamStudy.Entity.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -23,8 +23,8 @@ public class Class_reviewService {
 	private final Class_reviewRepository class_reviewRepository;
 	
 	public Long reviews(Class_reviewDto class_reviewDto, UserInfo session) {
-		ClassInfo classInfo = classInfoRepository.findById(class_reviewDto.getClassId())
-				 .orElseThrow(EntityNotFoundException::new);
+//		ClassInfo classInfo = classInfoRepository.findById(class_reviewDto.getClassId())
+//				 .orElseThrow(EntityNotFoundException::new);
 		return null;
 	}
 
