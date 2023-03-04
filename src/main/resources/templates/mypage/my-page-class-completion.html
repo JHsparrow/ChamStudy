@@ -33,11 +33,12 @@
 								</div>
 
 								<!-- 컨텐츠 상단(검색) -->
+								<form th:action="@{/mypage/completion}" method="get"
+									role="search">
 									<div class="row ms-5 mb-4">
 										<div class="col-sm-6 col-md-6">
 											<div class="dataTables_length" id="datatables-orders_length">
-												<select name="searchQuery"
-													aria-controls="datatables-orders"
+												<select name="searchQuery" aria-controls="datatables-orders"
 													class="form-select form-select-sm width30 height35">
 													<option value="IT">IT</option>
 													<option value="자격증">자격증</option>
@@ -46,7 +47,7 @@
 											</div>
 										</div>
 									</div>
-								
+								</form>
 
 								<!-- 강의 목록 -->
 								<div class="row text-center justify-content-center">
