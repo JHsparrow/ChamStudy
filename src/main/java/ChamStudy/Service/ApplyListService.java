@@ -1,6 +1,6 @@
 package ChamStudy.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -36,12 +36,12 @@ public class ApplyListService {
 		//Long applyId = applyListRepository.saveApplyClass(applyListDto, session);
 		//ApplyList applyList = ApplyList.createApplyList(classInfo, session);
 		
-		ApplyList applyList = applyListRepository.findByUserInfoId(userInfo.getId());
+		List<ApplyList> applyList = applyListRepository.findByUserInfoId(userInfo.getId());
 		
-		if(applyList == null) {
-			applyList = ApplyList.createApplyList(classInfo, userInfo);
-			applyListRepository.save(applyList);
-		}
+//		if(applyList == null) {
+//			applyList = ApplyList.createApplyList(classInfo, userInfo);
+//			applyListRepository.save(applyList);
+//		}
 		
 		ApplyList savedClass = applyListRepository.findByClassInfoIdAndUserInfoId(classInfo.getId(), userInfo.getId());
 		

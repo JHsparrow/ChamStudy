@@ -20,7 +20,7 @@ public interface ApplyListRepository extends JpaRepository<ApplyList, Long>
 
 	Long countMainSub(String mainName, String subName);
 	
-	ApplyList findByUserInfoId(Long userId);
+	List<ApplyList> findByUserInfoId(Long userId);
 	
 	ApplyList findByClassInfoIdAndUserInfoId(Long classId, Long userId);
 	
