@@ -20,90 +20,85 @@
 
 					<div class="row">
 						<div class="col-md-4 col-xl-3">
-							<div class="card mb-3">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Profile Details</h5>
-								</div>
-								<div class="card-body text-center">
-
-									<h6 class="section-title bg-white text-start text-primary pe-3">my
-										page</h6>
-									<h1 class="mb-4" sec:authentication="principal.name"></h1>
-								</div>
-								<hr class="my-0" />
-								<div class="card-body">
-									<h1 class="section-title bg-white text-start text-primary pe-3">menu</h1>
-									<hr class="my-4" />
-									<ul class="list-unstyled mb-0">
-										<li class="mb-4"><a href="/mypage/updatepage"><h4>내
-													정보 수정</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>수료증 확인</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>나의 강의실</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>강의 구매 내역</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>메뉴1</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>메뉴2</h4></a></li>
-									</ul>
-								</div>
+							<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 -->
+							<div class="col-md-4 col-xl-3">
+								<div th:replace="fragments/main_mypage_nav::mypagenav"></div>
 							</div>
+							<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 end -->
 						</div>
 						<div class="col-md-4">
-						<div class="card ">
-							<div class="card-body">
-								<div class="m-sm-2">
-									<form id="frm" action="/mypage/update" method="post" th:object="${userInfoDto}">
-									
-										<div class="mb-3">
-											<label class="form-label">이메일</label> 
-											<input style="background-color: #dee2e6;" readonly="readonly" th:value="${userInfoDto.email}" class="form-control form-control-lg" type="email" id="email" name="email" placeholder="이메일을 입력 해주세요" />
-											<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
-										</div>
-										
-										<div class="mb-3">
-											<label class="form-label">이름</label> 
-											<input th:value="*{name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
-											<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
-										</div>
-										
-										<div class="mb-3">
-											<label class="form-label">비밀번호</label> 
-											<input th:field="*{password}" class="form-control form-control-lg" type="password" id="password" name="password" placeholder="비밀번호를 입력 해주세요" />
-											<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
-										</div>
-										
-										<div class="mb-3">
-											<label class="form-label">비밀번호 확인</label> 
-											<input class="form-control form-control-lg" type="password"
-												id="passwordck" name="password_ck" placeholder="비밀번호를 확인 해주세요" />
-										</div>
-										<div class="mb-3">
-											<label class="form-label">휴대폰 번호</label> 
-											<input th:value="${userInfoDto.phone}" class="form-control form-control-lg" id="phone" name="phone" type="text" oninput="autoHyphen2(this)" maxlength="13" placeholder="-를 빼고 입력 해주세요">
-											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
-										</div>
-										
-										<input type="hidden" th:value="${userInfoDto.role}" name="role">
-										<input type="hidden" th:value="${userInfoDto.gubun}" name="gubun">
-										<input type="hidden" th:value="${userInfoDto.regTime}" name="regTime">
-										
-										<div class="text-center mt-3">
-										<button class="btn btn-lg btn-primary" type="button" onclick="passwordCk()">수정완료</button>
-										</div>
-										<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
-									</form>
+							<div class="card ">
+								<div class="card-body">
+									<div class="m-sm-2">
+										<form id="frm" action="/mypage/update" method="post"
+											th:object="${userInfoDto}">
+
+											<div class="mb-3">
+												<label class="form-label">이메일</label> <input
+													style="background-color: #dee2e6;" readonly="readonly"
+													th:value="${userInfoDto.email}"
+													class="form-control form-control-lg" type="email"
+													id="email" name="email" placeholder="이메일을 입력 해주세요" />
+												<p th:if="${#fields.hasErrors('email')}"
+													th:errors="*{email}" class="fieldError">Incorrect Data</p>
+											</div>
+
+											<div class="mb-3">
+												<label class="form-label">이름</label> <input
+													th:value="*{name}" class="form-control form-control-lg"
+													type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
+												<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+													class="fieldError">Incorrect Data</p>
+											</div>
+
+											<div class="mb-3">
+												<label class="form-label">비밀번호</label> <input
+													th:field="*{password}" class="form-control form-control-lg"
+													type="password" id="password" name="password"
+													placeholder="비밀번호를 입력 해주세요" />
+												<p th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}" class="fieldError">Incorrect
+													Data</p>
+											</div>
+
+											<div class="mb-3">
+												<label class="form-label">비밀번호 확인</label> <input
+													class="form-control form-control-lg" type="password"
+													id="passwordck" name="password_ck"
+													placeholder="비밀번호를 확인 해주세요" />
+											</div>
+											<div class="mb-3">
+												<label class="form-label">휴대폰 번호</label> <input
+													th:value="${userInfoDto.phone}"
+													class="form-control form-control-lg" id="phone"
+													name="phone" type="text" oninput="autoHyphen2(this)"
+													maxlength="13" placeholder="-를 빼고 입력 해주세요">
+												<p th:if="${#fields.hasErrors('phone')}"
+													th:errors="*{phone}" class="fieldError">Incorrect Data</p>
+											</div>
+
+											<input type="hidden" th:value="${userInfoDto.role}"
+												name="role"> <input type="hidden"
+												th:value="${userInfoDto.gubun}" name="gubun"> <input
+												type="hidden" th:value="${userInfoDto.regTime}"
+												name="regTime">
+
+											<div class="text-center mt-3">
+												<button class="btn btn-lg btn-primary" type="button"
+													onclick="passwordCk()">수정완료</button>
+											</div>
+											<input type="hidden" th:name="${_csrf?.parameterName}"
+												th:value="${_csrf?.token}">
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
-				<script>
+		<script>
 			function passwordCk() {
 				var p1 = document.getElementById('password').value;
 				var p2 = document.getElementById('passwordck').value;
