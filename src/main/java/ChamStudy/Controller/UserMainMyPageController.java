@@ -93,7 +93,6 @@ public class UserMainMyPageController {
 	public String getCompletionList(Model model) {
 		
 		String name = userMainMyPageService.getCategoryName();
-		System.out.println("dddddddddddddddddddddddddd" + name);
 		
 		return "mypage/my-page-class-completion";
 	}

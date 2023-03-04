@@ -19,7 +19,7 @@ public class CompletionListDto {
 	private String className;
 	
 	//학습률
-	private int process;
+	private int progress;
 	
 	//학습 시작일
 	private String startDate;
@@ -29,5 +29,11 @@ public class CompletionListDto {
 	
 	//콘텐츠 아이디(재생버튼)
 	private Long contentId;
+	
+	//콘텐츠 이미지
+	private String imgUrl;
+	
+	//콘텐츠 이미지 이름
+	private String oriImgName;
 	
 }
