@@ -104,13 +104,14 @@
 								<!-- 강의 목록 -->
 								<div class="row text-center justify-content-center">
 									<div class="col-12 col-md-5 mx-4">
+									<th:block class="card-each-wrap" th:each="class, status: ${class}">
 										<div class="card">
 											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
 												alt="Unsplash">
 											<div class="card-header pd-07 d-flex">
 												<div class="d-inline-block">
 													<p class="card-ttl mb-0">IT</p>
-													<p class="card-ttl class-title mb-0">초보도 쉽게 배우는 JAVA</p>
+													<p class="card-ttl class-title mb-0">[[${class.classInfo.name}]]</p>
 												</div>
 												<div class="d-inline-block">
 													<a><i class="fa-regular fa-circle-play"></i></a>
@@ -126,13 +127,14 @@
 												</div>
 												<div>
 													<p>
-														<small>수강기간: 23년03월02일 ~ 24년03월01일</small>
+														<small>수강기간: [[${class.classInfo.sDate}]] ~ [[${class.classInfo.eDate}]]</small>
 													</p>
 												</div>
 												<button type="submit" class="btn btn-lg btn-primary"
 													id="loginbtn">강의듣기</button>
 											</div>
 										</div>
+										</th:block>
 									</div>
 
 									<!-- 페이징 버튼 -->

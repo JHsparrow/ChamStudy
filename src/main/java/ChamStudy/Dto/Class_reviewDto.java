@@ -1,6 +1,5 @@
 package ChamStudy.Dto;
 
-<<<<<<< HEAD
 import org.modelmapper.ModelMapper;
 
 import ChamStudy.Entity.ClassInfo;
@@ -35,20 +34,4 @@ public class Class_reviewDto {
 		return modelMapper.map(class_review, Class_reviewDto.class);
 	}
 	
-=======
-import ChamStudy.Entity.ClassInfo;
-import ChamStudy.Entity.UserInfo;
-
-public interface Class_reviewDto {
-	
-//	Long id;
-//	
-//	String description;
-//	
-//	Integer starPoint;
-//	
-//	UserInfo userInfo;
-//	
-//	ClassInfo classInfo;
->>>>>>> b22efb2eacf44308368d39611644ad033d034301
 }

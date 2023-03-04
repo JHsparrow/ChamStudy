@@ -40,16 +40,7 @@ public class Class_review extends BaseTimeEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-<<<<<<< HEAD
-	private UserInfo userInfo; //회원객체
-=======
 	private UserInfo userId;
-	
-	private String description;
-	
-	private Integer starPoint;
-	
->>>>>>> b22efb2eacf44308368d39611644ad033d034301
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")

@@ -100,11 +100,9 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 						)
 						.from(apply)
 						.innerJoin(contentInfo)
-						.on(apply.classInfo.contentInfo.id
-								.eq(contentInfo.id))
+						.on(apply.classInfo.contentInfo.id.eq(contentInfo.id))
 						.innerJoin(category)
-						.on(apply.classInfo.contentInfo.categoryId.id
-								.eq(category.id))
+						.on(apply.id.eq(category.id))
 						.innerJoin(studyResult)
 						.on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
@@ -116,14 +114,6 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 
 		long total = queryFactory.select(Wildcard.count)
 				.from(apply)
-				.innerJoin(contentInfo)
-				.on(apply.classInfo.contentInfo.id
-						.eq(contentInfo.id))
-				.innerJoin(category)
-				.on(apply.classInfo.contentInfo.categoryId.id
-						.eq(category.id))
-				.innerJoin(studyResult)
-				.on(apply.id.eq(studyResult.applyId.id))
 				.where(apply.userInfo.email.eq(email))
 				.where(selectCategory(classLearningSearchDto.getSearchCategory()))
 				.fetchOne();
