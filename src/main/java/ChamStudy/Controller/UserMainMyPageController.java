@@ -87,7 +87,6 @@ public class UserMainMyPageController {
 	public String myClass(Model model){
 		return "mypage/my-page-class";
 	}
-<<<<<<< HEAD
 	
 	//마이페이지 - 나의 강의실 - 완강 페이지 
 	@GetMapping(value="/completion")
@@ -98,8 +97,6 @@ public class UserMainMyPageController {
 		
 		return "mypage/my-page-class-completion";
 	}
-=======
->>>>>>> ee56ac1c41fbd25599471a745ed398660e7cf198
 
 	@GetMapping(value = "/learning/watch")
 	public String learningLecture() {

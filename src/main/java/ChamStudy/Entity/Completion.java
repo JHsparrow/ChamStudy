@@ -39,17 +39,12 @@ public class Completion {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "result_id")
-<<<<<<< HEAD
 	private StudyResult resultId;  
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "apply_id")
 	private ApplyList applyId;
-=======
-	private StudyResult resultId ;  
-	
->>>>>>> ee56ac1c41fbd25599471a745ed398660e7cf198
-	
+
 	@CreatedDate
 	@Column(updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일 HH:mm:ss")
