@@ -92,6 +92,7 @@ public class ContentVideoService {
 		System.err.println(applyId.getId());
 		Long progress = studyHistortRepository.getProgress(applyId.getId(),contentId);
 		StudyResult validResult = studyResultRepository.getResultId(applyId.getId());
+		System.err.println(validResult.getId());
 		StudyResult studyResult = new StudyResult();
 		 
 		//study_result id가 중복할경우(=applyId가 중복확인)

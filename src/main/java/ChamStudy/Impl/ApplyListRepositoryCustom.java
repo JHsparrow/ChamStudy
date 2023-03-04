@@ -9,7 +9,6 @@ import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Entity.UserInfo;
 
 public interface ApplyListRepositoryCustom {
-	Long saveApplyClass(ApplyListDto applyListDto, UserInfo session);
 
 	Page<MyClassLearningDto> getLearningDto(MyClassLearningDto classLearningDto,Pageable pageable,MyClassLearningSearchDto classLearningSearchDto,String email);
 }

@@ -81,7 +81,7 @@
 			<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
 				th:with="currPageIndex=${classInfoDtoList.number}, maxPage=${classInfoDtoList.totalPages}, start=(${(maxPage == 0) ? 1 : (currPageIndex/maxPage)*maxPage + 1}), end=(${(maxPage == 0) ? 1 : (start + (maxPage - 1) < maxPage ? start + (maxPage - 1) : maxPage)})">
 				<ul class="pagination">
-					<li class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous" th:classappend="${maxPage == 0 || currPageIndex == 0}?'disabled'" >
+					<li class="paginate_button page-item previous mx-1" id="datatables-orders_previous" th:classappend="${maxPage == 0 || currPageIndex == 0}?'disabled'" >
 						<a th:href="@{'/mainForm/class' + '?page=' + ${currPageIndex - 1}}"  aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt</a>
 					</li>
 					<th:block th:each="page: ${#numbers.sequence(start, end)}" >
