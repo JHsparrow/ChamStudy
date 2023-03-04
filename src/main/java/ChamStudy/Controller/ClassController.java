@@ -1,6 +1,7 @@
 package ChamStudy.Controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,7 @@ import ChamStudy.Dto.MessageDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.ApplyListService;
 import ChamStudy.Service.ClassInfoService;
+import ChamStudy.Service.Class_reviewService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -41,6 +45,7 @@ public class ClassController { //강의 페이지
 	
 	private final ClassInfoService classInfoService;
 	private final ApplyListService applyListService;
+	private final Class_reviewService class_reviewService;
 	
 	@GetMapping(value="/class")
 	public String classView(Optional<Integer> page, Model model) { //강의 리스트
@@ -53,12 +58,7 @@ public class ClassController { //강의 페이지
 	}
 	
 	@GetMapping(value="/detail/{classId}")
-	public String classDetail(Model model, @PathVariable("classId") Long classId, Principal principal, Authentication authentication) { //강의상세페이지
-		
-		StringBuffer sb = new StringBuffer();
-    	sb.append("\n\n");
-    	sb.append("\t\t").append("Parameter (id) : ").append(classId).append("\n");
-		System.out.println(sb);
+	public String classDetail(Model model, @PathVariable("classId") Long classId, Principal principal, Authentication authentication) { //강의상세페이지	
 		
 		MessageDto message;
 		try {
@@ -92,11 +92,11 @@ public class ClassController { //강의 페이지
 			model.addAttribute("isApplyListNew", isApplyListNew);
 		} catch(EntityNotFoundException e) {
 			e.printStackTrace();
-			message = new MessageDto("존재하지 않는 콘텐츠 입니다. (1)", "/mainForm/class");
+			message = new MessageDto("존재하지 않는 강의 입니다. (1)", "/mainForm/class");
 			return showMessageAndRedirect(message, model);
 		} catch(Exception e) {
 			e.printStackTrace();
-			message = new MessageDto("존재하지 않는 콘텐츠 입니다. (2)", "/mainForm/class");
+			message = new MessageDto("존재하지 않는 강의 입니다. (2)", "/mainForm/class");
 			return showMessageAndRedirect(message, model);
 		}
 		
@@ -105,25 +105,42 @@ public class ClassController { //강의 페이지
 	}
 	
 	@PostMapping(value="/detail")
-	public @ResponseBody ResponseEntity classReview(Authentication authentication, @RequestBody Class_reviewDto class_reviewDto) {
+	public @ResponseBody ResponseEntity classReview(@RequestBody Class_reviewDto class_reviewDto, BindingResult bindingResult,Principal principal, Authentication authentication, Model model) {
 		
+		if(bindingResult.hasErrors()) {
+			StringBuilder sb = new StringBuilder();
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            
+            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
+        }
+		
+		//Authentication 객체가 null 이면 세션에 값이 없다 (=로그인하지 않았다)
+		//401에러
 		if (authentication == null) {
 			return new ResponseEntity<String>("로그인 후 이용해 주세요", HttpStatus.UNAUTHORIZED );
 		}
 		
 		UserInfo session = (UserInfo) authentication.getPrincipal();
 		
-		Long class_reviewId;
+		//String email = principal.getName();
+		
+		Long reviewId = (long) -1;
 		
 		try {
+			reviewId = class_reviewService.addReview(class_reviewDto, session.getEmail());
+			
+			return new ResponseEntity<Long>(reviewId, HttpStatus.OK );
 		} catch(Exception e) {
+			reviewId = (long) -9;
 			e.printStackTrace();
+			
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
-		return null;
-	}
-	
+	}	
 	
 	private String showMessageAndRedirect(final MessageDto params, Model model) {
 		model.addAttribute("params", params);
