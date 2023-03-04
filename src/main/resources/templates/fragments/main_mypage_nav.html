@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head><body>
+	<div th:fragment="mypagenav">
+		<div>
+			<div class="card mb-3">
+				<div class="card-header">
+					<h5 class="card-title mb-0">Profile Details</h5>
+				</div>
+				<div class="card-body text-center">
+
+					<h6 class="section-title bg-white text-start text-primary pe-3">my
+						page</h6>
+					<h1 sec:authentication="principal.name" class="mb-4"></h1>
+				</div>
+				<hr class="my-0" />
+				<div class="card-body">
+					<h1 class="section-title bg-white text-start text-primary pe-3">menu</h1>
+					<hr class="my-4" />
+					<ul class="list-unstyled mb-0">
+						<li class="mb-4"><a href="/mypage/updatepage"><h4>내
+									정보 수정</h4></a></li>
+						<hr class="my-4" />
+						<li class="mb-4"><a href="#"><h4>수료증 확인</h4></a></li>
+						<hr class="my-4" />
+						<li class="mb-4"><a href="/mypage/myclass"><h4>나의
+									강의실</h4></a></li>
+						<hr class="my-4" />
+						<li class="mb-4"><a href="#"><h4>강의 구매 내역</h4></a></li>
+						<hr class="my-4" />
+						<li class="mb-4"><a href="#"><h4>메뉴1</h4></a></li>
+						<hr class="my-4" />
+						<li class="mb-4"><a href="#"><h4>메뉴2</h4></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

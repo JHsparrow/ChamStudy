@@ -163,14 +163,12 @@ public class AdminUserController {
 		if(bindingResult.hasErrors()) {
 			return "users/user-list";
 		}
-		
 		try {
 			userService.updateUser(userListDto);
 		}catch (Exception e) {
 			model.addAttribute("errorMessage", "수정 중 에러 발생");
 			return "users/user-list";
 		}
-		
 			return "redirect://localhost/users/userList";
 		
 	}

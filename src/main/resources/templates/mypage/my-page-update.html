@@ -35,7 +35,7 @@
 									<h1 class="section-title bg-white text-start text-primary pe-3">menu</h1>
 									<hr class="my-4" />
 									<ul class="list-unstyled mb-0">
-										<li class="mb-4"><a href="/mypage/update"><h4>내
+										<li class="mb-4"><a href="/mypage/updatepage"><h4>내
 													정보 수정</h4></a></li>
 										<hr class="my-4" />
 										<li class="mb-4"><a href="#"><h4>수료증 확인</h4></a></li>
@@ -52,7 +52,7 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-						<div class="card">
+						<div class="card ">
 							<div class="card-body">
 								<div class="m-sm-2">
 									<form id="frm" action="/mypage/update" method="post" th:object="${userInfoDto}">
@@ -65,7 +65,7 @@
 										
 										<div class="mb-3">
 											<label class="form-label">이름</label> 
-											<input th:value="${userInfoDto.name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
+											<input th:value="*{name}" class="form-control form-control-lg" type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
 											<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
 										</div>
 										
@@ -85,6 +85,10 @@
 											<input th:value="${userInfoDto.phone}" class="form-control form-control-lg" id="phone" name="phone" type="text" oninput="autoHyphen2(this)" maxlength="13" placeholder="-를 빼고 입력 해주세요">
 											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
 										</div>
+										
+										<input type="hidden" th:value="${userInfoDto.role}" name="role">
+										<input type="hidden" th:value="${userInfoDto.gubun}" name="gubun">
+										<input type="hidden" th:value="${userInfoDto.regTime}" name="regTime">
 										
 										<div class="text-center mt-3">
 										<button class="btn btn-lg btn-primary" type="button" onclick="passwordCk()">수정완료</button>
