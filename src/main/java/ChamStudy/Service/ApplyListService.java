@@ -4,13 +4,18 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ChamStudy.Dto.AdminApplyListDto;
 import ChamStudy.Dto.ApplyListDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.ApplyList;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.UserInfo;
+import ChamStudy.Repository.AdminApplyRepository;
 import ChamStudy.Repository.ApplyListRepository;
 import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.UserRepository;
@@ -24,6 +29,7 @@ public class ApplyListService {
 	private final ClassInfoRepository classInfoRepository;
 	private final UserRepository userRepository;
 	private final ApplyListRepository applyListRepository;
+	private final AdminApplyRepository adminApplyRepository;
 	
 	
 	public Long addClass(ApplyListDto applyListDto, String email) {
@@ -53,4 +59,9 @@ public class ApplyListService {
             return applyListAdd.getId();
         }
 	}
+	
+	public Page<AdminApplyListDto> getAdminApplyList(AdminApplyListDto adminApplyListDto, Pageable pageable,UserSearchDto userSearchDto){
+		return adminApplyRepository.getAdminApplyList(adminApplyListDto , pageable, userSearchDto);
+	}
+	
 }

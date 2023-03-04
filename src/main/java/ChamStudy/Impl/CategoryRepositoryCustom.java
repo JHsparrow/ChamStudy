@@ -4,8 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import ChamStudy.Dto.CategoryDto;
-import ChamStudy.Dto.CategoryInterface;
-import ChamStudy.Dto.MainCategoryDto;
 
 public interface CategoryRepositoryCustom {
 
