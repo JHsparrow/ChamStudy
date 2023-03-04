@@ -156,7 +156,7 @@ public class CommController { //커뮤니티 컨트롤러
 				request.getSession().setAttribute("redirectURI", referer);
 				//전 페이지의 링크를 view에 hidden으로 남기려고 작성
 				model.addAttribute("referer",referer);
-			return "AdminForm/AdminComm/comm-Dtl-Form";
+			return "MainForm/community/comm-Dtl-Form";
 		}
 		
 		@GetMapping(value = "/comm/delete") // 게시글 삭제&댓글 삭제

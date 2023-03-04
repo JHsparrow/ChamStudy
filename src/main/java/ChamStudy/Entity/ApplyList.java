@@ -68,6 +68,7 @@ public class ApplyList{
 	
 	public static ApplyList createApplyList(ClassInfo ClassInfo, UserInfo UserInfo) {
 		ApplyList applyList = new ApplyList();
+		applyList.setComFlag("N");
 		applyList.setClassInfo(ClassInfo);
 		applyList.setUserInfo(UserInfo);
 		return applyList;

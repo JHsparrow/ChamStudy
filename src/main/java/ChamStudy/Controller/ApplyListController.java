@@ -1,5 +1,6 @@
 package ChamStudy.Controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,11 @@ public class ApplyListController {
 	public String applyListView() { //회원 수강 리스트
 		
 
-		return "/MainForm/Class/applyList";
+		return "/MainForm/myclass/index";
 	}
 	
 	@PostMapping(value="/applyList")
-	public @ResponseBody ResponseEntity applyList(@RequestBody ApplyListDto applyListDto,  BindingResult bindingResult, Authentication authentication) {
+	public @ResponseBody ResponseEntity applyList(@RequestBody ApplyListDto applyListDto,  BindingResult bindingResult, Principal principal, Authentication authentication) {
 		
 		if(bindingResult.hasErrors()) {
 			StringBuilder sb = new StringBuilder();
@@ -47,16 +48,19 @@ public class ApplyListController {
             return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
 		}
 		
+		//401에러
 		if (authentication == null) {
 			return new ResponseEntity<String>("로그인 후 이용해 주세요", HttpStatus.UNAUTHORIZED );
 		}
 		
 		UserInfo session = (UserInfo) authentication.getPrincipal();
 		
-		Long applyListId = (long) -1;
+		//String email = principal.getName();
+		
+		Long applyListId;
 		
 		try {
-			applyListId = applyListService.addClass(applyListDto, session);
+			applyListId = applyListService.addClass(applyListDto, session.getEmail());
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

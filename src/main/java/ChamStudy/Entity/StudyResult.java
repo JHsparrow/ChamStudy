@@ -35,7 +35,7 @@ public class StudyResult extends BaseTimeEntity {
 	@JoinColumn(name = "apply_id")
 	private ApplyList applyId;
 	
-	private int process;
+	private Long progress;
 	
 	private int exam_score;
 	

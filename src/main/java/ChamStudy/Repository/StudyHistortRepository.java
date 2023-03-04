@@ -23,4 +23,7 @@ public interface StudyHistortRepository extends JpaRepository<StudyHistory, Long
 	
 	@Query(value="select * from study_history where content_id = ?1 ",nativeQuery = true)
 	List<StudyHistory> getHistoryList(Long ContentId);
+	
+	@Query(value="select count(*)*20 from study_history where apply_id = ?1 and content_id = ?2 ",nativeQuery = true)
+	Long getProgress(Long applyId, Long contentId); 
 }
