@@ -5,10 +5,7 @@
 <head>
 <meta charset="utf-8">
 
-<script>
-
-
-    
+<script> 
    
     function classAdd(){
 //       var token = $("meta[name='_csrf']").attr("content");
@@ -28,7 +25,7 @@
             data     : param,
 //             beforeSend : function(xhr){
                 /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
-//                 xhr.setRequestHeader(header, token);           
+//                 xhr.setRequestHeader(header, token);
 //                },
             dataType : "json",
             cache   : false,
@@ -36,9 +33,9 @@
             	var applyId = result;
             	
             	if (applyId > 0) {
-                	alert("수강신청이 완료되었습니다. (" + result + ")");
+                	alert("수강신청이 완료되었습니다.");
             	} else {
-            		alert("수강신청에 실패하였습니다. (" + result + ")");
+            		alert("수강신청에 실패하였습니다.");
             	}
 //                location.href='/';
 				},

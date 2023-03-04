@@ -1,5 +1,8 @@
 package ChamStudy.Entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.CreatedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import groovy.transform.ToString;
 import lombok.Getter;
@@ -20,23 +28,32 @@ import lombok.Setter;
 @Getter
 @Setter
 @ToString
-public class Class_review {
+public class Class_review extends BaseTimeEntity {
 	@Id
 	@Column(name="review_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private String description; //리뷰내용
+	
+	private Integer starPoint; //별점
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserInfo userId;
-	
-	private String description;
-	
-	private Integer starPoint;
-	
+
+	private UserInfo userInfo; //회원객체
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
-	private ClassInfo classId;
+	private ClassInfo classInfo; //강의객체
 	
+	@CreatedDate
+	@Column(updatable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일")
+	private String regDate;
+	
+	@PrePersist
+    public void onPrePersist(){
+        this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+    }
 }

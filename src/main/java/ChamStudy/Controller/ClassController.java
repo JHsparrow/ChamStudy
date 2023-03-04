@@ -8,15 +8,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
+import ChamStudy.Dto.Class_reviewDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.ApplyListService;
 import ChamStudy.Service.ClassInfoService;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +67,7 @@ public class ClassController { //강의 페이지
 			ClassInfoListDto classDetail = classInfoService.getClassInfo(adminClassDto);
 			model.addAttribute("classDetail", classDetail);
 			
-		} catch(EntityNotFoundException e) {	
+		} catch(EntityNotFoundException e) {
 			e.printStackTrace();
 			message = new MessageDto("존재하지 않는 콘텐츠 입니다.", "/mainForm/class");
 			return showMessageAndRedirect(message, model);
@@ -69,32 +77,25 @@ public class ClassController { //강의 페이지
 		
 	}
 	
-//	@PostMapping(value="/detail/applyList")
-//	public @ResponseBody ResponseEntity applyList(@RequestBody ApplyListDto applyListDto,  BindingResult bindingResult,  Principal principal) {
-//		
-//		if(bindingResult.hasErrors()) {
-//			StringBuilder sb = new StringBuilder();
-//			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-//			
-//            for (FieldError fieldError : fieldErrors) {
-//                sb.append(fieldError.getDefaultMessage());
-//            }
-//            
-//            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		String email = principal.getName();
-//		Long applyListId;
-//		
-//		try {
-//			applyListId = applyService.addClass(applyListDto, email);
-//		} catch(Exception e) {
-//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		return new ResponseEntity<Long>(applyListId, HttpStatus.OK );
-//	
-//	}
+	@PostMapping(value="/detail")
+	public @ResponseBody ResponseEntity classReview(Authentication authentication, @RequestBody Class_reviewDto class_reviewDto) {
+		
+		if (authentication == null) {
+			return new ResponseEntity<String>("로그인 후 이용해 주세요", HttpStatus.UNAUTHORIZED );
+		}
+		
+		UserInfo session = (UserInfo) authentication.getPrincipal();
+		
+		Long class_reviewId;
+		
+		try {
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return null;
+	}
 	
 	
 	private String showMessageAndRedirect(final MessageDto params, Model model) {
