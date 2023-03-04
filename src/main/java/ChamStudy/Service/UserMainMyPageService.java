@@ -68,4 +68,5 @@ public class UserMainMyPageService {
 		return completionRepository.getCompletionList(userSearchDto, completionListDto, pageable, id);
 	}
 	
+	
 }

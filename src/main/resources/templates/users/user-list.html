@@ -87,6 +87,9 @@
 											</thead>
 											
 											<tbody>
+												<tr th:if="${users.getTotalElements()==0}">
+													<td colspan="6" class="dtr-control sorting_1" tabindex="0"><strong>회원가입된 유저가 없습니다.</strong></td>
+												</tr>
 												<th:block th:each="user, status: ${users.getContent()}">
 													<tr class="odd">
 														<td class="dtr-control sorting_1" tabindex="0"><strong>[[${user.id}]]</strong></td>
