@@ -84,18 +84,6 @@ public class UserService implements UserDetailsService{
 		
 	}
 	
-	//회원정보 수정(마이페이지)
-	public Long updateUserMypage(UserInfoDto userInfoDto) throws Exception{
-		
-		UserInfo userInfo = userRepository.findByemail(userInfoDto.getEmail());
-		
-		System.out.println(userInfo.toString());
-		
-		userInfo.updateUserMypage(userInfoDto);
-		
-		return userInfo.getId();
-		
-	}
 	
 	
 }

@@ -29,7 +29,6 @@
 						<a href="/mainForm/about" class="nav-item nav-link">About</a>
 					<a href="/mainForm/courses" class="nav-item nav-link">Courses</a>
 					<a href="/myclass/index" class="nav-item nav-link">나의강의실</a>
-					<a href="/mainForm/class" class="dropdown-item">Class</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown">Pages</a>
@@ -39,7 +38,14 @@
 							<a href="/mainForm/404" class="dropdown-item">404 Page</a>
 						</div>
 					</div>
-
+					<div class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle"
+							data-bs-toggle="dropdown">Class</a>
+						<div class="dropdown-menu fade-down m-0">
+							<a href="/mainForm/class" class="dropdown-item">Class</a>
+							<a href="/mainForm/class" class="dropdown-item">My Class</a>
+						</div>
+					</div>
 					<a href="/mypage/main" class="nav-item nav-link" >마이페이지</a>
 					<a href="/users/signUpCk" class="nav-item nav-link" >회원가입</a>
 					<a href="/users/signIn" class="nav-item nav-link" sec:authorize="isAnonymous()">login</a>
