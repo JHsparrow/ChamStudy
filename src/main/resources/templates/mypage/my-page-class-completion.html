@@ -11,8 +11,6 @@
 <link href="/css/app.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
 
-<link href="/main/css/my_page_style.css" rel="stylesheet">
-
 </head>
 <body>
 	<div layout:fragment="content">
@@ -35,7 +33,6 @@
 								</div>
 
 								<!-- 컨텐츠 상단(검색) -->
-								<form th:action="@{/mypage/completion}" method="get" role="search">
 									<div class="row ms-5 mb-4">
 										<div class="col-sm-6 col-md-6">
 											<div class="dataTables_length" id="datatables-orders_length">
@@ -49,13 +46,8 @@
 											</div>
 										</div>
 									</div>
-<<<<<<< HEAD
-								</form>
 								
-=======
-								</div>
 
->>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
 								<!-- 강의 목록 -->
 								<div class="row text-center justify-content-center">
 									<div class="col-12 col-md-5 mx-4">
@@ -90,52 +82,6 @@
 										</div>
 									</div>
 
-<<<<<<< HEAD
-									<!-- 페이징 버튼 -->
-									<div class="row justify-content-center">
-										<div class="col-sm-12 col-md-6">
-											<nav>
-												<div
-													class="dataTables_paginate paging_simple_numbers block-27"
-													id="datatables-orders_paginate">
-
-													<ul class="pagination justify-content-center">
-														<li
-															class="paginate_button page-item previous disabled mx-1"
-															id="datatables-orders_previous"><a
-															aria-controls="datatables-orders" data-dt-idx="0"
-															tabindex="0" class="page-link">&lt </a></li>
-
-
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">1</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">2</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">3</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">4</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">5</a></li>
-
-
-														<li class="paginate_button page-item next"
-															id="datatables-orders_next  mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="3"
-															tabindex="0" class="page-link">&gt</a></li>
-													</ul>
-												</div>
-											</nav>
-										</div>
-									</div>
-									<!-- 페이징 버튼 -->
-
-=======
 									<div class="row text-center justify-content-center">
 										<div class="col-12 col-md-5 mx-4">
 											<div class="card">
@@ -169,8 +115,6 @@
 											</div>
 										</div>
 
-
-
 										<!-- 페이징 버튼 -->
 										<div class="row justify-content-center">
 											<div class="col-sm-12 col-md-6">
@@ -185,8 +129,6 @@
 																id="datatables-orders_previous"><a
 																aria-controls="datatables-orders" data-dt-idx="0"
 																tabindex="0" class="page-link">&lt </a></li>
-
-
 															<li class="paginate_button page-item mx-1"><a
 																aria-controls="datatables-orders" data-dt-idx="1"
 																tabindex="0" class="page-link">1</a></li>
@@ -202,8 +144,6 @@
 															<li class="paginate_button page-item mx-1"><a
 																aria-controls="datatables-orders" data-dt-idx="1"
 																tabindex="0" class="page-link">5</a></li>
-
-
 															<li class="paginate_button page-item next"
 																id="datatables-orders_next  mx-1"><a
 																aria-controls="datatables-orders" data-dt-idx="3"
@@ -215,18 +155,15 @@
 										</div>
 										<!-- 페이징 버튼 -->
 
+								</div>
 									</div>
->>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
 								</div>
 							</div>
 
 						</div>
 					</div>
-				</div>
 			</main>
-
 		</div>
 	</div>
-
 </body>
 </html>

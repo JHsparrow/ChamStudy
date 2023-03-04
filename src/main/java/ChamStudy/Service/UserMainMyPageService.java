@@ -1,11 +1,8 @@
 package ChamStudy.Service;
 
-<<<<<<< HEAD
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-=======
 import org.springframework.security.crypto.password.PasswordEncoder;
->>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,13 +43,11 @@ public class UserMainMyPageService {
 		return userInfoDto;
 	}
 	
-<<<<<<< HEAD
 	public Long getUserId(String email) {
 		Long userId = userMainMypageRepository.getUserId(email);
 		return userId;
 	}
 	
-=======
 	public Long updateUser(UserInfoDto userInfoDto) throws Exception{
 		
 		UserInfo userInfo = userRepository.findByemail(userInfoDto.getEmail());
@@ -62,20 +57,15 @@ public class UserMainMyPageService {
 		return userInfo.getId();
 	
 }
->>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
+
 	public String getCategoryName() {
 		String cateName = completionRepository.getCategoryName();
 		return cateName;
 	}
-<<<<<<< HEAD
 	
 	@Transactional(readOnly = true)
 	public Page<CompletionListDto> getCompletionList(UserSearchDto userSearchDto, CompletionListDto completionListDto, Pageable pageable, Long id){
 		return completionRepository.getCompletionList(userSearchDto, completionListDto, pageable, id);
 	}
 	
-	
 }
-=======
-}
->>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
