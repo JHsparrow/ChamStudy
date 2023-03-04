@@ -141,13 +141,13 @@ public class UserInfo implements UserDetails {
 	}
 	
 	//업데이트(mypage)
-	public void updateUserMypage(UserInfoDto userInfoDto) {
+	public void updateUserMypage(UserInfoDto userInfoDto,PasswordEncoder passwordEncoder) {
 		this.email = userInfoDto.getEmail();
 		this.name = userInfoDto.getName();
-		this.password = userInfoDto.getPassword();
+		String passworden = passwordEncoder.encode(userInfoDto.getPassword());
+		this.password = passworden;
 		this.phone = userInfoDto.getPhone();
 		this.regDate = userInfoDto.getRegTime();
-		
 	}
 
 	@Override

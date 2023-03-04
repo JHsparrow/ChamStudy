@@ -49,6 +49,7 @@ public class AdminApplyCustomImpl implements AdminApplyCustom{
 		
 		List<AdminApplyListDto> content = queryFactory
 			    .select(Projections.constructor(AdminApplyListDto.class, 
+			    		applyList.id,
 			    		classInfo.name,
 			    		userInfo.name,
 		                classInfo.sDate,

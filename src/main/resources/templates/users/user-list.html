@@ -16,7 +16,6 @@
 						<div class="card-header pb-0">
 							<div class="card-actions float-end">
 								<div class="dropdown position-relative">
-									
 								</div>
 							</div>
 							<h5 class="card-title mb-2">회원관리</h5>
@@ -124,7 +123,7 @@
 																				<h5 class="card-title mb-0">[[${user.name}]]</h5>
 																			</div>
 																			<hr class="my-0" />
-																			<form id="frm" action="update" method="post" th:object="${userListDto}">
+																			<form th:id="'frm' + ${user.id}" action="/users/update" method="post" th:oabject="${userListDto}">
 																			<div class="card-body">
 																				<h5 class="h6 card-title">Infomation</h5>
 																				<ul class="list-unstyled mb-0">
@@ -185,7 +184,7 @@
 																</div>
 																<div class="modal-footer">
         															<button type="button" class="btn btn-primary modiBt" onclick="modi()">수정하기</button>
-        															<button style="display: none;" type="button" class="btn btn-primary closeBt" onclick="modiok()">수정완료</button>
+        															<button style="display: none;" type="button" class="btn btn-primary closeBt" th:onclick="modiok([[${user.id}]])">수정완료</button>
 																	<button id="closeModalBtn" type="button" class="btn btn-secondary" onclick="close(); closeHide();" data-bs-dismiss="modal">닫기</button>
 																</div>
 															</div>
@@ -270,14 +269,14 @@
 	}
 	
 	
-	function modiok() {
+	function modiok(value) {
 		$('.userEmail').css('display','none');
 		$('.userId').css('display','none');
 		$('.userPhone').css('display','none');
 		$('.userRegDate').css('display','none');
 		$('.gubun').css('display','none');
 		$('.view').css('display','block');
-		$('#frm').submit();
+		$('#frm'+value).submit();
 	}
 	
 	//<button type="button" class="btn btn-secondary" onclick="close()" data-bs-dismiss="modal">닫기</button>

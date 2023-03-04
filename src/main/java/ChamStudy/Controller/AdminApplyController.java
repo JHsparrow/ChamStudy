@@ -46,10 +46,10 @@ public class AdminApplyController {
 	public String applyList(Optional<Integer> page,AdminApplyListDto adminApplyListDto ,Model model, UserSearchDto userSearchDto) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Page<AdminApplyListDto> Lists = applyListService.getAdminApplyList(adminApplyListDto, pageable, userSearchDto);
-		model.addAttribute("active","category"); // 사이드 바 액티브
-		model.addAttribute("applyList", Lists);
+		model.addAttribute("active","apply"); // 사이드 바 액티브
+		model.addAttribute("applyLists", Lists);
 		model.addAttribute("maxPage", 5);
-		return "AdminForm/adminCategory/mainList";
+		return "AdminForm/adminClass/applyList";
 	}
 	
 	

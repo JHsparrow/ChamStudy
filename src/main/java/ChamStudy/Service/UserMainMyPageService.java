@@ -1,7 +1,11 @@
 package ChamStudy.Service;
 
+<<<<<<< HEAD
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+=======
+import org.springframework.security.crypto.password.PasswordEncoder;
+>>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +22,10 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 public class UserMainMyPageService {
-
+	
+	private final PasswordEncoder passwordEncoder;
 	private final UserMainMypageRepository userMainMypageRepository;
+	private final UserRepository userRepository;
 	private final CompletionRepository completionRepository;
 	
 	public UserInfoDto getUser(String email) throws Exception{
@@ -29,21 +35,39 @@ public class UserMainMyPageService {
 		UserInfoDto userInfoDto = new UserInfoDto();
 		
 		userInfoDto.setEmail(userInfo.getEmail());
+		userInfoDto.setGubun(userInfo.getGubun());
 		userInfoDto.setName(userInfo.getName());
 		userInfoDto.setPhone(userInfo.getPhone());
+		userInfoDto.setPassword(userInfo.getPassword());
+		userInfoDto.setRegTime(userInfo.getRegDate());
+		userInfoDto.setRole(userInfo.getRole());
+		
 		
 		return userInfoDto;
 	}
 	
+<<<<<<< HEAD
 	public Long getUserId(String email) {
 		Long userId = userMainMypageRepository.getUserId(email);
 		return userId;
 	}
 	
+=======
+	public Long updateUser(UserInfoDto userInfoDto) throws Exception{
+		
+		UserInfo userInfo = userRepository.findByemail(userInfoDto.getEmail());
+		
+		userInfo.updateUserMypage(userInfoDto, passwordEncoder);
+		
+		return userInfo.getId();
+	
+}
+>>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
 	public String getCategoryName() {
 		String cateName = completionRepository.getCategoryName();
 		return cateName;
 	}
+<<<<<<< HEAD
 	
 	@Transactional(readOnly = true)
 	public Page<CompletionListDto> getCompletionList(UserSearchDto userSearchDto, CompletionListDto completionListDto, Pageable pageable, Long id){
@@ -52,3 +76,6 @@ public class UserMainMyPageService {
 	
 	
 }
+=======
+}
+>>>>>>> 77373a17538dbfdec56c235615d1aefbfdd451aa
