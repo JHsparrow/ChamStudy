@@ -1,5 +1,7 @@
 package ChamStudy.Dto;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +12,7 @@ public class AdminApplyListDto {
 	
 	private String className;
 	
-	private Long userName; //회원 아이디
+	private String userName; //회원 아이디
 	
 	private String sDate;
 	
@@ -19,5 +21,16 @@ public class AdminApplyListDto {
 	private Long progress;
 	
 	private String comFlag; //수료여부
+	
+	@QueryProjection	
+    public AdminApplyListDto(Long id, String className, String userName, String sDate, String eDate, Long progress, String comFlag){
+        this.id = id;
+        this.className = className;
+        this.userName = userName;
+        this.sDate = sDate;
+        this.eDate = eDate;
+        this.progress = progress;
+        this.comFlag = comFlag;
+    }
 	
 }

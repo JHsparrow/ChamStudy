@@ -31,5 +31,4 @@ public class Class_reviewDto {
 	public static Class_reviewDto of(Class_review class_review) {
 		return modelMapper.map(class_review, Class_reviewDto.class);
 	}
-	
 }

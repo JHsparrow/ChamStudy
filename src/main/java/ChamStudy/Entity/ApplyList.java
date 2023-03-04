@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -27,22 +28,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
-@SequenceGenerator(
-        name="APPLY_SEQ_GEN", //시퀀스 generator 이름
-        sequenceName="APPLY_SEQ", //시퀀스 이름
-        initialValue=1000, //시작값
-        allocationSize = 1 //증가값 (기본증가가 50이라 설정해주어야함)
-        )
+@TableGenerator(
+		name = "APPLY_SEQ_GEN",
+	    table = "CUSTOM_SEQUENCE",
+	    pkColumnValue = "APPLY_SEQ",
+	    initialValue=1000, //시작값
+	    allocationSize = 1
+	)
 @Table(name="apply_list") // 강의 리스트
 @Getter
 @Setter
 @ToString
+@EntityListeners(value = {AuditingEntityListener.class}) //Auditing을 적용하기 위해
 public class ApplyList{
 	@Id
 	@Column(name="apply_id")
 	//generator="APPLY_SEQ_GEN" : 시퀀스 name(generator)설정해놓은 이름으로 설정
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="APPLY_SEQ_GEN")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator="APPLY_SEQ_GEN")
 	private Long id;
 	
 	private String comFlag; //수료여부

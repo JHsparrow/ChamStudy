@@ -21,60 +21,11 @@
 				<div class="container-fluid p-0">
 
 					<div class="row">
+						<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 -->
 						<div class="col-md-4 col-xl-3">
-							<div class="card mb-3">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Profile Details</h5>
-								</div>
-								<div class="card-body text-center">
-
-									<h6 class="section-title bg-white text-start text-primary pe-3">my
-										page</h6>
-									<h1 sec:authentication="principal.name" class="mb-4"></h1>
-								</div>
-								<hr class="my-0" />
-								<div class="card-body">
-									<h1 class="section-title bg-white text-start text-primary pe-3">menu</h1>
-									<hr class="my-4" />
-									<ul class="list-unstyled mb-0">
-										<li class="mb-4"><a href="/mypage/update"><h4>내
-													정보 수정</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>수료증 확인</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4">
-											<div class="accordion" id="accordionExample">
-											  <div class="accordion-item accor-card">
-											    <h4 class="accordion-header accor-header">
-											      <button class="accordion-button accor-btn accor-font" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-											        나의 강의실
-											      </button>
-											    </h4>
-											    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-											      <div class="accordion-body accor-body">
-											      	<ul class="list-unstyled mb-0">
-											      		<li class="mb-4">
-															<a href="/mypage/myclass"><h4>학습중</h4></a>
-														</li>
-														<li class="mb-4">
-															<a href="/mypage/completion"><h4>완강</h4></a>
-														</li>
-											      	</ul>
-											      </div>
-											    </div>
-											</div>
-											</div>
-										</li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>강의 구매 내역</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>메뉴1</h4></a></li>
-										<hr class="my-4" />
-										<li class="mb-4"><a href="#"><h4>메뉴2</h4></a></li>
-									</ul>
-								</div>
-							</div>
+							<div th:replace="fragments/main_mypage_nav::mypagenav"></div>
 						</div>
+						<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 end -->
 						<div class="col-md-8 col-xl-9">
 							<div class="card minheight">
 								<!-- 유저 정보 -->
@@ -173,14 +124,13 @@
 													</ul>
 												</div>
 											</nav>
+											<!-- 페이징 버튼 -->
 										</div>
-										<!-- 페이징 버튼 -->
 									</div>
 							</div>
-						</div>
 
+						</div>
 					</div>
-				</div>
 				</div>
 			</main>
 
