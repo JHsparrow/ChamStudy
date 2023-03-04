@@ -123,19 +123,6 @@ public class UserMainMyPageController {
 		model.addAttribute("completionList", completionList);
 		model.addAttribute("maxPage", 5);
 		
-		System.out.println("이메일 알려주세ㅛㅇ " + email);
-		System.out.println("강의명 : " + completionList.getContent().get(0).getClassName());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getCategoryName());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getEndDate());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getImgUrl());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getOriImgName());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getStartDate());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getSubCategoryName());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getContentId());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getId());
-		System.out.println("강의명 : " + completionList.getContent().get(0).getProgress());
-		System.out.println("강의명 : " + completionList.getContent().get(0).toString());
-		
 		return "mypage/my-page-class-completion";
 	}
 
