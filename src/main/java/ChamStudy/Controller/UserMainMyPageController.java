@@ -77,11 +77,17 @@ public class UserMainMyPageController {
 	public String myClass(Model model){
 		return "mypage/my-page-class";
 	}
-<<<<<<< HEAD
-
-=======
 	
->>>>>>> bc0bfb56ca532216a835d01d4e5afd762579103b
+	//마이페이지 - 나의 강의실 - 완강 페이지 
+	@GetMapping(value="/completion")
+	public String getCompletionList(Model model) {
+		
+		String name = userMainMyPageService.getCategoryName();
+		System.out.println("dddddddddddddddddddddddddd" + name);
+		
+		return "mypage/my-page-class-completion";
+	}
+
 	@GetMapping(value = "/learning/watch")
 	public String learningLecture() {
 		return "MainForm/community/Learning-Lecture";

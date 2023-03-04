@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Entity.UserInfo;
+import ChamStudy.Repository.CompletionRespository;
 import ChamStudy.Repository.UserMainMypageRepository;
 import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class UserMainMyPageService {
 
 	private final UserMainMypageRepository userMainMypageRepository;
+	private final CompletionRespository completionRespository;
 	
 	public UserInfoDto getUser(String email) throws Exception{
 		
@@ -27,6 +29,11 @@ public class UserMainMyPageService {
 		userInfoDto.setPhone(userInfo.getPhone());
 		
 		return userInfoDto;
+	}
+	
+	public String getCategoryName() {
+		String cateName = completionRespository.getCategoryName();
+		return cateName;
 	}
 	
 }
