@@ -91,11 +91,6 @@ public class AdminClassController {
 	@GetMapping(value = "/classUpdate") //강의정보 수정
 	public String classUpdate(ClassInfoDto adminClassDto, Model model) {
 		model.addAttribute("active","classInfo"); // 사이드 바 액티브
-
-		StringBuffer sb = new StringBuffer();
-    	sb.append("\n\n");
-    	sb.append("\t\t").append("Parameter (id) : ").append(adminClassDto.getId()).append("\n");
-		System.out.println(sb);
 		
 		MessageDto message;
 		
