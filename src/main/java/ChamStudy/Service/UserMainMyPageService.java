@@ -1,14 +1,22 @@
 package ChamStudy.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ChamStudy.Dto.CompletionContentDto;
+import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.CompletionRepository;
 import ChamStudy.Repository.UserMainMypageRepository;
@@ -66,6 +74,21 @@ public class UserMainMyPageService {
 	@Transactional(readOnly = true)
 	public Page<CompletionListDto> getCompletionList(UserSearchDto userSearchDto, CompletionListDto completionListDto, Pageable pageable, Long id){
 		return completionRepository.getCompletionList(userSearchDto, completionListDto, pageable, id);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<CompletionContentInterface> getVideo(Long contentId) {
+		return completionRepository.getCompeltionContent(contentId);
+	}
+	
+	@Transactional(readOnly = true)
+	public CompletionContentInterface getVideoOne(Long contentId) {
+		return completionRepository.getCompeltionContentOne(contentId);
+	}
+	
+	@Transactional(readOnly = true)
+	public CompletionContentInterface getVideoOther(Long contentId, Long videoId) {
+		return completionRepository.getCompeltionContentOther(contentId, videoId);
 	}
 	
 	

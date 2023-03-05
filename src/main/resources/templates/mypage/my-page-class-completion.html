@@ -6,7 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-
+<script>	
+	$(function(){
+		$(".searchQuery").on("change", function(e){
+			e.preventDefault();
+			page();
+		})
+	})
+	
+	function page(){
+		var searchQuery = $(".searchQuery").val();
+		
+		location.href="/mypage/completion/" + "?searchQuery=" + searchQuery;
+	}
+</script>
 <!-- 관리자 css -->
 <link href="/css/app.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
@@ -33,11 +46,13 @@
 								</div>
 
 								<!-- 컨텐츠 상단(검색) -->
+								<form action="/completion" method="get" role="search">
 								<div class="row ms-5 mb-4">
 									<div class="col-sm-6 col-md-6">
 										<div class="dataTables_length" id="datatables-orders_length">
 											<select name="searchQuery" aria-controls="datatables-orders"
 												class="form-select form-select-sm width30 height35">
+												<option value="" hidden>카테고리 선택</option>
 												<option value="IT">IT</option>
 												<option value="자격증">자격증</option>
 												<option value="어학">어학</option>
@@ -45,6 +60,7 @@
 										</div>
 									</div>
 								</div>
+								</form>
 
 								<!-- 강의 목록 -->
 								<th:block th:each="completion, status : ${completionList.getContent()}">
@@ -59,8 +75,7 @@
 														<p class="card-ttl class-title mb-0">[[${completion.ClassName}]]</p>
 													</div>
 													<div class="d-inline-block">
-														<!-- 동영상 재생 매핑해주기 -->
-														<a><i class="fa-regular fa-circle-play"></i></a>
+														<a th:onclick="|location.href='@{/mypage/completion/play/}${completion.contentId}'|"><i class="fa-regular fa-circle-play"></i></a>
 													</div>
 												</div>
 												<div class="card-body pd-0">
@@ -105,14 +120,14 @@
 												<li th:each="page: ${#numbers.sequence(start, end)}"
 												th:classappend="${completionList.number eq page-1}?'active':''"
 												class="paginate_button page-item mx-1">
-													<a th:href="@{'/myclass/completion' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													<a th:href="@{'/mypage/completion' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
 												</li>
 												
 												
 												<li th:classappend="${completionList.last}? 'disabled'"
 												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
-													<a th:href="@{'/myclass/completion' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${completionList.number+1}}"
+													<a th:href="@{'/mypage/completion' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${completionList.number+1}}"
 													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
 												</li>
 											</ul>
