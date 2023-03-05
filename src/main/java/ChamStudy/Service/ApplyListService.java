@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ChamStudy.Dto.AdminApplyListDto;
+import ChamStudy.Dto.AdminApplyClassInterface;
+import ChamStudy.Dto.AdminApplyClassListDto;
+import ChamStudy.Dto.AdminApplySubListDto;
 import ChamStudy.Dto.ApplyListDto;
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.UserSearchDto;
@@ -80,8 +82,16 @@ public class ApplyListService {
 	
 	}
 	
-	public Page<AdminApplyListDto> getAdminApplyList(AdminApplyListDto adminApplyListDto, Pageable pageable,UserSearchDto userSearchDto){
-		return adminApplyRepository.getAdminApplyList(adminApplyListDto , pageable, userSearchDto);
+//	public Page<AdminApplyClassListDto> getAdminApplyList(AdminApplyClassListDto adminApplyListDto, Pageable pageable){
+//		return adminApplyRepository.getAdminApplyList(adminApplyListDto , pageable);
+//	}
+	
+	public List<AdminApplyClassInterface> getAdminApplyClassList(){
+		return adminApplyRepository.getAdminApplyList();
+	}
+	
+	public Page<AdminApplySubListDto> getAdminApplyList(AdminApplySubListDto adminApplySubListDto, Pageable pageable,UserSearchDto userSearchDto,Long classId){
+		return adminApplyRepository.getAdminApplySubList(adminApplySubListDto , pageable, userSearchDto, classId);
 	}
 	
 }
