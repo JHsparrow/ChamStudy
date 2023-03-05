@@ -30,7 +30,6 @@ import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Repository.UserRepository;
 import ChamStudy.Service.ContentVideoService;
-import ChamStudy.Service.MyClassService;
 import ChamStudy.Service.UserMainMyPageService;
 import ChamStudy.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +42,6 @@ public class UserMainMyPageController {
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final UserMainMyPageService userMainMyPageService;
-	private final MyClassService myClassService;
 	private final ContentVideoService videoService;
 
 	
@@ -105,12 +103,12 @@ public class UserMainMyPageController {
 	//========================================== 나의 강의실 ==========================================
 	
 	//마이페이지 - 나의 강의실 -학습중 페이지
-	@GetMapping(value={"/myclass"})
+	@GetMapping(value="/myclass")
 	public String myClass(Model model, Optional<Integer> page, MyClassLearningDto myClassLearningDto,MyClassLearningSearchDto classLearningSearchDto,Principal principal){
 		String email = principal.getName();
 		
-		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
-		Page<MyClassLearningDto> classLearningDtoList = myClassService.getLearningPage(myClassLearningDto,pageable,classLearningSearchDto,email);
+		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 4);
+		Page<MyClassLearningDto> classLearningDtoList = userMainMyPageService.getLearningPage(myClassLearningDto,pageable,classLearningSearchDto,email);
 		model.addAttribute("classSearchDto",classLearningSearchDto);
 		model.addAttribute("class",classLearningDtoList);
 		model.addAttribute("maxPage",5);
@@ -157,10 +155,26 @@ public class UserMainMyPageController {
 		return "mypage/my-page-class-completion-play";
 	}
 
-	@GetMapping(value = "/learning/watch{contentId}")
-	public String learningLecture(@PathVariable("contentId") ContentInfo contentId, Model model) {
-		List<ContentVideo> videoLists = videoService.videoList(contentId);
-		model.addAttribute("videoLists",videoLists);
+	//학습중 페이지 - 강의보기 클릭
+	@GetMapping(value = "/learning/watch/{contentId}")
+	public String Learning(@PathVariable("contentId") Long contentId, Model model) {
+		
+		CompletionContentInterface completionContent = userMainMyPageService.getVideoOne(contentId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getVideo(contentId);
+		model.addAttribute("completionContent", completionContent);
+		model.addAttribute("completionContentList",completionContentList);
+		
+		return "mypage/Learning-Lecture";
+	}
+	
+	//학습중 플레이리스트에서 다른 회차 강의 클릭
+	@GetMapping(value="/learning/watch/{contentId}/{videoId}")
+	public String LearningContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, Model model) {
+		CompletionContentInterface completionContent = userMainMyPageService.getVideoOther(contentId, videoId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getVideo(contentId);
+		model.addAttribute("completionContent", completionContent);
+		model.addAttribute("completionContentList",completionContentList);
+		
 		return "mypage/Learning-Lecture";
 	}
 	

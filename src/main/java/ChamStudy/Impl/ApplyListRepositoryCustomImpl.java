@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
@@ -29,11 +30,8 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	public BooleanExpression selectCategory(String searchCategory) {
-		if(searchCategory == null || searchCategory.equals("IT")) {
-			return null;
-		}
-		return QCategory.category.name.eq(searchCategory);
+	public BooleanExpression categoryLike(String searchQuery) {
+		return StringUtils.isEmpty(searchQuery) ? null : QCategory.category.name.like("%" + searchQuery + "%");
 	}
 	
 	@Override
@@ -61,7 +59,7 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 						.innerJoin(category).on(contentInfo.categoryId.id.eq(category.id))
 						.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
-						.where(selectCategory(classLearningSearchDto.getSearchCategory()))
+						.where(categoryLike(classLearningSearchDto.getSearchCategory()))
 						.where(studyResult.progress.eq((long) 100).not())
 						.orderBy(apply.regDate.desc())
 						.offset(pageable.getOffset())
@@ -71,7 +69,7 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 		long total = queryFactory.select(Wildcard.count)
 				.from(apply)
 				.where(apply.userInfo.email.eq(email))
-				.where(selectCategory(classLearningSearchDto.getSearchCategory()))
+				.where(categoryLike(classLearningSearchDto.getSearchCategory()))
 				.fetchOne();
 		return new PageImpl<>(content, pageable, total);
 	}

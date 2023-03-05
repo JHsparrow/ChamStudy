@@ -24,7 +24,7 @@ public class MyClassLearningDto {
 	
 	private Long progress;
 	
-	private Long content_id;
+	private Long contentId;
 
 	@QueryProjection
 	public MyClassLearningDto(Long id, String reg_date, UserInfo userInfo, ClassInfo classInfo, String imgUrl,
@@ -36,6 +36,6 @@ public class MyClassLearningDto {
 		this.imgUrl = imgUrl;
 		this.name = name;
 		this.progress = progress;
-		this.content_id = content_id;
+		this.contentId = content_id;
 	}
 }

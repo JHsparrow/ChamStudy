@@ -14,10 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ChamStudy.Dto.CompletionContentDto;
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.CompletionListDto;
+import ChamStudy.Dto.MyClassLearningDto;
+import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.UserInfo;
+import ChamStudy.Repository.ApplyListRepository;
 import ChamStudy.Repository.CompletionRepository;
 import ChamStudy.Repository.UserMainMypageRepository;
 import ChamStudy.Repository.UserRepository;
@@ -32,6 +35,8 @@ public class UserMainMyPageService {
 	private final UserMainMypageRepository userMainMypageRepository;
 	private final UserRepository userRepository;
 	private final CompletionRepository completionRepository;
+	private final ApplyListRepository applyListRepository;
+
 	
 	public UserInfoDto getUser(String email) throws Exception{
 		
@@ -90,5 +95,9 @@ public class UserMainMyPageService {
 		return completionRepository.getCompeltionContentOther(contentId, videoId);
 	}
 	
+	@Transactional(readOnly = true)
+	public Page<MyClassLearningDto> getLearningPage(MyClassLearningDto classLearningDto,Pageable pageable,MyClassLearningSearchDto classLearningSearchDto,String email){
+		return applyListRepository.getLearningDto(classLearningDto, pageable,classLearningSearchDto,email);
+	}
 	
 }

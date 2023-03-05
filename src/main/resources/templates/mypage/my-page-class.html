@@ -7,25 +7,17 @@
 <meta charset="UTF-8">
 <script>
 
-	$(function(){
-		$('.category').each(function(){
-			{$(this).text('IT')}
-			{$(this).text('자격증')}
-			{$(this).text('어학')}
-		})
-		
-  		$(".selectCategory").on("change", function(e) {
-			e.preventDefault();
-			page();
-		});
-		
+$(function(){
+	$(".searchQuery").on("change", function(e){
+		e.preventDefault();
+		page();
 	})
+})
 	
 	function page(){
-        var searchCategory = $(".selectCategory").val();
-        var searchQuery = $(".searchInput").val();
+        var searchQuery = $(".searchQuery").val();
 
-        location.href="/mypage/myclass/"+ "?searchCategory=" + searchCategory;
+        location.href="/mypage/myclass/"+ "?searchQuery=" + searchQuery;
     }
 </script>
 <title>마이페이지</title>
@@ -56,16 +48,17 @@
 								</div>
 
 								<!-- 컨텐츠 상단(검색) -->
-								<form th:action="@{/mypage/myclass}" method="get" role="search">
+								<form th:action="@{/myclass}" method="get" role="search">
 								<div class="row ms-5 mb-4">
 									<div class="col-sm-6 col-md-6">
 										<div class="dataTables_length" id="datatables-orders_length">
 											<select name="datatables-orders_length"
 												aria-controls="datatables-orders"
 												class="form-select form-select-sm width30 height35">
-												<option value="IT" th:selected="${sValue}=='IT'">IT</option>
-												<option value="자격증" th:selected="${sValue}=='자격증'">자격증</option>
-												<option value="어학" th:selected="${sValue}=='어학'">어학</option>
+												<option value="" hidden>카테고리 선택</option>
+												<option value="IT">IT</option>
+												<option value="자격증">자격증</option>
+												<option value="어학">어학</option>
 											</select>
 										</div>
 									</div>
@@ -85,7 +78,7 @@
 													<p class="card-ttl class-title mb-0">[[${class.classInfo.name}]]</p>
 												</div>
 												<div class="d-inline-block">
-													<a><i class="fa-regular fa-circle-play"></i></a>
+													<a th:onclick="|location.href='@{/mypage/completion/play/}${class.contentId}'|"><i class="fa-regular fa-circle-play"></i></a>
 												</div>
 											</div>
 											<div class="card-body pd-0">
@@ -102,7 +95,7 @@
 													</p>
 												</div>
 												<button type="button" class="btn btn-lg btn-primary"
-													id="loginbtn" th:onclick="|location.href='@{/mypage/learning/watch/{class.content_id}}'|">강의듣기</button>
+													id="loginbtn" th:onclick="|location.href='@{/mypage/learning/watch/}${class.contentId}'|">강의듣기</button>
 											</div>
 										</div>
 										</th:block>
