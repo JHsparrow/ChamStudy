@@ -50,7 +50,7 @@
 							</li>
 							<li class="nav-item5"><a class="nav-link">강의목록</a></li>
 							<li th:each="content: ${completionContentList}" class="nav-item6">
-								<a class="nav-link" th:onclick="|location.href='@{/mypage/completion/play/}${content.contentId}/${content.videoId}'|">
+								<a class="nav-link" th:onclick="|location.href='@{/mypage/learning/watch/}${content.contentId}/${content.videoId}'|">
 									[[${content.getContentName()}]] [[${contentStat.count}]]강
 								</a>
 							</li>

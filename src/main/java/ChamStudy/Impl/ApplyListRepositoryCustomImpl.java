@@ -21,6 +21,7 @@ import ChamStudy.Entity.QCategory;
 import ChamStudy.Entity.QClassInfo;
 import ChamStudy.Entity.QContentInfo;
 import ChamStudy.Entity.QStudyResult;
+import ChamStudy.Entity.QSubCategory;
 
 public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom {
 	
@@ -41,6 +42,7 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 		QContentInfo contentInfo = QContentInfo.contentInfo;
 		QCategory category = QCategory.category;
 		QStudyResult studyResult = QStudyResult.studyResult;
+		QSubCategory subCategory = QSubCategory.subCategory;
 		
 		List<MyClassLearningDto> content = queryFactory
 				.select(new QMyClassLearningDto(
@@ -51,12 +53,14 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 									contentInfo.imgUrl,
 									category.name,
 									studyResult.progress,
-									contentInfo.id)
+									contentInfo.id,
+									subCategory.name)
 						)
 						.from(apply)
 						.join(classInfo).on(apply.classInfo.id.eq(classInfo.id))
 						.innerJoin(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
 						.innerJoin(category).on(contentInfo.categoryId.id.eq(category.id))
+						.innerJoin(subCategory).on(contentInfo.subCategoryId.id.eq(subCategory.id))
 						.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
 						.where(categoryLike(classLearningSearchDto.getSearchCategory()))

@@ -100,4 +100,21 @@ public class UserMainMyPageService {
 		return applyListRepository.getLearningDto(classLearningDto, pageable,classLearningSearchDto,email);
 	}
 	
+	@Transactional(readOnly = true)
+	public CompletionContentInterface getLearningVideo1(Long contentId) {
+		return completionRepository.getApplyContentOne(contentId);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<CompletionContentInterface> getLearningVideo(Long contentId) {
+		return completionRepository.getApplyContent(contentId);
+	}
+	
+	@Transactional(readOnly = true)
+	public CompletionContentInterface getLearningVideoOther(Long contentId, Long videoId) {
+		return completionRepository.getLearningContentOther(contentId, videoId);
+	}
+	
+	
+	
 }
