@@ -35,7 +35,7 @@ public class ApplyListController {
 	}
 	
 	@PostMapping(value="/applyList")
-	public @ResponseBody ResponseEntity applyList(@RequestBody ApplyListDto applyListDto,  BindingResult bindingResult, Principal principal, Authentication authentication) {
+	public @ResponseBody ResponseEntity applyList(@RequestBody ApplyListDto applyListDto, BindingResult bindingResult, Principal principal, Authentication authentication) {
 		
 		if(bindingResult.hasErrors()) {
 			StringBuilder sb = new StringBuilder();
@@ -62,13 +62,14 @@ public class ApplyListController {
 		
 		try {
 			applyListId = applyListService.addClass(applyListDto, session.getEmail());
+			
+			return new ResponseEntity<Long>(applyListId, HttpStatus.OK );
 		} catch(Exception e) {
 			applyListId = (long) -9;
 			e.printStackTrace();
+			
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
-		return new ResponseEntity<Long>(applyListId, HttpStatus.OK );
 	}
 
 }

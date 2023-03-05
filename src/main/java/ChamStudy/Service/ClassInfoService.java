@@ -68,7 +68,6 @@ public class ClassInfoService {
 	//강의상세페이지 조회
 	@Transactional(readOnly = true)
 	public ClassInfoListDto getClassInfo(ClassInfoDto adminClassDto) {
-		System.err.println(adminClassDto);
 		
 		ClassInfoListDto classDetail = classInfoRepository.findByClassDetail(adminClassDto);
 		
