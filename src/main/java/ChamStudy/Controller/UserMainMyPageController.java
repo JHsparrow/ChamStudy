@@ -133,11 +133,11 @@ public class UserMainMyPageController {
 		return "mypage/my-page-class-completion";
 	}
 
-	@GetMapping(value = "/learning/watch/{contentId}")
+	@GetMapping(value = "/learning/watch{contentId}")
 	public String learningLecture(@PathVariable("contentId") ContentInfo contentId, Model model) {
 		List<ContentVideo> videoLists = videoService.videoList(contentId);
 		model.addAttribute("videoLists",videoLists);
-		return "MainForm/community/Learning-Lecture";
+		return "mypage/Learning-Lecture";
 	}
 	
 

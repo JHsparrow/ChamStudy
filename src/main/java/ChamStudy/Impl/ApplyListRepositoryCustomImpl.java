@@ -62,6 +62,7 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 						.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
 						.where(selectCategory(classLearningSearchDto.getSearchCategory()))
+						.where(studyResult.progress.eq((long) 100).not())
 						.orderBy(apply.regDate.desc())
 						.offset(pageable.getOffset())
 						.limit(pageable.getPageSize())

@@ -46,12 +46,6 @@ public class Class_review extends BaseTimeEntity {
 	//generator="CLASS_SEQ_GEN" : 시퀀스 name(generator)설정해놓은 이름으로 설정
 	private Long id;
 	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private UserInfo userId;
-
-	
 	private String description;
 	
 	private Integer starPoint;
