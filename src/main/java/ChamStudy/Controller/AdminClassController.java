@@ -149,12 +149,6 @@ public class AdminClassController {
 			@RequestParam(value="delIndex") int delIndex,
 			Model model) {
 		
-    	StringBuffer sb = new StringBuffer();
-    	sb.append("\n\n");
-    	sb.append("\t\t").append("Parameter (id) : ").append(Arrays.asList(classIdArray)).append("\n");
-    	sb.append("\t\t").append("Parameter (delIndex) : ").append(delIndex).append("\n");
-		System.out.println(sb);
-		
 		MessageDto message;
 		
 		try {
