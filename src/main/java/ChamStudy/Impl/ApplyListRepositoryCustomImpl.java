@@ -52,13 +52,14 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 									apply.classInfo,
 									contentInfo.imgUrl,
 									category.name,
-									studyResult.progress)
+									studyResult.progress,
+									contentInfo.id)
 						)
 						.from(apply)
 						.join(classInfo).on(apply.classInfo.id.eq(classInfo.id))
 						.innerJoin(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
 						.innerJoin(category).on(contentInfo.categoryId.id.eq(category.id))
-						.innerJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
+						.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
 						.where(selectCategory(classLearningSearchDto.getSearchCategory()))
 						.orderBy(apply.regDate.desc())

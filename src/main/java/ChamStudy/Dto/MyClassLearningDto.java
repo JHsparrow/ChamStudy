@@ -22,17 +22,20 @@ public class MyClassLearningDto {
 
 	private String name;
 	
-	private Long process;
+	private Long progress;
+	
+	private Long content_id;
 
 	@QueryProjection
 	public MyClassLearningDto(Long id, String reg_date, UserInfo userInfo, ClassInfo classInfo, String imgUrl,
-			String name, Long process) {
+			String name, Long progress, Long content_id) {
 		this.id = id;
 		this.reg_date = reg_date;
 		this.userInfo = userInfo;
 		this.classInfo = classInfo;
 		this.imgUrl = imgUrl;
 		this.name = name;
-		this.process = process;
+		this.progress = progress;
+		this.content_id = content_id;
 	}
 }

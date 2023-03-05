@@ -1,6 +1,7 @@
 package ChamStudy.Controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,7 +25,10 @@ import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserListDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Entity.ContentInfo;
+import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Repository.UserRepository;
+import ChamStudy.Service.ContentVideoService;
 import ChamStudy.Service.MyClassService;
 import ChamStudy.Service.UserMainMyPageService;
 import ChamStudy.Service.UserService;
@@ -38,6 +43,8 @@ public class UserMainMyPageController {
 	private final PasswordEncoder passwordEncoder;
 	private final UserMainMyPageService userMainMyPageService;
 	private final MyClassService myClassService;
+	private final ContentVideoService videoService;
+
 	
 	//마이페이지 화면 보여주기
 	@GetMapping(value = "/main")
@@ -97,7 +104,7 @@ public class UserMainMyPageController {
 	//========================================== 나의 강의실 ==========================================
 	
 	//마이페이지 - 나의 강의실 -학습중 페이지
-	@GetMapping(value="/myclass")
+	@GetMapping(value={"/myclass"})
 	public String myClass(Model model, Optional<Integer> page, MyClassLearningDto myClassLearningDto,MyClassLearningSearchDto classLearningSearchDto,Principal principal){
 		String email = principal.getName();
 		
@@ -126,8 +133,10 @@ public class UserMainMyPageController {
 		return "mypage/my-page-class-completion";
 	}
 
-	@GetMapping(value = "/learning/watch")
-	public String learningLecture() {
+	@GetMapping(value = "/learning/watch/{contentId}")
+	public String learningLecture(@PathVariable("contentId") ContentInfo contentId, Model model) {
+		List<ContentVideo> videoLists = videoService.videoList(contentId);
+		model.addAttribute("videoLists",videoLists);
 		return "MainForm/community/Learning-Lecture";
 	}
 	

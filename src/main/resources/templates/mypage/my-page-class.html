@@ -5,6 +5,29 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
+<script>
+
+	$(function(){
+		$('.category').each(function(){
+			{$(this).text('IT')}
+			{$(this).text('자격증')}
+			{$(this).text('어학')}
+		})
+		
+  		$(".selectCategory").on("change", function(e) {
+			e.preventDefault();
+			page();
+		});
+		
+	})
+	
+	function page(){
+        var searchCategory = $(".selectCategory").val();
+        var searchQuery = $(".searchInput").val();
+
+        location.href="/mypage/myclass/"+ "?searchCategory=" + searchCategory;
+    }
+</script>
 <title>마이페이지</title>
 
 <!-- 관리자 css -->
@@ -32,30 +55,32 @@
 								</div>
 
 								<!-- 컨텐츠 상단(검색) -->
+								<form th:action="@{/mypage/myclass}" method="get" role="search">
 								<div class="row ms-5 mb-4">
 									<div class="col-sm-6 col-md-6">
 										<div class="dataTables_length" id="datatables-orders_length">
 											<select name="datatables-orders_length"
 												aria-controls="datatables-orders"
 												class="form-select form-select-sm width30 height35">
-												<option value="10">IT</option>
-												<option value="25">자격증</option>
-												<option value="50">어학</option>
+												<option value="IT" th:selected="${sValue}=='IT'">IT</option>
+												<option value="자격증" th:selected="${sValue}=='자격증'">자격증</option>
+												<option value="어학" th:selected="${sValue}=='어학'">어학</option>
 											</select>
 										</div>
 									</div>
 								</div>
+								</form>
 
 								<!-- 강의 목록 -->
 								<div class="row text-center justify-content-center">
 									<div class="col-12 col-md-5 mx-4">
 									<th:block class="card-each-wrap" th:each="class, status: ${class}">
 										<div class="card">
-											<img class="card-img-top" src="/img/photos/unsplash-1.jpg"
+											<img class="card-img-top" th:src="${class.imgUrl}"
 												alt="Unsplash">
 											<div class="card-header pd-07 d-flex">
 												<div class="d-inline-block">
-													<p class="card-ttl mb-0">IT</p>
+													<p class="card-ttl mb-0">[[${class.name}]]</p>
 													<p class="card-ttl class-title mb-0">[[${class.classInfo.name}]]</p>
 												</div>
 												<div class="d-inline-block">
@@ -66,17 +91,17 @@
 												<span class="d-flex">학습률</span>
 												<div class="progress ms-6 me-2" role="progressbar"
 													aria-label="Default striped example" aria-valuenow="10"
-													aria-valuemin="0" aria-valuemax="100">
+													aria-valuemin="0" aria-valuemax="100" >
 													<div class="progress-bar progress-bar-striped"
-														style="width: 20%"></div>
+														th:style="'width:'+${class.progress}+'%'">[[${class.progress}]]%</div>
 												</div>
 												<div>
 													<p>
 														<small>수강기간: [[${class.classInfo.sDate}]] ~ [[${class.classInfo.eDate}]]</small>
 													</p>
 												</div>
-												<button type="submit" class="btn btn-lg btn-primary"
-													id="loginbtn">강의듣기</button>
+												<button type="button" class="btn btn-lg btn-primary"
+													id="loginbtn" th:onclick="|location.href='@{/mypage//learning/watch/{class.contentId}}'|">강의듣기</button>
 											</div>
 										</div>
 										</th:block>
@@ -84,43 +109,36 @@
 									<!-- 페이징 버튼 -->
 									<div class="row justify-content-center">
 										<div class="col-sm-12 col-md-6">
-											<nav>
-												<div
-													class="dataTables_paginate paging_simple_numbers block-27"
-													id="datatables-orders_paginate">
-
-													<ul class="pagination justify-content-center">
-														<li
-															class="paginate_button page-item previous disabled mx-1"
-															id="datatables-orders_previous"><a
-															aria-controls="datatables-orders" data-dt-idx="0"
-															tabindex="0" class="page-link">&lt </a></li>
-
-
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">1</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">2</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">3</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">4</a></li>
-														<li class="paginate_button page-item mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="1"
-															tabindex="0" class="page-link">5</a></li>
-
-
-														<li class="paginate_button page-item next"
-															id="datatables-orders_next  mx-1"><a
-															aria-controls="datatables-orders" data-dt-idx="3"
-															tabindex="0" class="page-link">&gt</a></li>
-													</ul>
-												</div>
-											</nav>
+											<nav
+										th:with="start=${(class.number/maxPage)*maxPage + 1},
+									end=(${(class.totalPages == 0) ? 1 : (start + (maxPage -1) < class.totalPages ? start + (maxPage -1) : class.totalPages)})">
+										<div class="col-sm-12 col-md-12 ">
+											<div
+												class="dataTables_paginate paging_simple_numbers block-27"
+												id="datatables-orders_paginate">
+												<ul class="pagination" style="justify-content: center;">
+													<li th:classappend="${class.first}? 'disabled'"
+														class="paginate_button page-item previous disabled mx-1"
+														id="datatables-orders_previous"><a
+														th:href="@{'/mypage/myclass' + '?searchCategory=' + ${classSearchDto.searchQuery} + '&page=' + ${class.number-1}}"
+														aria-controls="datatables-orders" data-dt-idx="0"
+														tabindex="0" class="page-link">&lt </a></li>
+													<li th:each="page: ${#numbers.sequence(start, end)}"
+														th:classappend="${class.number eq page-1}?'active':''"
+														class="paginate_button page-item mx-1"><a
+														th:href="@{'/mypage/myclass' + '?searchCategory=' + ${classSearchDto.searchQuery} + '&page=' + ${page-1}}"
+														aria-controls="datatables-orders" data-dt-idx="1"
+														tabindex="0" class="page-link">[[${page}]]</a></li>
+													<li th:classappend="${class.last}? 'disabled'"
+														class="paginate_button page-item next"
+														id="datatables-orders_next  mx-1"><a
+														th:href="@{'/mypage/myclass' + '?searchCategory=' + ${classSearchDto.searchQuery} + '&page=' + ${class.number+1}}"
+														aria-controls="datatables-orders" data-dt-idx="3"
+														tabindex="0" class="page-link">&gt</a></li>
+												</ul>
+											</div>
+										</div>
+									</nav>
 											<!-- 페이징 버튼 -->
 										</div>
 									</div>
@@ -128,6 +146,7 @@
 
 						</div>
 					</div>
+				</div>
 				</div>
 			</main>
 
