@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class AdminApplyListDto {
+public class AdminApplySubListDto {
 
 	private Long id; //수강신청리스트아이디
 	
@@ -23,7 +23,7 @@ public class AdminApplyListDto {
 	private String comFlag; //수료여부
 	
 	@QueryProjection	
-    public AdminApplyListDto(Long id, String className, String userName, String sDate, String eDate, Long progress, String comFlag){
+    public AdminApplySubListDto(Long id, String className, String userName, String sDate, String eDate, Long progress, String comFlag){
         this.id = id;
         this.className = className;
         this.userName = userName;
