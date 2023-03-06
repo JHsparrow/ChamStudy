@@ -45,9 +45,9 @@
 							<div class="Dtl-Content2-3">
 								<div class="Dtl-Content2-3-1">[[${comm.regdate}]]</div>
 								<div class="Dtl-content2-3-2">조회수:[[${comm.viewCount}]]</div>
-								<div class="mycomm-menu" th:if="${email}">
+								<div class="mycomm-menu" th:if="${email == comm.userInfo.email}">
 									<button class="mycomm-delete" th:onclick="|location.href='@{/comm/delete(boardId=${comm.id})}'|">삭제</button>	
-									<button class="mycomm-modify" th:onclick="|location.href='@{/story/Mentocreate/(boardId=${comm.id})}'|" >수정</button>	
+									<a class="mycomm-modify" th:href="'/comm/Mentocreate/'+${comm.id}" >수정</a>	
 								</div>
 							</div>
 						</div>

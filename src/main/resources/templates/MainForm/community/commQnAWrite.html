@@ -9,7 +9,7 @@
 <script type="text/javascript">
 function valinput() {
 	// name 값 설정
-	$('input[name=boardType]').val("F");
+	$('input[name=boardType]').val("Q");
 	$('input[name=gubun]').val("B");
 	$('input[name=blockComment]').val("N");
 	$('input[name=viewCount]').val("0");
@@ -67,7 +67,7 @@ function valinput() {
 	<div layout:fragment="content">
 		<form class="row g-3" role="form" method="post"
 			enctype="multipart/form-data" th:object="${commWriteFormDto}">
-			<p class="h2">자유게시판 글쓰기</p>
+			<p class="h2">QnA게시판 글쓰기</p>
 			<div class="input-1">
 				<input type="hidden" name="id" th:value="${comm.id}" id="id" />
 			</div>

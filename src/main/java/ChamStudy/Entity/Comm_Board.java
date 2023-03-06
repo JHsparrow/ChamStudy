@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CommWriteFormDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,5 +58,6 @@ public class Comm_Board extends BaseTimeEntity{
 		this.openChat = boardFormDto.getOpenChat();
 		
 	}
+	
 	
 }
