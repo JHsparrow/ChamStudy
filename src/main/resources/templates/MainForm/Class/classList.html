@@ -70,7 +70,21 @@
 
 =======
 <link href="/main/css/swiper.css" rel="stylesheet">
+<<<<<<< HEAD
+<script>
+	$(function(){
+		$(".sub").on("click", function(e){
+			selsub(sub);
+		})
+	})
+	
+	function selsub(sub){
+		location.href="/mainForm/class" + "?searchQuery=" + sub;
+	}
+</script>
+=======
 >>>>>>> f17e99b37a3b06850486fc93d68a5276cc3c764e
+>>>>>>> ae3e42dd09381778f4c231a2ca935e6750aafd3c
 <style>
 
 .card-header {
@@ -140,8 +154,6 @@
         </div>
     </div>
     <!-- Header End -->
-
-
     <!-- Courses Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -149,6 +161,53 @@
                 <h6 class="section-title bg-white text-center px-3" style="color:#642f05;">Courses</h6>
                 <h1 class="mb-5">Popular Courses</h1>
             </div>
+<<<<<<< HEAD
+        </div>
+		<div class="d-flex justify-content-center sub-category">
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('JAVA')"><img alt="" src="/img/icons/ux-ui.png"><h5 class="text-center">JAVA</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('Phython')"><img alt="" src="/img/icons/datascience.png"><h5 class="text-center">Phython</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('C++')"><img alt="" src="/img/icons/dev-ops.png"><h5 class="text-center">C++</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('HTML')"><img alt="" src="/img/icons/excel.png"><h5 class="text-center">HTML</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('Mos')"><img alt="" src="/img/icons/front-end.png"><h5 class="text-center">Mos</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('회계사')"><img alt="" src="/img/icons/game.png"><h5 class="text-center">회계사</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('공무원')"><img alt="" src="/img/icons/icon-48x48.png"><h5 class="text-center">공무원</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('한국사')"><input type="hidden" /><img alt="" src="/img/icons/marketing.png"><h5 class="text-center">한국사</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('영어')"><input type="hidden" /><img alt="" src="/img/icons/mobile.png"><h5 class="text-center">영어</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('중국어')"><input type="hidden" /><img alt="" src="/img/icons/python.png"><h5 class="text-center">중국어</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('일본어')"><input type="hidden" /><img alt="" src="/img/icons/security.png"><h5 class="text-center">일본어</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('기타')"><input type="hidden" /><img alt="" src="/img/icons/spring.png"><h5 class="text-center">기타</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('코딩테스트')"><input type="hidden" /><img alt="" src="/img/icons/work-skills.png"><h5 class="text-center">코딩테스트</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('부트캠프')"><input type="hidden" /><img alt="" src="/img/icons/_byMyself.png"><h5 class="text-center">부트캠프</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('대면캠프')"><input type="hidden" /><img alt="" src="/img/icons/byManage.png"><h5 class="text-center">대면캠프</h5></div>
+		</div>
+        <div class="row g-4 justify-content-center">
+        <th:block th:each="classInfoDto: ${classInfoDtoList}">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="course-item bg-light">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid" th:src="${classInfoDto.imgUrl}" th:alt="이미지">
+                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                            <a th:href="@{/mainForm/detail/{classId}(classId=${classInfoDto.id})}" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">상세페이지</a>
+                            <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">회원가입</a>
+                         </div>
+                     </div>
+                     <div class="text-center p-4 pb-0">
+                         <h3 class="mb-0">[[${classInfoDto.contentName}]]</h3>
+                         <div class="mb-3">
+                             <small class="fa fa-star text-primary"></small>
+                             <small class="fa fa-star text-primary"></small>
+                             <small class="fa fa-star text-primary"></small>
+                             <small class="fa fa-star text-primary"></small>
+                             <small class="fa fa-star text-primary"></small>
+                             <small>(123)</small>
+                         </div>
+                         <h5 class="mb-4">[[${classInfoDto.name}]]</h5>
+                     </div>
+                 </div>
+             </div>
+		</th:block>
+        </div>
+=======
             
 <<<<<<< HEAD
             <!-- 이미지 카드 -->
@@ -228,6 +287,7 @@
 			</th:block>
             </div>
 >>>>>>> f17e99b37a3b06850486fc93d68a5276cc3c764e
+>>>>>>> ae3e42dd09381778f4c231a2ca935e6750aafd3c
         </div>
     </div>
     <!-- Courses End -->
