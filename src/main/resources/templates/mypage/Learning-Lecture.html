@@ -39,13 +39,11 @@
 							<li class="nav-item2"><a class="nav-link">수강기한: [[${completionContent.getStartDate()}]] - [[${completionContent.getEndDate()}]]</a></li>
 							<li class="nav-item4">
 								<a class="nav-link">학습률</a>
-								<div th:if="${completionContent.getProgress()} == '100'">
 								<div class="progress ms-6 me-2" role="progressbar"
 									aria-label="Default striped example" aria-valuenow="10"
 									aria-valuemin="0" aria-valuemax="100">
 									<div class="progress-bar progress-bar-striped"
-										style="width: 100%"></div>
-								</div>
+										th:style="'width:'+${completionContent.getProgress()}+'%'">[[${completionContent.getProgress()}]]%</div>
 								</div>
 							</li>
 							<li class="nav-item5"><a class="nav-link">강의목록</a></li>
@@ -54,6 +52,7 @@
 									[[${content.getContentName()}]] [[${contentStat.count}]]강
 								</a>
 							</li>
+							<button class="back-mypage" onclick="location.href='/mypage/myclass';">돌아가기</button>
 						</ul>
 					</div>
 				</div>
