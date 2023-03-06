@@ -36,9 +36,9 @@
 			
 		    $('.btn-class-upd').on('click', function(e) {
  				var btnUpdIndex = $('.btn-class-upd').index(this); //클릭한 수정 버튼의 index 확인. start index by 0
- 				var id = $("input[name=id]:eq(" + btnUpdIndex + ")").val(); //화면에 표시된 class id 배열 가져오기
+ 				var id = $("input[name=id]:eq(" + btnUpdIndex + ")").val(); //화면에 표시된 class id 값 가져오기
  				
- 					$(location).attr('href', '/adminClass/classUpdate?id=' + id);
+ 				$(location).attr('href', '/adminClass/classUpdate?id=' + id);
 			});
 		    
  			$('.btn-class-del').on('click', function(e) {

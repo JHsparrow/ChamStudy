@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ChamStudy.Dto.AdminApplyListDto;
+import ChamStudy.Dto.AdminApplyClassInterface;
+import ChamStudy.Dto.AdminApplyClassListDto;
+import ChamStudy.Dto.AdminApplySubListDto;
 import ChamStudy.Dto.ApplyListDto;
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.UserSearchDto;
@@ -32,7 +34,6 @@ public class ApplyListService {
 	private final ApplyListRepository applyListRepository;
 	private final AdminApplyRepository adminApplyRepository;
 	
-	
 	public Long addClass(ApplyListDto applyListDto, String email) {
 		//class id 에 해당하는 정보가 있는지 확인
 		ClassInfo classInfo = classInfoRepository.findById(applyListDto.getClassId())
@@ -40,10 +41,14 @@ public class ApplyListService {
 		
 		UserInfo userInfo = userRepository.findByemail(email);
 		
+		if (userInfo == null) {
+			return (long) -7;
+		}
+		
 		ApplyList savedClass = applyListRepository.findByClassInfoIdAndUserInfoId(classInfo.getId(), userInfo.getId());
 		
         if(savedClass != null){
-            return savedClass.getId();
+        	return (long) -777;
         } else {
         	ApplyList applyListAdd = ApplyList.createApplyList(classInfo, userInfo);
         	applyListRepository.save(applyListAdd);
@@ -51,6 +56,7 @@ public class ApplyListService {
         }
 	}
 	
+	//수강신청 조회
 	public Long getApplyId(ApplyListDto applyListDto, String email) {
 		//class id 에 해당하는 정보가 있는지 확인
 		ClassInfo classInfo = classInfoRepository.findById(applyListDto.getClassId())
@@ -76,8 +82,16 @@ public class ApplyListService {
 	
 	}
 	
-	public Page<AdminApplyListDto> getAdminApplyList(AdminApplyListDto adminApplyListDto, Pageable pageable,UserSearchDto userSearchDto){
-		return adminApplyRepository.getAdminApplyList(adminApplyListDto , pageable, userSearchDto);
+//	public Page<AdminApplyClassListDto> getAdminApplyList(AdminApplyClassListDto adminApplyListDto, Pageable pageable){
+//		return adminApplyRepository.getAdminApplyList(adminApplyListDto , pageable);
+//	}
+	
+	public List<AdminApplyClassInterface> getAdminApplyClassList(){
+		return adminApplyRepository.getAdminApplyList();
+	}
+	
+	public Page<AdminApplySubListDto> getAdminApplyList(AdminApplySubListDto adminApplySubListDto, Pageable pageable,UserSearchDto userSearchDto,Long classId){
+		return adminApplyRepository.getAdminApplySubList(adminApplySubListDto , pageable, userSearchDto, classId);
 	}
 	
 }

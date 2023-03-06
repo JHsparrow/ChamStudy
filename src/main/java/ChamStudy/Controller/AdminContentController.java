@@ -43,7 +43,7 @@ public class AdminContentController {
 	@GetMapping(value = "/adminOnClass/contents") //콘텐츠 관리페이지
 	public String contents(Model model, Optional<Integer> page, ContentDto contentDto) {
 		model.addAttribute("active","contentInfo"); // 사이드 바 액티브
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 2);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
 		Page<ContentDto> contentInfo = onContentService.getAllContnetList(contentDto, pageable);
 		Authentication id = SecurityContextHolder.getContext().getAuthentication();
 //		List<ContentInfo> contentInfo = onContentService.getAllContent();

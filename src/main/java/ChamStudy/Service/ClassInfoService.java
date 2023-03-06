@@ -68,7 +68,6 @@ public class ClassInfoService {
 	//강의상세페이지 조회
 	@Transactional(readOnly = true)
 	public ClassInfoListDto getClassInfo(ClassInfoDto adminClassDto) {
-		System.err.println(adminClassDto);
 		
 		ClassInfoListDto classDetail = classInfoRepository.findByClassDetail(adminClassDto);
 		
@@ -114,7 +113,7 @@ public class ClassInfoService {
     
     //강의 수정
     public Long updateClass(ClassInfoDto adminClassDto) throws Exception {
-        //상품 수정
+
     	ClassInfo classInfo = classInfoRepository.findById(adminClassDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
     	//classInfo.updateClass(adminClassDto);

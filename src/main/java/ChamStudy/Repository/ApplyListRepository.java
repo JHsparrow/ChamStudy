@@ -26,14 +26,19 @@ public interface ApplyListRepository extends JpaRepository<ApplyList, Long>
 	ApplyList findByClassInfoIdAndUserInfoId(Long classId, Long userId);
 	
 
-	@Query(value="select d.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id group by a.class_id", nativeQuery = true)
+	@Query(value=" select d.name as name, count(d.category_id) as count \r\n"
+			+ " from apply_list a \r\n"
+			+ " inner join class_info b on a.class_id = b.class_id \r\n"
+			+ " inner join content_info c on c.content_id = b.content_id \r\n"
+			+ " inner join category d on d.category_id = c.category_id \r\n"
+			+ " group by d.category_id", nativeQuery = true)
 	List<ChartInterface> countChartMain();
 	
-	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='IT' group by a.class_id order by e.name", nativeQuery = true)
+	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='IT' group by e.sub_category_id order by e.name", nativeQuery = true)
 	List<ChartInterface> countChartSubIt();
-	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='자격증' group by a.class_id order by e.name", nativeQuery = true)
+	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='자격증' group by e.sub_category_id order by e.name", nativeQuery = true)
 	List<ChartInterface> countChartSubCertificate();
-	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='어학' group by a.class_id order by e.name", nativeQuery = true)
+	@Query(value="select e.name as name, count(*) as count from apply_list a inner join class_info b on a.class_id = b.class_id inner join content_info c on c.content_id = b.content_id inner join category d on d.category_id = c.category_id inner join sub_category e on d.category_id = e.category_id and c.sub_category_id = e.sub_category_id where d.name='어학' group by e.sub_category_id order by e.name", nativeQuery = true)
 	List<ChartInterface> countChartSubLanguage();
 	
 	@Query(value="select * from apply_list A join user_info B on a.user_id = b.user_id where b.user_email = ?1 ", nativeQuery = true)

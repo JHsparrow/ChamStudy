@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
@@ -17,8 +18,10 @@ import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.QMyClassLearningDto;
 import ChamStudy.Entity.QApplyList;
 import ChamStudy.Entity.QCategory;
+import ChamStudy.Entity.QClassInfo;
 import ChamStudy.Entity.QContentInfo;
 import ChamStudy.Entity.QStudyResult;
+import ChamStudy.Entity.QSubCategory;
 
 public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom {
 	
@@ -28,19 +31,18 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	public BooleanExpression selectCategory(String searchCategory) {
-		if(searchCategory == null || searchCategory.equals("IT")) {
-			return null;
-		}
-		return QCategory.category.name.eq(searchCategory);
+	public BooleanExpression categoryLike(String searchQuery) {
+		return StringUtils.isEmpty(searchQuery) ? null : QCategory.category.name.like("%" + searchQuery + "%");
 	}
 	
 	@Override
 	public Page<MyClassLearningDto> getLearningDto(MyClassLearningDto classLearningDto, Pageable pageable,MyClassLearningSearchDto classLearningSearchDto,String email) {
 		QApplyList apply  = QApplyList.applyList;
+		QClassInfo classInfo = QClassInfo.classInfo;
 		QContentInfo contentInfo = QContentInfo.contentInfo;
 		QCategory category = QCategory.category;
 		QStudyResult studyResult = QStudyResult.studyResult;
+		QSubCategory subCategory = QSubCategory.subCategory;
 		
 		List<MyClassLearningDto> content = queryFactory
 				.select(new QMyClassLearningDto(
@@ -50,19 +52,19 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 									apply.classInfo,
 									contentInfo.imgUrl,
 									category.name,
-									studyResult.progress)
+									studyResult.progress,
+									contentInfo.id,
+									subCategory.name)
 						)
 						.from(apply)
-						.innerJoin(contentInfo)
-						.on(apply.classInfo.contentInfo.id
-								.eq(contentInfo.id))
-						.innerJoin(category)
-						.on(apply.classInfo.contentInfo.categoryId.id
-								.eq(category.id))
-						.innerJoin(studyResult)
-						.on(apply.id.eq(studyResult.applyId.id))
+						.join(classInfo).on(apply.classInfo.id.eq(classInfo.id))
+						.innerJoin(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
+						.innerJoin(category).on(contentInfo.categoryId.id.eq(category.id))
+						.innerJoin(subCategory).on(contentInfo.subCategoryId.id.eq(subCategory.id))
+						.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
 						.where(apply.userInfo.email.eq(email))
-						.where(selectCategory(classLearningSearchDto.getSearchCategory()))
+						.where(categoryLike(classLearningSearchDto.getSearchCategory()))
+						.where(studyResult.progress.eq((long) 100).not())
 						.orderBy(apply.regDate.desc())
 						.offset(pageable.getOffset())
 						.limit(pageable.getPageSize())
@@ -70,16 +72,8 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 
 		long total = queryFactory.select(Wildcard.count)
 				.from(apply)
-				.innerJoin(contentInfo)
-				.on(apply.classInfo.contentInfo.id
-						.eq(contentInfo.id))
-				.innerJoin(category)
-				.on(apply.classInfo.contentInfo.categoryId.id
-						.eq(category.id))
-				.innerJoin(studyResult)
-				.on(apply.id.eq(studyResult.applyId.id))
 				.where(apply.userInfo.email.eq(email))
-				.where(selectCategory(classLearningSearchDto.getSearchCategory()))
+				.where(categoryLike(classLearningSearchDto.getSearchCategory()))
 				.fetchOne();
 		return new PageImpl<>(content, pageable, total);
 	}
