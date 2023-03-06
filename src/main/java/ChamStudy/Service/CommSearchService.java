@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.MainCommDto;
+import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CommSearchDto;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Repository.CommRepository;
@@ -37,5 +38,6 @@ public class CommSearchService {
 	public Page<MainCommDto> getMentoCommPage(CommSearchDto commSearchDto,MainCommDto adminMainCommDto ,Pageable pageable){
 		return commRepository.getAdminMentoCommDto(commSearchDto, adminMainCommDto ,pageable);
 	}
+	
 	
 }

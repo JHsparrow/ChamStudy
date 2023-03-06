@@ -13,14 +13,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ChamStudy.Dto.CommCommentDto;
 import ChamStudy.Dto.CommImgDto;
+import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CommDto;
 import ChamStudy.Dto.CommWriteFormDto;
+import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.MainCommDto;
+import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.Comm_Board;
 import ChamStudy.Entity.Comm_Board_Img;
 import ChamStudy.Entity.UserInfo;
+import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.CommImgRepository;
 import ChamStudy.Repository.CommRepository;
+import ChamStudy.Repository.CompletionRepository;
 import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +38,8 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	private final CommImgRepository commImgRepository;
 	private final CommImgService commImgService;
 	private final UserRepository userRepository;
-	
+	private final ClassInfoRepository classInfoRepository;
+	private final CompletionRepository completionRepository;
 	
 	public List<CommDto> getAdminComm() { // 관리자 메인 페이지에 뿌려줄 게시판 리스트를 불러온다. // 커뮤니티 게시판 entity 리스트에 db에서 데이터를 찾아서 넣어준다. 데이터는 모두 그리고 순서는 최신순으로 해서
 	 List<Comm_Board> commList = commRepository.findF(); // 화면에 뿌려주기 위해 담을 Dto 리스트 작성 
@@ -176,7 +182,31 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	public CommDto getBeforeComm() {
 		Comm_Board board = commRepository.findBeforeComm();
 		CommDto commDto = new CommDto(board);
-		commDto.setId(commDto.getId() + 1000000);
+		if(commDto.getId() == null) {
+			commDto.setId((long) 1000000);
+		}else {
+			commDto.setId(commDto.getId() + 1000000);			
+		}
 		return commDto;
+	}
+	
+	public List<CommMentoClassNameDto> getMentoClassName(String email) {
+		List<CommMentoClassNameDto> classNameDtos = new ArrayList<>();
+		List<String> names = new ArrayList<>();
+		names = completionRepository.getClassName(email);
+		
+		for(String name : names) {
+			CommMentoClassNameDto classNameDto = new CommMentoClassNameDto(name);
+			classNameDtos.add(classNameDto);
+		}
+		return classNameDtos;
+	}
+
+
+	public CommWriteFormDto getMentoUpdate(Long boardId) {
+		Comm_Board board = commRepository.findById(boardId).orElseThrow();
+		
+		CommWriteFormDto commWriteFormDto = CommWriteFormDto.of(board);
+		return commWriteFormDto;
 	}
 }
