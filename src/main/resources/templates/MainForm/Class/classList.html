@@ -4,31 +4,137 @@
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="utf-8">
+<<<<<<< HEAD
+
+<script>
+
+// $(document).ready(function(){
+// //onClick 이벤트를 호출하기 위해 함수 호출
+// //수강신청 버튼 클릭
+// $('#classOff').on('click', function(event) {
+// 		var url = "/applyList";
+// 	    var paramData = {
+// 	        classId : $("#classId").val()
+// 	    };
+	
+// 	    var param = JSON.stringify(paramData);
+	    
+// 	    $.ajax({
+// 	        url      : url,
+// 	        type     : "POST",
+// 	        contentType : "application/json",
+// 	        data     : param,
+// 	//         beforeSend : function(xhr){
+// 	            /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+// 	//             xhr.setRequestHeader(header, token);
+// 	//            },
+// 	        dataType : "json",
+// 	        cache   : false,
+// 	        success  : function(result, status){
+// 	        	var applyId = result;
+	        	
+// 	        	if (applyId > 0) {
+// 	            	alert("수강신청이 완료되었습니다.");
+// 	        		$("#classOff").css("display","none"); //표시하지않는다
+// 	                $("#classOn").css("display",""); //표시한다
+// 	        	} else if (applyId == -777) {
+// 	            	alert("이미 수강신청을 하였습니다.");
+// 	        		$("#classOff").css("display","none"); //표시하지않는다
+// 	                $("#classOn").css("display",""); //표시한다
+// 	        	} else if (applyId == -7) {
+// 	        		alert("강의신청을 하기 위해서는 로그인이 되어있어야 합니다.");
+// 	        		$("#classOff").css("display",""); //표시한다
+// 	        		$("#classOn").css("display","none"); //표시하지않는다
+// 	        	} else {
+// 	        		alert("수강신청에 실패하였습니다.");
+// 	                $("#classOff").css("display",""); //표시한다
+// 	        		$("#classOn").css("display","none"); //표시하지않는다
+// 	        	}
+// 			},
+// 	        error : function(jqXHR, status, error) {
+// 	            $("#classOff").css("display",""); //표시한다
+// 	        	$("#classOn").css("display","none"); //표시하지않는다
+	        	
+// 	            if(jqXHR.status == '401') {
+// 	                alert('로그인 후 이용해주세요');
+// 	                location.href='/users/signIn';
+// 	            } else{
+// 	                alert(jqXHR.responseText);
+// 	            }
+// 	        }
+// 	    });
+// 	});
+// });
+
+</script>
+
+=======
 <link href="/main/css/swiper.css" rel="stylesheet">
+>>>>>>> f17e99b37a3b06850486fc93d68a5276cc3c764e
 <style>
-	.img-fluid{
-		width : 300px;
-		height: 200px;
-	}
+
+.card-header {
+	padding: inherit;
+}
+
+.page-header {
+	background: url("/img/photos/banner2.jpg");
+	background-size : cover;
+	height: 400px;
+	background-position: 0 -705px;
+}
+
+.stylePlus .btn-primary {
+	--bs-btn-color: #fff;
+    --bs-btn-bg: #642f05;
+    --bs-btn-border-color: #642f05;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #ab6e3ecf;
+    --bs-btn-hover-border-color: #ab6e3ecf;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #ab6e3ecf;
+    --bs-btn-active-border-color: #ab6e3ecf;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #642f05;
+    --bs-btn-disabled-border-color: #642f05;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.stylePlus .btn:hover {
+	background-color: #ab6e3ecf;
+    border-color: #ab6e3ecf;
+}
+
+.stylePlus .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #642f05;
+    border-color: #642f05;
+}
+
+
 </style>
 <title>courses</title>
 </head>
 <body>
 
 	<div layout:fragment="content">
+	<div class="stylePlus">
    <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Class</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Class</li>
-                        </ol>
-                    </nav>
+<!--                     <h1 class="display-3 animated slideInDown">Courses</h1> -->
+<!--                     <nav aria-label="breadcrumb"> -->
+<!--                         <ol class="breadcrumb justify-content-center"> -->
+<!--                             <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li> -->
+<!--                             <li class="breadcrumb-item"><a class="text-white" href="#">Class</a></li> -->
+<!--                             <li class="breadcrumb-item text-white active" aria-current="page">Class</li> -->
+<!--                         </ol> -->
+<!--                     </nav> -->
                 </div>
             </div>
         </div>
@@ -40,10 +146,31 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+                <h6 class="section-title bg-white text-center px-3" style="color:#642f05;">Courses</h6>
                 <h1 class="mb-5">Popular Courses</h1>
             </div>
             
+<<<<<<< HEAD
+            <!-- 이미지 카드 -->
+			<div class="row text-center justify-content-start">			
+				<th:block th:each="classInfoDto: ${classInfoDtoList}">
+				<div class="col-12 col-md-3 mx-4" style="padding-bottom: 20px;">
+					<div class="card">
+						<div class="card-header">
+						<img class="card-img-top" th:src="${classInfoDto.imgUrl}" th:alt="이미지">
+						</div>
+						<div class="card-body">
+						<h5 class="card-title mb-2">[[${classInfoDto.contentName}]]</h5>
+							<p class="card-text">[[${classInfoDto.name}]]</p>
+							<a th:href="@{/mainForm/detail/{classId}(classId=${classInfoDto.id})}" class="btn btn-lg btn-primary">상세페이지</a>
+						</div>
+					</div>
+				</div>
+				</th:block>
+			</div>
+			<!-- 이미지 카드 -->
+			
+=======
     <div class="container-xxl py-5" style="margin-top: -70px;">
         <div class="container">
             <div class="row g-12">
@@ -100,14 +227,15 @@
                 </div>
 			</th:block>
             </div>
+>>>>>>> f17e99b37a3b06850486fc93d68a5276cc3c764e
         </div>
     </div>
     <!-- Courses End -->
     
     <!-- 페이징 -->
     	<div class="row" >
-		<div class="col-sm-12 col-md-5">
-			<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
+		<div class="col-12">
+			<div class="dataTables_paginate paging_simple_numbers block-27 PP" id="datatables-orders_paginate"
 				th:with="currPageIndex=${classInfoDtoList.number}, maxPage=${classInfoDtoList.totalPages}, start=(${(maxPage == 0) ? 1 : (currPageIndex/maxPage)*maxPage + 1}), end=(${(maxPage == 0) ? 1 : (start + (maxPage - 1) < maxPage ? start + (maxPage - 1) : maxPage)})">
 				<ul class="pagination">
 					<li class="paginate_button page-item previous mx-1" id="datatables-orders_previous" th:classappend="${maxPage == 0 || currPageIndex == 0}?'disabled'" >
@@ -128,5 +256,6 @@
 	 <!-- 페이징 -->
 		
 	</div>
+</div>
 </body>
 </html>

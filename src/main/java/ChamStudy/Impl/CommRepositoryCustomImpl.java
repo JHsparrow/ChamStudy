@@ -14,11 +14,14 @@ import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import ChamStudy.Dto.MainCommDto;
+import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CommSearchDto;
 import ChamStudy.Dto.QMainCommDto;
 import ChamStudy.Entity.Comm_Board;
+import ChamStudy.Entity.QClassInfo;
 import ChamStudy.Entity.QComm_Board;
 import ChamStudy.Entity.QComm_Board_Img;
+import ChamStudy.Entity.QCompletion;
 
 public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 
@@ -74,7 +77,7 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		List<MainCommDto> content = queryFactory
 				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
-						comm_Board_Img.imgUrl))
+						comm_Board_Img.imgUrl, comm.className))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
 				.where(comm.gubun.eq("B"), comm.boardType.eq("F")).where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()))
 				.orderBy(comm.regDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
@@ -97,7 +100,7 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		List<MainCommDto> content = queryFactory
 				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
-						comm_Board_Img.imgUrl))
+						comm_Board_Img.imgUrl, comm.className))
 				.from(comm).leftJoin(comm_Board_Img).on(comm.id.eq(comm_Board_Img.id))
 				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery())).where(comm.gubun.eq("B"), comm.boardType.eq("Q"))
 				.orderBy(comm.regDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
@@ -119,7 +122,7 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 		List<MainCommDto> content = queryFactory
 				.select(new QMainCommDto(comm.id, comm.Title, comm.boardType, comm.userId, comm.substance,
 						comm.gubun, comm.viewCount, comm.regDate, comm.blockComment, comm.openChat,
-						comm_Board_Img.imgUrl))
+						comm_Board_Img.imgUrl, comm.className))
 				.from(comm).leftJoin(comm_Board_Img)
 				.on(comm.id.eq(comm_Board_Img.id))
 				.where(searchByLike(commSearchDto.getSearchBy(), commSearchDto.getSearchQuery()), comm.gubun.eq("B"), comm.boardType.eq("M"))
@@ -137,5 +140,6 @@ public class CommRepositoryCustomImpl implements CommRepositoryCustom {
 
 		return new PageImpl<>(content, pageable, total);
 	}
+
 
 }

@@ -60,12 +60,12 @@ public class ApplyList{
 	
 	@CreatedDate
 	@Column(updatable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy년 MM월 dd일")
 	private String regDate;
 	
 	@PrePersist
     public void onPrePersist(){
-        this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+        this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy년 MM월 dd일"));
     }
 	
 	public static ApplyList createApplyList(ClassInfo ClassInfo, UserInfo UserInfo) {

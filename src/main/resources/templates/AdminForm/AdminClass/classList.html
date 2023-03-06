@@ -58,7 +58,7 @@
 			});
  			
  			$(".btn-class-Dt").on("click", function(){
- 				var data = $(this).siblings('input[name="infoName"]').val();
+ 				var data = $(this).siblings('input[name=infoName]').val();
  			    $("#modal_name").val(data);
  			    
  				var data = $(this).siblings('input[name="infoPrice"]').val();
@@ -81,9 +81,51 @@
 		});
     
 	</script>
+	
+	<style>
+		
+	.stylePlus .btn-primary {
+		--bs-btn-color: #fff;
+	    --bs-btn-bg: #642f05;
+	    --bs-btn-border-color: #642f05;
+	    --bs-btn-hover-color: #fff;
+	    --bs-btn-hover-bg: #ab6e3ecf;
+	    --bs-btn-hover-border-color: #ab6e3ecf;
+	    --bs-btn-focus-shadow-rgb: 49,132,253;
+	    --bs-btn-active-color: #fff;
+	    --bs-btn-active-bg: #ab6e3ecf;
+	    --bs-btn-active-border-color: #ab6e3ecf;
+	    --bs-btn-disabled-color: #fff;
+	    --bs-btn-disabled-bg: #642f05;
+	    --bs-btn-disabled-border-color: #642f05;
+	    border-radius: 20px;
+	    font-size: 15px;
+	}
+	
+	.stylePlus .btn:hover {
+		background-color: #ab6e3ecf;
+	    border-color: #ab6e3ecf;
+	}
+	
+	.stylePlus .page-item.active .page-link {
+	    z-index: 3;
+	    color: #fff;
+	    background-color: #642f05;
+	    border-color: #642f05;
+	}
+	
+	.odd a {
+		color: #642f05;
+		text-decoration: none;
+		cursor: pointer;
+	}
+		
+	</style>
+
 </head>
 <body>
 	<div layout:fragment="content">
+	<div class="stylePlus">
 		<form id="frmClassList" class="row g-3" method="post">
 		<div style="display: none;">
 			<input type="hidden" id="delIndex" name="delIndex" value="-1" />
@@ -107,7 +149,7 @@
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
 											<label class="d-flex justify-content-end">
-												<input type="text" id="inputSearch" name="name" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
+												<input type="text" id="inputSearch" name="name" class="form-control form-control-sm width30" placeholder="검색어 입력 후 Enter" aria-controls="datatables-orders">
 											</label>
 										</div>
 									</div>
@@ -130,14 +172,14 @@
 											<th:block th:each="classInfoDto: ${classInfoDtoList}">
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${classInfoDto.id}]]</strong></td>
-												<td> <!-- Button trigger modal -->
-													<input type="hidden" name="id" th:value="${classInfoDto.id}">
-													<input type="hidden" th:value=${classInfoDto.name} name="infoName">
-													<input type="hidden" th:value=${classInfoDto.price} name="infoPrice">
-													<input type="hidden" th:value=${classInfoDto.teacherName} name="infoTeacherName">
-													<input type="hidden" th:value=${classInfoDto.peopleNum} name="infoPeopleNum">
-													<input type="hidden" th:value=${classInfoDto.sDate} name="infoSDate">
-													<input type="hidden" th:value=${classInfoDto.eDate} name="infoEDate">
+												<td> <!-- Button trigger modal -->												
+ 													<input type="hidden" name="id" th:value="${classInfoDto.id}">
+													<input type="hidden" th:value="${classInfoDto.name}" name="infoName">												
+													<input type="hidden" th:value="${classInfoDto.price}" name="infoPrice">
+													<input type="hidden" th:value="${classInfoDto.teacherName}" name="infoTeacherName">
+													<input type="hidden" th:value="${classInfoDto.peopleNum}" name="infoPeopleNum">
+													<input type="hidden" th:value="${classInfoDto.sDate}" name="infoSDate">
+													<input type="hidden" th:value="${classInfoDto.eDate}" name="infoEDate">
 													<a class="btn-class-Dt" data-bs-toggle="modal" data-bs-target="#exampleModal">
 													  [[${classInfoDto.contentName}]]
 													</a>												
@@ -165,9 +207,9 @@
 										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
 									</div>
 									<div class="col-sm-12 col-md-8">
-										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate"
+										<div class="dataTables_paginate paging_simple_numbers block-27 hstack" id="datatables-orders_paginate"
 											th:with="currPageIndex=${classInfoDtoList.number}, maxPage=${classInfoDtoList.totalPages}, start=(${(maxPage == 0) ? 1 : (currPageIndex/maxPage)*maxPage + 1}), end=(${(maxPage == 0) ? 1 : (start + (maxPage - 1) < maxPage ? start + (maxPage - 1) : maxPage)})">
-											<ul class="pagination">
+											<ul class="pagination mx-auto">
 												<li class="paginate_button page-item previous mx-1" id="datatables-orders_previous" th:classappend="${maxPage == 0 || currPageIndex == 0}?'disabled'" >
 													<a th:href="@{'/adminClass/classList' + '?page=' + ${currPageIndex - 1}}"  aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt</a>
 												</li>
@@ -234,6 +276,7 @@
 		      </div>
 		    </div>
 		  </div>
+		</div>
 		</div>
 	</div>
 </body>
