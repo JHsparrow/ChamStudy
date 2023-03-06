@@ -60,14 +60,14 @@
 						</div>
 						
 						<div class="Admin-dtl-Content5">
-							<form id="frm" action="/cs/inform" method="get">
+							<form id="frm" action="/adminCs/inform" method="get">
 								<button class="Admin-Dtl-Back" >돌아가기</button>
 							</form>
 							
 							<button	class="Admin-Dtl-Delete" th:onclick="delCheck([[${csInformDto.id}]])" type="button">
 								<span class="Dtl-Delete-Span">삭제</span>
 							</button>
-							<form id="delFrm" th:action="'/cs/deleteInform/'+${csInformDto.id}">
+							<form id="delFrm" th:action="'/adminCs/deleteInform/'+${csInformDto.id}">
 								<input type="hidden" id="delInformId" name="informId" />
 							</form>
 						</div>

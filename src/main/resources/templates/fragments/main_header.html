@@ -26,6 +26,9 @@
 				<div class="navbar-nav ms-auto p-4 p-lg-0">
 					<a href="/" class="nav-item nav-link active ">Home</a> 
 					<a style="color: red;" href="/admin" class="nav-item nav-link active" sec:authorize="hasAnyAuthority('ADMIN')">관리자 페이지 이동!!!</a> 
+						<a href="/mainForm/about" class="nav-item nav-link">About</a>
+					<a href="/mainForm/courses" class="nav-item nav-link">Courses</a>
+					<a href="/cs/index" class="nav-item nav-link">고객센터</a>
 					<a href="/myclass/index" class="nav-item nav-link">나의강의실</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"

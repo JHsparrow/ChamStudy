@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<script>
+	$(function(){
+		$('.category').each(function(){
+			if($(this).text()=='S'){$(this).text('사이트 이용')}
+			if($(this).text()=='V'){$(this).text('동영상')}
+			if($(this).text()=='P'){$(this).text('결제/환불')}
+			if($(this).text()=='M'){$(this).text('모바일')}
+			if($(this).text()=='F'){$(this).text('증빙서류')}
+			if($(this).text()=='U'){$(this).text('회원정보')}
+			if($(this).text()=='E'){$(this).text('기타')}
+		})
+		
+  		$(".selectCategory").on("change", function(e) {
+			e.preventDefault();
+			page();
+		});
+		
+	})
+	
+	function page(){
+        var searchCategory = $(".selectCategory").val();
+        var searchQuery = $(".searchInput").val();
+
+        location.href="/cs/faq/"+ "?searchCategory=" + searchCategory
+        + "&searchQuery=" + searchQuery;
+    }
+</script>
+<title>참스터디</title>
+<link href="/main/css/cs_style.css" rel="stylesheet">
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<!-- Header Start -->
+		<div class="container-fluid bg-primary py-5 mb-5 page-header">
+			<div class="container py-5">
+				<div class="row justify-content-center">
+					<div class="col-lg-10 text-center">
+						<h1 class="display-3 text-white animated slideInDown">고객센터</h1>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb justify-content-center">
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/inform'">공지사항</a></li>
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/qna'">1:1 문의</a></li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+		
+		<!-- FAQ Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3">faq</h6>
+					<h1>자주 묻는 질문</h1>
+				</div>
+				<div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                      <div class="g-3 row">
+                        <div class="col-12">
+							<div class="board board--list" id="list">
+							<div class="list-search">
+							    <form th:action="@{/cs/faq}" method="get" role="search">
+							    	<div class="d-inline-block">
+										<div class="col-sm-12 col-md-6">
+											<div class="dataTables_length d-inline-block" id="datatables-orders_length">
+												<select name="searchCategory" aria-controls="datatables-orders" class="form-select form-select-sm width30 selectCategory sel_cate">
+													<option value="A" th:selected="${sValue}=='A'">전체</option>
+													<option value="S" th:selected="${sValue}=='S'">사이트 이용</option>
+													<option value="V" th:selected="${sValue}=='V'">동영상</option>
+													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
+													<option value="M" th:selected="${sValue}=='M'">모바일</option>
+													<option value="F" th:selected="${sValue}=='F'">증빙서류</option>
+													<option value="U" th:selected="${sValue}=='U'">회원정보</option>
+													<option value="E" th:selected="${sValue}=='E'">기타</option>
+												</select>
+											</div>
+										</div>
+									</div>
+				            		<input type="search" name="searchQuery" class="input input-list-search searchInput" maxlength="50" value="" placeholder="검색어를 입력해주세요.">
+							    </form>
+							</div>
+							<div class="list list-default">
+								<ul class="none text-center">
+									<li class="list-item fixed">
+										<div class="list__num list_tab" aria-label="글 번호">
+						                    <span class="icon icon--notice">No.</span>
+						                </div>
+				                        <div class="list__read list_tab" aria-label="카테고리">카테고리</div>
+				                        <div class="list__subject" aria-label="제목">
+				                        	<span class="list__title">제목</span>
+				                        </div>
+				                        <div class="list__date list_tab" aria-label="등록일">등록일</div>
+									</li>
+									<th:block th:each="faq, status : ${faqList.getContent()}">
+										<li class="list-item list-content">
+					                        <div class="list__num" aria-label="글 번호">
+					                            <span class="icon icon--notice">[[${faq.id}]]</span>
+					                        </div>
+					                        <div class="list__read category" aria-label="카테고리">[[${faq.gubun}]]</div>
+					                        <div class="list__subject" aria-label="제목">
+					                        	<span class="list__title">[[${faq.title}]]</span>
+					                        </div>
+					                        <div class="list__date" aria-label="등록일">[[${faq.update.substring(0,13)}]]</div>
+										</li>
+									</th:block>
+									<th:block th:if="${faqList.getTotalElements()==0}">
+										<li class="list-content list-item"><strong>등록된 게시글이 없습니다.</strong></li>
+									</th:block>
+								</ul>
+							</div>
+							</div>
+							</div>
+					    </div>
+				      </div>
+                    <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+                </div>
+			</div>
+		</div>
+</body>
+</html>
