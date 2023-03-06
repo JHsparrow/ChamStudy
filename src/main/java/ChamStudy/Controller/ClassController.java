@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ChamStudy.Dto.ApplyListDto;
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
+import ChamStudy.Dto.ClassReviewListDto;
 import ChamStudy.Dto.Class_reviewDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Entity.UserInfo;
@@ -58,7 +59,8 @@ public class ClassController { //강의 페이지
 	}
 	
 	@GetMapping(value="/detail/{classId}")
-	public String classDetail(Model model, @PathVariable("classId") Long classId, Principal principal, Authentication authentication) { //강의상세페이지	
+	public String classDetail(Model model, @PathVariable("classId") Long classId, Principal principal, 
+					Authentication authentication, Class_reviewDto class_reviewDto) { //강의상세페이지	
 		
 		MessageDto message;
 		try {
@@ -87,7 +89,12 @@ public class ClassController { //강의 페이지
 				} else {
 					isApplyListNew = "Y";
 				}
+				
 			}
+			
+			List<ClassReviewListDto> classReviewList = class_reviewService.getClassInfoReviews(class_reviewDto);
+			
+			model.addAttribute("classReviewList", classReviewList);
 			
 			model.addAttribute("isApplyListNew", isApplyListNew);
 		} catch(EntityNotFoundException e) {
@@ -126,21 +133,55 @@ public class ClassController { //강의 페이지
 		
 		UserInfo session = (UserInfo) authentication.getPrincipal();
 		
-		//String email = principal.getName();
-		
 		Long reviewId = (long) -1;
 		
 		try {
+
 			reviewId = class_reviewService.addReview(class_reviewDto, session.getEmail());
 			
 			return new ResponseEntity<Long>(reviewId, HttpStatus.OK );
+				
 		} catch(Exception e) {
 			reviewId = (long) -9;
 			e.printStackTrace();
 			
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-	}	
+	}
+	
+	//리뷰 삭제
+	@GetMapping(value = "/review/delete/{reviewId}/{classId}")
+	public String deleteReview(@PathVariable(value="reviewId")Long reviewId, @PathVariable(value="classId")Long classId, Model model, Principal principal, Authentication authentication) {
+		
+		MessageDto message;
+		
+		//Authentication 객체가 null 이면 세션에 값이 없다 (=로그인하지 않았다)
+		//401에러
+		if (authentication == null) {
+			message = new MessageDto("로그인 후에 삭제가 가능합니다.", "/mainForm/detail/" + classId);
+			return showMessageAndRedirect(message, model);
+		}
+		
+		UserInfo session = (UserInfo) authentication.getPrincipal();
+		
+		try {
+			boolean isValid = class_reviewService.validateReview(reviewId, session);
+			
+			if(isValid) {
+				class_reviewService.deleteReview(reviewId);
+				
+				message = new MessageDto("리뷰 삭제가 완료되었습니다.", "/mainForm/detail/" + classId);
+			} else {
+				message = new MessageDto("리뷰 삭제가 실패되었습니다.", "/mainForm/detail/" + classId);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			message = new MessageDto("리뷰 삭제가 실패되었습니다.", "/mainForm/detail/" + classId);
+		}
+		
+		return showMessageAndRedirect(message, model);
+	}
+	
 	
 	private String showMessageAndRedirect(final MessageDto params, Model model) {
 		model.addAttribute("params", params);

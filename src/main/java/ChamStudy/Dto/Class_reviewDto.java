@@ -6,7 +6,6 @@ import ChamStudy.Entity.Class_review;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class Class_reviewDto {

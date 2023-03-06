@@ -9,11 +9,11 @@
 
 <link href="/main/css/my_page_style.css" rel="stylesheet">
 <th:block layout:fragment="css">
-  <style>
-     .fieldError {
-        color: #bd2130;
-     }
-  </style>
+	<style>
+.fieldError {
+	color: #bd2130;
+}
+</style>
 </th:block>
 <!-- 관리자 css -->
 <link href="/css/app.css" rel="stylesheet">
@@ -29,78 +29,125 @@
 					<div class="row">
 						<div class="col-md-4 col-xl-3">
 							<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 -->
-								<div th:replace="fragments/main_mypage_nav::mypagenav"></div>
+							<div th:replace="fragments/main_mypage_nav::mypagenav"></div>
 							<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 end -->
 						</div>
 						<div class="col-md-8 d-flex justify-content-center">
 							<div class="card col-md-8">
 								<div class="card-body">
-									<div class="m-sm-2">
-										<form id="frm" action="/mypage/update" method="post"
-											th:object="${userInfoDto}">
+									<!-- 새로운폼 -->
+									<section class="vh-100" style="background-color: #2779e2;">
+										<div class="container h-100">
+											<div
+												class="row d-flex justify-content-center align-items-center h-100">
+												<div class="col-xl-9">
+													<h1 class="text-white mb-4">회원정보 수정</h1>
+													<form id="frm" action="/mypage/update" method="post"
+														th:object="${userInfoDto}">
 
-											<div class="mb-3">
-												<label class="form-label">이메일</label> 
-												<input
-													style="background-color: #dee2e6;" readonly="readonly"
-													th:value="${userInfoDto.email}"
-													class="form-control form-control-lg" type="email"
-													id="email" name="email" placeholder="이메일을 입력 해주세요" />
-												<p th:if="${#fields.hasErrors('email')}"
-													th:errors="*{email}" class="fieldError">Incorrect Data</p>
-											</div>
+														<div class="card" style="border-radius: 15px;">
+															<div class="card-body">
+																<div class="row align-items-center pt-4 pb-3">
 
-											<div class="mb-3">
-												<label class="form-label">이름</label> 
-												<input
-													th:value="*{name}" class="form-control form-control-lg"
-													type="text" id="name" name="name" placeholder="이름을 입력 해주세요" />
-												<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-													class="fieldError">Incorrect Data</p>
-											</div>
+																	<div class="col-md-3 ps-5">
+																		<h6 class="mb-0">이름</h6>
+																	</div>
+																	<div class="col-md-9 pe-5">
+																		<input th:value="*{name}" type="text"
+																			class="form-control form-control-lg" id="name"
+																			name="name" placeholder="이름을 입력 해주세요" />
+																	</div>
+																	<p th:if="${#fields.hasErrors('name')}"
+																		th:errors="*{name}" class="fieldError">Incorrect
+																		Data</p>
+																</div>
+																<hr class="mx-n3">
+																<div class="row align-items-center py-3">
 
-											<div class="mb-3">
-												<label class="form-label">비밀번호</label> 
-												<input
-													th:field="*{password}" class="form-control form-control-lg"
-													type="password" id="password" name="password"
-													placeholder="비밀번호를 입력 해주세요" />
-												<p th:if="${#fields.hasErrors('password')}"
-													th:errors="*{password}" class="fieldError">Incorrect
-													Data</p>
-											</div>
+																	<div class="col-md-3 ps-5">
+																		<h6 class="mb-0">이메일</h6>
+																	</div>
+																	<div class="col-md-9 pe-5">
+																		<input style="background-color: #dee2e6;"
+																			readonly="readonly" th:value="${userInfoDto.email}"
+																			type="email" class="form-control form-control-lg"
+																			placeholder="example@example.com" id="email"
+																			name="email" />
+																	</div>
+																	<p th:if="${#fields.hasErrors('email')}"
+																		th:errors="*{email}" class="fieldError">Incorrect
+																		Data</p>
+																</div>
+																<hr class="mx-n3">
+																<div class="row align-items-center py-3">
 
-											<div class="mb-3">
-												<label class="form-label">비밀번호 확인</label> 
-												<input
-													class="form-control form-control-lg" type="password"
-													id="passwordck" name="password_ck"
-													placeholder="비밀번호를 확인 해주세요" />
-											</div>
-											<div class="mb-3">
-												<label class="form-label">휴대폰 번호</label> <input
-													th:value="${userInfoDto.phone}"
-													class="form-control form-control-lg" id="phone"
-													name="phone" type="text" oninput="autoHyphen2(this)"
-													maxlength="13" placeholder="-를 빼고 입력 해주세요">
-												<p th:if="${#fields.hasErrors('phone')}"
-													th:errors="*{phone}" class="fieldError">Incorrect Data</p>
-											</div>
+																	<div class="col-md-3 ps-5">
+																		<h6 class="mb-0">비밀번호</h6>
+																	</div>
+																	<div class="col-md-9 pe-5">
+																		<input th:field="*{password}" type="password"
+																			id="password" name="password"
+																			class="form-control form-control-lg"
+																			placeholder="비밀번호를 입력 해주세요" />
+																	</div>
+																	<p th:if="${#fields.hasErrors('password')}"
+																		th:errors="*{password}" class="fieldError">Incorrect
+																		Data</p>
+																</div>
 
-											<input type="hidden" th:value="${userInfoDto.role}"
-												name="role"> <input type="hidden"
-												th:value="${userInfoDto.gubun}" name="gubun"> <input
-												type="hidden" th:value="${userInfoDto.regTime}"
-												name="regTime">
+																<hr class="mx-n3">
+																<div class="row align-items-center py-3">
 
-											<div class="text-center mt-3">
-												<button class="btn btn-lg btn-primary" type="button"
-													onclick="passwordCk()">수정완료</button>
+																	<div class="col-md-3 ps-5">
+																		<h6 class="mb-0">
+																			비밀번호<br>확인
+																		</h6>
+																	</div>
+																	<div class="col-md-9 pe-5">
+																		<input type="password" id="passwordck"
+																			name="password_ck"
+																			class="form-control form-control-lg"
+																			placeholder="비밀번호를 확인 해주세요" />
+																	</div>
+																</div>
+
+																<hr class="mx-n3">
+																<div class="row align-items-center py-3">
+
+																	<div class="col-md-3 ps-5">
+																		<h6 class="mb-0">휴대폰 번호</h6>
+																	</div>
+																	<div class="col-md-9 pe-5">
+																		<input th:value="${userInfoDto.phone}"
+																			class="form-control form-control-lg" id="phone"
+																			name="phone" type="text" oninput="autoHyphen2(this)"
+																			maxlength="13" placeholder="-를 빼고 입력 해주세요" />
+																	</div>
+																	<p th:if="${#fields.hasErrors('phone')}"
+																		th:errors="*{phone}" class="fieldError">Incorrect
+																		Data</p>
+																</div>
+															</div>
+
+															<hr class="mx-n3">
+															<div class="px-5 py-4">
+																<button type="button" onclick="passwordCk()"
+																	class="btn btn-primary btn-lg">수정 완료</button>
+															</div>
+														</div>
+														<input type="hidden" th:name="${_csrf?.parameterName}"
+															th:value="${_csrf?.token}"> <input type="hidden"
+															th:value="${userInfoDto.role}" name="role"> <input
+															type="hidden" th:value="${userInfoDto.gubun}"
+															name="gubun"> <input type="hidden"
+															th:value="${userInfoDto.regTime}" name="regTime">
+													</form>
+												</div>
 											</div>
-											<input type="hidden" th:name="${_csrf?.parameterName}"
-												th:value="${_csrf?.token}">
-										</form>
-									</div>
+										</div>
+									</section>
+
+
 								</div>
 							</div>
 						</div>

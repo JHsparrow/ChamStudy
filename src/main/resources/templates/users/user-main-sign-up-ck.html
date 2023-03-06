@@ -33,12 +33,16 @@
 										class="scrollspy-example bg-body-tertiary p-3 rounded-2"
 										tabindex="0">
 
-										<h5 id="scrollspyHeading5">사이트 이용약관(필수)</h5>
+										<h5 id="scrollspyHeading5">사이트 이용약관(필수)</h5> 
+										
+										<div class="form-check-all">
+											<input class="form-check-input" type='checkbox' value='selectall' onclick='selectAll(this)' id="flexCheckDefault1-all"/> 
+											<label class="form-check-label-all" for="flexCheckDefault1-all">전체 체크하기</label>
+										</div>
+												
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault1"> <label
-												class="form-check-label" for="flexCheckDefault1">
-												사이트 이용약관에 동의합니다.</label>
+											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1"> 
+											<label class="form-check-label" for="flexCheckDefault1">사이트 이용약관에 동의합니다.</label>
 										</div>
 										<textarea spellcheck="false" class="form-control" rows="5"
 											cols="80">
@@ -322,7 +326,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
 									<div>
 									</div>
 										<button class="next btn btn-lg btn-primary align-self-center" type="button" onclick="check()">다음</button>
-							</div>
+								</div>
 							</div>
 							
 							</form>
@@ -348,6 +352,15 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
 		        	$('#frm').submit();
 		        }
 			}
+			
+			
+			function selectAll(selectAll)  {
+				  const checkboxes 
+				     = document.querySelectorAll('input[type="checkbox"]');
+				  checkboxes.forEach((checkbox) => {
+				    checkbox.checked = selectAll.checked
+				  })
+				}
 		</script>
 	</div>
 </body>

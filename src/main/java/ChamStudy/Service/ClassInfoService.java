@@ -113,7 +113,7 @@ public class ClassInfoService {
     
     //강의 수정
     public Long updateClass(ClassInfoDto adminClassDto) throws Exception {
-        //상품 수정
+
     	ClassInfo classInfo = classInfoRepository.findById(adminClassDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
     	//classInfo.updateClass(adminClassDto);
