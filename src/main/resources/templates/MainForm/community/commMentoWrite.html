@@ -18,19 +18,17 @@ function valinput() {
 </head>
 <body>
 	<div layout:fragment="content">
+	<div class="write-body-wrap">
 		<form class="row g-3" role="form" method="post"
 			enctype="multipart/form-data" th:object="${commWriteFormDto}">
-			<p class="h2">멘토 소개글 쓰기</p>
 			<div class="input-1">
 				<input type="hidden" name="id" th:value="${comm.id}" id="id" />
 			</div>
 			<div class="input-2">
-			<span>제목</span>
-				<input type="text" th:field="*{Title}" />
+				<input type="text" th:field="*{Title}" placeholder="제목에 핵심 내용을 적어보세요" class="input-Title"/>
 			</div>
 			<div class="input-3">
-			<span>내용</span>
-				<input type="text" th:field="*{substance}" />
+				<textarea rows="10" cols="100" th:field="*{substance}" placeholder="글 내용을 입력 해 보세요."></textarea>
 			</div>
 			<div class="input-4">
 				<input type="hidden" th:field="*{boardType}" name="boardType" value=""/>
@@ -47,8 +45,17 @@ function valinput() {
 			<div class="input-7">
 				<input type="hidden" th:field="*{viewCount}" name="viewCount" value=""/>
 			</div>
-
+			
 			<div class="input-8">
+			<span>알려줄 강의</span>
+			<select th:field="*{className}">
+			<th:block  th:each="name, status: ${className}">
+			<option th:value="${name.className}">[[${name.className}]]</option>
+			</th:block>
+			</select>
+			</div>
+
+			<div class="input-9">
 			<span>오픈채팅 링크</span>
 				<input type="text" th:field="*{openChat}" name="viewCount" value=""/>
 			</div>
@@ -60,7 +67,13 @@ function valinput() {
 			<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
 				<button th:formaction="@{'/comm/Mentocreate/' + ${boardFormDto.id} }" type="submit" class="btn btn-primary mb-3">수정</button>
 			</div>
+			
 		</form>
+			<div class="mentoBack-btn">			
+			<button th:onclick="|location.href='@{/comm/mento}'|"  class="mentoBack-btn">취소</button>
+			</div>
+			
+	</div>
 	</div>
 </body>
 </html>

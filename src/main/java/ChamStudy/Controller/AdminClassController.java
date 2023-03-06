@@ -45,7 +45,7 @@ public class AdminClassController {
 	@GetMapping(value = "/classList") //강의 리스트 페이지
 	public String classList(Optional<Integer> page, Model model, UserSearchDto userSearchDto) {
 
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 9);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
 		
 
 		model.addAttribute("active","classInfo"); // 사이드 바 액티브

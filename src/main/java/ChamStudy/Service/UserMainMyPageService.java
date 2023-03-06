@@ -111,10 +111,7 @@ public class UserMainMyPageService {
 	}
 	
 	@Transactional(readOnly = true)
-	public CompletionContentInterface getLearningVideoOther(Long contentId, Long videoId) {
-		return completionRepository.getLearningContentOther(contentId, videoId);
+	public CompletionContentInterface getLearningVideoOther(Long contentId, Long videoId, Long classId) {
+		return completionRepository.getLearningContentOther(contentId, videoId, classId);
 	}
-	
-	
-	
 }

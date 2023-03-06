@@ -49,6 +49,8 @@ public class Comm_Board extends BaseTimeEntity{
 	
 	private Integer viewCount; //조회수
 	
+	private String className; //강의명 (멘토 페이지에서 사용)
+	
 	public void updateComm(CommWriteFormDto boardFormDto) {
 		this.Title = boardFormDto.getTitle();
 		this.substance = boardFormDto.getSubstance();

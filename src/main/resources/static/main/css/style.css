@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #06BBCC;
+    --primary: #ab6e3ecf;
     --light: #F0FBFC;
     --dark: #181d38;
 }
@@ -226,7 +226,7 @@
     height: 2px;
     top: 4px;
     left: -40px;
-    background: var(--primary);
+    background: #ab6e3ecf;
     z-index: -1;
 }
 
@@ -237,7 +237,7 @@
     height: 2px;
     bottom: 5px;
     left: -60px;
-    background: var(--primary);
+    background: #ab6e3ecf;
     z-index: -1;
 }
 
