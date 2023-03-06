@@ -14,8 +14,8 @@ import ChamStudy.Entity.SubCategory;
 
 public interface StudyHistortRepository extends JpaRepository<StudyHistory, Long> {
 	
-	@Query(value="select * from study_history where video_id = ?1 ",nativeQuery = true)
-	Long getVideoId(Long videoId); 
+	@Query(value="select * from study_history where video_id = ?1 and apply_id = ?2 ",nativeQuery = true)
+	Long getVideoId(Long videoId, Long apply_id); 
 	
 	@Query(value="select count(*) from study_history where content_id = ?1 ",nativeQuery = true)
 	Long getCountVideoId(Long contentId); 

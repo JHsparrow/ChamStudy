@@ -2,13 +2,12 @@ package ChamStudy.Dto;
 
 public interface CompletionContentInterface {
 	Long getContentId();
+	Long getClassId();
 	String getClassName();
-	Long getProgress();
+	Long getVideoId();
+	String getContentName();
+	String getVideoUrl();
 	String getStartDate();
 	String getEndDate();
-	Long getVideoId();
-	String getVideoUrl();
-	String getVideoName();
-	String getContentName();
-	Long getUserId();
+	Long getProgress();
 }

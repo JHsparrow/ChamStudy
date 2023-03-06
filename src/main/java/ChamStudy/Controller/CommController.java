@@ -60,7 +60,16 @@ public class CommController { //커뮤니티 컨트롤러
 		CommDto commDto = commService.getBeforeComm();
 		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
 		model.addAttribute("comm", commDto);
-		return "MainForm/community/commMentoWrite";
+		return "MainForm/community/commWrite";
+	}
+	
+	//QnA게시판 글쓰기 페이지 불러오기
+	@GetMapping(value = "/comm/QnAcreate")
+	public String QnAWriteForm(Model model) {
+		CommDto commDto = commService.getBeforeComm();
+		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
+		model.addAttribute("comm", commDto);
+		return "MainForm/community/commQnaWrite";
 	}
 	
 	//멘토게시판 글쓰기 페이지 불러오기
@@ -77,22 +86,41 @@ public class CommController { //커뮤니티 컨트롤러
 	
 	//자유게시판 글쓰기 저장
 	@PostMapping(value = "/comm/create")
-	public String MainBoardCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model, @RequestParam("commImgFile") List<MultipartFile> commImgFileList,Principal principal) {
+	public String MainBoardCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal) {
 		MessageDto message;
 		String email = principal.getName();
 		if(bindingResult.hasErrors()) {
-			return "MainForm/community/commMentoWrite";
+			return "MainForm/community/commWrite";
 		} 
 		
 		try {
-			commService.saveComm(commWriteFormDto, commImgFileList,email);
+			commService.saveComm(commWriteFormDto,email);
 			message = new MessageDto("글 등록을 완료했습니다.", "/comm");
 		} catch (Exception e) {
 			message = new MessageDto("글 등록을 실패했습니다.", "/comm");
-			return "MainForm/community/commMentoWrite";
+			return "MainForm/community/commWrite";
 		}
-		return "redirect:/";
+		return showMessageAndRedirect(message, model);
 	}
+	
+	//QnA 글쓰기 저장
+		@PostMapping(value = "/comm/QnAcreate")
+		public String QnABoardCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal) {
+			MessageDto message;
+			String email = principal.getName();
+			if(bindingResult.hasErrors()) {
+				return "MainForm/community/commQnAWrite";
+			} 
+			
+			try {
+				commService.saveComm(commWriteFormDto,email);
+				message = new MessageDto("글 등록을 완료했습니다.", "/comm");
+			} catch (Exception e) {
+				message = new MessageDto("글 등록을 실패했습니다.", "/comm");
+				return "MainForm/community/commQnAWrite";
+			}
+			return showMessageAndRedirect(message, model);
+		}
 	
 	//멘토게시판 글쓰기 저장
 	@PostMapping(value = "/comm/Mentocreate")
@@ -114,19 +142,35 @@ public class CommController { //커뮤니티 컨트롤러
 		return showMessageAndRedirect(message, model);
 	}
 	
-	//스토리 수정 페이지 보기
-			@GetMapping(value="/story/Mentocreate/{boardId}")
+	//멘토 수정 페이지 보기 
+			@GetMapping(value="/comm/Mentocreate/{boardId}")
 			public String storyUpdate(@PathVariable("boardId") Long boardId,Model model) {
+				CommDto commDto = commService.getcommDto(boardId);
+				String email = SecurityContextHolder.getContext().getAuthentication().getName();
+				List<CommMentoClassNameDto> classNameDto = commService.getMentoClassName(email);
 				try {
 					CommWriteFormDto writeFormDto = commService.getMentoUpdate(boardId);
-					model.addAttribute(writeFormDto);
+					model.addAttribute("commWriteFormDto",writeFormDto);
+					model.addAttribute("className", classNameDto);
+					model.addAttribute("comm", commDto);
 				}catch(EntityNotFoundException e) {
 					model.addAttribute("errorMessage","존재하지 않는 스토리입니다.");
 					model.addAttribute("storyFormDto", new CommWriteFormDto());
 				}
 				return "MainForm/community/commMentoWrite";
 			}
-	
+			//스토리 저장
+			@PostMapping(value = "/comm/Mentocreate/{boardId}")
+			public String itemUpdate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, 
+					Model model) {
+				try {
+					commService.updateMento(commWriteFormDto);
+				} catch (Exception e) {
+					model.addAttribute("errorMessage","상품 수정 중 에러가 발생하였습니다.");
+					return "MainForm/community/commMentoWrite";
+				}
+				return "redirect:/";
+			}
 	
 	//멘토게시판
 	@GetMapping(value = {"/comm/mento","/comm/mento/{page}"})
@@ -184,18 +228,18 @@ public class CommController { //커뮤니티 컨트롤러
 		
 		//멘토상세페이지
 		@GetMapping(value = "/comm/dtl/mento/{boardId}")
-		public String commMentoDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request) {
+		public String commMentoDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request,Principal principal) {
+			String email = principal.getName();
 			try {
 				//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
 				CommDto adminMainCommDto = commService.getAdminCommDtl(boardId);
 				List<CommCommentDto> commentList = commService.getCommentList(boardId);
-				List<CommCommentDto> replyList = commService.getReplyList(boardId);
 				
 				//담아준 Dto를 view로 보내준다
 				model.addAttribute("commWriteFormDto", new CommWriteFormDto());
 				model.addAttribute("comm",adminMainCommDto);
 				model.addAttribute("comments",commentList);
-				model.addAttribute("replys",replyList);
+				model.addAttribute("email",email);
 			}catch(EntityNotFoundException e) {
 				model.addAttribute("errorMessage","존재하지 않는 게시물입니다.");
 			}

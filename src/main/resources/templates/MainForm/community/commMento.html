@@ -61,7 +61,7 @@
 				<div class="boards">
 					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
 						<div class="each">
-							<div class="comm-wrap">
+							<div class="comm-wrap" th:onclick="|location.href='@{/comm/dtl/mento/}'+${comm.id}|">
 								<div class="comm-li1">
 									<a class="comm-wrap-a2" style="color: black; text-decoration: none;"  th:href="'/comm/dtl/mento/'+${comm.id}">[[${comm.Title}]]</a>
 								</div>
