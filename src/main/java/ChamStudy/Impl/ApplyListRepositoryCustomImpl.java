@@ -22,6 +22,7 @@ import ChamStudy.Entity.QClassInfo;
 import ChamStudy.Entity.QContentInfo;
 import ChamStudy.Entity.QStudyResult;
 import ChamStudy.Entity.QSubCategory;
+import ChamStudy.Entity.QUserInfo;
 
 public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom {
 	
@@ -43,6 +44,7 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 		QCategory category = QCategory.category;
 		QStudyResult studyResult = QStudyResult.studyResult;
 		QSubCategory subCategory = QSubCategory.subCategory;
+		QUserInfo userInfo = QUserInfo.userInfo;
 		
 		List<MyClassLearningDto> content = queryFactory
 				.select(new QMyClassLearningDto(
@@ -62,9 +64,10 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 						.innerJoin(category).on(contentInfo.categoryId.id.eq(category.id))
 						.innerJoin(subCategory).on(contentInfo.subCategoryId.id.eq(subCategory.id))
 						.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
-						.where(apply.userInfo.email.eq(email))
+						.join(userInfo).on(apply.userInfo.id.eq(userInfo.id))
+						.where(userInfo.email.eq(email))
 						.where(categoryLike(classLearningSearchDto.getSearchCategory()))
-						.where(studyResult.progress.eq((long) 100).not())
+						.where(apply.comFlag.eq("N"))
 						.orderBy(apply.regDate.desc())
 						.offset(pageable.getOffset())
 						.limit(pageable.getPageSize())
@@ -72,8 +75,15 @@ public class ApplyListRepositoryCustomImpl implements ApplyListRepositoryCustom 
 
 		long total = queryFactory.select(Wildcard.count)
 				.from(apply)
-				.where(apply.userInfo.email.eq(email))
+				.join(classInfo).on(apply.classInfo.id.eq(classInfo.id))
+				.innerJoin(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
+				.innerJoin(category).on(contentInfo.categoryId.id.eq(category.id))
+				.innerJoin(subCategory).on(contentInfo.subCategoryId.id.eq(subCategory.id))
+				.leftJoin(studyResult).on(apply.id.eq(studyResult.applyId.id))
+				.join(userInfo).on(apply.userInfo.id.eq(userInfo.id))
+				.where(userInfo.email.eq(email))
 				.where(categoryLike(classLearningSearchDto.getSearchCategory()))
+				.where(apply.comFlag.eq("N"))
 				.fetchOne();
 		return new PageImpl<>(content, pageable, total);
 	}

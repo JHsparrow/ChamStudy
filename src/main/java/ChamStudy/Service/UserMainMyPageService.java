@@ -18,10 +18,21 @@ import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Entity.ApplyList;
+import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.Completion;
+import ChamStudy.Entity.ContentInfo;
+import ChamStudy.Entity.ContentVideo;
+import ChamStudy.Entity.StudyHistory;
+import ChamStudy.Entity.StudyResult;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Repository.ApplyListRepository;
+import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.CompletionRepository;
+import ChamStudy.Repository.OnContentRepository;
+import ChamStudy.Repository.OnContentVideoRepository;
+import ChamStudy.Repository.StudyHistortRepository;
+import ChamStudy.Repository.StudyResultRepository;
 import ChamStudy.Repository.UserMainMypageRepository;
 import ChamStudy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +47,11 @@ public class UserMainMyPageService {
 	private final UserRepository userRepository;
 	private final CompletionRepository completionRepository;
 	private final ApplyListRepository applyListRepository;
+	private final OnContentRepository onContentRepository;
+	private final ClassInfoRepository classInfoRepository;
+	private final StudyHistortRepository studyHistortRepository;
+	private final OnContentVideoRepository contentVideoRepository;
+	private final StudyResultRepository studyResultRepository;
 
 	
 	public UserInfoDto getUser(String email) throws Exception{
@@ -101,20 +117,69 @@ public class UserMainMyPageService {
 	}
 	
 	@Transactional(readOnly = true)
-	public CompletionContentInterface getLearningVideo1(Long contentId) {
-		return completionRepository.getApplyContentOne(contentId);
+	public CompletionContentInterface getLearningVideo1(Long classId) {
+		return completionRepository.getApplyContentOne(classId);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<CompletionContentInterface> getLearningVideo(Long contentId) {
-		return completionRepository.getApplyContent(contentId);
+	public List<CompletionContentInterface> getLearningVideo(Long contentId, Long classId) {
+		return completionRepository.getApplyContent(contentId, classId);
 	}
 	
 	@Transactional(readOnly = true)
-	public CompletionContentInterface getLearningVideoOther(Long contentId, Long videoId) {
-		return completionRepository.getLearningContentOther(contentId, videoId);
+	public CompletionContentInterface getLearningVideoOther(String email, Long videoId, Long classId) {
+		return completionRepository.getLearningContentOther(email, videoId, classId);
 	}
 	
-	
-	
+	public void createStudyHistory(Long contentId, String email,String flag, Long videoId) {
+		ContentVideo videoInfo = null;
+		if (flag =="F") {
+			videoInfo = contentVideoRepository.getVideoIdF(contentId);
+		} else {
+			videoInfo = contentVideoRepository.getVideoId(videoId);
+		}
+		ContentInfo ContentInfo = onContentRepository.getContentId(contentId);
+		UserInfo userId = userRepository.getUserId(email);
+		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
+		ApplyList applyList = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
+		Long history_id = studyHistortRepository.getVideoId(videoInfo.getId(),applyList.getId());
+		StudyHistory studyHistory = new StudyHistory();
+		if(history_id == null) {
+			studyHistory.setVideoId(videoInfo);
+			studyHistory.setContentId(ContentInfo);
+			studyHistory.setApplyId(applyList);
+		} else {
+			studyHistory.setVideoId(videoInfo);
+			studyHistory.setContentId(ContentInfo);
+			studyHistory.setId(history_id);
+			studyHistory.setApplyId(applyList);
+		}
+		studyHistortRepository.save(studyHistory);
+	}
+	public void createStudyResult(Long contentId, String email) {
+		UserInfo userId = userRepository.getUserId(email);
+		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
+		ApplyList applyId = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
+		Long progress = studyHistortRepository.getProgress(applyId.getId(),contentId);
+		StudyResult validResult = studyResultRepository.getResultId(applyId.getId());
+		StudyResult studyResult = new StudyResult();
+		 
+		//study_result id가 중복할경우(=applyId가 중복확인)
+		if(validResult != null) {
+			studyResult.setId(validResult.getId());
+		}
+		studyResult.setApplyId(applyId);
+		studyResult.setProgress(progress);
+		studyResultRepository.save(studyResult);
+		if(validResult != null) { //study_result에 갑이 있는지?
+			if(validResult.getProgress()>=100) { //study_result의 progress값이 100점인지
+				Completion compleId = completionRepository.getCompletion(validResult.getId()); //수료테이블에 데이터가 있는지?
+				if(compleId==null) {
+					Completion completion = new Completion();
+					completion.setResultId(validResult);
+					completionRepository.save(completion);
+				}
+			}
+		}
+	}
 }
