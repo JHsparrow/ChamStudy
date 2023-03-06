@@ -37,7 +37,7 @@ import ChamStudy.Service.CsService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping(value="/cs")
+@RequestMapping(value="/adminCs")
 @RequiredArgsConstructor
 public class AdminCsController {
 	
@@ -104,10 +104,10 @@ public class AdminCsController {
 		
 		try {
 			csService.saveInform(csInformDto, informFileList, email);
-			message = new MessageDto("공지사항 등록이 완료되었습니다.", "/cs/inform");
+			message = new MessageDto("공지사항 등록이 완료되었습니다.", "/adminCs/inform");
 			
 		} catch (Exception e) {
-			message = new MessageDto("공지사항 등록이 실패하였습니다.", "/cs/inform");
+			message = new MessageDto("공지사항 등록이 실패하였습니다.", "/adminCs/inform");
 		}
 		return showMessageAndRedirect(message, model);
 	}
@@ -123,7 +123,7 @@ public class AdminCsController {
 			model.addAttribute("csInformFileList",csInformFileDtoList);
 			
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/AdminInform");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/AdminInform");
 			return showMessageAndRedirect(message, model);
 		}
 		
@@ -138,7 +138,7 @@ public class AdminCsController {
 			CsInformDto csInformDto = csService.getInform(informId);
 			model.addAttribute("csInformDto", csInformDto);
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/inform");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/inform");
 			return showMessageAndRedirect(message, model);
 		}
 		return "cs/AdminInformMdf";
@@ -154,9 +154,9 @@ public class AdminCsController {
 		
 		try {
 			csService.updateInform(csInformDto, informFileList);
-			message = new MessageDto("게시글 수정이 완료되었습니다.", "/cs/informDtl/"+informId);
+			message = new MessageDto("게시글 수정이 완료되었습니다.", "/adminCs/informDtl/"+informId);
 		} catch (Exception e) {
-			message = new MessageDto("게시글 수정이 실패하였습니다.", "/cs/inform");
+			message = new MessageDto("게시글 수정이 실패하였습니다.", "/adminCs/inform");
 		}
 		
 		return showMessageAndRedirect(message, model);
@@ -171,9 +171,9 @@ public class AdminCsController {
 			csFileService.deleteInformFile(informId);
 			csService.deleteInform(informId);
 			
-			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/inform");
+			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/adminCs/inform");
 		} catch (Exception e) {
-			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/cs/informDtl/"+informId);
+			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/adminCs/informDtl/"+informId);
 		}
 		return showMessageAndRedirect(message, model);
 	}
@@ -212,9 +212,9 @@ public class AdminCsController {
 		
 		try {
 			csService.saveFaq(csFaqDto);
-			message = new MessageDto("게시글 등록이 완료되었습니다.", "/cs/faq");
+			message = new MessageDto("게시글 등록이 완료되었습니다.", "/adminCs/faq");
 		} catch (Exception e) {
-			message = new MessageDto("게시글 등록이 실패하였습니다.", "/cs/faq");
+			message = new MessageDto("게시글 등록이 실패하였습니다.", "/adminCs/faq");
 		}
 		return showMessageAndRedirect(message, model);
 	}
@@ -227,7 +227,7 @@ public class AdminCsController {
 			CsFaqDto csFaqDto = csService.getFaq(faqId);
 			model.addAttribute("csFaqDto", csFaqDto);
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/faq");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/faq");
 			return showMessageAndRedirect(message, model);
 		}
 		return "cs/AdminFaqMdf";
@@ -235,7 +235,7 @@ public class AdminCsController {
 	
 	//게시글 수정 버튼 클릭
 	@PostMapping(value="/updateFaq/{faqId}")
-	public String updateInform(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model,
+	public String updateFaq(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model,
 			@PathVariable("faqId")Long faqId) {
 		if(bindingResult.hasErrors()) {
 			return "cs/AdminFaqMdf";
@@ -243,9 +243,9 @@ public class AdminCsController {
 		
 		try {
 			csService.updateFaq(csFaqDto);
-			message = new MessageDto("게시글 수정이 완료되었습니다.", "/cs/faqDtl/"+faqId);
+			message = new MessageDto("게시글 수정이 완료되었습니다.", "/adminCs/faqDtl/"+faqId);
 		} catch (Exception e) {
-			message = new MessageDto("게시글 수정이 실패하였습니다.", "/cs/inform");
+			message = new MessageDto("게시글 수정이 실패하였습니다.", "/adminCs/faq");
 		}
 		
 		return showMessageAndRedirect(message, model);
@@ -259,7 +259,7 @@ public class AdminCsController {
 			CsFaqDto csFaqDto = csService.getFaq(faqId);
 			model.addAttribute("csFaqDto", csFaqDto);
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/cs/AdminFaq");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/AdminFaq");
 			return showMessageAndRedirect(message, model);
 		}
 		
@@ -274,9 +274,9 @@ public class AdminCsController {
 			CsFaqDto csFaqDto = csService.getFaq(faqId);
 			csService.deleteFaq(faqId);
 			
-			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/cs/faq");
+			message = new MessageDto("게시글 삭제가 완료되었습니다.", "/adminCs/faq");
 		} catch (Exception e) {
-			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/cs/faqDtl/"+faqId);
+			message = new MessageDto("게시글 삭제를 실패하였습니다.", "/adminCs/faqDtl/"+faqId);
 		}
 		return showMessageAndRedirect(message, model);
 
@@ -289,22 +289,6 @@ public class AdminCsController {
 		model.addAttribute("active","csQna"); // 사이드 바 액티브
 		return "cs/AdminQna";
 	}
-	
-	/*
-	//공지사항 리스트 (카테고리 첫 화면)
-	@GetMapping(value = "/inform")
-	public String csInform(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
-		//page.isPresent() ? page.get() : 0 => url경로에 페이지 넘버가 있으면 그걸 출력, 아니면 0
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-		Page<CsInformListDto> informList = csService.getInformList(userSearchDto, csInformListDto, pageable);
-		
-		model.addAttribute("informList", informList);
-		model.addAttribute("userSearchDto", userSearchDto);
-		model.addAttribute("maxPage", 5);
-		
-		return "cs/AdminInform";
-	}
-	*/
 	
 	@GetMapping(value="/createQna")
 	public String createQna(){

@@ -128,3 +128,99 @@ a{
 .write-btn:hover {
 cursor: pointer;
 	}
+	
+.Dtl-Content2-1 {
+    font-size: 2rem;
+    margin-top: 45px;
+    margin-bottom: 10px;    
+}
+
+.Dtl-Content2-3 {
+    display: flex;
+    border-bottom: 1px solid #C9C9C9;
+    padding-bottom: 25px;
+    position: relative;
+}
+
+.Dtl-content2-3-2 {
+    margin-left: 15px;
+}
+
+.Dtl-Content3 {
+    border-bottom: 1px solid #C9C9C9;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+main.content {
+    width: 70vw;
+    display: block;
+    margin: 0 auto;
+}
+
+button.openchat-Link {
+    border: none;
+    border-radius: 15px;
+    color: white;
+    background-color: #ab6e3ecf;
+}
+
+button:hover{
+    background-color: #642F05;
+}
+
+.write-body-wrap {
+    margin-left: 30%;
+}
+
+input#Title {
+    height: 50px;
+    width: 385px;
+    border: none;
+    /* border-top: 1px solid; */
+}
+
+button.btn.btn-primary.mb-3 {
+    cursor: pointer;
+    background-color: #ab6e3ecf;
+    font-size: 15px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+}
+
+button.mentoBack-btn {
+    border: none;
+    border-radius: 20px;
+}
+
+button.Dtl-menu {
+    position: absolute;
+    right: 0;
+	border: none;
+    background-color: white;
+}
+
+.mycomm-menu {
+    position: absolute;
+    right: 0;
+}
+
+button.mycomm-delete {
+    font-size: 15px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    border: none;
+}
+
+button.mycomm-modify {
+    border-radius: 20px;
+    font-size: 15px;
+    border: none;
+}
+
+button.mycomm-modify:hover{
+	background-color: #C9C9C9;	
+}

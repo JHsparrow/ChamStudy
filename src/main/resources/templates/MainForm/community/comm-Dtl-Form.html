@@ -23,6 +23,14 @@
 <link th:href="@{/css/community/comm.css}" rel="stylesheet">
 
 <title>Blank Page | AdminKit Demo</title>
+<script type="text/javascript">
+	function valinput() {
+		// name 값 설정
+		$('input[name=gubun]').val("C");
+		$('input[name=blockComment]').val("N");
+		$('input[name=viewCount]').val("0");
+	}
+</script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -31,40 +39,22 @@
 				<div class="container-fluid p-0">
 					<div class="Admin-Comm-Dtl-Wrap">
 
-						<div class="Admin-Dtl-Content1">
-							<span th:if="${comm.boardType == 'F'}">자유게시판</span> <span
-								th:if="${comm.boardType == 'Q'}">QnA게시판</span> <span
-								th:if="${comm.boardType == 'M'}">멘토게시판</span>
+						<div class="Dtl-Content1">
+							<div class="Dtl-Content2-1">[[${comm.Title}]]</div>
+							<div class="Dtl-content2-2">[[${comm.userInfo.name}]]</div>
+							<div class="Dtl-Content2-3">
+								<div class="Dtl-Content2-3-1">[[${comm.regdate}]]</div>
+								<div class="Dtl-content2-3-2">조회수:[[${comm.viewCount}]]</div>
+							</div>
 						</div>
-						<div class="Admin-Dtl-Content2">
-							<div class="Admin-Dtl-Content2-1">[[${comm.Title}]]</div>
-							<div class="Admin-Dtl-Content2-2">조회수:[[${comm.viewCount}]]</div>
-							<div class="Admin-Dtl-Content2-3">[[${comm.userInfo.name}]]([[${comm.userInfo.email}]])</div>
-						</div>
-						<div class="Admin-Dtl-Content3">
-							<div class="Admin-Dtl-Content3-1">[[${comm.regdate}]]</div>
-						</div>
-						<div class="Admin-Dtl-Content4">[[${comm.substance}]]</div>
-						<div class="Admin-Dtl-Content4-2">
+						<div class="Dtl-Content3">[[${comm.substance}]]</div>
+						<div class="Dtl-Content3-2">
 							<th:block th:each="commImg : ${comm.commImgDtos}">
 								<img th:if="${not #strings.isEmpty(commImg.url)}"
 									th:src="${commImg.url}">
 							</th:block>
 						</div>
-						<div class="Admin-dtl-Content5">
-							<form id="frm" action="/adminForm/comm/back" method="get">
-								<input type="hidden" id="referer" name="referer"
-									th:value="${referer}">
-								<button class="Admin-Dtl-Back"
-									th:onclick="|location.href='@{/adminForm/comm/back}'|">돌아가기</button>
-							</form>
-							<button
-								th:onclick="|location.href='@{/adminForm/comm/delete(boardId=${comm.id})}'|"
-								class="Admin-Dtl-Delete">
-								<span class="Dtl-Delete-Span">삭제</span>
-							</button>
-						</div>
-						<div class="Admin-dtl-Content6">
+						<div class="Admin-dtl-Content4">
 							<div class="accordion" id="accordionPanelsStayOpenExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -78,6 +68,46 @@
 										class="accordion-collapse collapse"
 										aria-labelledby="panelsStayOpen-headingOne">
 										<div class="accordion-body">
+											<form class="comment-write-form"
+												th:object="${commWriteFormDto}">
+												<div class="input-1">
+													<input type="hidden" name="id" th:value="${comm.id}"
+														id="id" />
+												</div>
+												<div class="input-2">
+													<input type="hidden" name="Title" id="Title" value="댓글" />
+												</div>
+												<div class="input-3">
+													<span>댓글 작성</span> <input type="text"
+														th:field="*{substance}" />
+												</div>
+												<div class="input-4">
+													<input type="hidden" id="boardType" name="boardType"
+														th:value="${comm.boardType}" />
+												</div>
+
+												<div class="input-5">
+													<input type="hidden" th:field="*{gubun}" name="gubun"
+														value="" />
+												</div>
+
+												<div class="input-6">
+													<input type="hidden" th:field="*{blockComment}"
+														name="blockComment" value="" />
+												</div>
+
+												<div class="input-7">
+													<input type="hidden" th:field="*{viewCount}"
+														name="viewCount" value="" />
+												</div>
+
+												<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
+													<button th:formaction="@{/comm/Mentocreate}" type="submit"
+														onclick="valinput()" class="btn btn-primary mb-3">등록</button>
+												</div>
+
+
+											</form>
 											<th:block class="comment-each"
 												th:each=" comment : ${comments}">
 												<div class="comment-wrap">

@@ -30,6 +30,7 @@ import ChamStudy.Dto.ClassInfoListDto;
 import ChamStudy.Dto.ClassReviewListDto;
 import ChamStudy.Dto.Class_reviewDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.ApplyListService;
 import ChamStudy.Service.ClassInfoService;
@@ -49,10 +50,10 @@ public class ClassController { //강의 페이지
 	private final Class_reviewService class_reviewService;
 	
 	@GetMapping(value="/class")
-	public String classView(Optional<Integer> page, Model model) { //강의 리스트
+	public String classView(Optional<Integer> page, Model model, UserSearchDto userSearchDto) { //강의 리스트
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		
-		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
+		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(userSearchDto, pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		model.addAttribute("maxPage",5);
 		return "/MainForm/Class/classList";

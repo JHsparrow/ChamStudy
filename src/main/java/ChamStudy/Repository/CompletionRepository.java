@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
+import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Entity.Completion;
 import ChamStudy.Impl.UserMainMypageRepositoryCustom;
@@ -92,11 +93,24 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
 			+ "join content_info E on e.content_id = d.content_id\r\n"
 			+ "join content_video F on f.content_id = e.content_id\r\n"
 			+ "join user_info Z on z.user_id = a.user_id\r\n"
+<<<<<<< HEAD
 			+ "where e.content_id = ?1 and f.video_id = ?2 and d.class_id = ?3 ;", nativeQuery=true)
 	CompletionContentInterface getLearningContentOther(Long contentId, Long videoId, Long classId);
 	
 	//classInfo 구하기
 	
+=======
+			+ "where e.content_id = ?1 and f.video_id = ?2 ;", nativeQuery=true)
+	CompletionContentInterface getLearningContentOther(Long contentId, Long videoId);
+
+	@Query(value="select d.class_name from completion a \r\n"
+			+ "join study_result b on a.result_id = b.result_id\r\n"
+			+ "join apply_list c on b.apply_id = c.apply_id\r\n"
+			+ "join class_info d on d.class_id = c.class_id\r\n"
+			+ "join user_info e on e.user_id = c.user_id\r\n"
+			+ "where e.user_email = ?;", nativeQuery = true)
+	List<String> getClassName(String email);
+>>>>>>> e6006b2c181b69e17ef75dadae772a17087e5b23
 	
 
 }

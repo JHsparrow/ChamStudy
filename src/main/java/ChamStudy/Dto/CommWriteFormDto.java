@@ -33,6 +33,7 @@ public class CommWriteFormDto {
 	
 	private String viewCount; //조회수
 	
+	private String className; //강의명
 	
 	private List<CommImgDto> commImgDtoList = new ArrayList<>();// 게시판에 담을 이미지들
 	
