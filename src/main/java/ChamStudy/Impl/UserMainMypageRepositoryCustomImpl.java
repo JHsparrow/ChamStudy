@@ -82,6 +82,14 @@ public class UserMainMypageRepositoryCustomImpl implements UserMainMypageReposit
 				
 		long total = queryFactory.select(Wildcard.count)
 				.from(completion)
+				.join(completion.resultId, studyResult)
+				.join(studyResult.applyId, applyList)
+				.join(applyList.classInfo, classInfo)
+				.join(classInfo.contentInfo, contentInfo)
+				.join(contentInfo.categoryId, category)
+				.join(contentInfo.subCategoryId, subCategory)
+				.join(applyList.userInfo, userInfo)
+				.where(userInfo.id.eq(userId))
 				.where(categoryLike(userSearchDto.getSearchQuery()))
 				.fetchOne();
 		
