@@ -7,8 +7,11 @@
 <title>참스터디</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
 <style>
+
+
 .swiper {
 	width: 100%;
 	height: 100%;
@@ -33,26 +36,73 @@
 	height: 350px;
 }
 .swiper-wrapper > div {
-	border: 1px solid black;
 	overflow: hidden;
 }
 .title {
 	text-align: left;
 	padding: 5px;	
+	text-decoration: none;
+	color: black;
 }
 .name {
 	text-align: left;
 	padding: 5px;
 	margin-bottom: 10px;
+	text-decoration: none;
+	color: black;
 }
 
 .price {
 	text-align: left;
 	padding: 5px;
+	text-decoration: none;
 }
 .swiper-img {
 	height: 200px;
 }
+.swiper-a {
+	text-decoration: none;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #fff;
+  opacity: 0.5;
+  padding: 15px 5px;
+  border-radius: 20px;
+  color: black !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+.swiper-slideA {
+	height: 100px;
+}
+
+.swiper-slideA img {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.swiper-slideA h5 {
+	margin-top: 10px;
+	font-size: 0.98rem;
+}
+
+.swiper-wrapper a{
+	text-decoration: none;
+	color: black;
+}
+
+}
+
+
 </style>
 </head>
 <body>
@@ -132,11 +182,18 @@
 		</div>
 		<!-- About End -->
 
+		<!-- 검색창 -->
 		<div class="container-xxl py-5">
 			<div class="row justify-content-center">
 				<div class="col-md-8 d-flex justify-content-center">
-					<input class="form-control border-1  py-3 ps-4 pe-5" type="text"
-						placeholder="검색어 입력">
+					<h3>배우고, 나누고, 성장하세요</h3>
+				</div>
+				<div class="col-md-8 d-flex justify-content-center">
+					<input class="form-control border-1 py-3 ps-4 pe-5" type="text"
+						placeholder="검색어 입력" >
+					<button class="btn btn-primary">
+		            <span class="icon"><i class="fas fa-search"></i></span>
+		          </button>
 				</div>
 			</div>
 		</div>
@@ -145,155 +202,124 @@
 
 		<!-- Service Start -->
 
-		<div class="container-xxl py-5">
+		<div class="container-xxl py-5" style="margin-top: -80px;">
 			<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
 				<h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
 				<h1 class="mb-5">Courses Categories</h1>
 			</div>
-			<div class="container">
-				<div class="row g-8">
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#코딩</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">일본어</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#UI</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#영어</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#수학</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#스프링</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#파이썬</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#보안</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#프론트</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#엑셀</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#데이터</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-lg-1 col-sm-1 wow fadeInUp" data-wow-delay="0.1s">
-						<div class="service-item text-center pt-2">
-							<a href="">
-								<div class="p-2">
-									<i class="fa fa-2x fa-graduation-cap text-primary mb-2"></i>
-									<p class="mb-2">#AI</p>
-								</div>
-							</a>
-						</div>
-					</div>
-
-
-				</div>
-			</div>
+<div class="container-xxl py-5" style="margin-top: -70px;">
+        <div class="container">
+            <div class="row g-12">
+			   <div class="swiper mySwiperA">
+			    <div class="swiper-wrapper ">
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/datascience.png"><h5>데이터</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/dev-ops.png"><h5>데브옵스</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/excel.png"><h5>엑셀</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/front-end.png"><h5>프론트</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/game.png"><h5>게임개발</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/icon-48x48.png"><h5>퍼블리셔</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/marketing.png"><h5>마케팅</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/mobile.png"><h5>모바일</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/python.png"><h5>파이썬</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/security.png"><h5>보안</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/spring.png"><h5>스프링</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/ux-ui.png"><h5>UI UX</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/work-skills.png"><h5>코딩테스트</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/_byMyself.png"><h5>부트캠프</h5></a></div>
+			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/byManage.png"><h5>대면캠프</h5></a></div>
+			    </div>
+			    <div class="swiper-paginationA"></div>
+			    <div class="swiper-button-next"></div>
+    			<div class="swiper-button-prev"></div>
+			  </div>
+                
+            </div>
+        </div>
+    </div>
 		</div>
 		<!-- Service End -->
 
-
-
 		<!-- Categories Start -->
-		<div class="container-xxl py-5 category">
+		<!-- swiper -->
+		<div class="container-xxl py-5 category" style="margin-top: -100px;">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3">무료강의</h6>
+					<h1 class="mb-5">Courses free video</h1>
+				</div>
+				<div class="row g-3">
+					<!-- 슬라이더 -->
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>	
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+														<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							
+							
+							
+						</div>
+						    <div class="swiper-button-next"></div>
+    						<div class="swiper-button-prev"></div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- swiper -->
+		<div class="container-xxl py-5 category" style="margin-top: -80px;">
 			<div class="container">
 				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
 					<h6 class="section-title bg-white text-center text-primary px-3">진행중인
@@ -305,23 +331,94 @@
 					<div class="swiper mySwiper">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
-							<a href="#">
+							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
 							<div class="name">강사명</div>
 							<div class="price">25000원!</div>
 							</a>
 							</div>
-							<div class="swiper-slide">Slide 2</div>
-							<div class="swiper-slide">Slide 3</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							<div class="swiper-slide">
+							<a class="swiper-a" href="#">
+							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
+							<div class="title">강의제목</div>
+							<div class="name">강사명</div>
+							<div class="price">25000원!</div>
+							</a>
+							</div>
+							
+							
+							
+							
 						</div>
+						    <div class="swiper-button-next"></div>
+    						<div class="swiper-button-prev"></div>
 						<div class="swiper-pagination"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Categories Start -->
 
+		<div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+			         <div class="content_left">
+			          <h1 class="title is-2">
+			            <span id="count_user" style="color: #0d6efd">1,065,450</span> 명이 <br>참스터디와 함께합니다.
+			          </h1>
+			          <div class="text is-1">
+			            학교에서 배우기 어렵거나 큰 비용을 <br>지불해야만 배울 수 있는 전문적인 지식들을 제공합니다.<br>
+			   			오픈 플랫폼의 이점을 통해 다양성과 경제성을 모두 높입니다.
+			          </div>
+			          <div class="buttons">
+			            <a class="btn btn-primary py-3 px-5 mt-2" href="#" style="margin-top: 200px;">공지사항 확인</a>
+			            <a class="button space-inset-stretch-5" href="/request-to-inflearn"></a>
+			          </div>
+			        </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                
+                	
+                </div>
+            </div>
+        </div>
 
 		<!-- Courses Start -->
 		<div class="container-xxl py-5">
@@ -608,15 +705,46 @@
 			src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 		<script>
 			var swiper = new Swiper(".mySwiper", {
-				slidesPerView : 4,
-				centeredSlides : true,
-				spaceBetween : 30,
+				slidesPerView : 5,
+				spaceBetween : 10,
 				grabCursor : true,
-				pagination : {
+				pagination : { 	
 					el : ".swiper-pagination",
 					clickable : true,
 				},
+		        pagination: { // 호출(pager) 여부
+		            el: ".swiper-pagination", //버튼을 담을 태그 설정
+		            clickable: true, // 버튼 클릭 여부
+		          },
+				
+		        navigation: {   // 버튼
+		            nextEl: ".swiper-button-next",
+		            prevEl: ".swiper-button-prev",
+		          },
+
 			});
+			
+		    var swiperA = new Swiper(".mySwiperA", {
+		    	slidesPerView : 12,
+				spaceBetween : 10,
+				grabCursor : true,
+				pagination : { 	
+					el : ".swiper-pagination",
+					clickable : true,
+				},
+		        pagination: { // 호출(pager) 여부
+		            el: ".swiper-pagination", //버튼을 담을 태그 설정
+		            clickable: true, // 버튼 클릭 여부
+		          },
+				
+		        navigation: {   // 버튼
+		            nextEl: ".swiper-button-next",
+		            prevEl: ".swiper-button-prev",
+		          },
+		      });
+			
+			
+			
 		</script>
 	</div>
 </body>
