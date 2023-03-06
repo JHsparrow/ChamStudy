@@ -128,6 +128,7 @@ public class CommController { //커뮤니티 컨트롤러
 			}
 	
 	
+	//멘토게시판
 	@GetMapping(value = {"/comm/mento","/comm/mento/{page}"})
 	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
@@ -140,14 +141,17 @@ public class CommController { //커뮤니티 컨트롤러
 		return "MainForm/community/commMento";
 	}
 	
+	//QnA게시판
 	@GetMapping(value = "/comm/qna")
-	public String commQna(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
+	public String commQna(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto,Principal principal) {
+		String email = principal.getName();
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
 		Page<MainCommDto> adminMainCommDtoList = commSearchService.getQnACommPage(commSearchDto,adminMainCommDto,pageable);
 		// view에서 쓸 수 있도록 model.addAttribute 작성
 		model.addAttribute("comms", adminMainCommDtoList);
 		model.addAttribute("commSearchDto",commSearchDto);
+		model.addAttribute("email",email);
 		model.addAttribute("maxPage",5);
 		return "MainForm/community/commQna";
 	}
