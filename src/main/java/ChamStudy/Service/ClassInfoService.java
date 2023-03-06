@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Repository.ClassInfoRepository;
@@ -59,8 +60,8 @@ public class ClassInfoService {
 	
 	//강의리스트 전체조회(페이징)
 	@Transactional(readOnly = true)
-	public Page<ClassInfoListDto> getAllClassPage(Pageable pageable) {
-		Page<ClassInfoListDto> classInfo = classInfoRepository.joinContent(pageable);
+	public Page<ClassInfoListDto> getAllClassPage(UserSearchDto userSearchDto, Pageable pageable) {
+		Page<ClassInfoListDto> classInfo = classInfoRepository.joinContent(userSearchDto, pageable);
 		
 		return classInfo;
 	}
