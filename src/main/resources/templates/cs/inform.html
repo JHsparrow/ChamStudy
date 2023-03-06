@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<title>참스터디</title>
+<link href="/main/css/cs_style.css" rel="stylesheet">
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<!-- Header Start -->
+		<div class="container-fluid bg-primary py-5 mb-5 page-header">
+			<div class="container py-5 cs-wrapper">
+				<div class="row justify-content-center">
+					<div class="col-lg-10 text-center">
+						<h1 class="display-3 text-white animated slideInDown">고객센터</h1>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb justify-content-center">
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/inform'">공지사항</a></li>
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
+								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/qna'">1:1 문의</a></li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+		
+		<!-- 공지사항 Start -->
+		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+					<h6 class="section-title bg-white text-center text-primary px-3">inform</h6>
+					<h1>공지사항</h1>
+				</div>
+				<div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                      <div class="g-3 row">
+                        <div class="col-12">
+							<div class="board board--list" id="list">
+							<!-- 리스트 검색 -->
+							<div class="list-search">
+							    <form th:action="@{/cs/inform}" method="get" role="search">
+						            <!-- maxlength는 타이틀 maxlength 값으로 임의 지정하였으며 정책에 맞춰 변경, 검색 결과 페이지에선 value 값을 검색어로 설정  -->
+						            <input type="search" name="searchQuery" class="input input-list-search" maxlength="50" value="" placeholder="검색어를 입력해주세요.">
+							    </form>
+							</div>
+							<div class="list list-default">
+								<div th:if="${not #lists.isEmpty(fixedInformList.getContent())}">
+									<ul class="none text-center">
+										<li class="list-item fixed">
+											<div class="list__num list_tab" aria-label="글 번호">
+							                    <span class="icon icon--notice">No.</span>
+							                </div>
+					                        <div class="list__subject" aria-label="제목">
+					                            <span class="list__title">제목</span>
+					                        </div>
+					                        <div class="list__read list_tab" aria-label="조회수">조회수</div>
+					                        <div class="list__date list_tab" aria-label="등록일">등록일</div>
+										</li>
+									<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
+										<li class="list-item list-content fixed">
+						                        <div class="list__num" aria-label="글번호">
+						                            <i class="fa-solid fa-volume-high"></i>
+						                        </div>
+						                        <div class="list__subject" aria-label="제목">
+						                            <span class="list__title">[[${fixedInform.title}]]</span>
+						                        </div>
+						                        <div class="list__read" aria-label="조회수">[[${fixedInform.viewCount}]]</div>
+						                        <div class="list__date" aria-label="등록일">[[${fixedInform.update.substring(0,13)}]]</div>
+										</li>
+									</th:block>
+									<th:block th:each="inform, status : ${informList.getContent()}">
+										<li class="list-item list-content">
+					                        <div class="list__num" aria-label="글 번호">
+					                            <span class="icon icon--notice">[[${inform.id}]]</span>
+					                        </div>
+					                        <div class="list__subject" aria-label="제목">
+					                            <span class="list__title">[[${inform.title}]]</span>
+					                        </div>
+					                        <div class="list__read" aria-label="조회수">[[${inform.viewCount}]]</div>
+					                        <div class="list__date" aria-label="등록일">[[${inform.update.substring(0,13)}]]</div>
+										</li>
+									</th:block>
+									<th:block th:if="${informList.getTotalElements()==0}">
+										<li class="list-content list-item"><strong>등록된 게시글이 없습니다.</strong></li>
+									</th:block>
+									</ul>
+								</div>
+							</div>
+								<div class="row">
+									<div class="col-sm-12 col-md-3">
+										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<nav th:with="start=${(informList.number/maxPage)*maxPage + 1},
+										end=(${(informList.totalPages == 0) ? 1 : (start + (maxPage -1) < informList.totalPages ? start + (maxPage -1) : informList.totalPages)})">
+										<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+										
+											<ul class="pagination">
+												<li th:classappend="${informList.first}? 'disabled'"
+												class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
+													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number-1}}"
+													 aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+												</li>
+												
+												
+												<li th:each="page: ${#numbers.sequence(start, end)}"
+												th:classappend="${informList.number eq page-1}?'active':''"
+												class="paginate_button page-item mx-1">
+													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
+												</li>
+												
+												
+												<li th:classappend="${informList.last}? 'disabled'"
+												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number+1}}"
+													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+												</li>
+											</ul>
+										</div>
+									</nav>
+									</div>
+								</div>
+					    </div>
+				      </div>
+                    <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+                </div>
+			</div>
+		</div>
+		<!-- 공지사항 End -->
+	</div>
+</body>
+</html>

@@ -15,9 +15,9 @@
 	})
 	
 	function page(){
-		var searchQuery = $(".searchQuery").val();
+		var selectCategory = $(".searchQuery").val();
 		
-		location.href="/mypage/completion/" + "?searchQuery=" + searchQuery;
+		location.href="/mypage/completion" + "?searchQuery=" + selectCategory;
 	}
 </script>
 <!-- 관리자 css -->
@@ -51,7 +51,7 @@
 									<div class="col-sm-6 col-md-6">
 										<div class="dataTables_length" id="datatables-orders_length">
 											<select name="searchQuery" aria-controls="datatables-orders"
-												class="form-select form-select-sm width30 height35">
+												class="form-select form-select-sm width30 height35 searchQuery">
 												<option value="" hidden>카테고리 선택</option>
 												<option value="IT">IT</option>
 												<option value="자격증">자격증</option>
@@ -71,7 +71,8 @@
 													th:alt="${completion.getOriImgName}">
 												<div class="card-header pd-07 d-flex">
 													<div class="d-inline-block">
-														<p class="card-ttl mb-0">[[${completion.CategoryName}]] - [[${completion.subCategoryName}]]</p>
+														<p class="card-ttl mb-0 searchQuery">[[${completion.CategoryName}]]</p>
+														<p class="card-ttl mb-0">[[${completion.subCategoryName}]]</p>
 														<p class="card-ttl class-title mb-0">[[${completion.ClassName}]]</p>
 													</div>
 													<div class="d-inline-block">

@@ -22,9 +22,11 @@ h2.mento-header1 {
 
 .search-wrap {
     display: flex;
-    position: absolute;
+    /* position: absolute; */
     top: 275px;
     left: 5%;
+    margin-left: 10px;
+    margin-top: 25px;
 }
 
 button#searchBtn {
@@ -32,6 +34,12 @@ button#searchBtn {
     border: none;
 }
 
+div.dataTables_paginate ul.pagination {
+    justify-content: center;
+    margin: 2px 0;
+    white-space: nowrap;
+    margin-top: 50px;
+}
 .boards {
     margin-left: 30%;
     margin-right: 10%;
@@ -48,7 +56,7 @@ input#searchQuery {
 
 .each {
     width: 195px;
-    height: 208px;
+    height: 155px;
     background-color: #FFF1E3;
     margin-top: 15px;
     border-radius: 10px;
@@ -84,3 +92,4 @@ a.comm-wrap-a3 {
     position: absolute;
     bottom: 10px;
 }
+

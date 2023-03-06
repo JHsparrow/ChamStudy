@@ -35,12 +35,14 @@ public class MainCommDto { //커뮤니티 관리자 페이지 DTO
 	
 	private String imgUrl;
 	
+	private String className;
+	
 	public MainCommDto() {
 		
 	}
 	
 	@QueryProjection
-	public MainCommDto(Long id, String Title, String boardType, UserInfo userInfo, String gubun, String substance, Integer viewCount, String regDate, String blockComment, String openChat, String imgUrl) {  
+	public MainCommDto(Long id, String Title, String boardType, UserInfo userInfo, String gubun, String substance, Integer viewCount, String regDate, String blockComment, String openChat, String imgUrl, String className) {  
 		this.id = id;
 		this.Title = Title;
 		this.boardType = boardType;
@@ -52,6 +54,7 @@ public class MainCommDto { //커뮤니티 관리자 페이지 DTO
 		this.blockComment = blockComment;
 		this.openChat = openChat;
 		this.imgUrl = imgUrl;
+		this.className = className;
 	}
 	
 }

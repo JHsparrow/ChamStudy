@@ -61,14 +61,14 @@
 						<div class="Admin-Dtl-Content4">[[${csFaqDto.substance}]]</div>
 						
 						<div class="Admin-dtl-Content5">
-							<form id="frm" action="/cs/faq" method="get">
+							<form id="frm" action="/adminCs/faq" method="get">
 								<button class="Admin-Dtl-Back" >돌아가기</button>
 							</form>
 							
 							<button	class="Admin-Dtl-Delete" th:onclick="delCheck([[${csFaqDto.id}]])" type="button">
 								<span class="Dtl-Delete-Span">삭제</span>
 							</button>
-							<form id="delFrm" th:action="'/cs/deleteFaq/'+${csFaqDto.id}">
+							<form id="delFrm" th:action="'/adminCs/deleteFaq/'+${csFaqDto.id}">
 								<input type="hidden" id="delFaqId" name="faqId" />
 							</form>
 						</div>

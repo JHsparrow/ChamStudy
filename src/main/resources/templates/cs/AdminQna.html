@@ -37,7 +37,7 @@
 	function delCheck(qnaId){
 		if(confirm('삭제하시겠습니까?')){
 			$('#delQnaId').val(qnaId);
-			$('#delFrm').attr("action","/cs/deleteQna/"+qnaId);
+			$('#delFrm').attr("action","/adminCs/deleteQna/"+qnaId);
 			$('#delFrm').submit();
 		}else{ return false; }
 	}
@@ -69,7 +69,7 @@
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-								<form th:action="@{/cs/faq}" method="get" role="search">
+								<form th:action="@{/adminCs/qna}" method="get" role="search">
 									<div class="row">
 										<div class="col-sm-12 col-md-6">
 											<div class="dataTables_length" id="datatables-orders_length">
@@ -77,12 +77,6 @@
 													<option value="A">전체</option>
 													<option value="N">답변 대기</option>
 													<option value="Y">답변 완료</option>
-													
-													<!-- <option value="A" th:selected="${sValue}=='A'">전체</option>
-													<option value="S" th:selected="${sValue}=='S'">수강신청</option>
-													<option value="V" th:selected="${sValue}=='V'">강의</option>
-													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
-													<option value="M" th:selected="${sValue}=='M'">기타</option> -->
 												</select>
 											</div>
 										</div>
@@ -115,7 +109,7 @@
 										<tbody>
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><strong>1001</strong></td>
-												<td><a class="underline" onClick="location.href='/cs/qnaDtl'"><strong>제목</strong></a></td>
+												<td><a class="underline" onClick="location.href='/adminCs/qnaDtl'"><strong>제목</strong></a></td>
 												<td>test@test.com</td>
 												<td>2023년 02월 27일</td>
 												<td>2023년 02월 27일</td>
@@ -134,7 +128,7 @@
 									</div>
 								</div>
  								<form id="delFrm">
-									<input type="hidden" id="delFaqId" name="faqId" />
+									<input type="hidden" id="delQnaId" name="qnaId" />
 								</form>
 								
 								<div class="row">
@@ -149,7 +143,7 @@
 											<ul class="pagination">
 												<li th:classappend="${faqList.first}? 'disabled'"
 												class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
-													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number-1}}"
+													<a th:href="@{'/adminCs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
 												</li>
 												
@@ -157,14 +151,14 @@
 												<li th:each="page: ${#numbers.sequence(start, end)}"
 												th:classappend="${faqList.number eq page-1}?'active':''"
 												class="paginate_button page-item mx-1">
-													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													<a th:href="@{'/adminCs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
 												</li>
 												
 												
 												<li th:classappend="${faqList.last}? 'disabled'"
 												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
-													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number+1}}"
+													<a th:href="@{'/adminCs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number+1}}"
 													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
 												</li>
 											</ul>
@@ -172,7 +166,7 @@
 									</nav>
 									</div> -->
 									<div class="col-sm-12 col-md-3 newbtnwrap">
-										<a class="btn btn-primary btn-sm newbtn" onClick="location.href='/cs/createQna'">등록하기</a>
+										<a class="btn btn-primary btn-sm newbtn" onClick="location.href='/adminCs/createQna'">등록하기</a>
 									</div>
 								</div>
 							</div>

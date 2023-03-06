@@ -28,14 +28,14 @@
         var searchCategory = $(".selectCategory").val();
         var searchQuery = $(".searchInput").val();
 
-        location.href="/cs/faq/"+ "?searchCategory=" + searchCategory
+        location.href="/adminCs/faq/"+ "?searchCategory=" + searchCategory
         + "&searchQuery=" + searchQuery;
     }
 	
 	function delCheck(faqId){
 		if(confirm('삭제하시겠습니까?')){
 			$('#delFaqId').val(faqId);
-			$('#delFrm').attr("action","/cs/deleteFaq/"+faqId);
+			$('#delFrm').attr("action","/adminCs/deleteFaq/"+faqId);
 			$('#delFrm').submit();
 		}else{ return false; }
 	}
@@ -67,7 +67,7 @@
 						</div>
 						<div class="card-body">
 							<div id="datatables-orders_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-								<form th:action="@{/cs/faq}" method="get" role="search">
+								<form th:action="@{/adminCs/faq}" method="get" role="search">
 									<div class="row">
 										<div class="col-sm-12 col-md-6">
 											<div class="dataTables_length" id="datatables-orders_length">
@@ -114,10 +114,10 @@
 												<tr class="odd">
 													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${faq.id}]]</strong></td>
 													<td class="category">[[${faq.gubun}]]</td>
-													<td><a class="underline" th:onclick="|location.href='@{/cs/faqDtl/}${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
+													<td><a class="underline" th:onclick="|location.href='@{/adminCs/faqDtl/}${faq.id}'|"><strong>[[${faq.title}]]</strong></a></td>
 													<td>[[${faq.update.substring(0,13)}]]</td>
 													<td>
-														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/faqMdf/}${faq.id}'|">수정</a>
+														<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/adminCs/faqMdf/}${faq.id}'|">수정</a>
 													</td>
 													<td>
 														<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${faq.id}]])">삭제</a>
@@ -147,7 +147,7 @@
 											<ul class="pagination">
 												<li th:classappend="${faqList.first}? 'disabled'"
 												class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
-													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number-1}}"
+													<a th:href="@{'/adminCs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
 												</li>
 												
@@ -155,14 +155,14 @@
 												<li th:each="page: ${#numbers.sequence(start, end)}"
 												th:classappend="${faqList.number eq page-1}?'active':''"
 												class="paginate_button page-item mx-1">
-													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													<a th:href="@{'/adminCs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
 												</li>
 												
 												
 												<li th:classappend="${faqList.last}? 'disabled'"
 												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
-													<a th:href="@{'/cs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number+1}}"
+													<a th:href="@{'/adminCs/faq' + '?searchCategory=' + ${userSearchDto.searchCategory} + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${faqList.number+1}}"
 													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
 												</li>
 											</ul>
@@ -170,7 +170,7 @@
 									</nav>
 									</div>
 									<div class="col-sm-12 col-md-3 newbtnwrap">
-										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/createFaq}'|">등록하기</a>
+										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/adminCs/createFaq}'|">등록하기</a>
 									</div>
 								</div>
 							</div>
