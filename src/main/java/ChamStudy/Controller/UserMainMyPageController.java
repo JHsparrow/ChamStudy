@@ -161,6 +161,7 @@ public class UserMainMyPageController {
 		
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(contentId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId);
+		System.err.println(completionContent);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
 		
@@ -169,8 +170,8 @@ public class UserMainMyPageController {
 	
 	//학습중 플레이리스트에서 다른 회차 강의 클릭
 	@GetMapping(value="/learning/watch/{contentId}/{videoId}")
-	public String LearningContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, Model model) {
-		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(contentId, videoId);
+	public String LearningContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, @PathVariable("classId") Long classId,Model model) {
+		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(contentId, videoId, classId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
