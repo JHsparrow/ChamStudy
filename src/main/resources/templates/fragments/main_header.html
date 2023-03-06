@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<a href="/mypage/main" class="nav-item nav-link" >마이페이지</a>
-					<a href="/users/signUpCk" class="nav-item nav-link" >회원가입</a>
+					<a href="/users/signUpCk" class="nav-item nav-link" sec:authorize="isAnonymous()">회원가입</a>
 					<a href="/users/signIn" class="nav-item nav-link" sec:authorize="isAnonymous()">login</a>
 					<a href="/users/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">logout</a>
 				</div>

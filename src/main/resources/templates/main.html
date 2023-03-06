@@ -22,70 +22,27 @@
 			</div>
 		</div>
 		<!-- Spinner End -->
+		
+		
+		   <!-- Header Start -->
+ 	<div style="display: none;">
+		<input type="hidden" id="delIndex" name="delIndex" value="-1" />
+	</div>
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+		
 
-		<!-- About Start -->
-		<div class="container-xxl py-5">
-			<div class="container">
-				<div class="row g-5">
-					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"
-						style="min-height: 400px;">
-						<div class="position-relative h-100">
-							<img class="img-fluid position-absolute w-100 h-100"
-								src="/main/img/about.jpg" alt="" style="object-fit: cover;">
-						</div>
-					</div>
-					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-						<h6 class="section-title bg-white text-start text-primary pe-3">Welcome</h6>
-						<h1 class="mb-4">Welcome to ChamStudy</h1>
-						<p class="mb-4">커뮤니티형 온라인 강의 플랫폼7,911개 강의에서 3,140,275개의 수강 활동을
-							통해 배움을 즐겁게 만들어 가고 있습니다.</p>
-						<p class="mb-4">실제로 많은 온오프라인 학원들은 단기적 성과를 높이기 위해 잘나온 특정 후기만 노출
-							하거나, 아예 숨겨버리는 경우가 많습니다. 반면 참스터디는 강의에 대한 후기, 학생수 등 정보를 투명하게 공개합니다.
-							신뢰성을 바탕으로 학습자들이 더 좋은 컨텐츠를 선택하고 교육의 질을 높입니다.</p>
-						<div class="row gy-2 gx-4 mb-4">
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Skilled
-									Instructors
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Online
-									Classes
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>International
-									Certificate
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Skilled
-									Instructors
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Online
-									Classes
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>International
-									Certificate
-								</p>
-							</div>
-						</div>
-						<a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- About End -->
 
 		<!-- 검색창 -->
 		<div class="container-xxl py-5">
@@ -314,7 +271,7 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px; visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
 			         <div class="content_left">
 			          <h1 class="title is-2">
-			            <span id="count_user" style="color: #642F05">1,065,450</span> 명이 <br>참스터디와 함께합니다.
+			            <span id="count_user" style="color: #642F05">[[${countMember}]]</span>명이 <br>참스터디와 함께합니다.
 			          </h1>
 			          <div class="text is-1">
 			            학교에서 배우기 어렵거나 큰 비용을 <br>지불해야만 배울 수 있는 전문적인 지식들을 제공합니다.<br>

@@ -47,7 +47,17 @@ public class UserMainMyPageController {
 	
 	//마이페이지 화면 보여주기
 	@GetMapping(value = "/main")
-	public String signIn() {
+	public String signIn(Model model) {
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		try {
+			UserInfoDto user = userMainMyPageService.getUser(email);
+			model.addAttribute("user", user);
+		} catch (Exception e) {
+			System.out.println("addUser 메소드 내 catch문 오류");
+			return "/";
+		}
+		
 		return "mypage/my-page";
 	}
 	
