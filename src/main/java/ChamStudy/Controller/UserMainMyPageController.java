@@ -47,7 +47,17 @@ public class UserMainMyPageController {
 	
 	//마이페이지 화면 보여주기
 	@GetMapping(value = "/main")
-	public String signIn() {
+	public String signIn(Model model) {
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		try {
+			UserInfoDto user = userMainMyPageService.getUser(email);
+			model.addAttribute("user", user);
+		} catch (Exception e) {
+			System.out.println("addUser 메소드 내 catch문 오류");
+			return "/";
+		}
+		
 		return "mypage/my-page";
 	}
 	
@@ -156,23 +166,26 @@ public class UserMainMyPageController {
 	}
 
 	//학습중 페이지 - 강의보기 클릭
-	@GetMapping(value = "/learning/watch/{contentId}")
-	public String Learning(@PathVariable("contentId") Long contentId, Model model) {
-		
-		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(contentId);
-		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId);
-		System.err.println(completionContent);
+	@GetMapping(value = "/learning/watch/{contentId}/{classId}")
+	public String Learning(@PathVariable("contentId") Long contentId, @PathVariable("classId") Long classId, Model model) {
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		userMainMyPageService.createStudyHistory(contentId,email,"F",contentId); //학습 이력 삽입(study_history)
+		userMainMyPageService.createStudyResult(contentId,email); //학습 이력 삽입(study_result)
+		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(classId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
-		
 		return "mypage/Learning-Lecture";
 	}
 	
 	//학습중 플레이리스트에서 다른 회차 강의 클릭
-	@GetMapping(value="/learning/watch/{contentId}/{videoId}")
+	@GetMapping(value="/learning/watch/{contentId}/{videoId}/{classId}")
 	public String LearningContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, @PathVariable("classId") Long classId,Model model) {
-		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(contentId, videoId, classId);
-		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId);
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		userMainMyPageService.createStudyHistory(contentId,email,"N",videoId); //학습 이력 삽입(study_history)
+		userMainMyPageService.createStudyResult(contentId,email); //학습 이력 삽입(study_result)
+		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(email, videoId, classId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
 		

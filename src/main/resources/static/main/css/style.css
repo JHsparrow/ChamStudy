@@ -47,8 +47,13 @@
 .btn.btn-primary,
 .btn.btn-secondary {
     color: #FFFFFF;
+    background-color: #ab6e3ecf;
+    border: 1px solid #ab6e3ecf;
 }
 
+.btn:hover .btn-primary:hover {
+	background-color: #642F05 !important;
+}
 .btn-square {
     width: 38px;
     height: 38px;
@@ -254,7 +259,7 @@
 
 /*** Service ***/
 .service-item {
-    background: var(--light);
+    background: #ab6e3ecf;
     transition: .5s;
 }
 

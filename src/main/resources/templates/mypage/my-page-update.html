@@ -8,16 +8,29 @@
 <title>마이페이지</title>
 
 <link href="/main/css/my_page_style.css" rel="stylesheet">
+<!-- 관리자 css -->
+<link href="/css/app.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 <th:block layout:fragment="css">
 	<style>
 .fieldError {
 	color: #bd2130;
 }
+
+.btn:hover {
+	background-color: #642F05!important;
+	border: 1px solid #642F05!important;
+}
+.back {
+	background-color: #ab6e3ecf;
+}
+
+.text-primary {
+	color: #642F05!important;
+}
 </style>
 </th:block>
-<!-- 관리자 css -->
-<link href="/css/app.css" rel="stylesheet">
-<link href="/css/style.css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -36,10 +49,10 @@
 							<div class="card col-md-8">
 								<div class="card-body">
 									<!-- 새로운폼 -->
-									<section class="vh-100" style="background-color: #2779e2;">
+									<section class="vh-100">
 										<div class="container h-100">
 											<div
-												class="row d-flex justify-content-center align-items-center h-100">
+												class="row d-flex justify-content-center align-items-center h-100 back">
 												<div class="col-xl-9">
 													<h1 class="text-white mb-4">회원정보 수정</h1>
 													<form id="frm" action="/mypage/update" method="post"
