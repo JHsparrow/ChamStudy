@@ -67,9 +67,9 @@ public class ContentVideoService {
 		ContentVideo videoId = contentVideoRepository.getId(videoName);
 		ContentInfo getContentId = onContentRepository.getContentId(contentId);
 		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
-		Long history_id = studyHistortRepository.getVideoId(videoId.getId());
 		UserInfo userId = userRepository.getUserId(email);
 		ApplyList applyList = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
+		Long history_id = studyHistortRepository.getVideoId(videoId.getId(),applyList.getId());
 		StudyHistory studyHistory = new StudyHistory();
 		if(history_id == null) {
 			studyHistory.setVideoId(videoId);

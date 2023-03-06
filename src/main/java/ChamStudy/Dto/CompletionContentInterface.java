@@ -6,4 +6,8 @@ public interface CompletionContentInterface {
 	String getClassName();
 	Long getVideoId();
 	String getContentName();
+	String getVideoUrl();
+	String getStartDate();
+	String getEndDate();
+	Long getProgress();
 }
