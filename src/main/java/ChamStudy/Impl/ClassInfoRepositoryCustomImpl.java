@@ -7,15 +7,19 @@ import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.QClassInfo;
 import ChamStudy.Entity.QContentInfo;
+import ChamStudy.Entity.QSubCategory;
 
 public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom {
 	private JPAQueryFactory queryFactory;
@@ -24,10 +28,16 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
         this.queryFactory = new JPAQueryFactory(em);
     }
     
+    //서브카테고리 필터
+    public BooleanExpression subCategoryLike(String searchQuery) {
+    	return StringUtils.isEmpty(searchQuery) ? null : QSubCategory.subCategory.name.like("%" + searchQuery + "%");
+    }
+    
 	@Override
-	public Page<ClassInfoListDto> joinContent(Pageable pageable) {
+	public Page<ClassInfoListDto> joinContent(UserSearchDto userSearchDto, Pageable pageable) {
 		QClassInfo classInfo = QClassInfo.classInfo;
 		QContentInfo contentInfo = QContentInfo.contentInfo;
+		QSubCategory subCategory = QSubCategory.subCategory;
 		
 		List<ClassInfoListDto> classInfoList = queryFactory		
                 .select(Projections.constructor(ClassInfoListDto.class, classInfo.id,
@@ -35,6 +45,8 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
                 		classInfo.sDate, classInfo.eDate, contentInfo.id, contentInfo.name, contentInfo.imgUrl)) //select 컬럼1, 컬럼2, 컬럼... from class_info
                 .from(classInfo)
                 .join(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
+                .join(subCategory).on(contentInfo.subCategoryId.id.eq(subCategory.id))
+                .where(subCategoryLike(userSearchDto.getSearchQuery()))
                 .orderBy(QClassInfo.classInfo.id.desc()) //order by class_id desc
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -120,4 +132,5 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
 		
 		return classDetail;
 	}
+
 }

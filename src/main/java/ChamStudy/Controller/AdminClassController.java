@@ -25,6 +25,7 @@ import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.ClassInfoListDto;
 import ChamStudy.Dto.ContentDto;
 import ChamStudy.Dto.MessageDto;
+import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Service.ClassInfoService;
 import ChamStudy.Service.OnContentService;
@@ -42,14 +43,14 @@ public class AdminClassController {
 	private final OnContentService onContentService;
 
 	@GetMapping(value = "/classList") //강의 리스트 페이지
-	public String classList(Optional<Integer> page, Model model) {
+	public String classList(Optional<Integer> page, Model model, UserSearchDto userSearchDto) {
 
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 9);
 		
 
 		model.addAttribute("active","classInfo"); // 사이드 바 액티브
 
-		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(pageable);
+		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(userSearchDto, pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		return "/AdminForm/AdminClass/classList";
 	}

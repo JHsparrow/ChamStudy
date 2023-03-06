@@ -8,7 +8,7 @@
 	function delCheck(informId){
 		if(confirm('삭제하시겠습니까?')){
 			$('#delInformId').val(informId);
-			$('#delFrm').attr("action","/cs/deleteInform/"+informId);
+			$('#delFrm').attr("action","/adminCs/deleteInform/"+informId);
 			$('#delFrm').submit();
 		}else{ return false; }
 	}
@@ -51,7 +51,7 @@
 									</div>
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
-										<form th:action="@{/cs/inform}" method="get" role="search">
+										<form th:action="@{/adminCs/inform}" method="get" role="search">
 											<label class="d-flex justify-content-end">
 												<input name="searchQuery" type="search" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
 												<!-- <button class="btn btn-primary" style="margin-left: 20px;" type="submit">Search</button> -->
@@ -81,11 +81,11 @@
 											<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
 											<tr class="fixedInform">
 												<td class="dtr-control sorting_1" tabindex="0"><i class="fa-solid fa-volume-high"></i></td>
-												<td><a class="underline" th:onclick="|location.href='@{/cs/informDtl/}${fixedInform.id}'|"><strong>[[${fixedInform.title}]]</strong></a></td>
+												<td><a class="underline" th:onclick="|location.href='@{/adminCs/informDtl/}${fixedInform.id}'|"><strong>[[${fixedInform.title}]]</strong></a></td>
 												<td class="text-center">[[${fixedInform.viewCount}]]</td>
 												<td>[[${fixedInform.update.substring(0,13)}]]</td>
 												<td>
-													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}${fixedInform.id}'|">수정</a>
+													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/adminCs/informMdf/}${fixedInform.id}'|">수정</a>
 												</td>
 												<td>
 													<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${fixedInform.id}]])">삭제</a>
@@ -97,11 +97,11 @@
 										<th:block th:each="inform, status : ${informList.getContent()}">
 										<tr class="odd">
 											<td class="dtr-control sorting_1" tabindex="0"><strong>[[${inform.id}]]</strong></td>
-											<td><a class="underline" th:onclick="|location.href='@{/cs/informDtl/}+${inform.id}'|">[[${inform.title}]]</a></td>
+											<td><a class="underline" th:onclick="|location.href='@{/adminCs/informDtl/}+${inform.id}'|">[[${inform.title}]]</a></td>
 											<td class="text-center">[[${inform.viewCount}]]</td>
 											<td>[[${inform.update.substring(0,13)}]]</td>
 											<td>
-												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/cs/informMdf/}${inform.id}'|">수정</a>
+												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/adminCs/informMdf/}${inform.id}'|">수정</a>
 											</td>
 											<td>
 												<a class="btn btn-primary btn-sm" th:onclick="delCheck([[${inform.id}]])">삭제</a>
@@ -131,7 +131,7 @@
 											<ul class="pagination">
 												<li th:classappend="${informList.first}? 'disabled'"
 												class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
-													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number-1}}"
+													<a th:href="@{'/adminCs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
 												</li>
 												
@@ -139,14 +139,14 @@
 												<li th:each="page: ${#numbers.sequence(start, end)}"
 												th:classappend="${informList.number eq page-1}?'active':''"
 												class="paginate_button page-item mx-1">
-													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
+													<a th:href="@{'/adminCs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${page-1}}"
 													 aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
 												</li>
 												
 												
 												<li th:classappend="${informList.last}? 'disabled'"
 												class="paginate_button page-item next" id="datatables-orders_next  mx-1">
-													<a th:href="@{'/cs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number+1}}"
+													<a th:href="@{'/adminCs/inform' + '?searchQuery=' + ${userSearchDto.searchQuery} + '&page=' + ${informList.number+1}}"
 													 aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
 												</li>
 											</ul>
@@ -154,7 +154,7 @@
 									</nav>
 									</div>
 									<div class="col-sm-12 col-md-3 newbtnwrap">
-										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/cs/informForm}'|">등록하기</a>
+										<a class="btn btn-primary btn-sm newbtn" th:onclick="|location.href='@{/adminCs/informForm}'|">등록하기</a>
 									</div>
 								</div>
 							</div>
