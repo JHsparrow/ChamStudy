@@ -184,12 +184,10 @@ public class UserMainMyPageService {
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
+	
 	public Page<CertificateDto> getCompletionList(CertificateDto certificateDto,Pageable pageable, String email){
 		return completionRepository.getCompletionPage(certificateDto, pageable, email);
 		
 	}
->>>>>>> 9f97c08ae58c57ce329ccf7d3c39c17d0a28dd83
 	
 }
