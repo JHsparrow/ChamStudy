@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.CompletionContentDto;
 import ChamStudy.Dto.CompletionContentInterface;
+import ChamStudy.Dto.CertificateDto;
+import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CompletionListDto;
+import ChamStudy.Dto.MainFormDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
@@ -131,7 +134,7 @@ public class UserMainMyPageService {
 		return completionRepository.getLearningContentOther(email, videoId, classId);
 	}
 	
-	public void createStudyHistory(Long contentId, String email,String flag, Long videoId) {
+	public void createStudyHistory(Long contentId, String email,String flag, Long videoId, Long classId) {
 		ContentVideo videoInfo = null;
 		if (flag =="F") {
 			videoInfo = contentVideoRepository.getVideoIdF(contentId);
@@ -140,7 +143,7 @@ public class UserMainMyPageService {
 		}
 		ContentInfo ContentInfo = onContentRepository.getContentId(contentId);
 		UserInfo userId = userRepository.getUserId(email);
-		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
+		ClassInfo classInfo = classInfoRepository.getClassInfoConClass(contentId,classId);
 		ApplyList applyList = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
 		Long history_id = studyHistortRepository.getVideoId(videoInfo.getId(),applyList.getId());
 		StudyHistory studyHistory = new StudyHistory();
@@ -156,9 +159,9 @@ public class UserMainMyPageService {
 		}
 		studyHistortRepository.save(studyHistory);
 	}
-	public void createStudyResult(Long contentId, String email) {
+	public void createStudyResult(Long contentId, String email, Long classId) {
 		UserInfo userId = userRepository.getUserId(email);
-		ClassInfo classInfo = classInfoRepository.getClassInfo(contentId);
+		ClassInfo classInfo = classInfoRepository.getClassInfoConClass(contentId,classId);
 		ApplyList applyId = applyListRepository.findByUserId(userId.getId(),classInfo.getId());
 		Long progress = studyHistortRepository.getProgress(applyId.getId(),contentId);
 		StudyResult validResult = studyResultRepository.getResultId(applyId.getId());
@@ -182,4 +185,13 @@ public class UserMainMyPageService {
 			}
 		}
 	}
+	
+	public Page<CertificateDto> getCompletionList(CertificateDto certificateDto,Pageable pageable, String email){
+		return completionRepository.getCompletionPage(certificateDto, pageable, email);
+	}
+	
+	public CertificateInterface getCertificateInfo(Long compId) {
+		return completionRepository.getCertificateInfo(compId);
+	}
+	
 }

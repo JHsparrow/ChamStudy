@@ -30,7 +30,11 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
     
     //서브카테고리 필터
     public BooleanExpression subCategoryLike(String searchQuery) {
-    	return StringUtils.isEmpty(searchQuery) ? null : QSubCategory.subCategory.name.like("%" + searchQuery + "%");
+    	if(searchQuery ==  null || searchQuery.equals("all")) {
+    		return null;
+    	} else {
+    		return QSubCategory.subCategory.name.like("%" + searchQuery + "%");
+    	}
     }
     
 	@Override

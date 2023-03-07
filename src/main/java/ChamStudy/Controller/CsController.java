@@ -51,7 +51,7 @@ public class CsController {
 		return "cs/index";
 	}
 	
-	//=========================================== 고객센터 메인 ===========================================
+	//=========================================== 공지사항 ===========================================
 	
 	@GetMapping(value="/inform")
 	public String informMain(UserSearchDto userSearchDto, CsInformListDto csInformListDto, Optional<Integer> page, Model model) {
@@ -78,7 +78,12 @@ public class CsController {
 		return "cs/inform";
 	}
 	
-	//=========================================== 자주묻는질문 메인 ===========================================
+	@GetMapping(value="/inform/dtl")
+	public String informDtl() {
+		return "cs/informDtl";
+	}
+	
+	//=========================================== 자주묻는질문  ===========================================
 
 	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")

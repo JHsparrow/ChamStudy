@@ -9,6 +9,10 @@
 	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="/main/css/swiper.css" rel="stylesheet">
+
+<style>
+
+</style>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -101,6 +105,8 @@
 		</div>
 		<!-- Service End -->
 
+
+
 		<!-- Categories Start -->
 		<!-- swiper -->
 		<div class="container-xxl py-5 category" style="margin-top: -100px;">
@@ -112,71 +118,21 @@
 				<div class="row g-3">
 					<!-- 슬라이더 -->
 					<div class="swiper mySwiper">
+						
 						<div class="swiper-wrapper">
+						<th:block th:each="mainFormDto, status : ${mainFormDtoList}">
 							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<a class="swiper-a" th:href="@{/mainForm/detail/{classId}(classId=${mainFormDto.getid})}">
+							<div class="swiper-img"><img th:src="${mainFormDto.getimgurl()}"></div>
+							<div class="title">[[${mainFormDto.getclassname()}]]</div>
+							<div class="name">[[${mainFormDto.getsubname()}]]</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">무료</div>
+							<div class="price">[[${mainFormDto.getprice()}]]</div>
 							</a>
 							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">무료</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">무료</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>	
-							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">무료</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">무료</div>
-							</a>
-							</div>
-							
-														<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">무료</div>
-							</a>
-							</div>
-							
-							
-							
-							
+						</th:block>
 						</div>
+						
 						    <div class="swiper-button-next"></div>
     						<div class="swiper-button-prev"></div>
 						<div class="swiper-pagination"></div>
@@ -202,7 +158,7 @@
 							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<div class="name">서브카테고리</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">25000원!</div>
 							</a>
@@ -212,7 +168,7 @@
 							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<div class="name">서브카테고리</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">25000원!</div>
 							</a>
@@ -222,7 +178,7 @@
 							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<div class="name">서브카테고리</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">25000원!</div>
 							</a>
@@ -232,7 +188,7 @@
 							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<div class="name">서브카테고리</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">25000원!</div>
 							</a>
@@ -242,7 +198,7 @@
 							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<div class="name">서브카테고리</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">25000원!</div>
 							</a>
@@ -252,7 +208,7 @@
 							<a class="swiper-a" href="#">
 							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
 							<div class="title">강의제목</div>
-							<div class="name">강사명</div>
+							<div class="name">서브카테고리</div>
 							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">25000원!</div>
 							</a>
@@ -343,7 +299,8 @@
 		          loop : true,   // 슬라이드 반복 여부
 		          loopAdditionalSlides : 1
 		      });
-			
+		    
+
 			
 			
 		</script>

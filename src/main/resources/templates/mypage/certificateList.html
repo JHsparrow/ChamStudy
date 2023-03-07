@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<script>
+</script>
+<title>마이페이지</title>
+
+<!-- 관리자 css -->
+<link href="/css/app.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<link href="/main/css/my_page_style.css" rel="stylesheet">
+<script>
+	function printCerti(w,h,compId){
+		var popupX = (document.body.offsetWidth / 2) - (w / 2);
+		popupX += window.screenLeft;
+		var popupY= (window.screen.height / 2) - (h / 2); 	
+		console.log(popupX);
+		console.log(popupY);
+		
+		window.open("/mypage/viewCert/"+compId, "_blank", 'width='+w+', height='+h+', left='+ popupX + ', top='+ popupY);
+		
+		return false;
+	}
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<div class="row">
+						<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 -->
+						<div class="col-md-4 col-xl-3">
+							<div th:replace="fragments/main_mypage_nav::mypagenav"></div>
+						</div>
+						<!-- 마이페이지 옆에 nav바 레이아웃으로 바꿈 end -->
+						<div class="col-md-8 col-xl-9">
+							<div class="card minheight">
+								<!-- 유저 정보 -->
+								<div class="card-header">
+									<h2 class="d-inline-block" sec:authentication="principal.name"></h2>
+									<h2 class="d-inline-block">님 반갑습니다.</h2>
+								</div>
+								<!-- 강의 목록 -->
+								<div class="row text-center justify-content-center" style="height:700px">
+									<div class="col-9">
+										<ul class="list-group">
+											<th:block th:each="cerList : ${certificateList}">
+												<li class="d-flex list-group-item cerList">
+													<img class="object-fit-cover me-5" th:src="${cerList.img}" width="200" height="100" th:alt="이미지">
+													<span class="w-25">[[${cerList.name}]]</span>
+													<span class="w-25 me-5">[[${#strings.substring(cerList.date,0,14)}]]</span>
+													<span class="w-25"><button type="button" class="btn btn-primary" th:onclick="printCerti(800,830,[[${cerList.id}]])">수료증 출력</button></span>
+												</li>
+											</th:block>
+											
+										</ul>
+									</div>
+								</div>
+									<!-- 페이징 버튼 -->
+									<div class="row justify-content-center">
+										<div class="col-sm-12 col-md-6">
+											<nav th:with="start=${(certificateList.number/maxPage)*maxPage + 1}, end=(${(certificateList.totalPages == 0) ? 1 : (start + (maxPage -1) < certificateList.totalPages ? start + (maxPage -1) : certificateList.totalPages)})">
+												<div class="col-sm-12 col-md-12 ">
+													<div class="dataTables_paginate paging_simple_numbers block-27" id="datatables-orders_paginate">
+														<ul class="pagination" style="justify-content: center;">
+															<li th:classappend="${certificateList.first}? 'disabled'" class="paginate_button page-item previous disabled mx-1" id="datatables-orders_previous">
+																<a th:href="@{'/mypage/certificateList?page=' + ${certificateList.number-1}}" aria-controls="datatables-orders" data-dt-idx="0" tabindex="0" class="page-link">&lt </a>
+															</li>
+															<li th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${certificateList.number eq page-1}?'active':''" class="paginate_button page-item mx-1">
+																<a th:href="@{'/mypage/certificateList?page=' + ${page-1}}" aria-controls="datatables-orders" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a>
+															</li>
+															<li th:classappend="${certificateList.last}? 'disabled'" class="paginate_button page-item next" id="datatables-orders_next  mx-1">
+																<a th:href="@{'/mypage/certificateList?page=' + ${certificateList.number+1}}" aria-controls="datatables-orders" data-dt-idx="3" tabindex="0" class="page-link">&gt</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</nav>
+											<!-- 페이징 버튼 -->
+										</div>
+									</div>
+								
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</body>
+</html>

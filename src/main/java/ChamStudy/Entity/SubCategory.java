@@ -44,7 +44,7 @@ public class SubCategory {
 	@Column(updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일 HH:mm:ss")
 	private String regDate;
-	
+
 	@PrePersist
     public void onPrePersist(){
         this.regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss"));

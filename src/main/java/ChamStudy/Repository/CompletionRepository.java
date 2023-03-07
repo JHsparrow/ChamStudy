@@ -6,16 +6,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
+import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
+import ChamStudy.Impl.CertificateRepositoryCustom;
 import ChamStudy.Impl.UserMainMypageRepositoryCustom;
 
 
 public interface CompletionRepository extends JpaRepository<Completion, Long>,
-QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
+QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, CertificateRepositoryCustom {
 	
 	@Query(value="select * from completion where result_id = ?1", nativeQuery = true)
 	Completion getCompletion(Long resultId); 
@@ -94,10 +96,8 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
 			+ "join content_info E on e.content_id = d.content_id\r\n"
 			+ "join content_video F on f.content_id = e.content_id\r\n"
 			+ "join user_info Z on z.user_id = a.user_id\r\n"
-
 			+ "where z.user_email = ?1 and f.video_id = ?2 and d.class_id = ?3 ;", nativeQuery=true)
 	CompletionContentInterface getLearningContentOther(String email, Long videoId, Long classId);
-	
 	
 	
 
@@ -109,7 +109,16 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
 			+ "where e.user_email = ?;", nativeQuery = true)
 	List<String> getClassName(String email);
 
-	//비디오 아이디
+	//수료증 정보
+	@Query(value="select a.completion_id as compId , d.class_name as className, d.class_id as classId, f.user_name as userName, c.reg_date as applyDate, a.reg_date as compDate \r\n"
+			+ "from completion a\r\n"
+			+ "join study_result B on a.result_id = b.result_id\r\n"
+			+ "join apply_list C on b.apply_id = c.apply_id\r\n"
+			+ "join class_info d on c.class_id = d.class_id\r\n"
+			+ "join content_info e on e.content_id = d.content_id\r\n"
+			+ "join user_info f on c.user_id = f.user_id\r\n"
+			+ "where a.completion_id = ?1", nativeQuery = true)
+	CertificateInterface getCertificateInfo(Long compId);
 	
 
 }
