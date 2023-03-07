@@ -9,6 +9,10 @@
 	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="/main/css/swiper.css" rel="stylesheet">
+
+<style>
+
+</style>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -101,6 +105,8 @@
 		</div>
 		<!-- Service End -->
 
+
+
 		<!-- Categories Start -->
 		<!-- swiper -->
 		<div class="container-xxl py-5 category" style="margin-top: -100px;">
@@ -120,14 +126,7 @@
 							<div class="swiper-img"><img th:src="${mainFormDto.getimgurl()}"></div>
 							<div class="title">[[${mainFormDto.getclassname()}]]</div>
 							<div class="name">[[${mainFormDto.getsubname()}]]</div>
-							<div class="star">
-							[[${mainFormDto.getstarpoint}]]
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star-half-alt"></i>
-							<i class="far fa-star"></i>
-							<i class="far fa-star"></i>
-							<i class="far fa-star"></i>
-							</div>
+							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
 							<div class="price">[[${mainFormDto.getprice()}]]</div>
 							</a>
 							</div>
@@ -300,7 +299,8 @@
 		          loop : true,   // 슬라이드 반복 여부
 		          loopAdditionalSlides : 1
 		      });
-			
+		    
+
 			
 			
 		</script>

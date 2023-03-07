@@ -6,5 +6,5 @@ public interface MainFormDto {
 	Integer getprice();
 	String getsubname();
 	String getimgurl();
-	Integer getstarpoint();
+	String getstarpoint();
 }
