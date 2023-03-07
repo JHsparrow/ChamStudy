@@ -95,10 +95,8 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, Certifica
 			+ "join content_info E on e.content_id = d.content_id\r\n"
 			+ "join content_video F on f.content_id = e.content_id\r\n"
 			+ "join user_info Z on z.user_id = a.user_id\r\n"
-
 			+ "where z.user_email = ?1 and f.video_id = ?2 and d.class_id = ?3 ;", nativeQuery=true)
 	CompletionContentInterface getLearningContentOther(String email, Long videoId, Long classId);
-	
 	
 	
 

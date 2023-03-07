@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<title>참스터디</title>
+<link href="/main/css/cs_style.css" rel="stylesheet">
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<!-- Header Start -->
+		<div class="container-fluid bg-primary py-5 mb-5 page-header">
+			<div class="container py-5 cs-wrapper">
+				<div class="row justify-content-center">
+					<div class="col-lg-10 text-center">
+						<h1 class="display-3 text-white">고객센터</h1>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb justify-content-center">
+								<li class="breadcrumb-item"><a class="text-white"
+									onClick="location.href='/cs/inform'">공지사항</a></li>
+								<li class="breadcrumb-item"><a class="text-white"
+									onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
+								<li class="breadcrumb-item"><a class="text-white"
+									onClick="location.href='/cs/qna'">1:1 문의</a></li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+
+		<!-- 공지사항 Start -->
+		<div class="container-xxl py-5">
+			<div class="container cs-wrapper">
+				<div class="col-lg-12 col-md-12 wow">
+					<div class="g-3 row">
+						<div class="content content--notice">
+       						<h2 class="cs-title">공지사항</h2>
+							<div class="board board--article">
+								<article class="article article-h">
+									<a href="#" class="button button--list">목록가기</a>
+									<!-- 타이틀 -->
+									<header>
+										<h2 class="title-w">
+											<span class="article__title">악성코드 감염 예방을 위한 보안 수칙 안내</span>
+										</h2>
+										<div class="article__date" aria-label="등록일">2020.02.26 17:52</div>
+									</header>
+									<!-- // 타이틀 -->
+									<!-- 아티클 정보 -->
+									<div class="article__info maindata">
+										<!-- 아티클 주요 정보 -->
+										<div class="article__summary">
+											<div class="article__read">
+												<span>조회수</span> 142,793
+											</div>
+										</div>
+										<!-- // 아티클 주요 정보 -->
+									</div>
+									<!-- // 아티클 정보 -->
+									<!-- 아티클 내용 -->
+									<section class="article__data">
+										<div class="fr-view">
+											<p>글 내용</p>
+										</div>
+									</section>
+									<!-- // 아티클 내용 -->
+								</article>
+							</div>
+						</div>
+						<input type="hidden" th:name="${_csrf?.parameterName}"
+							th:value="${_csrf?.token}">
+					</div>
+				</div>
+			</div>
+			<!-- 공지사항 End -->
+		</div>
+	</div>
+</body>
+</html>
