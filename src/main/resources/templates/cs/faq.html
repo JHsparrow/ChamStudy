@@ -42,7 +42,7 @@
 			<div class="container py-5">
 				<div class="row justify-content-center">
 					<div class="col-lg-10 text-center">
-						<h1 class="display-3 text-white animated slideInDown">고객센터</h1>
+						<h1 class="display-3 text-white">고객센터</h1>
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb justify-content-center">
 								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/inform'">공지사항</a></li>
@@ -59,11 +59,11 @@
 		<!-- FAQ Start -->
 		<div class="container-xxl py-5">
 			<div class="container">
-				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<div class="text-center">
 					<h6 class="section-title bg-white text-center text-primary px-3">faq</h6>
 					<h1>자주 묻는 질문</h1>
 				</div>
-				<div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+				<div class="col-lg-12 col-md-12">
                       <div class="g-3 row">
                         <div class="col-12">
 							<div class="board board--list" id="list">
@@ -101,7 +101,7 @@
 				                        <div class="list__date list_tab" aria-label="등록일">등록일</div>
 									</li>
 									<th:block th:each="faq, status : ${faqList.getContent()}">
-										<li class="list-item list-content">
+										<li class="list-item list-content" th:onclick="|location.href='@{/cs/faq/}${faq.id}'|">
 					                        <div class="list__num" aria-label="글 번호">
 					                            <span class="icon icon--notice">[[${faq.id}]]</span>
 					                        </div>

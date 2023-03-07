@@ -13,12 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ChamStudy.Dto.CsFaqDto;
 import ChamStudy.Dto.CsFaqListDto;
+import ChamStudy.Dto.CsInformDto;
+import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.CsQnaDto;
 import ChamStudy.Dto.MessageDto;
@@ -78,8 +82,21 @@ public class CsController {
 		return "cs/inform";
 	}
 	
-	@GetMapping(value="/inform/dtl")
-	public String informDtl() {
+	@GetMapping(value="/inform/{informId}")
+	public String informDetail(@PathVariable("informId") Long informId, Model model) {
+		
+		model.addAttribute("active","csInform"); // 사이드 바 액티브
+		try {
+			CsInformDto csInformDto = csService.getInform(informId);
+			List<CsInformFileDto> csInformFileDtoList = csInformDto.getCsInformFileDtoList();
+			model.addAttribute("csInformDto", csInformDto);
+			model.addAttribute("csInformFileList",csInformFileDtoList);
+			
+		} catch (Exception e) {
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/AdminInform");
+			return showMessageAndRedirect(message, model);
+		}
+		
 		return "cs/informDtl";
 	}
 	
@@ -88,7 +105,6 @@ public class CsController {
 	//자주묻는질문 리스트 (카테고리 첫 화면)
 	@GetMapping(value = "/faq")
 	public String csFaq(UserSearchDto userSearchDto, CsFaqListDto csFaqListDto, Optional<Integer> page, Model model) {
-		model.addAttribute("active","csFaq"); // 사이드 바 액티브
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 30); 	//페이지 인덱스 번호는 계속 바뀌어야 하므로 삼항연산자로 처리
 		Page<CsFaqListDto> faqList = csService.getFaqList(userSearchDto, csFaqListDto, pageable);
@@ -97,6 +113,19 @@ public class CsController {
 		model.addAttribute("sValue",userSearchDto.getSearchCategory());
 		return "cs/faq";
 	}
+	
+	//자주묻는질문 게시글 상세 보기
+	@GetMapping(value="/faq/{faqId}")
+	public String faqDetail(@PathVariable("faqId") Long faqId, Model model) { 
+		try {
+			CsFaqDto csFaqDto = csService.getFaq(faqId);
+			model.addAttribute("csFaqDto", csFaqDto);
+		} catch (Exception e) {
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/AdminFaq");
+			return showMessageAndRedirect(message, model);
+		}
+		return "cs/faqDtl";
+	 }
 	
 	// ==================================== 1:1 문의 ====================================
 	@GetMapping(value="/qna")
