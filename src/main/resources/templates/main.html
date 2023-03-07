@@ -119,7 +119,7 @@
 					<!-- 슬라이더 -->
 					<div class="swiper mySwiper">
 						
-						<div class="swiper-wrapper">
+						<div class="swiper-wrapper" th:if="${not #lists.isEmpty(mainFormDtoList)}">
 						<th:block th:each="mainFormDto, status : ${mainFormDtoList}">
 							<div class="swiper-slide">
 							<a class="swiper-a" th:href="@{/mainForm/detail/{classId}(classId=${mainFormDto.getid})}">
@@ -216,6 +216,7 @@
 							<div class="price">25000원!</div>
 							</a>
 							</div>
+							
 						</div>
 						    <div class="swiper-button-next"></div>
     						<div class="swiper-button-prev"></div>

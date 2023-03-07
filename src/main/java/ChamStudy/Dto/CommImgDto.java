@@ -10,13 +10,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommImgDto {
-	private Long id;
+	private Long id; //이미지 아이디
 	
-	private String Name;
+	private String Name; //이미지 이름
 	
-	private String oriName;
+	private String oriName; //이미지 원본 이름
 	
-	private String url;
+	private String url; 
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	

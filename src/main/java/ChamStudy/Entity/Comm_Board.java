@@ -27,6 +27,7 @@ public class Comm_Board extends BaseTimeEntity{
 	
 	@Id
 	@Column(name = "board_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //게시판 아이디
 	
 	private String Title; //게시판 제목
@@ -52,10 +53,20 @@ public class Comm_Board extends BaseTimeEntity{
 	
 	private String className; //강의명 (멘토 페이지에서 사용)
 	
+	private Long oriId; //글 식별 아이디
+	
 	public void updateComm(CommWriteFormDto boardFormDto) {
 		this.Title = boardFormDto.getTitle();
 		this.substance = boardFormDto.getSubstance();
 		this.openChat = boardFormDto.getOpenChat();
+		
+	}
+
+	public void updateOri(Comm_Board board) {
+		this.Title = board.getTitle();
+		this.substance = board.getSubstance();
+		this.openChat = board.getOpenChat();
+		this.oriId = board.getOriId();
 		
 	}
 	
