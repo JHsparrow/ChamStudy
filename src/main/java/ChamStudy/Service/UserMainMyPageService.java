@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ChamStudy.Dto.CompletionContentDto;
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.CompletionListDto;
+import ChamStudy.Dto.MainFormDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
@@ -182,4 +183,5 @@ public class UserMainMyPageService {
 			}
 		}
 	}
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.EducationInfoInterface;
+import ChamStudy.Dto.MainFormDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Impl.ClassInfoRepositoryCustom;
 
@@ -33,5 +34,16 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	
 	@Query(value="select * from class_info where content_id = ?1", nativeQuery = true)
 	ClassInfo getClassInfo(Long contentId );
-
+	
+	@Query(value="select a.class_id as id, a.class_name as classname , a.price, c.name as subname,b.img_url as imgurl, \r\n"
+			+ "case when avg(d.star_point) is null then 0\r\n"
+			+ "else avg(d.star_point)\r\n"
+			+ "end as starpoint \r\n"
+			+ "from class_info A\r\n"
+			+ "join content_info B on b.content_id = a.content_id\r\n"
+			+ "join sub_category C on c.sub_category_id = b.sub_category_id\r\n"
+			+ "left join class_review D on d.class_id = a.class_id\r\n"
+			+ "group by a.class_id;", nativeQuery = true)
+	List<MainFormDto> getMainClassInfo();
+	
 }
