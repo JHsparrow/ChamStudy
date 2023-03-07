@@ -16,6 +16,7 @@ import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.CertificateDto;
 import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CompletionListDto;
+import ChamStudy.Dto.MainFormDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
 import ChamStudy.Dto.UserInfoDto;
@@ -184,6 +185,7 @@ public class UserMainMyPageService {
 			}
 		}
 	}
+	
 	public Page<CertificateDto> getCompletionList(CertificateDto certificateDto,Pageable pageable, String email){
 		return completionRepository.getCompletionPage(certificateDto, pageable, email);
 	}
