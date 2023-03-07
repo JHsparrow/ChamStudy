@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
+import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CommMentoClassNameDto;
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Entity.Completion;
@@ -108,7 +109,16 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, Certifica
 			+ "where e.user_email = ?;", nativeQuery = true)
 	List<String> getClassName(String email);
 
-	//비디오 아이디
+	//수료증 정보
+	@Query(value="select a.completion_id as compId , d.class_name as className, d.class_id as classId, f.user_name as userName, c.reg_date as applyDate, a.reg_date as compDate \r\n"
+			+ "from completion a\r\n"
+			+ "join study_result B on a.result_id = b.result_id\r\n"
+			+ "join apply_list C on b.apply_id = c.apply_id\r\n"
+			+ "join class_info d on c.class_id = d.class_id\r\n"
+			+ "join content_info e on e.content_id = d.content_id\r\n"
+			+ "join user_info f on c.user_id = f.user_id\r\n"
+			+ "where a.completion_id = ?1", nativeQuery = true)
+	CertificateInterface getCertificateInfo(Long compId);
 	
 
 }

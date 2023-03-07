@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ChamStudy.Dto.CompletionContentDto;
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.CertificateDto;
+import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.MainFormDto;
 import ChamStudy.Dto.MyClassLearningDto;
@@ -187,7 +188,10 @@ public class UserMainMyPageService {
 	
 	public Page<CertificateDto> getCompletionList(CertificateDto certificateDto,Pageable pageable, String email){
 		return completionRepository.getCompletionPage(certificateDto, pageable, email);
-		
+	}
+	
+	public CertificateInterface getCertificateInfo(Long compId) {
+		return completionRepository.getCertificateInfo(compId);
 	}
 	
 }
