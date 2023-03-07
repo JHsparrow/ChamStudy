@@ -11,11 +11,12 @@ import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
+import ChamStudy.Impl.CertificateRepositoryCustom;
 import ChamStudy.Impl.UserMainMypageRepositoryCustom;
 
 
 public interface CompletionRepository extends JpaRepository<Completion, Long>,
-QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
+QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, CertificateRepositoryCustom {
 	
 	@Query(value="select * from completion where result_id = ?1", nativeQuery = true)
 	Completion getCompletion(Long resultId); 
