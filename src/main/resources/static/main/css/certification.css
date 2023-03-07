@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+body{
+    width: 700px;
+    height: 100%;
+    margin:0 auto;
+    font-size: 24px;
+}
+.certContainer{
+	display:inline-block;
+	height: 990px;
+	width: 700px;
+}
+.certImg{
+	position:absolute;
+	width: 700px;
+
+}
+.certWrap{
+    width: 80%;
+    height: 86%;
+    margin: 35px 67px;
+}
+.desc{
+	text-align: center;
+	line-height: 45px;
+}
+.sign{
+	text-align: center;
+	font-size: 40px;
+}
+.signImg{
+	width: 100px;
+    height: 65px;
+    position: absolute;
+    top: 812px;
+}
+.m60{	margin-top:60px;}
+.m300{	margin-top:300px;}

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.CertificateDto;
+import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
@@ -205,6 +206,13 @@ public class UserMainMyPageController {
 		model.addAttribute("certificateList",certificate);
 		model.addAttribute("maxPage",5);
 		return "mypage/certificateList";
+	}
+	
+	@GetMapping(value="/viewCert/{compId}")
+	public String viewCertification(@PathVariable(value = "compId") Long compId, Model model) {
+		CertificateInterface certiInfo = userMainMyPageService.getCertificateInfo(compId);
+		model.addAttribute("certiInfo", certiInfo);
+		return "mypage/certificateView";
 	}
 	
 

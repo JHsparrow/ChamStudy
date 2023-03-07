@@ -13,6 +13,19 @@
 <link href="/css/app.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
 <link href="/main/css/my_page_style.css" rel="stylesheet">
+<script>
+	function printCerti(w,h,compId){
+		var popupX = (document.body.offsetWidth / 2) - (w / 2);
+		popupX += window.screenLeft;
+		var popupY= (window.screen.height / 2) - (h / 2); 	
+		console.log(popupX);
+		console.log(popupY);
+		
+		window.open("/mypage/viewCert/"+compId, "_blank", 'width='+w+', height='+h+', left='+ popupX + ', top='+ popupY);
+		
+		return false;
+	}
+</script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -42,7 +55,7 @@
 													<img class="object-fit-cover me-5" th:src="${cerList.img}" width="200" height="100" th:alt="이미지">
 													<span class="w-25">[[${cerList.name}]]</span>
 													<span class="w-25 me-5">[[${#strings.substring(cerList.date,0,14)}]]</span>
-													<span class="w-25"><button type="button" class="btn btn-primary">수료증 출력</button></span>
+													<span class="w-25"><button type="button" class="btn btn-primary" th:onclick="printCerti(800,830,[[${cerList.id}]])">수료증 출력</button></span>
 												</li>
 											</th:block>
 											
