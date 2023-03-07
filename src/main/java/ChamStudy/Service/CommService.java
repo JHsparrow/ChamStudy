@@ -2,9 +2,11 @@ package ChamStudy.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -51,19 +53,11 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	 return mainCommDtoList; }
 
 	
-	public Long saveComm(CommWriteFormDto CommFormDto, List<MultipartFile> commImgFileList,String email) throws Exception{
+	public Long saveComm(CommWriteFormDto CommFormDto,String email) throws Exception{
 		UserInfo userInfo = userRepository.findByemail(email);
 		Comm_Board board = CommFormDto.createBoard();
 		board.setUserId(userInfo);
 		commRepository.save(board);
-		
-		for(int i=0; i<commImgFileList.size(); i++) {
-			Comm_Board_Img commImg = new Comm_Board_Img();
-			commImg.setBoard(board);
-			
-			//이미지 저장
-			commImgService.saveCommImg(commImg, commImgFileList.get(i));
-		}
 		return board.getId();
 	}
 
@@ -208,5 +202,19 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		
 		CommWriteFormDto commWriteFormDto = CommWriteFormDto.of(board);
 		return commWriteFormDto;
+	}
+
+
+	public Long updateMento(CommWriteFormDto commWriteFormDto) {
+		Comm_Board board = commRepository.findById(commWriteFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+		board.updateComm(commWriteFormDto);
+		return board.getId();
+	}
+
+
+	public CommDto getcommDto(Long boardId) {
+		Comm_Board board = commRepository.findById(boardId).orElseThrow();
+		CommDto commDto = new CommDto(board);
+		return commDto;
 	}
 }

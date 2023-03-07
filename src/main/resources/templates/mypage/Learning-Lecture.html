@@ -36,19 +36,18 @@
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 							<li class="nav-item1"><a class="nav-link">[[${completionContent.getClassName()}]]</a></li>
-							<li class="nav-item2"><a class="nav-link">수강기한:  - </a></li>
+							<li class="nav-item2"><a class="nav-link">수강기한:  [[${completionContent.getStartDate()}]] - [[${completionContent.getEndDate()}]] </a></li>
 							<li class="nav-item4">
 								<a class="nav-link">학습률</a>
-								<div class="progress ms-6 me-2" role="progressbar"
-									aria-label="Default striped example" aria-valuenow="10"
-									aria-valuemin="0" aria-valuemax="100">
-									<div class="progress-bar progress-bar-striped" style="width:0%">%</div>
+								
+								<div class="progress ms-6 me-2">
+								  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" th:style="'width:'+${completionContent.getProgress()}+'%'" role="progressbar" th:aria-valuenow="${completionContent.getProgress()}" aria-valuemin="0" aria-valuemax="100">[[${completionContent.getProgress()}]]%</div>
 								</div>
 							</li>
 							<li class="nav-item5"><a class="nav-link">강의목록</a></li>
 							<li th:each="content: ${completionContentList}" class="nav-item6">
 								<a class="nav-link" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getVideoId()}/${content.getClassId()}'|">
-									[[${content.getContentName()}]] [[${contentStat.count}]]강
+									[[${content.getClassName()}]] [[${contentStat.count}]]강
 								</a>
 							</li>
 							<button class="back-mypage" onclick="location.href='/mypage/myclass';">돌아가기</button>
@@ -61,7 +60,7 @@
 	</th:block>
 	<div class="body">
 		<video>
-			<source  type="video/mp4">
+			<source th:src="${completionContent.getVideoUrl()}+'.mp4'" type="video/mp4">
 		</video>
 	</div>
 	<div class="footer">

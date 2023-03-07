@@ -49,7 +49,7 @@
 	text-align: left;
 	padding: 5px;
 	text-decoration: none;
-	color: #175cbe;
+	color: #642F05;
 	font-weight: bolder;
 }
 
@@ -146,5 +146,29 @@
 }
 
 .text-primary {
-	color: #642F05 !important;
+	color: #ab6e3ecf !important;
+	
 }
+
+/* .text-primary:hover {
+	color: #642F05 !important;
+	background-color: #642F05 !important;
+} */
+
+.btn:hover {
+	background-color: #642F05!important;
+	border: 1px solid #642F05!important;
+}
+
+
+.card-header {
+	padding: inherit;
+}
+
+.page-header {
+	background: url("/img/photos/banner2.jpg");
+	background-size : cover;
+	height: 400px;
+	background-position: 0 -705px;
+}
+

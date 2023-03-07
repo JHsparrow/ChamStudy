@@ -65,7 +65,7 @@ function valinput() {
 			</div>
 			
 			<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
-				<button th:formaction="@{'/comm/Mentocreate/' + ${boardFormDto.id} }" type="submit" class="btn btn-primary mb-3">수정</button>
+				<button th:formaction="@{'/comm/Mentocreate/' + ${commWriteFormDto.id} }" type="submit" class="btn btn-primary mb-3">수정</button>
 			</div>
 			
 		</form>

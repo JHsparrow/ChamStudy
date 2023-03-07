@@ -7,67 +7,13 @@
 
 <script>
 
-// $(document).ready(function(){
-// //onClick 이벤트를 호출하기 위해 함수 호출
-// //수강신청 버튼 클릭
-// $('#classOff').on('click', function(event) {
-// 		var url = "/applyList";
-// 	    var paramData = {
-// 	        classId : $("#classId").val()
-// 	    };
-	
-// 	    var param = JSON.stringify(paramData);
-	    
-// 	    $.ajax({
-// 	        url      : url,
-// 	        type     : "POST",
-// 	        contentType : "application/json",
-// 	        data     : param,
-// 	//         beforeSend : function(xhr){
-// 	            /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
-// 	//             xhr.setRequestHeader(header, token);
-// 	//            },
-// 	        dataType : "json",
-// 	        cache   : false,
-// 	        success  : function(result, status){
-// 	        	var applyId = result;
-	        	
-// 	        	if (applyId > 0) {
-// 	            	alert("수강신청이 완료되었습니다.");
-// 	        		$("#classOff").css("display","none"); //표시하지않는다
-// 	                $("#classOn").css("display",""); //표시한다
-// 	        	} else if (applyId == -777) {
-// 	            	alert("이미 수강신청을 하였습니다.");
-// 	        		$("#classOff").css("display","none"); //표시하지않는다
-// 	                $("#classOn").css("display",""); //표시한다
-// 	        	} else if (applyId == -7) {
-// 	        		alert("강의신청을 하기 위해서는 로그인이 되어있어야 합니다.");
-// 	        		$("#classOff").css("display",""); //표시한다
-// 	        		$("#classOn").css("display","none"); //표시하지않는다
-// 	        	} else {
-// 	        		alert("수강신청에 실패하였습니다.");
-// 	                $("#classOff").css("display",""); //표시한다
-// 	        		$("#classOn").css("display","none"); //표시하지않는다
-// 	        	}
-// 			},
-// 	        error : function(jqXHR, status, error) {
-// 	            $("#classOff").css("display",""); //표시한다
-// 	        	$("#classOn").css("display","none"); //표시하지않는다
-	        	
-// 	            if(jqXHR.status == '401') {
-// 	                alert('로그인 후 이용해주세요');
-// 	                location.href='/users/signIn';
-// 	            } else{
-// 	                alert(jqXHR.responseText);
-// 	            }
-// 	        }
-// 	    });
-// 	});
-// });
-
 </script>
 
 <link href="/main/css/swiper.css" rel="stylesheet">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36502bb1b9b3cad31009aa2c77d1e778dfa78a71
 <script>
 	$(function(){
 		$(".sub").on("click", function(e){
@@ -79,49 +25,29 @@
 		location.href="/mainForm/class" + "?searchQuery=" + sub;
 	}
 </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36502bb1b9b3cad31009aa2c77d1e778dfa78a71
 <style>
 
-.card-header {
-	padding: inherit;
+.card {
+	transition: 150ms;
+}
+
+.card:hover {
+	transform: scale(1.02);
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .page-header {
 	background: url("/img/photos/banner2.jpg");
-	background-size : cover;
+	background-color: white !important;
+	background-size : contain;
 	height: 400px;
-	background-position: 0 -705px;
+	background-position: center;
+    background-repeat: no-repeat;
 }
-
-.stylePlus .btn-primary {
-	--bs-btn-color: #fff;
-    --bs-btn-bg: #642f05;
-    --bs-btn-border-color: #642f05;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #ab6e3ecf;
-    --bs-btn-hover-border-color: #ab6e3ecf;
-    --bs-btn-focus-shadow-rgb: 49,132,253;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #ab6e3ecf;
-    --bs-btn-active-border-color: #ab6e3ecf;
-    --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #642f05;
-    --bs-btn-disabled-border-color: #642f05;
-    border-radius: 20px;
-    font-size: 15px;
-}
-
-.stylePlus .btn:hover {
-	background-color: #ab6e3ecf;
-    border-color: #ab6e3ecf;
-}
-
-.stylePlus .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #642f05;
-    border-color: #642f05;
-}
-
 
 </style>
 <title>courses</title>
@@ -129,20 +55,11 @@
 <body>
 
 	<div layout:fragment="content">
-	<div class="stylePlus">
    <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-<!--                     <h1 class="display-3 animated slideInDown">Courses</h1> -->
-<!--                     <nav aria-label="breadcrumb"> -->
-<!--                         <ol class="breadcrumb justify-content-center"> -->
-<!--                             <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li> -->
-<!--                             <li class="breadcrumb-item"><a class="text-white" href="#">Class</a></li> -->
-<!--                             <li class="breadcrumb-item text-white active" aria-current="page">Class</li> -->
-<!--                         </ol> -->
-<!--                     </nav> -->
                 </div>
             </div>
         </div>
@@ -155,6 +72,7 @@
                 <h6 class="section-title bg-white text-center px-3" style="color:#642f05;">Courses</h6>
                 <h1 class="mb-5">Popular Courses</h1>
             </div>
+<<<<<<< HEAD
         </div>
 		<div class="d-flex justify-content-center sub-category">
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('all')"><img alt="" src="/img/icons/work-skills.png"><h5 class="text-center">전체</h5></div>
@@ -200,24 +118,32 @@
              </div>
 		</th:block>
         </div>
+=======
+
+>>>>>>> 36502bb1b9b3cad31009aa2c77d1e778dfa78a71
             <!-- 이미지 카드 -->
-			<div class="row text-center justify-content-start">			
+			<div class="row g-4 justify-content-center">
+
 				<th:block th:each="classInfoDto: ${classInfoDtoList}">
-				<div class="col-12 col-md-3 mx-4" style="padding-bottom: 20px;">
+				<div class="col-12 col-md-4" style="padding-bottom: 20px;">
 					<div class="card">
-						<div class="card-header">
-						<img class="card-img-top" th:src="${classInfoDto.imgUrl}" th:alt="이미지">
+						<div class="card-header p-0">
+						<img class="card-img-top w-100 object-fit-cover" th:src="${classInfoDto.imgUrl}" th:alt="이미지" style="aspect-ratio: 4/3;">
 						</div>
-						<div class="card-body">
+						<div class="card-body text-center p-4 pb-0">
 						<h5 class="card-title mb-2">[[${classInfoDto.contentName}]]</h5>
 							<p class="card-text">[[${classInfoDto.name}]]</p>
-							<a th:href="@{/mainForm/detail/{classId}(classId=${classInfoDto.id})}" class="btn btn-lg btn-primary">상세페이지</a>
+							<a th:href="@{/mainForm/detail/{classId}(classId=${classInfoDto.id})}" class="btn btn-lg btn-primary mb-3">상세페이지</a>
 						</div>
 					</div>
 				</div>
 				</th:block>
+
 			</div>
+		    </div>
+	</div>
 			<!-- 이미지 카드 -->
+<<<<<<< HEAD
 
             
             <div class="row g-4 justify-content-center">
@@ -249,6 +175,40 @@
             </div>
         </div>
     </div>
+=======
+			
+			
+<!--     <div class="container-xxl py-5" style="margin-top: -70px;"> -->
+<!--         <div class="container"> -->
+<!--             <div class="row g-12"> -->
+<!-- 			   <div class="swiper mySwiperA"> -->
+<!-- 			    <div class="swiper-wrapper "> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/datascience.png"><h5>데이터</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/dev-ops.png"><h5>데브옵스</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/excel.png"><h5>엑셀</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/front-end.png"><h5>프론트</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/game.png"><h5>게임개발</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/icon-48x48.png"><h5>퍼블리셔</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/marketing.png"><h5>마케팅</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/mobile.png"><h5>모바일</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/python.png"><h5>파이썬</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/security.png"><h5>보안</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/spring.png"><h5>스프링</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/ux-ui.png"><h5>UI UX</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/work-skills.png"><h5>코딩테스트</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/_byMyself.png"><h5>부트캠프</h5></a></div> -->
+<!-- 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/byManage.png"><h5>대면캠프</h5></a></div> -->
+<!-- 			    </div> -->
+<!-- 			    <div class="swiper-paginationA"></div> -->
+<!-- 			    <div class="swiper-button-next"></div> -->
+<!--     			<div class="swiper-button-prev"></div> -->
+<!-- 			  </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+
+
+>>>>>>> 36502bb1b9b3cad31009aa2c77d1e778dfa78a71
     <!-- Courses End -->
     
     <!-- 페이징 -->
@@ -273,7 +233,11 @@
 		</div>
 		</div>
 	 <!-- 페이징 -->
+<<<<<<< HEAD
 		
 	</div>
 </body>
+=======
+</div>
+>>>>>>> 36502bb1b9b3cad31009aa2c77d1e778dfa78a71
 </html>

@@ -23,6 +23,15 @@
      .fieldError {
         color: #bd2130;
      }
+     
+     .btn:hover {
+		background-color: #642F05;
+		border: 1px solid #642F05;
+}
+
+	.text-primary {
+		color: #642F05!important;
+	}
   </style>
 </th:block>
 </head>
@@ -67,7 +76,7 @@
 											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="text-center mt-3">
-										<button class="btn btn-lg btn-primary" type="button" onclick="passwordCk()">sign up</button>
+										<button class="btn btn-lg btn-primary" type="button" onclick="passwordCk()">회원가입</button>
 										</div>
 										<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 									</form>
