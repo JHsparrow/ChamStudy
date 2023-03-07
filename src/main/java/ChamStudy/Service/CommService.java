@@ -52,7 +52,7 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 	 for (Comm_Board board : commList) { CommDto commDto = new CommDto(board);  mainCommDtoList.add(commDto); } 
 	 return mainCommDtoList; }
 
-	
+	//게시글 저장 메소드
 	public Long saveComm(CommWriteFormDto CommFormDto,String email) throws Exception{
 		UserInfo userInfo = userRepository.findByemail(email);
 		Comm_Board board = CommFormDto.createBoard();
@@ -60,7 +60,8 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		commRepository.save(board);
 		return board.getId();
 	}
-
+	
+	//게시글 저장 메소드
 	public Long saveMentoComm(CommWriteFormDto MentoFormDto,String email) throws Exception{
 		UserInfo userInfo = userRepository.findByemail(email);
 		Comm_Board board = MentoFormDto.createBoard();
@@ -70,6 +71,7 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		return board.getId();
 	}
 	
+	//게시글 수정 메소드
 	public Long updateItem(CommWriteFormDto boardFormDto, List<MultipartFile> commImgFileList) throws Exception {
 		Comm_Board board = commRepository.findById(boardFormDto.getId())
 				.orElseThrow(EntityNotFoundException::new);
@@ -83,7 +85,7 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		}
 		return board.getId();
 	}
-	
+		
 	  public CommDto getAdminCommDtl(Long boardId) { // 관리자 게시판 상세페이지에 뿌려줄 게시판 리스트를 불러온다. 
 		  List<Comm_Board_Img> commImgList =
 	  commImgRepository.findByBoardIdOrderByIdAsc(boardId); List<CommImgDto>
@@ -168,22 +170,14 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		commRepository.deleteById(boardId);
 	}
 
+	//관리자 페이지 댓글 차단
 	public void commBlock(Long boardId) throws Exception { // 게시글 차단 메소드
 		Comm_Board comm_Board = commRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
 		comm_Board.setBlockComment("Y");
 	}
 	
-	public CommDto getBeforeComm() {
-		Comm_Board board = commRepository.findBeforeComm();
-		CommDto commDto = new CommDto(board);
-		if(commDto.getId() == null) {
-			commDto.setId((long) 1000000);
-		}else {
-			commDto.setId(commDto.getId() + 1000000);			
-		}
-		return commDto;
-	}
 	
+	//수료한 강의 이름 가져오는 메소드
 	public List<CommMentoClassNameDto> getMentoClassName(String email) {
 		List<CommMentoClassNameDto> classNameDtos = new ArrayList<>();
 		List<String> names = new ArrayList<>();
@@ -196,7 +190,7 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		return classNameDtos;
 	}
 
-
+	//멘토 페이지 수정 저장
 	public CommWriteFormDto getMentoUpdate(Long boardId) {
 		Comm_Board board = commRepository.findById(boardId).orElseThrow();
 		
@@ -204,17 +198,42 @@ public class CommService { // 관리자 커뮤니티 게시판 서비스
 		return commWriteFormDto;
 	}
 
-
-	public Long updateMento(CommWriteFormDto commWriteFormDto) {
+	//게시판 수정 저장
+	public Long updateboard(CommWriteFormDto commWriteFormDto) {
 		Comm_Board board = commRepository.findById(commWriteFormDto.getId()).orElseThrow(EntityNotFoundException::new);
 		board.updateComm(commWriteFormDto);
 		return board.getId();
 	}
+	
+	//조회수 메소드
+	public void viewCount(Long boardId) {
+		 commRepository.countup(boardId);
+	}
+	
+	//글 구분자 업데이트
+	public Long updateOri(Comm_Board board) {
+		board.updateOri(board);
+		return board.getId();
+	}
 
-
+	//게시판 DTO 얻는 메소드
 	public CommDto getcommDto(Long boardId) {
 		Comm_Board board = commRepository.findById(boardId).orElseThrow();
 		CommDto commDto = new CommDto(board);
 		return commDto;
 	}
+	
+	//게시판 Entity 얻는 메소드
+	public Comm_Board returnBoard(Long getId) {
+		Comm_Board board = commRepository.findById(getId).orElseThrow();
+		return board;
+	}
+	
+	//글 구분자 저장
+	public Long saveoriId(Comm_Board board) {
+		commRepository.save(board);
+		return board.getId();
+	}
+	
+	
 }

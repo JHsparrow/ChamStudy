@@ -22,7 +22,7 @@ function valinput() {
 		<form class="row g-3" role="form" method="post"
 			enctype="multipart/form-data" th:object="${commWriteFormDto}">
 			<div class="input-1">
-				<input type="hidden" name="id" th:value="${comm.id}" id="id" />
+				<input type="hidden" name="oriId" th:value="${id}" id="oriId" />
 			</div>
 			<div class="input-2">
 				<input type="text" th:field="*{Title}" placeholder="제목에 핵심 내용을 적어보세요" class="input-Title"/>

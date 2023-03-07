@@ -35,6 +35,8 @@ public class CommWriteFormDto {
 	
 	private String className; //강의명
 	
+	private Long oriId; //글 구분 아이디
+	
 	private List<CommImgDto> commImgDtoList = new ArrayList<>();// 게시판에 담을 이미지들
 	
 	private List<Long> commImgIds = new ArrayList<>();

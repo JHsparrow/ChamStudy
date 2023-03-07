@@ -6,8 +6,12 @@ ul.pagination {
     
 }
 
+body {
+    background-color: #f6f6f6;
+}
+
 .mento-header {
-    background-color: #C9FCFF;
+    background-color: #ab6e3ecf ;
     height: 150px;
 }
 
@@ -57,7 +61,7 @@ input#searchQuery {
 .each {
     width: 195px;
     height: 155px;
-    background-color: #FFF1E3;
+    background-color: #ffffff;
     margin-top: 15px;
     border-radius: 10px;
     position: relative;

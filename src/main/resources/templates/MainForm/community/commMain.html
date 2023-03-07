@@ -31,7 +31,7 @@
 		<div class="body-wrap">
 			<div class="side-body">
 				<div class="side-1">
-					<a class="side-a-1" href="/comm/qna" style="color: #329A28;">자유주제</a>
+					<a class="side-a-1" href="/comm/qna" style="color: #642F05;">자유주제</a>
 				</div>
 				<div class="side-2">
 					<a class="side-a-2" href="/comm/qna">질문 & 답변</a>
@@ -60,16 +60,14 @@
 				<div class="boards">
 					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
 						<div class="each">
-							<div class="comm-wrap">
+							<div class="comm-wrap" th:onclick="|location.href='@{/comm/dtl/}'+${comm.id}|">
 								<div class="comm-li1">
 									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<a th:href="'/comm/dtl/'+${comm.id}"
-										class="comm-li1-2">조회</a>
+									<a class="comm-li1-2">조회</a>
 								</div>
 								<div class="comm-wrap2">
 									<div class="comm-li2">
-										<a th:href="'/comm/dtl/'+${comm.id}"
-											class="comm-wrap-a2">[[${comm.Title}]]</a>
+										<a class="comm-wrap-a2">[[${comm.Title}]]</a>
 									</div>
 									<div class="comm-li3-1">
 										<a th:href="'/comm/dtl/'+${comm.id}"

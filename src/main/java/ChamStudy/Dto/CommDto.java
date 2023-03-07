@@ -27,26 +27,29 @@ public class CommDto { //커뮤니티 관리자 페이지 DTO
 		this.regdate = comm_Board.getRegDate();
 		this.blockComment = comm_Board.getBlockComment();
 		this.openChat = comm_Board.getOpenChat();
+		this.oriId = comm_Board.getOriId();
 	}
-	private Long id;
+	private Long id; //게시판 아이디
 	
-	private String Title;
+	private String Title; //게시판 제목
 	
-	private String boardType;
+	private String boardType; //게시판 종류(자유,멘토,QnA)
 	
-	private UserInfo userInfo;
+	private UserInfo userInfo; //사용자 정보
 	
-	private String gubun;
+	private String gubun; //글 구분(댓글,게시판)
 	
-	private String substance;
+	private String substance; //글 내용
 	
-	private int viewCount;
+	private int viewCount; //조회수
 	
-	private String regdate;
+	private String regdate; //글 올린 시간
 	
-	private String blockComment;
+	private String blockComment; //댓글 차단 여부
 	
-	private String openChat;
+	private String openChat; //오픈 카톡 링크
+	
+	private Long oriId; //글 식별 아이디
 	
 	private List<CommImgDto> commImgDtos = new ArrayList<>();
 	
