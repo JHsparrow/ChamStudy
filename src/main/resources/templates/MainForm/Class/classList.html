@@ -4,7 +4,6 @@
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="utf-8">
-<<<<<<< HEAD
 
 <script>
 
@@ -68,9 +67,7 @@
 
 </script>
 
-=======
 <link href="/main/css/swiper.css" rel="stylesheet">
-<<<<<<< HEAD
 <script>
 	$(function(){
 		$(".sub").on("click", function(e){
@@ -82,9 +79,6 @@
 		location.href="/mainForm/class" + "?searchQuery=" + sub;
 	}
 </script>
-=======
->>>>>>> f17e99b37a3b06850486fc93d68a5276cc3c764e
->>>>>>> ae3e42dd09381778f4c231a2ca935e6750aafd3c
 <style>
 
 .card-header {
@@ -161,9 +155,9 @@
                 <h6 class="section-title bg-white text-center px-3" style="color:#642f05;">Courses</h6>
                 <h1 class="mb-5">Popular Courses</h1>
             </div>
-<<<<<<< HEAD
         </div>
 		<div class="d-flex justify-content-center sub-category">
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('all')"><img alt="" src="/img/icons/work-skills.png"><h5 class="text-center">전체</h5></div>
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('JAVA')"><img alt="" src="/img/icons/ux-ui.png"><h5 class="text-center">JAVA</h5></div>
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('Phython')"><img alt="" src="/img/icons/datascience.png"><h5 class="text-center">Phython</h5></div>
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('C++')"><img alt="" src="/img/icons/dev-ops.png"><h5 class="text-center">C++</h5></div>
@@ -171,14 +165,13 @@
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('Mos')"><img alt="" src="/img/icons/front-end.png"><h5 class="text-center">Mos</h5></div>
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('회계사')"><img alt="" src="/img/icons/game.png"><h5 class="text-center">회계사</h5></div>
 		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('공무원')"><img alt="" src="/img/icons/icon-48x48.png"><h5 class="text-center">공무원</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('한국사')"><input type="hidden" /><img alt="" src="/img/icons/marketing.png"><h5 class="text-center">한국사</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('영어')"><input type="hidden" /><img alt="" src="/img/icons/mobile.png"><h5 class="text-center">영어</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('중국어')"><input type="hidden" /><img alt="" src="/img/icons/python.png"><h5 class="text-center">중국어</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('일본어')"><input type="hidden" /><img alt="" src="/img/icons/security.png"><h5 class="text-center">일본어</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('기타')"><input type="hidden" /><img alt="" src="/img/icons/spring.png"><h5 class="text-center">기타</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('코딩테스트')"><input type="hidden" /><img alt="" src="/img/icons/work-skills.png"><h5 class="text-center">코딩테스트</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('부트캠프')"><input type="hidden" /><img alt="" src="/img/icons/_byMyself.png"><h5 class="text-center">부트캠프</h5></div>
-		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('대면캠프')"><input type="hidden" /><img alt="" src="/img/icons/byManage.png"><h5 class="text-center">대면캠프</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('한국사')"><img alt="" src="/img/icons/marketing.png"><h5 class="text-center">한국사</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('영어')"><img alt="" src="/img/icons/mobile.png"><h5 class="text-center">영어</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('중국어')"><img alt="" src="/img/icons/python.png"><h5 class="text-center">중국어</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('일본어')"><img alt="" src="/img/icons/security.png"><h5 class="text-center">일본어</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('기타')"><img alt="" src="/img/icons/spring.png"><h5 class="text-center">기타</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('부트캠프')"><img alt="" src="/img/icons/_byMyself.png"><h5 class="text-center">부트캠프</h5></div>
+		    <div class="swiper-slideA ms-3 me-2 sub" onclick="selsub('대면캠프')"><img alt="" src="/img/icons/byManage.png"><h5 class="text-center">대면캠프</h5></div>
 		</div>
         <div class="row g-4 justify-content-center">
         <th:block th:each="classInfoDto: ${classInfoDtoList}">
@@ -207,9 +200,6 @@
              </div>
 		</th:block>
         </div>
-=======
-            
-<<<<<<< HEAD
             <!-- 이미지 카드 -->
 			<div class="row text-center justify-content-start">			
 				<th:block th:each="classInfoDto: ${classInfoDtoList}">
@@ -228,36 +218,7 @@
 				</th:block>
 			</div>
 			<!-- 이미지 카드 -->
-			
-=======
-    <div class="container-xxl py-5" style="margin-top: -70px;">
-        <div class="container">
-            <div class="row g-12">
-			   <div class="swiper mySwiperA">
-			    <div class="swiper-wrapper ">
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/datascience.png"><h5>데이터</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/dev-ops.png"><h5>데브옵스</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/excel.png"><h5>엑셀</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/front-end.png"><h5>프론트</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/game.png"><h5>게임개발</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/icon-48x48.png"><h5>퍼블리셔</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/marketing.png"><h5>마케팅</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/mobile.png"><h5>모바일</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/python.png"><h5>파이썬</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/security.png"><h5>보안</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/spring.png"><h5>스프링</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/ux-ui.png"><h5>UI UX</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/work-skills.png"><h5>코딩테스트</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/_byMyself.png"><h5>부트캠프</h5></a></div>
-			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/byManage.png"><h5>대면캠프</h5></a></div>
-			    </div>
-			    <div class="swiper-paginationA"></div>
-			    <div class="swiper-button-next"></div>
-    			<div class="swiper-button-prev"></div>
-			  </div>
-            </div>
-        </div>
-    </div>
+
             
             <div class="row g-4 justify-content-center">
             <th:block th:each="classInfoDto: ${classInfoDtoList}">
@@ -286,8 +247,6 @@
                 </div>
 			</th:block>
             </div>
->>>>>>> f17e99b37a3b06850486fc93d68a5276cc3c764e
->>>>>>> ae3e42dd09381778f4c231a2ca935e6750aafd3c
         </div>
     </div>
     <!-- Courses End -->
@@ -316,6 +275,5 @@
 	 <!-- 페이징 -->
 		
 	</div>
-</div>
 </body>
 </html>

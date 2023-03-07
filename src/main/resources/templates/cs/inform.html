@@ -48,7 +48,6 @@
 							    </form>
 							</div>
 							<div class="list list-default">
-								<div th:if="${not #lists.isEmpty(fixedInformList.getContent())}">
 									<ul class="none text-center">
 										<li class="list-item fixed">
 											<div class="list__num list_tab" aria-label="글 번호">
@@ -60,36 +59,37 @@
 					                        <div class="list__read list_tab" aria-label="조회수">조회수</div>
 					                        <div class="list__date list_tab" aria-label="등록일">등록일</div>
 										</li>
-									<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
-										<li class="list-item list-content fixed">
-						                        <div class="list__num" aria-label="글번호">
-						                            <i class="fa-solid fa-volume-high"></i>
+										<div th:if="${not #lists.isEmpty(fixedInformList.getContent())}">
+											<th:block th:each="fixedInform, status : ${fixedInformList.getContent()}">
+												<li class="list-item list-content fixed">
+							                        <div class="list__num" aria-label="글번호">
+							                            <i class="fa-solid fa-volume-high"></i>
+							                        </div>
+							                        <div class="list__subject" aria-label="제목">
+							                            <span class="list__title">[[${fixedInform.title}]]</span>
+							                        </div>
+							                        <div class="list__read" aria-label="조회수">[[${fixedInform.viewCount}]]</div>
+							                        <div class="list__date" aria-label="등록일">[[${fixedInform.update.substring(0,13)}]]</div>
+												</li>
+											</th:block>
+										</div>
+										<th:block th:each="inform, status : ${informList.getContent()}">
+											<li class="list-item list-content">
+						                        <div class="list__num" aria-label="글 번호">
+						                            <span class="icon icon--notice">[[${inform.id}]]</span>
 						                        </div>
 						                        <div class="list__subject" aria-label="제목">
-						                            <span class="list__title">[[${fixedInform.title}]]</span>
+						                            <span class="list__title">[[${inform.title}]]</span>
 						                        </div>
-						                        <div class="list__read" aria-label="조회수">[[${fixedInform.viewCount}]]</div>
-						                        <div class="list__date" aria-label="등록일">[[${fixedInform.update.substring(0,13)}]]</div>
-										</li>
-									</th:block>
-									<th:block th:each="inform, status : ${informList.getContent()}">
-										<li class="list-item list-content">
-					                        <div class="list__num" aria-label="글 번호">
-					                            <span class="icon icon--notice">[[${inform.id}]]</span>
-					                        </div>
-					                        <div class="list__subject" aria-label="제목">
-					                            <span class="list__title">[[${inform.title}]]</span>
-					                        </div>
-					                        <div class="list__read" aria-label="조회수">[[${inform.viewCount}]]</div>
-					                        <div class="list__date" aria-label="등록일">[[${inform.update.substring(0,13)}]]</div>
-										</li>
-									</th:block>
-									<th:block th:if="${informList.getTotalElements()==0}">
-										<li class="list-content list-item"><strong>등록된 게시글이 없습니다.</strong></li>
-									</th:block>
+						                        <div class="list__read" aria-label="조회수">[[${inform.viewCount}]]</div>
+						                        <div class="list__date" aria-label="등록일">[[${inform.update.substring(0,13)}]]</div>
+											</li>
+										</th:block>
+										<th:block th:if="${informList.getTotalElements()==0}">
+											<li class="list-content list-item"><strong>등록된 게시글이 없습니다.</strong></li>
+										</th:block>
 									</ul>
 								</div>
-							</div>
 								<div class="row">
 									<div class="col-sm-12 col-md-3">
 										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
