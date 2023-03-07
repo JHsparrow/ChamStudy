@@ -176,23 +176,36 @@ public class UserMainMyPageController {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		userMainMyPageService.createStudyHistory(contentId,email,"F",contentId,classId); //학습 이력 삽입(study_history)
 		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
+		
+		Long videoId = userMainMyPageService.getVideoId(contentId);
+		
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(classId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
+		Long firstVideo = userMainMyPageService.getfirstVideoId(contentId);
+		Long LastVideo = userMainMyPageService.getLastVideoId(contentId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
+		model.addAttribute("videoId",videoId);
+		model.addAttribute("firstVideoId",firstVideo);
+		model.addAttribute("lastVideoId",LastVideo);
 		return "mypage/Learning-Lecture";
 	}
 	
 	//학습중 플레이리스트에서 다른 회차 강의 클릭
-	@GetMapping(value="/learning/watch/{contentId}/{videoId}/{classId}")
+	@GetMapping(value="/learning/watch/{contentId}/{classId}/{videoId}")
 	public String LearningContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, @PathVariable("classId") Long classId,Model model) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		userMainMyPageService.createStudyHistory(contentId,email,"N",videoId,classId); //학습 이력 삽입(study_history)
 		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(email, videoId, classId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
+		Long firstVideo = userMainMyPageService.getfirstVideoId(contentId);
+		Long LastVideo = userMainMyPageService.getLastVideoId(contentId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
+		model.addAttribute("videoId",videoId);
+		model.addAttribute("firstVideoId",firstVideo);
+		model.addAttribute("lastVideoId",LastVideo);
 		
 		return "mypage/Learning-Lecture";
 	}

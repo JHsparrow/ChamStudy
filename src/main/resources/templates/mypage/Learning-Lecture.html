@@ -46,7 +46,7 @@
 							</li>
 							<li class="nav-item5"><a class="nav-link">강의목록</a></li>
 							<li th:each="content: ${completionContentList}" class="nav-item6">
-								<a class="nav-link" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getVideoId()}/${content.getClassId()}'|">
+								<a class="nav-link" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getClassId()}/${content.getVideoId()}'|">
 									[[${content.getClassName()}]] [[${contentStat.count}]]강
 								</a>
 							</li>
@@ -64,10 +64,9 @@
 		</video>
 	</div>
 	<div class="footer">
-	<button type="button" class="btn before-lecture">이전강의</button>
-	<button type="button" class="btn saw-lecture">봤어요</button>
-	<!-- <button type="button" class="btn saw-lecture"><i class="fa-solid fa-check"></i></button> -->
-	<button type="button" class="btn next-lecture">다음수업</button>
+	
+	<a th:if="${firstVideoId != videoId}" th:href="'/mypage/learning/watch/'+${completionContent.getContentId()}+'/'+${completionContent.getClassId()} +'/'+${videoId-1}" class="btn before-lecture">이전강의 [[${videoId}]]</a>
+	<a th:if="${lastVideoId != videoId}" th:href="'/mypage/learning/watch/'+${completionContent.getContentId()}+'/'+${completionContent.getClassId()} +'/'+${videoId+1}" class="btn before-lecture">다음강의 [[${videoId}]]</a>
 	</div>
 </body>
 </html>

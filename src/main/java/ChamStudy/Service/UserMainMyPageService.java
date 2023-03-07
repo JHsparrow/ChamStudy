@@ -159,6 +159,19 @@ public class UserMainMyPageService {
 		}
 		studyHistortRepository.save(studyHistory);
 	}
+	
+	public Long getVideoId(Long contentId) {
+		return contentVideoRepository.getVideoIdF(contentId).getId();
+	}
+	
+	public Long getfirstVideoId(Long contentId) {
+		return contentVideoRepository.getfirstVideoId(contentId).getId();
+	}
+	public Long getLastVideoId(Long contentId) {
+		return contentVideoRepository.getlastVideoId(contentId).getId();
+	}
+	
+	
 	public void createStudyResult(Long contentId, String email, Long classId) {
 		UserInfo userId = userRepository.getUserId(email);
 		ClassInfo classInfo = classInfoRepository.getClassInfoConClass(contentId,classId);
