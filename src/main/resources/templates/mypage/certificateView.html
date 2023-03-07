@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<script>
+</script>
+<title>마이페이지</title>
+<link href="/main/css/certification.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script>
+	$(function(){
+		window.print();
+	})
+</script>
+</head>
+<body>
+	<div class="certContainer">
+		<img class="certImg" src="/img/certification.png">
+		<div class="certWrap">
+			<p class="m60"></p>
+			<span>수료번호 [[${#strings.substring(certiInfo.getCompDate(),2,4)}]]-[[${certiInfo.getClassId()}]]-[[${certiInfo.getCompId()}]]호</span>
+			<p class="m300"></p>
+			<p>성명 : [[${certiInfo.getUserName()}]]</p>
+			<p>교육과정 : [[${certiInfo.getClassName()}]]</p>
+			<p>교육기간 : [[${#strings.substring(certiInfo.getApplyDate(),0,13)}]] ~ [[${#strings.substring(certiInfo.getCompDate(),0,13)}]]</p>
+			<p class="m60"></p>
+			<p class="desc">위 사람은 참스터디에서 시행하는 상기 교육과정을<br>수료하였으므로 이 증서를 수여합니다.</p>
+			<p class="desc">[[${#calendars.format(#calendars.createNow(), 'yyyy년 MM월 dd일')}]]</p>
+			<p class="m60"></p>
+			<p class="sign">참스터디<img class="signImg" src="/img/chamSign.jpg"></p>
+		</div>
+	</div>
+</body>
+</html>

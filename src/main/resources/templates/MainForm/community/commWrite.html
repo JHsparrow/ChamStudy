@@ -64,45 +64,57 @@ function valinput() {
 </th:block>
 </head>
 <body>
-	<div layout:fragment="content">
+	<div class="bosy-wrap" layout:fragment="content">
 		<form class="row g-3" role="form" method="post"
 			enctype="multipart/form-data" th:object="${commWriteFormDto}">
-			<p class="h2">자유게시판 글쓰기</p>
 			<div class="input-1">
-				<input type="hidden" name="id" th:value="${comm.id}" id="id" />
+				<input type="hidden" name="id" th:value="${comm}" id="id" />
 			</div>
 			<div class="input-2">
-			<span>제목</span>
-				<input type="text" th:field="*{Title}" />
+				<input type="text" th:field="*{Title}"
+					placeholder="제목에 핵심 내용을 요약해보세요" />
 			</div>
 			<div class="input-3">
-			<span>내용</span>
-				<input type="text" th:field="*{substance}" />
+				<textarea rows="20" cols="70" th:field="*{substance}"
+					placeholder="글 내용을 입력하세요 (제목이랑 내용은 필수 항목입니다)"></textarea>
 			</div>
-			
+
 			<div class="input-4">
-				<input type="hidden" th:field="*{boardType}" name="boardType" value=""/>
+				<input type="hidden" th:field="*{boardType}" name="boardType"
+					value="" />
 			</div>
-			
+
 			<div class="input-5">
-				<input type="hidden" th:field="*{gubun}" name="gubun" value=""/>
+				<input type="hidden" th:field="*{gubun}" name="gubun" value="" />
 			</div>
 
 			<div class="input-6">
-				<input type="hidden" th:field="*{blockComment}" name="blockComment" value=""/>
+				<input type="hidden" th:field="*{blockComment}" name="blockComment"
+					value="" />
 			</div>
-		
+
 			<div class="input-7">
-				<input type="hidden" th:field="*{viewCount}" name="viewCount" value=""/>
+				<input type="hidden" th:field="*{viewCount}" name="viewCount"
+					value="" />
 			</div>
-			
-			
-			<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
-				<button th:formaction="@{/comm/create}" type="submit" onclick="valinput()" class="btn btn-primary mb-3">저장</button>
-			</div>
-			
-			<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
-				<button th:formaction="@{'/comm/create/' + ${commWriteFormDto.id} }" type="submit" onclick="valinput()" class="btn btn-primary mb-3">수정</button>
+
+
+			<div class="btn-wrap">
+				<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
+					<button th:formaction="@{/comm/create}" type="submit"
+						onclick="valinput()" class="btn btn-primary mb-3">저장</button>
+				</div>
+
+				<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
+					<button
+						th:formaction="@{'/comm/boardUpdate/' + ${commWriteFormDto.id} }"
+						type="submit" onclick="valinput()" class="btn btn-primary mb-3">수정</button>
+				</div>
+
+				<div class="back-comm-btn">
+					<button th:onclick="location.href='/comm'" type="button"
+						class="back-comm">취소</button>
+				</div>
 			</div>
 		</form>
 	</div>

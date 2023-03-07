@@ -32,8 +32,10 @@ public class HomeMainController {
 		System.out.println(mainFormDtoList.get(0).getsubname());
 		System.out.println(mainFormDtoList.get(0).getid());
 		System.out.println(mainFormDtoList.get(0).getprice());
-		System.out.println(mainFormDtoList.get(0).getstarpoint());
+		System.out.println(mainFormDtoList.get(2).getstarpoint());
 		System.out.println(mainFormDtoList.get(0).getimgurl());
+		
+		
 		
 		model.addAttribute("mainFormDtoList",mainFormDtoList);
 		model.addAttribute("countMember",adminMainService.countMember()); //회원 수

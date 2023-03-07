@@ -2,7 +2,10 @@ package ChamStudy.Repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
@@ -27,7 +30,7 @@ public interface CommRepository extends JpaRepository<Comm_Board, Long> , Queryd
 	List<Comm_Board> findM();
 	
 	//게시글과 함께 해당 게시글의 댓글까지 가져온다.
-	@Query(value = "SELECT * FROM comm_board c WHERE c.board_id - :boardId > 0 and c.board_id - :boardId < 1000000 and gubun = 'C';",nativeQuery = true)
+	@Query(value = "SELECT * FROM comm_board c WHERE :boardId = c.ori_id and gubun = 'C' order by c.board_id desc;",nativeQuery = true)
 	List<Comm_Board> findComment(@Param("boardId") Long boardId);
 
 	@Query(value = "SELECT * FROM comm_board c WHERE c.board_id - :boardId > 0 and c.board_id - :boardId < 1000000 and gubun = 'R';",nativeQuery = true)
@@ -36,5 +39,17 @@ public interface CommRepository extends JpaRepository<Comm_Board, Long> , Queryd
 	//이전 게시물을 가져와준다
 	@Query(value = "SELECT * FROM comm_board c where gubun = 'B' order by c.board_id desc limit 1;",nativeQuery = true)
 	Comm_Board findBeforeComm();
+
+	//이전 댓글 id를 가져와준다
+	@Query(value = "SELECT * FROM comm_board c WHERE c.board_id - :boardId > 0 and c.board_id - :boardId < 1000000 and gubun = 'C' order by c.board_id desc limit 1;",nativeQuery = true)
+	Comm_Board findBeforeComment(@Param("boardId") Long boardId);
+
+	//조회수 1증가
+	@Modifying
+	@Transactional
+	@Query(value = "update Comm_Board c set c.viewCount = c.viewCount + 1 where c.id = :boardId")
+	void countup(@Param("boardId") Long boardId);
+
+	
 	
 }
