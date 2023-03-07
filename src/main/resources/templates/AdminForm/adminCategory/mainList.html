@@ -33,14 +33,16 @@
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 											<colgroup>
 												<col width="10%"><col width="40%"><col width="10%"><col width="20%"><col width="10%">
+												<col width="10%">
 											</colgroup>
 											<thead>
 												<tr>
 													<th>아이디</th>
 													<th>메인 카테고리 이름</th>
-													<th>서브 카데고리 수</th>
+													<th>서브 카테고리 수</th>
 													<th>등록일</th>
-													<th>구분</th>
+													<th>수정</th>
+													<th>삭제</th>
 											</thead>
 											<tbody>
 												<th:block  th:each="cateList, status: ${mainList.getContent()}">
@@ -51,11 +53,13 @@
 													<td>[[${cateList.getDate().substring(0,13)}]]</td>
 													<td>
 														<button th:onclick="modifySet([[${cateList.getId()}]],[[${cateList.getName()}]])" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">수정</button>
+													</td>
+													<td>
 														<button th:onclick="delCheck([[${cateList.getId()}]],[[${cateList.getCount()}]])" type="button" class="btn btn-primary btn-sm">삭제</button>
 													</td>
 												</tr>
 												<tr th:if="${cateList.getId()==null}">
-													<td colspan="5" class="dtr-control sorting_1" tabindex="0"><strong>데이터가 없습니다.</strong></td>
+													<td colspan="6" class="dtr-control sorting_1" tabindex="0"><strong>데이터가 없습니다.</strong></td>
 												</tr>
 												</th:block>
 												<th:block th:if="${mainList.getContent().size() == 0 }">

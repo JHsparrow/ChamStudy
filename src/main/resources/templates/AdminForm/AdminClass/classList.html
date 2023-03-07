@@ -112,7 +112,7 @@
 									<div class="col-sm-12 col-md-6">
 										<div id="datatables-orders_filter" class="dataTables_filter" style="text-align:right">
 											<label class="d-flex justify-content-end">
-												<input type="text" id="inputSearch" name="name" class="form-control form-control-sm width30" placeholder="검색어 입력 후 Enter" aria-controls="datatables-orders">
+												<input type="text" id="inputSearch" name="name" class="form-control form-control-sm width30" placeholder="검색창" aria-controls="datatables-orders">
 											</label>
 										</div>
 									</div>
@@ -121,7 +121,8 @@
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 										<colgroup> <!-- 너비 계산하기  -->
-											<col width="10%"><col width="30%"><col width="30%"><col width="10%"><col width="10%">
+											<col width="10%"><col width="25%"><col width="25%"><col width="20%"><col width="10%">
+											<col width="10%">
 										</colgroup>
 										<thead>
 											<tr>
@@ -129,7 +130,8 @@
 												<th>콘텐츠</th>
 												<th>강의명</th>
 												<th>등록일</th>
-												<th>구분</th>
+												<th>수정</th>
+												<th>삭제</th>
 										</thead>
 										<tbody>
 											<th:block th:each="classInfoDto: ${classInfoDtoList}">
@@ -151,13 +153,15 @@
 												<td>[[${classInfoDto.regDate}]]</td>
 												<td>
 													<input type="button" class="btn btn-primary btn-sm btn-class-upd" value="수정" />
+												</td>	
+												<td>
 													<input type="button" class="btn btn-primary btn-sm btn-class-del" value="삭제" />
-												</td>												
+												</td>											
 											</tr>
 											</th:block>
 											<th:block th:if="${classInfoDtoList.getContent().size() == 0 }">
 											<tr>
-												<td colspan="5"><strong>등록된 강의가 없습니다.</strong></td>
+												<td colspan="6"><strong>등록된 강의가 없습니다.</strong></td>
 											</tr>
 											</th:block>
 										</tbody>

@@ -98,6 +98,20 @@ public class CsService {
 		return csInform.getId();
 	}
 	
+	//조회수 증가
+	public CsInformDto countingView(CsInformDto csInformDto) {
+		CsInform csInform = csInformRepository.findById(csInformDto.getId())
+											  .orElseThrow(EntityNotFoundException::new);
+		int viewCount = csInformDto.getViewCount();
+		viewCount += 1;
+		
+		csInformDto.setViewCount(viewCount);
+		
+		csInform.updateInform(csInformDto);
+		
+		return csInformDto;
+	}
+	
 	//공지사항 첫 화면 리스트 가져오기
 	@Transactional(readOnly = true)
 	public Page<CsInformListDto> getInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){

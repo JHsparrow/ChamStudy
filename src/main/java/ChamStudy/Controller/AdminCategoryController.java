@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import ChamStudy.Dto.CategoryDto;
 import ChamStudy.Dto.CategoryInterface;
@@ -54,6 +55,7 @@ public class AdminCategoryController {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Category mainInfo = adminCategoryService.getMainInfo(mainId);
 		Page<SubCategoryDto> subList = adminCategoryService.getSubList(subCategoryDto, pageable, mainInfo);
+		
 		model.addAttribute("active","category"); // 사이드 바 액티브
 		model.addAttribute("subList", subList);
 		model.addAttribute("mainInfo", mainInfo);
@@ -92,12 +94,20 @@ public class AdminCategoryController {
         return showMessageAndRedirect(message, model);
 	}
 	
-	@GetMapping(value = "/newSubResult") //서브 카테고리 생성 처리 페이지
-	public String subCategoryCreate(@RequestParam(value = "mainId") Category mainId, @RequestParam(value = "cateName") String cateName, Model model) {
+	@PostMapping(value = "/newSubResult") //서브 카테고리 생성 처리 페이지
+	public String subCategoryCreate(@RequestParam(value = "mainId") Category mainId, @RequestParam(value = "cateName") String cateName,
+			@RequestParam("subImg") MultipartFile subImg, Model model) {
 		MessageDto message;
 		System.out.println("메인아이디 : "+mainId.getId());
+		
 		try {
-			adminCategoryService.saveSubCategory(mainId,cateName);
+			SubCategory subCategory = adminCategoryService.saveSubCategory(mainId,cateName);
+			adminCategoryService.saveSubCategoryImg(subCategory, subImg);
+			
+			System.out.println(subCategory.getName());
+			System.out.println(subCategory.getImgUrl());
+			System.out.println(subCategory.getOriImgName());
+			
 			message = new MessageDto("서브카테고리 생성이 완료되었습니다.", "/adminCategory/sub/"+mainId.getId());
 		} catch (Exception e) {
 			message = new MessageDto("서브카테고리 생성이 실패하였습니다.", "/adminCategory/sub/"+mainId.getId());

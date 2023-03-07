@@ -13,7 +13,22 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
-	<title>Blank Page | AdminKit Demo</title>
+	<title>참스터디</title>
+<script>
+	$(document).ready(function (){
+	    $(".sub-img").on("change", function() {
+	        var fileName = $(this).val().split("\\").pop();  //파일명
+	        var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+	        fileExt = fileExt.toLowerCase(); //소문자 변환
+	
+	        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+	            alert("이미지 파일만 등록이 가능합니다.");
+	            return;
+	        }
+	
+	        $(this).siblings(".custom-file-label").html(fileName);
+    }));
+</script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -32,30 +47,36 @@
 									<div class="col-sm-12">
 										<table id="datatables-orders" class="table table-striped dataTable no-footer dtr-inline text-center" aria-describedby="datatables-orders_info" >
 										<colgroup>
-											<col width="10%"><col width="40%"><col width="20%"><col width="10%">
+											<col width="10%"><col width="15%"><col width="30%"><col width="25%"><col width="10%">
+											<col width="10%">
 										</colgroup>
 										<thead>
 											<tr>
 												<th>아이디</th>
+												<th>이미지</th>
 												<th>서브 카테고리 이름</th>
 												<th>등록일</th>
-												<th>구분</th>
+												<th>수정</th>
+												<th>삭제</th>
 										</thead>
 										<tbody>
 											<th:block th:each="cateList, status: ${subList}">
 											<tr>
 												<td class="dtr-control sorting_1" tabindex="0"><strong>[[${cateList.id}]]</strong></td>
+												<td><img width="70" th:src="${cateList.imgUrl}" th:alt="${cateList.oriImgName}"></td>
 												<td>[[${cateList.name}]]</td>
-												<td>[[${cateList.regDate}]]</td>
+												<td>[[${#strings.substring(cateList.regDate,0,13)}]]</td>
 												<td>
 													<button th:onclick="modifySet([[${cateList.id}]],[[${cateList.name}]])" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">수정</button>
+												</td>
+												<td>
 													<button th:onclick="delCheck([[${cateList.id}]])" type="button" class="btn btn-primary btn-sm">삭제</button>
 												</td>
 											</tr>
 											</th:block>
 											<th:block th:if="${subList.getTotalElements() == 0 }">
 												<tr>
-													<td colspan="4"><strong>등록된 서브카테고리가 없습니다.</strong></td>
+													<td colspan="6"><strong>등록된 서브카테고리가 없습니다.</strong></td>
 												</tr>
 											</th:block>
 										</tbody>
@@ -108,7 +129,7 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				      	<form id="frm" action="/adminCategory/newSubResult" method="get">
+				      	<form id="frm" action="/adminCategory/newSubResult" enctype="multipart/form-data" method="post">
 				      	<input type="hidden" name="mainId" th:value="${mainInfo.getId()}">
 				      	<input type="hidden" name="subId" id="subId" />
 				      		<div class="form-group">
@@ -117,12 +138,14 @@
 						  	<div class="form-group mt-3">
 						    	<label for="cateName">카테고리 이름</label>
 						    	<input type="text" class="form-control" id="cateName" name="cateName" placeholder="카테고리 이름">
+						  		<label for="cateImg">카테고리 이미지</label>
+						  		<input type="file" id="cateImg" name="subImg" class="sub-img form-control"/>
 						  	</div>
+					       <div class="modal-footer justify-content-center">
+					         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					         <button id="sbtBtn" type="submit" class="btn btn-primary">등록</button>
+					       </div>
 				      	</form>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-				        <button id="sbtBtn" onclick="frmsbt()" type="button" class="btn btn-primary">등록</button>
 				      </div>
 				    </div>
 				  </div>
@@ -157,6 +180,19 @@
 				}else{ return false; }
 			}
 			
+			$(document).ready(function (){
+			    $(".sub-img").on("change", function() {
+			        var fileName = $(this).val().split("\\").pop();  //파일명
+			        var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+			        fileExt = fileExt.toLowerCase(); //소문자 변환
+			
+			        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+			            alert("이미지 파일만 등록이 가능합니다.");
+			            return;
+			        }
+			
+			        $(this).siblings(".custom-file-label").html(fileName);
+		    }));
 		</script>
 	</div>
 </body>

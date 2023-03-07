@@ -44,6 +44,12 @@ public class SubCategory {
 	@Column(updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년 MM월 dd일 HH:mm:ss")
 	private String regDate;
+	
+	private String oriImgName;
+	
+	private String imgName;
+	
+	private String imgUrl;
 
 	@PrePersist
     public void onPrePersist(){
@@ -52,5 +58,11 @@ public class SubCategory {
 
 	public void updateSubCategory(modifySubCategoryDto modifySubCategoryDto) {
 		this.name = modifySubCategoryDto.getCateName();
+	}
+	
+	public void updateImg(String oriImgName, String imgName, String imgUrl) {
+		this.oriImgName = oriImgName;
+		this.imgName = imgName;
+		this.imgUrl = imgUrl;
 	}
 }

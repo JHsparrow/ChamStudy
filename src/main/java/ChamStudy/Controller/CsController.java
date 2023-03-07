@@ -85,10 +85,12 @@ public class CsController {
 	@GetMapping(value="/inform/{informId}")
 	public String informDetail(@PathVariable("informId") Long informId, Model model) {
 		
-		model.addAttribute("active","csInform"); // 사이드 바 액티브
 		try {
 			CsInformDto csInformDto = csService.getInform(informId);
 			List<CsInformFileDto> csInformFileDtoList = csInformDto.getCsInformFileDtoList();
+			
+			csInformDto = csService.countingView(csInformDto);
+			
 			model.addAttribute("csInformDto", csInformDto);
 			model.addAttribute("csInformFileList",csInformFileDtoList);
 			
