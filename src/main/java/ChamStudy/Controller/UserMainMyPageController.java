@@ -20,12 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ChamStudy.Dto.CompletionContentInterface;
+import ChamStudy.Dto.CertificateDto;
 import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
+import ChamStudy.Dto.SubCategoryDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserListDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Entity.Category;
+import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
 import ChamStudy.Repository.UserRepository;
@@ -169,8 +173,8 @@ public class UserMainMyPageController {
 	@GetMapping(value = "/learning/watch/{contentId}/{classId}")
 	public String Learning(@PathVariable("contentId") Long contentId, @PathVariable("classId") Long classId, Model model) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		userMainMyPageService.createStudyHistory(contentId,email,"F",contentId); //학습 이력 삽입(study_history)
-		userMainMyPageService.createStudyResult(contentId,email); //학습 이력 삽입(study_result)
+		userMainMyPageService.createStudyHistory(contentId,email,"F",contentId,classId); //학습 이력 삽입(study_history)
+		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(classId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
 		model.addAttribute("completionContent", completionContent);
@@ -182,14 +186,25 @@ public class UserMainMyPageController {
 	@GetMapping(value="/learning/watch/{contentId}/{videoId}/{classId}")
 	public String LearningContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, @PathVariable("classId") Long classId,Model model) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		userMainMyPageService.createStudyHistory(contentId,email,"N",videoId); //학습 이력 삽입(study_history)
-		userMainMyPageService.createStudyResult(contentId,email); //학습 이력 삽입(study_result)
+		userMainMyPageService.createStudyHistory(contentId,email,"N",videoId,classId); //학습 이력 삽입(study_history)
+		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(email, videoId, classId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
 		
 		return "mypage/Learning-Lecture";
+	}
+	
+	//수료증 리스트 페이지
+	@GetMapping(value="/certificate")
+	public String Certificate (Optional<Integer> page,CertificateDto certificateDto, Model model) {
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+		Page<CertificateDto> certificate = userMainMyPageService.getCompletionList(certificateDto, pageable, email);
+		model.addAttribute("certificateList",certificate);
+		model.addAttribute("maxPage",5);
+		return "mypage/certificateList";
 	}
 	
 

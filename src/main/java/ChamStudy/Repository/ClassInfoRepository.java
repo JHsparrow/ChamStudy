@@ -35,6 +35,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	@Query(value="select * from class_info where content_id = ?1", nativeQuery = true)
 	ClassInfo getClassInfo(Long contentId );
 	
+<<<<<<< HEAD
 	@Query(value="select a.class_id as id, a.class_name as classname , a.price, c.name as subname,b.img_url as imgurl, \r\n"
 			+ "case when avg(d.star_point) is null then 0\r\n"
 			+ "else avg(d.star_point)\r\n"
@@ -46,4 +47,9 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "group by a.class_id;", nativeQuery = true)
 	List<MainFormDto> getMainClassInfo();
 	
+=======
+	@Query(value="select * from class_info where content_id = ?1 and class_id = ?2", nativeQuery = true)
+	ClassInfo getClassInfoConClass(Long contentId, Long classId );
+
+>>>>>>> 9f97c08ae58c57ce329ccf7d3c39c17d0a28dd83
 }

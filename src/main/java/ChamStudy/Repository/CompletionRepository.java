@@ -11,11 +11,12 @@ import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Entity.Completion;
 import ChamStudy.Entity.ContentInfo;
 import ChamStudy.Entity.ContentVideo;
+import ChamStudy.Impl.CertificateRepositoryCustom;
 import ChamStudy.Impl.UserMainMypageRepositoryCustom;
 
 
 public interface CompletionRepository extends JpaRepository<Completion, Long>,
-QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
+QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, CertificateRepositoryCustom {
 	
 	@Query(value="select * from completion where result_id = ?1", nativeQuery = true)
 	Completion getCompletion(Long resultId); 
@@ -94,10 +95,8 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom {
 			+ "join content_info E on e.content_id = d.content_id\r\n"
 			+ "join content_video F on f.content_id = e.content_id\r\n"
 			+ "join user_info Z on z.user_id = a.user_id\r\n"
-
 			+ "where z.user_email = ?1 and f.video_id = ?2 and d.class_id = ?3 ;", nativeQuery=true)
 	CompletionContentInterface getLearningContentOther(String email, Long videoId, Long classId);
-	
 	
 	
 
