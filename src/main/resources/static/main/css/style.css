@@ -35,8 +35,10 @@
     visibility: visible;
     opacity: 1;
 }
-
-
+$text-primart{
+	color: #ab6e3ecf !important
+}
+.text-primary{color: #ab6e3ecf !important}
 /*** Button ***/
 .btn {
     font-family: 'Nunito', sans-serif;
@@ -49,6 +51,10 @@
     color: #FFFFFF;
     background-color: #ab6e3ecf;
     border: 1px solid #ab6e3ecf;
+}
+.btn:hover{
+	background: #642F05 !important;
+	border: 1px solid #642F05 !important;
 }
 
 .btn:hover .btn-primary:hover {

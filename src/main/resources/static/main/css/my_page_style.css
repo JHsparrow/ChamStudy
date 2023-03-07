@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.text-primart{
+	color: #ab6e3ecf !important;
+}
+
 .minheight {
     min-height: 97.8%;
 }
@@ -26,27 +30,27 @@
     font-size: 2rem;
 }
 
-.pagination { -
-	-bs-pagination-padding-x: 0.75rem; -
-	-bs-pagination-padding-y: 0.3rem; -
-	-bs-pagination-font-size: 0.875rem; -
-	-bs-pagination-color: #6c757d; -
-	-bs-pagination-bg: #fff; -
-	-bs-pagination-border-width: 1px; -
-	-bs-pagination-border-color: #dee2e6; -
-	-bs-pagination-border-radius: 0.2rem; -
-	-bs-pagination-hover-color: #343a40; -
-	-bs-pagination-hover-bg: #e9ecef; -
-	-bs-pagination-hover-border-color: #dee2e6; -
-	-bs-pagination-focus-color: var(- -bs-link-hover-color); -
-	-bs-pagination-focus-bg: #e9ecef; -
+.pagination { 
+	-bs-pagination-padding-x: 0.75rem; 
+	-bs-pagination-padding-y: 0.3rem; 
+	-bs-pagination-font-size: 0.875rem; 
+	-bs-pagination-color: #6c757d; 
+	-bs-pagination-bg: #fff; 
+	-bs-pagination-border-width: 1px; 
+	-bs-pagination-border-color: #dee2e6; 
+	-bs-pagination-border-radius: 0.2rem; 
+	-bs-pagination-hover-color: #343a40; 
+	-bs-pagination-hover-bg: #e9ecef; 
+	-bs-pagination-hover-border-color: #dee2e6; 
+	-bs-pagination-focus-color: var(- -bs-link-hover-color); 
+	-bs-pagination-focus-bg: #e9ecef; 
 	-bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgba(59, 125, 221, .25);
-	-
-	-bs-pagination-active-color: #fff; -
-	-bs-pagination-active-bg: #3b7ddd; -
-	-bs-pagination-active-border-color: #3b7ddd; -
-	-bs-pagination-disabled-color: #6c757d; -
-	-bs-pagination-disabled-bg: #fff; -
+	
+	-bs-pagination-active-color: #fff; 
+	-bs-pagination-active-bg: #3b7ddd; 
+	-bs-pagination-active-border-color: #3b7ddd; 
+	-bs-pagination-disabled-color: #6c757d; 
+	-bs-pagination-disabled-bg: #fff; 
 	-bs-pagination-disabled-border-color: #dee2e6;
 	display: flex;
 	list-style: none;
@@ -134,4 +138,11 @@ div.dataTables_paginate {
 
 .accor-body {
 	background-color: white;
+}
+
+.cerList{
+	margin-bottom: 20px;
+	border: 2px solid #ab6e3ecf !important;
+	box-shadow: #ab6e3ecf 1px 1px 1px !important;
+	align-items: center;
 }

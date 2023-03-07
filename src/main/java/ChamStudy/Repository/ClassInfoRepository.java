@@ -33,5 +33,8 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	
 	@Query(value="select * from class_info where content_id = ?1", nativeQuery = true)
 	ClassInfo getClassInfo(Long contentId );
+	
+	@Query(value="select * from class_info where content_id = ?1 and class_id = ?2", nativeQuery = true)
+	ClassInfo getClassInfoConClass(Long contentId, Long classId );
 
 }
