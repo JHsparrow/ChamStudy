@@ -2,23 +2,24 @@
 
 .wrap{
 	display: flex;
+	flex: 0 0 auto;
 	height: 100vh;
 	width: 100%;
-	align-items: stretch;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .main {
 	width: 100%;
 	transition: 0.5s;
-	overflow-x: hidden;
 	margin-left : -100px;
+	
 }
 
 .sidebar{
-	overflow-x: hidden;
+	
 	width:300px;
   	transition: 0.5s;
+  	position:relative;
 }
 
 .body{

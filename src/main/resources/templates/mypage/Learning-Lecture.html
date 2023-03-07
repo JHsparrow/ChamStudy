@@ -12,15 +12,15 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script>
 	function openNav() {
-		$('.sidebar').css('width','300px');
+		$('.sidebar').css('left','0');
 		$('.main').css('margin-left','-100px');
   		$('#hidebtn').show();
   		$('#showbtn').hide();
 	}
 	
 	function closeNav() {
-		$('.sidebar').css('width','0px');
-		$('.main').css('margin-left','0');
+		$('.sidebar').css('left','300px');
+		$('.main').css('margin-left','200px');
 	  	$('#hidebtn').hide();
 		$('#showbtn').show();
 	}
@@ -30,7 +30,7 @@
 <title>참스터디</title>
 </head>
 <body>
-	<div class="wrap">
+	<div class="wrap bg-dark">
 		<div class="main bg-dark">
 			<div class="header">
 				<nav class="navbar navbar-dark bg-dark fixed-top">
@@ -46,7 +46,7 @@
 				</nav>
 			</div>
 			<div class="body">
-				<video id="video">
+				<video id="video" controls>
 					<source th:src="${completionContent.getVideoUrl()}+'.mp4'" type="video/mp4">
 				</video>
 			</div>
@@ -59,11 +59,11 @@
 			</div>
 		</div>
 		<div class="sidebar text-bg-dark">
-			<div class="offcanvas-header">
+			<div class="">
 				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">목차</h5>
 				<button type="button" class="btn-close btn-close-white"></button>
 			</div>
-			<div class="offcanvas-body">
+			<div class="">
 				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 					<li class="nav-item1"><a class="nav-link">[[${completionContent.getClassName()}]]</a></li>
 					<li class="nav-item2"><a class="nav-link">수강기간:  [[${#strings.substring(completionContent.getStartDate(),2,13)}]] - [[${completionContent.getEndDate()}]] </a></li>
@@ -76,7 +76,7 @@
 					</li>
 					<li class="nav-item5"><a class="nav-link">강의목록</a></li>
 					<li th:each="content: ${completionContentList}" class="nav-item6">
-						<a class="nav-link pointer" th:classappend="${content.getVideoId()} == ${videoId} ? 'active'" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getClassId()}/${content.getVideoId()}'|">
+						<a class="nav-link pointer ps-2" th:classappend="${content.getVideoId()} == ${videoId} ? 'active'" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getClassId()}/${content.getVideoId()}'|">
 							[[${content.getClassName()}]] [[${contentStat.count}]]강
 						</a>
 					</li>
