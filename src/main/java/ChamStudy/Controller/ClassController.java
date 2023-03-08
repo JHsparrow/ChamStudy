@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ChamStudy.Dto.ApplyListDto;
@@ -55,7 +56,20 @@ public class ClassController { //강의 페이지
 		
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(userSearchDto, pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
-		model.addAttribute("maxPage",5);
+		model.addAttribute("maxPage",classInfoDtoList.getTotalPages());
+		model.addAttribute("userSearchDto", userSearchDto);
+		return "/MainForm/Class/classList";
+	}
+	
+	@PostMapping(value="/class")
+	public String classView(Optional<Integer> page, Model model, UserSearchDto userSearchDto, ClassInfoDto adminClassDto) { //강의 리스트
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		
+		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(userSearchDto, pageable);
+		model.addAttribute("classInfoDtoList", classInfoDtoList);
+		model.addAttribute("maxPage", classInfoDtoList.getTotalPages());
+		model.addAttribute("userSearchDto", userSearchDto);
+		
 		return "/MainForm/Class/classList";
 	}
 	

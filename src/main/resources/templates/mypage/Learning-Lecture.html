@@ -8,66 +8,83 @@
 <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link th:href="@{/css/MyLecture/LectureVideo.css}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script>
+	function openNav() {
+		$('.sidebar').css('left','0');
+		$('.main').css('margin-left','-100px');
+  		$('#hidebtn').show();
+  		$('#showbtn').hide();
+	}
+	
+	function closeNav() {
+		$('.sidebar').css('left','300px');
+		$('.main').css('margin-left','200px');
+	  	$('#hidebtn').hide();
+		$('#showbtn').show();
+	}
+</script>
 
 
 <title>참스터디</title>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body class="body">
-	<th:block th:object="${completionContent}">
-	<div class="header">
-		<nav class="navbar navbar-dark bg-dark fixed-top">
-			<div class="container-fluid">
-				<a class="navbar-brand">[[${completionContent.getClassName()}]]</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-					aria-controls="offcanvasDarkNavbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1"
-					id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">목차
-						</h5>
-						<button type="button" class="btn-close btn-close-white"
-							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<body>
+	<div class="wrap bg-dark">
+		<div class="main bg-dark">
+			<div class="header">
+				<nav class="navbar navbar-dark bg-dark fixed-top">
+					<div class="container-fluid">
+						<a class="navbar-brand">[[${completionContent.getClassName()}]]</a>
+						<button class="navbar-toggler" id="showbtn" type="button" onclick="openNav()">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<button class="navbar-toggler" id="hidebtn" type="button" onclick="closeNav()">
+							<span class="navbar-toggler-icon"></span>
+						</button>
 					</div>
-					<div class="offcanvas-body">
-						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<li class="nav-item1"><a class="nav-link">[[${completionContent.getClassName()}]]</a></li>
-							<li class="nav-item2"><a class="nav-link">수강기한:  [[${completionContent.getStartDate()}]] - [[${completionContent.getEndDate()}]] </a></li>
-							<li class="nav-item4">
-								<a class="nav-link">학습률</a>
-								
-								<div class="progress ms-6 me-2">
-								  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" th:style="'width:'+${completionContent.getProgress()}+'%'" role="progressbar" th:aria-valuenow="${completionContent.getProgress()}" aria-valuemin="0" aria-valuemax="100">[[${completionContent.getProgress()}]]%</div>
-								</div>
-							</li>
-							<li class="nav-item5"><a class="nav-link">강의목록</a></li>
-							<li th:each="content: ${completionContentList}" class="nav-item6">
-								<a class="nav-link" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getVideoId()}/${content.getClassId()}'|">
-									[[${content.getClassName()}]] [[${contentStat.count}]]강
-								</a>
-							</li>
-							<button class="back-mypage" onclick="location.href='/mypage/myclass';">돌아가기</button>
-						</ul>
-					</div>
-				</div>
+				</nav>
 			</div>
-		</nav>
+			<div class="body">
+				<video id="video" controls>
+					<source th:src="${completionContent.getVideoUrl()}+'.mp4'" type="video/mp4">
+				</video>
+			</div>
+			<div class="text-center">
+				<a th:if="${firstVideoId != videoId}" th:href="'/mypage/learning/watch/'+${completionContent.getContentId()}+'/'+${completionContent.getClassId()} +'/'+${videoId-1}" class="btn btn-primary">이전강의</a>
+				<a th:if="${firstVideoId == videoId}"  class="btn btn-primary nactive">이전강의</a>
+				<span class="btn btn-primary ">[[${videoId-firstVideoId+1}]]강</span>
+				<a th:if="${lastVideoId != videoId}" th:href="'/mypage/learning/watch/'+${completionContent.getContentId()}+'/'+${completionContent.getClassId()} +'/'+${videoId+1}" class="btn btn-primary">다음강의</a>
+				<a th:if="${lastVideoId == videoId}"  class="btn btn-primary nactive">다음강의</a>
+			</div>
+		</div>
+		<div class="sidebar text-bg-dark">
+			<div class="">
+				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">목차</h5>
+				<button type="button" class="btn-close btn-close-white"></button>
+			</div>
+			<div class="">
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+					<li class="nav-item1"><a class="nav-link">[[${completionContent.getClassName()}]]</a></li>
+					<li class="nav-item2"><a class="nav-link">수강기간:  [[${#strings.substring(completionContent.getStartDate(),2,13)}]] - [[${completionContent.getEndDate()}]] </a></li>
+					<li class="nav-item4">
+						<a class="nav-link">학습률</a>
+						
+						<div class="progress ms-6 me-2">
+						  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" th:style="'width:'+${completionContent.getProgress()}+'%'" role="progressbar" th:aria-valuenow="${completionContent.getProgress()}" aria-valuemin="0" aria-valuemax="100">[[${completionContent.getProgress()}]]%</div>
+						</div>
+					</li>
+					<li class="nav-item5"><a class="nav-link">강의목록</a></li>
+					<li th:each="content: ${completionContentList}" class="nav-item6">
+						<a class="nav-link pointer ps-2" th:classappend="${content.getVideoId()} == ${videoId} ? 'active'" th:onclick="|location.href='@{/mypage/learning/watch/}${content.getContentId()}/${content.getClassId()}/${content.getVideoId()}'|">
+							[[${content.getClassName()}]] [[${contentStat.count}]]강
+						</a>
+					</li>
+					<button class="back-mypage" onclick="location.href='/mypage/myclass';">돌아가기</button>
+				</ul>
+			</div>
+		</div>
 	</div>
-	</th:block>
-	<div class="body">
-		<video>
-			<source th:src="${completionContent.getVideoUrl()}+'.mp4'" type="video/mp4">
-		</video>
-	</div>
-	<div class="footer">
-	<button type="button" class="btn before-lecture">이전강의</button>
-	<button type="button" class="btn saw-lecture">봤어요</button>
-	<!-- <button type="button" class="btn saw-lecture"><i class="fa-solid fa-check"></i></button> -->
-	<button type="button" class="btn next-lecture">다음수업</button>
-	</div>
+	
 </body>
 </html>

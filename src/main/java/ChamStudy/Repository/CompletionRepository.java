@@ -68,7 +68,7 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, Certifica
 	
 	
 	
-	@Query(value="select e.content_id as contentId, d.class_name as className, b.progress, b.reg_date as startDate, d.e_date as endDate,\r\n"
+	@Query(value="select e.content_id as contentId, d.class_name as className,d.class_id as classId  ,b.progress, b.reg_date as startDate, d.e_date as endDate,\r\n"
 			+ "f.video_id as videoId, f.url as videoUrl, f.oriname as videoName, e.name as contentName, z.user_id as userId\r\n"
 			+ "from apply_list A \r\n"
 			+ "left join study_result B on b.apply_id = a.apply_id\r\n"
@@ -88,7 +88,7 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, Certifica
 	List<CompletionContentInterface> getApplyContent(Long contentId, Long classId);
 	
 	
-	@Query(value="select e.content_id as contentId, d.class_name as className, b.progress, b.reg_date as startDate, d.e_date as endDate,\r\n"
+	@Query(value="select e.content_id as contentId, d.class_name as className, d.class_id as classId ,b.progress, b.reg_date as startDate, d.e_date as endDate,\r\n"
 			+ "f.video_id as videoId, f.url as videoUrl, f.oriname as videoName, e.name as contentName, z.user_id as userId\r\n"
 			+ "from apply_list A \r\n"
 			+ "left join study_result B on b.apply_id = a.apply_id\r\n"
