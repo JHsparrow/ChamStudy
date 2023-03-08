@@ -214,14 +214,16 @@ public class CommController { //커뮤니티 컨트롤러
 			@PostMapping(value = "/comm/QnAUpdate/{boardId}")
 			public String QnAUpdate(@PathVariable("boardId") Long boardId,@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, 
 					Model model) {
+				MessageDto message;
 				try {
 					commWriteFormDto.setId(boardId);
 					commService.updateboard(commWriteFormDto);
+					message = new MessageDto("글 등록을 완료했습니다.", "/comm/qna");
 				} catch (Exception e) {
-					model.addAttribute("errorMessage","수정 중 에러가 발생하였습니다.");
+					message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
 					return "MainForm/community/commQnAWrite";
 				}
-				return "redirect:/";
+				return showMessageAndRedirect(message, model);
 			}
 			
 			//멘토 수정페이지 저장
@@ -255,7 +257,7 @@ public class CommController { //커뮤니티 컨트롤러
 	}
 	
 	//QnA게시판
-	@GetMapping(value = "/comm/qna")
+	@GetMapping(value = {"/comm/qna","/comm/qna/{page}"})
 	public String commQna(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto,Principal principal) {
 		String email = principal.getName();
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
@@ -297,10 +299,40 @@ public class CommController { //커뮤니티 컨트롤러
 				model.addAttribute("referer",referer);
 			return "MainForm/community/comm-Dtl-Form";
 		}
+		//Qna 상세 페이지
+		@GetMapping(value = "/comm/QnAdtl/{boardId}")
+		public String commQnaDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request,Principal principal) {
+			String email = principal.getName();
+			Long getid = boardId;
+			commService.viewCount(boardId);
+			try {
+				//서비스에서 상세 페이지를 가져와주는 메소드 실행하여 Dto에 담아준다.
+				CommDto adminMainCommDto = commService.getAdminCommDtl(boardId);
+				List<CommCommentDto> commentList = commService.getCommentList(boardId);
+				
+				//담아준 Dto를 view로 보내준다
+				model.addAttribute("commWriteFormDto", new CommWriteFormDto());
+				model.addAttribute("comm",adminMainCommDto);
+				model.addAttribute("comments",commentList);
+				model.addAttribute("boardId",getid);
+				model.addAttribute("email",email);
+			}catch(Exception e) {
+				model.addAttribute("errorMessage","존재하지 않는 게시물입니다.");
+			}
+			//돌아가기 버튼을 누르면 상세 페이지 이전 페이지의 정보가 있어야해서 referer를 써준다.
+			//referer : 전 페이지의 정보를 가져온다.
+			String referer = request.getHeader("Referer");
+			request.getSession().setAttribute("redirectURI", referer);
+			//전 페이지의 링크를 view에 hidden으로 남기려고 작성
+			model.addAttribute("referer",referer);
+			return "MainForm/community/qna-Dtl-Form";
+		}
 		
 		//자유게시판 댓글 작성
 		@PostMapping(value = "/comm/comment/create")
-		public String commentCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal) {
+		public String commentCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal,HttpServletRequest request) {
+			String getId = request.getParameter("boardId");
+			Long boardId = Long.parseLong(getId);
 			MessageDto message;
 			String email = principal.getName();
 			if(bindingResult.hasErrors()) {
@@ -309,10 +341,31 @@ public class CommController { //커뮤니티 컨트롤러
 			
 			try {
 				commService.saveComm(commWriteFormDto,email);
-				message = new MessageDto("글 등록을 완료했습니다.", "/comm");
+				message = new MessageDto("글 등록을 완료했습니다.", "/comm/dtl/"+boardId);
 			} catch (Exception e) {
 				message = new MessageDto("글 등록을 실패했습니다.", "/comm");
 				return "MainForm/community/comm-Dtl-Form";
+			}
+			return showMessageAndRedirect(message, model);
+		}
+
+		//자유게시판 댓글 작성
+		@PostMapping(value = "/comm/qnacomment/create")
+		public String qnacommentCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal,HttpServletRequest request) {
+			String getId = request.getParameter("boardId");
+			Long boardId = Long.parseLong(getId);
+			MessageDto message;
+			String email = principal.getName();
+			if(bindingResult.hasErrors()) {
+				return "MainForm/community/qna-Dtl-Form";
+			} 
+			
+			try {
+				commService.saveComm(commWriteFormDto,email);
+				message = new MessageDto("글 등록을 완료했습니다.", "/comm/QnAdtl/"+boardId);
+			} catch (Exception e) {
+				message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
+				return "MainForm/community/qna-Dtl-Form";
 			}
 			return showMessageAndRedirect(message, model);
 		}

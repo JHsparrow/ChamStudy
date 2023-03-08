@@ -20,7 +20,7 @@
 			var searchBy = $("#searchBy").val();
 			var searchQuery = $("#searchQuery").val();
 
-			location.href = "/comm/" + page + "?searchBy=" + searchBy
+			location.href = "/comm/qna/" + page + "?searchBy=" + searchBy
 					+ "&searchQuery=" + searchQuery;
 		}
 	</script>
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div class="main-body">
-				<div class="search-wrap" th:object="${commSearchDto}"
+				<form class="search-wrap" th:object="${commSearchDto}"
 					style="height: 40px;">
 					<!-- 상품 등록일 -->
 					<!-- 상품명, 등록자 선택 -->
@@ -56,27 +56,23 @@
 					<div class="write-btn">
 						<a class="write-btn-a" th:onclick="|location.href='@{/comm/QnAcreate}'|">글쓰기</a>
 					</div>
-				</div>
+				</form>
 				<div class="boards">
 					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
 						<div class="each">
-							<div class="comm-wrap">
+							<div class="comm-wrap" th:onclick="|location.href='@{/comm/QnAdtl/}'+${comm.id}|">
 								<div class="comm-li1">
 									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<a th:href="'/comm/dtl/'+${comm.id}"
-										class="comm-li1-2">조회</a>
+									<a class="comm-li1-2">조회</a>
 								</div>
 								<div class="comm-wrap2">
 									<div class="comm-li2">
-										<a th:href="'/comm/dtl/'+${comm.id}"
-											class="comm-wrap-a2">[[${comm.Title}]]</a>
+										<a class="comm-wrap-a2">[[${comm.Title}]]</a>
 									</div>
 									<div class="comm-li3-1">
-										<a th:href="'/comm/dtl/'+${comm.id}"
-											class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
+										<a class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
 										<div class="comm-li3-2">
-											<a th:href="'/comm/dtl/'+${comm.id}"
-												class="comm-wrap-a4">[[${comm.regDate}]]</a>
+											<a class="comm-wrap-a4">[[${comm.regDate}]]</a>
 										</div>
 									</div>
 								</div>
