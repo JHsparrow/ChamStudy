@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.EducationInfoInterface;
 import ChamStudy.Dto.MainFormDto;
+import ChamStudy.Dto.MainReviewDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Impl.ClassInfoRepositoryCustom;
 
@@ -61,5 +62,20 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 	
 	@Query(value="select * from class_info where content_id = ?1 and class_id = ?2", nativeQuery = true)
 	ClassInfo getClassInfoConClass(Long contentId, Long classId );
+	
+	@Query(value="select b.review_id as reviewid,\r\n"
+			+ " e.user_email as email,\r\n"
+			+ " e.user_name as username,\r\n"
+			+ " b.description as description,\r\n"
+			+ " a.class_name as classname,\r\n"
+			+ " d.name, a.class_id as classid\r\n"
+			+ "from class_info A\r\n"
+			+ "join class_review B on a.class_id = b.class_id\r\n"
+			+ "join content_info C on c.content_id = a.content_id\r\n"
+			+ "join sub_category D on d.sub_category_id = c.sub_category_id\r\n"
+			+ "join user_info E on e.user_id = b.user_id;", nativeQuery = true)
+	List<MainReviewDto> getMainReview();
+	
+	
 
 }

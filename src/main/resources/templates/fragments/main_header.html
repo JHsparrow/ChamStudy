@@ -13,8 +13,8 @@
 			class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
 			<a href="/"
 				class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-				<h2 class="m-0 text-primary">
-					<i class="fa fa-book me-3"></i>eLEARNING
+				<h2 class="m-0 mainlogo" style="color:#ab6e3ecf; font-size: 2rem;">
+					<i class="fa fa-book me-3" ></i>eLEARNING
 				</h2>
 			</a>
 			<button type="button" class="navbar-toggler me-4 "
@@ -26,7 +26,7 @@
 					<a href="/" class="nav-item nav-link active ">Home</a> 
 					<a style="color: red;" href="/admin" class="nav-item nav-link active" sec:authorize="hasAnyAuthority('ADMIN')">관리자 페이지 이동!!!</a> 
 					<a href="/cs/index" class="nav-item nav-link">고객센터</a>
-					<a href="/myclass/index" class="nav-item nav-link">나의강의실</a>
+					<a href="/mypage/myclass" class="nav-item nav-link">나의강의실</a>
 					<a href="/mainForm/class" class="nav-item nav-link">Class</a>
 					<a href="/mypage/main" class="nav-item nav-link" >마이페이지</a>
 					<a href="/users/signUpCk" class="nav-item nav-link" sec:authorize="isAnonymous()">회원가입</a>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import ChamStudy.Dto.CompletionContentInterface;
 import ChamStudy.Dto.MainFormDto;
+import ChamStudy.Dto.MainReviewDto;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.AdminMainService;
 import ChamStudy.Service.HomeMainService;
@@ -30,10 +31,11 @@ public class HomeMainController {
 		List<MainFormDto> mainFormDtoList = homeMainService.getMainClass();
 		List<MainFormDto> mainFormDtostarList = homeMainService.getMainstarClass();
 		
-		
+		List<MainReviewDto> mainReviewDto = homeMainService.getMainReviewDto();
 		
 		model.addAttribute("mainFormDtoList",mainFormDtoList); //신규 강의 리스트
 		model.addAttribute("mainFormDtoStarList", mainFormDtostarList); //별점 순 정렬
+		model.addAttribute("mainReviewDtoList", mainReviewDto); //리뷰 뿌려주기
 		model.addAttribute("countMember",adminMainService.countMember()); //회원 수
 		return "main";
 	}

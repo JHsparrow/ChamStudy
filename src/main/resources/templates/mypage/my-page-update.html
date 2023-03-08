@@ -21,12 +21,17 @@
 	background-color: #642F05!important;
 	border: 1px solid #642F05!important;
 }
-.back {
-	background-color: #ab6e3ecf;
-}
 
 .text-primary {
-	color: #642F05!important;
+	color: #ab6e3ecf!important;
+}
+
+.mycard {
+	border: 15px solid #ab6e3ecf;
+}
+
+.title {
+	color: #642F05;
 }
 </style>
 </th:block>
@@ -54,11 +59,11 @@
 											<div
 												class="row d-flex justify-content-center align-items-center h-100 back">
 												<div class="col-xl-9">
-													<h1 class="text-white mb-4">회원정보 수정</h1>
+													<h1 class="title mb-4">회원정보 수정</h1>
 													<form id="frm" action="/mypage/update" method="post"
 														th:object="${userInfoDto}">
 
-														<div class="card" style="border-radius: 15px;">
+														<div class="card mycard" style="border-radius: 15px;">
 															<div class="card-body">
 																<div class="row align-items-center pt-4 pb-3">
 
@@ -128,7 +133,8 @@
 																<div class="row align-items-center py-3">
 
 																	<div class="col-md-3 ps-5">
-																		<h6 class="mb-0">휴대폰 번호</h6>
+																		<h6 class="mb-0">휴대폰 <br>
+																		번호</h6>
 																	</div>
 																	<div class="col-md-9 pe-5">
 																		<input th:value="${userInfoDto.phone}"
@@ -140,10 +146,10 @@
 																		th:errors="*{phone}" class="fieldError">Incorrect
 																		Data</p>
 																</div>
-															</div>
-
 															<hr class="mx-n3">
-															<div class="px-5 py-4">
+															</div>
+															
+															<div class="px-5 py-4 text-center">
 																<button type="button" onclick="passwordCk()"
 																	class="btn btn-primary btn-lg">수정 완료</button>
 															</div>
