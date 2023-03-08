@@ -55,7 +55,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "join content_info B on b.content_id = a.content_id\r\n"
 			+ "join sub_category C on c.sub_category_id = b.sub_category_id\r\n"
 			+ "left join class_review D on d.class_id = a.class_id\r\n"
-			+ "group by a.class_id order by d.star_point desc limit 7;", nativeQuery = true)
+			+ "group by a.class_id order by starpoint desc limit 7;", nativeQuery = true)
 	List<MainFormDto> getMainClassInfostar();
 
 	

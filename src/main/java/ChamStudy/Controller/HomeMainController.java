@@ -30,7 +30,6 @@ public class HomeMainController {
 		
 		List<MainFormDto> mainFormDtoList = homeMainService.getMainClass();
 		List<MainFormDto> mainFormDtostarList = homeMainService.getMainstarClass();
-		
 		List<MainReviewDto> mainReviewDto = homeMainService.getMainReviewDto();
 		
 		model.addAttribute("mainFormDtoList",mainFormDtoList); //신규 강의 리스트
