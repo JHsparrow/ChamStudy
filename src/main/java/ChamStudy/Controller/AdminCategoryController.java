@@ -102,7 +102,7 @@ public class AdminCategoryController {
 		
 		try {
 			SubCategory subCategory = adminCategoryService.saveSubCategory(mainId,cateName);
-			adminCategoryService.saveSubCategoryImg(subCategory, subImg);
+			adminCategoryService.saveSubCategoryImg(subCategory, subImg, mainId.getId());
 			
 			message = new MessageDto("서브카테고리 생성이 완료되었습니다.", "/adminCategory/sub/"+mainId.getId());
 		} catch (Exception e) {
@@ -131,7 +131,7 @@ public class AdminCategoryController {
 		MessageDto message;
 		try {
 			SubCategory subCategory = adminCategoryService.updateSubCategory(modifySubCategoryDto);
-			adminCategoryService.saveSubCategoryImg(subCategory, subImg);
+			adminCategoryService.saveSubCategoryImg(subCategory, subImg,modifySubCategoryDto.getSubId());
 			message = new MessageDto("서브카테고리 수정이 완료되었습니다.", "/adminCategory/sub/"+modifySubCategoryDto.getMainId());
 		} catch (Exception e) {
 			message = new MessageDto("서브카테고리 수정이 실패하였습니다.", "/adminCategory/sub/"+modifySubCategoryDto.getMainId());
