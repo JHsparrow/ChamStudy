@@ -74,14 +74,18 @@ public class AdminCategoryService {
 	}
 	
 	//서브카테고리 생성 - 이미지 등록
-	public void saveSubCategoryImg(SubCategory subCategory, MultipartFile subImg) throws Exception {
+	public void saveSubCategoryImg(SubCategory subCategory, MultipartFile subImg, Long subId) throws Exception {
+		SubCategory subcategory = subCategoryRepository.findById(subId).orElseThrow();
 		String oriImgName = subImg.getOriginalFilename();
 		String imgName = "";
 		String imgUrl = "";
-		
 		if(!StringUtils.isEmpty(oriImgName)) {
 			imgName = fileService.uploadFile(csImgLocation, oriImgName, subImg.getBytes());
 			imgUrl = "/contents/img/" + imgName;
+		} else {
+			oriImgName = subcategory.getOriImgName();
+			imgName = subcategory.getImgName();
+			imgUrl = subcategory.getImgUrl();
 		}
 		
 		subCategory.updateImg(oriImgName, imgName, imgUrl);
@@ -96,10 +100,9 @@ public class AdminCategoryService {
 	
 	//서브카테고리 수정
 	public SubCategory updateSubCategory(modifySubCategoryDto modifySubCategoryDto) throws Exception {
-		SubCategory subCategory = subCategoryRepository.findById(modifySubCategoryDto.getSubId()).orElseThrow(EntityNotFoundException::new);   
+		SubCategory subCategory = subCategoryRepository.findById(modifySubCategoryDto.getSubId()).orElseThrow(EntityNotFoundException::new);  
 		
 		subCategory.updateSubCategory(modifySubCategoryDto);
-		
 		subCategoryRepository.save(subCategory);
 		return subCategory;
 	}
