@@ -30,4 +30,8 @@ public interface CsInformRepository extends JpaRepository<CsInform, Long>,
 	 */
 	@Query(value="select inform_id, title, view_count, up_date from cs_inform order by up_date desc limit 5 ;", nativeQuery = true)
 	List<CsInformListDto> getMainInformList ();
+	
+	
+	@Query(value = "select count(*) from cs_inform where gubun = 'f'", nativeQuery = true)
+	Long CountFixinform();
 }

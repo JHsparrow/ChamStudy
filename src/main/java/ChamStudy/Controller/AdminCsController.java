@@ -84,9 +84,17 @@ public class AdminCsController {
 	//(첫 화면에서) 등록하기 버튼 클릭
 	@GetMapping(value = "/informForm")
 	public String createInform(Model model) {
+		Long countFixInform = csService.countinform();
+		String fixoverfive;
+		if (countFixInform >= 5) {
+			fixoverfive = "Y";
+		} else {
+			fixoverfive = "N";
+		}
 		model.addAttribute("active","csInform"); // 사이드 바 액티브
 		model.addAttribute("csInformDto", new CsInformDto());
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
+		model.addAttribute("fix5",fixoverfive);
 		System.out.println("작성자 아이디: " + SecurityContextHolder.getContext().getAuthentication().getName());
 		return "cs/AdminInformForm";
 	}
