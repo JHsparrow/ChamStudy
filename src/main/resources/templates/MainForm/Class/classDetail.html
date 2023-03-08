@@ -205,12 +205,7 @@
 	</script>
 
 <style>
-img{
-	width: 300px;
-	height: 500px;
-}
-
-/* 레이아웃 외곽 너비 400px 제한*/
+/* 레이아웃 외곽 너비 400px 제한, 리뷰 */
 .wrap{
     max-width: 480px;
     margin: 0 auto; /* 화면 가운데로 */
@@ -237,6 +232,7 @@ img{
     vertical-align: top;
     display: none;
 }
+
 .rating .rate_radio + label {
     position: relative;
     display: inline-block;
@@ -250,11 +246,13 @@ img{
     cursor: pointer;
     background-color: #f0f0f0;
 }
+
 .rating .rate_radio:checked + label {
-    background-color: #0D6EFD;
+    background-color: #FFFF00;
 }
 
-.warning_msg {
+
+/* .warning_msg {
     display: none;
     position: relative;
     text-align: center;
@@ -265,7 +263,7 @@ img{
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #e0e0e0;
-}
+} */
 
 .rating2 {
 	width: 130px;
@@ -294,7 +292,11 @@ img{
     background-repeat: no-repeat;
     background-size: 60px 60px;
     cursor: pointer;
-    background-color: #0D6EFD;
+    background-color: #ff8;
+}
+
+.rating .input:hover { 
+	background: none;
 }
 
 .bd-placeholder-img {
@@ -316,12 +318,17 @@ img{
 }
 
 .course__comment-box {
-  background: #f3f4f8;
+  background: #FBEBD4;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   padding: 25px 30px 25px 30px;
   margin-bottom: 10px;
+}
+
+.course__comment-rating .fa:before {
+	color: #FFD700 !important;
+	font-size: 20px;
 }
 
 .course__comment-info h4 {
@@ -336,9 +343,20 @@ img{
 
 .course__comment-text {
 	padding-top: 45px;
-	text-indent: -45px;
+	text-indent: -120px !important;
+	word-wrap: break-word !important;
 }
 
+.course__comment-rating label {
+	background: inherit !important;
+	color: black !important;
+	padding: 0 !important;
+	display: inline-block !important;
+	position: relative !important;
+
+}
+
+/* 상세페이지 메뉴tab */
 .tabStyle * {
   margin: 0;
   padding: 0;
@@ -393,7 +411,7 @@ img{
   font-size: 20px;
   font-weight: normal;
   text-transform: uppercase;
-  background:#ab6e3ecf ;
+  background: #ab6e3ecf  ;
   cursor: pointer;
   position: relative;
   top: 4px;
@@ -403,9 +421,7 @@ img{
   transition: all 0.2s ease-in-out;
   color: #fff;
 }
-.tabs label:hover {
-  background: #642F05;
-}
+
 .tabs .tab-content {
   z-index: 2;
   display: none;
@@ -417,16 +433,17 @@ img{
   position: absolute;
   top: 53px;
   left: 0;
-  background: #612e76;
 }
 .tabs [id^="tab"]:checked + label {
   top: 0;
   padding-top: 17px;
-  background: #612e76;
+  background: #642F05;
 }
 .tabs [id^="tab"]:checked ~ [id^="tab-content"] {
   display: block;
 }
+
+video { max-width: 80%; display: block; margin: 20px auto; }
 
 </style>
 
@@ -461,9 +478,9 @@ img{
 				
 				<div class="row g-5 justify-content-center">
 				<!-- 제목 -->
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<h3 class="pb-4 mb-4 fst-italic border-bottom">
-						From the Firehose
+						참스터디에서 배워요!
 					</h3>
 				</div>
 				
@@ -481,40 +498,115 @@ img{
 					</div>
 					</div>
 				</div>
-					<!-- 오른쪽 신청버큰 고정 -->				
-
-				<!-- 제목 -->
-				
+					<!-- 오른쪽 신청버큰 고정 -->
 					
+					<!-- 강의 이미지 -->				    
+					    <div class="row g-5 justify-content-center">
+					    <div class="col-md-6">
+					    <div class="card mb-4" style="max-width: 540px;">
+						  <div class="row g-0" style="height: 200px;">
+						    <div class="col-md-4" style="height: 200px;">
+						      <img th:src="${classDetail.imgUrl}" class="img-fluid rounded-start" alt="이미지" style="width: 100%; height: 100%;">
+						    </div>
+						    <div class="col-md-8">
+						      <div class="card-body">
+						      	<div class="cd-fixed-body__list" style="padding-bottom: 10px;">
+						      		<span class="infd-icon">
+										✍️
+						      		</span>
+						      		이런걸 배워요!
+						      	</div>						      						      
+						      
+						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
+						      		<span class="infd-icon">
+						      			<svg width="16" height="16" viewBox="0 0 16 16">
+						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+						      			</svg>
+						      		</span>
+						      		컴퓨터 하드웨어 속성
+						      	</div>
+
+						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
+						      		<span class="infd-icon">
+						      			<svg width="16" height="16" viewBox="0 0 16 16">
+						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+						      			</svg>
+						      		</span>
+						      		컴퓨터 하드웨어 속성
+						      	</div>
+						      	
+						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
+						      		<span class="infd-icon">
+						      			<svg width="16" height="16" viewBox="0 0 16 16">
+						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+						      			</svg>
+						      		</span>
+						      		컴퓨터 하드웨어 속성
+						      	</div>
+						      	
+						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
+						      		<span class="infd-icon">
+						      			<svg width="16" height="16" viewBox="0 0 16 16">
+						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+						      			</svg>
+						      		</span>
+						      		컴퓨터 하드웨어 속성
+						      	</div>
+						      	
+						      	<div class="cd-fixed-body__list">
+						      		<span class="infd-icon">
+						      			<svg width="16" height="16" viewBox="0 0 16 16">
+						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+						      			</svg>
+						      		</span>
+						      		컴퓨터 하드웨어 속성
+						      	</div>						      							      							      	
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						</div>
+						</div>
 					<!-- 강의 이미지 -->
-					    <div class="row featurette justify-content-center">
-					      <div class="col-md-6 order-md-2">
-					        <h2 class="featurette-heading fw-normal lh-1"> 강의 <span class="text-muted"> 강의강의강의강의강의강의강의강의강의강의강의강의강의강의강의강의강의 </span></h2>
-					        <p class="lead">테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다</p>
-					      </div>
-					      <div class="col-md-2 order-md-1">
-					      	<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" preserveAspectRatio="xMidYMid slice" focusable="false" th:src="${classDetail.imgUrl}"  th:alt="이미지">
-					      </div>
-					    </div>
-					<!-- 강의 이미지 -->
+							
+
+				<!-- 커리큘럼 -->
+				<div class="container-fluid" style="background-color: #ffffff">
+				<div class="container">
+					<picture class="container__picture container__picture--center">
+						<source media="(min-width: 64.1rem)" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202211/070952-476/pain3.gif">
+						<source media="(max-width: 64rem)" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202211/070959-476/pain3mob.gif">
+						<img class="container__image" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202211/070952-476/pain3.gif" style="width: 70rem;" loading="lazy">
+					</picture>				
+				</div>
+				</div>
 					
 					<!-- 커리큘럼, 리뷰 -->
-					<div class="row featurette justify-content-center tabStyle">					
+					<div class="row featurette justify-content-center">					
 					<ul class="tabs" role="tablist">
-					    <li>
+					    <li class="labelStyle">
 					        <input type="radio" name="tabs" id="tab1" checked />
 					        <label for="tab1" 
 					               role="tab" 
 					               aria-selected="true" 
 					               aria-controls="panel1" 
 					               tabindex="0">Description</label>
+					        
+					        
 					        <div id="tab-content1" 
 					             class="tab-content" 
 					             role="tabpanel" 
 					             aria-labelledby="description" 
 					             aria-hidden="false">
-					          <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+					             
+					             <p>
+					             	<b>
+									<img src="https://cdn.inflearn.com/public/files/courses/329126/ae784034-86cf-4ce0-b5e0-61eeab9d1c71/resume-guide-content(2)-03.png" width="670" height="200" style="display: block; margin-left: auto; margin-right: auto;">
+									</b>
+								</p>
+
 					        </div>
+					        
 					    </li>
 					  
 					    <li>
@@ -573,13 +665,12 @@ img{
 						            	<!-- 코멘트 -->
 						            	
 						                 	<!-- 후기 작성 -->
-										    <h1 style="font-size: 30px;">후기</h1>
+										    <h1 style="font-size: 30px; padding-top: 20px">후기</h1>
 										    <form name="reviewform" class="reviewform" method="post" action="/save">
 										        <input type="hidden" name="rate" id="rate" value="0"/>
 										        <p class="title_star">별점과 리뷰를 남겨주세요.</p>
 										 
 										        <div class="review_rating">
-										            <div class="warning_msg">별점을 선택해 주세요.</div>
 										            <div class="rating">
 										                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
 										                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
@@ -595,7 +686,7 @@ img{
 										            </div>
 										        </div>
 										        <div class="review_contents">
-										        	<label id="rate_count">0/400</label>
+										        	<label id="rate_count" style="background: none; color: black;">0/400</label>
 										            <textarea rows="10" class="review_textarea" name="description" placeholder="5자 이상 400자 이하로 작성해 주세요."></textarea>
 										        </div>   
 										        <div class="cmd">

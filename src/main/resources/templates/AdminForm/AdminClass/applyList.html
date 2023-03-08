@@ -68,7 +68,7 @@
 												<tr class="odd">
 													<td>[[${applyList.userName}]]</td>
 													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${applyList.className}]]</strong></td>
-													<td>[[${#strings.substring(applyList.sDate,2,10)}]] ~ [[${#strings.substring(applyList.eDate,2,10)}]]</td>
+													<td>[[${#strings.substring(applyList.sDate,0,11)}]] ~ [[${#strings.substring(applyList.eDate,0,9)}]]</td>
 													<td>
 														<div class="progress">
 														  <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" th:style="'width:'+${applyList.progress}+'%'" role="progressbar" th:aria-valuenow="${applyList.progress}" aria-valuemin="0" aria-valuemax="100">[[${applyList.progress}]]%</div>

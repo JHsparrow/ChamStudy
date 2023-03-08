@@ -68,7 +68,7 @@
 													<td class="dtr-control sorting_1" tabindex="0">
 														<a th:href="'/adminApply/sublist/'+${classList.getId()}"><strong>[[${classList.getName()}]]</strong></a>
 													</td>
-													<td>[[${#strings.substring(classList.getSdate(),2,10)}]] ~ [[${#strings.substring(classList.getEdate(),2,10)}]]</td>
+													<td>[[${#strings.substring(classList.getSdate(),0,9)}]] ~ [[${#strings.substring(classList.getEdate(),0,9)}]]</td>
 													<td>[[${classList.getCount()}]]명</td>
 													<td>
 														<div class="progress" th:if="${classList.getProgress()!=null}">
