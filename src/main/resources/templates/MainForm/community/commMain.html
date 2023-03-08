@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div class="main-body">
-				<div class="search-wrap" th:object="${commSearchDto}"
+					<form class="search-wrap" th:object="${commSearchDto}"
 					style="height: 40px;">
 					<!-- 상품 등록일 -->
 					<!-- 상품명, 등록자 선택 -->
@@ -50,12 +50,13 @@
 					</select>
 					<!-- 검색창 -->
 					<input type="text" th:field="*{searchQuery}" class="search-input"
-						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;">
+						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;" onKeypress="javascript:if(event.keyCode==13) {search_onclick_submit}">
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
 					<div class="write-btn">
 						<a class="write-btn-a" onclick="location.href='/comm/create';">글쓰기</a>
 					</div>
+					</form>
 				</div>
 				<div class="boards">
 					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
