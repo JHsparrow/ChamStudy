@@ -114,8 +114,14 @@ public class AdminUserController {
 			System.out.println("addUser 메소드 내 catch문 오류");
 			return "users/user-main-sign-up";
 		}
-		return "redirect:/";
+		return "redirect:/users/signUpOk";
 		
+	}
+	
+	//회원가입 창 이동(유져 홈페이지)
+	@GetMapping(value = "/signUpOk")
+	public String signUpOk() {
+		return "users/user-main-sign-up-ok";
 	}
 	
 

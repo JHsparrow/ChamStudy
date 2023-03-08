@@ -68,7 +68,7 @@
         <div class="container">
             <div class="row g-12">
 			   <div class="swiper mySwiperA">
-			    <div class="swiper-wrapper ">
+			    <div class="swiper-wrapper">
 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/datascience.png"><h5>데이터</h5></a></div>
 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/dev-ops.png"><h5>데브옵스</h5></a></div>
 			      <div class="swiper-slide swiper-slideA"><a href="#"><img alt="" src="/img/icons/excel.png"><h5>엑셀</h5></a></div>
@@ -199,10 +199,12 @@
                 
 				   <div class="swiper mySwiperB">
 				    <div class="swiper-wrapper swiper-wrapperB">
-					<th:block th:each="mainReviewDto, status : ${mainReviewDtoList}">
-				      <div class="swiper-slide swiper-slideB" style="display: block;"><a href="#"><p class="studentName">[[${mainReviewDto.getusername}]](수강생)</p><h4 class="className">강의 명 : [[${mainReviewDto.getclassname}]]</h4><h6 class="review">[[${mainReviewDto.getdescription}]]<h6></a></div>
-					</th:block>
-
+				      <div class="swiper-slide swiper-slideB" style="display: block;">
+				     
+				      <p class="studentName">김용수(수강생)</p>
+				      <h4 class="className">강의 명 : 자바스크립트</h4>
+				      <h6 class="review">리뷰내용<h6></div>
+				      
 				    </div>
 				    <div class="swiper-pagination"></div>
 				  </div>
@@ -211,8 +213,7 @@
             </div>
         </div>
 
-		<script
-			src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>		
 		<script>
 			var swiper = new Swiper(".mySwiper", {
 				slidesPerView : 5,

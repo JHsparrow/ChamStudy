@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout_main}">
+<head>
+<meta charset="utf-8">
+<title>회원가입 완료</title>
+<link href="/main/css/cs_style.css" rel="stylesheet">
+<link href="/main/css/swiper.css" rel="stylesheet">
+
+<script>
+$(function(){
+	$('.category').each(function(){
+		if($(this).text()=='all'){$(this).text('전체')}
+		if($(this).text()=='S'){$(this).text('사이트 이용')}
+		if($(this).text()=='V'){$(this).text('동영상')}
+		if($(this).text()=='M'){$(this).text('모바일')}
+		if($(this).text()=='F'){$(this).text('증빙서류')}
+		if($(this).text()=='U'){$(this).text('회원정보')}
+		if($(this).text()=='E'){$(this).text('기타')}
+	})
+})
+</script>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<!-- Header Start -->
+		<div class="container-fluid bg-primary py-5 mb-5 page-header">
+			<div class="container py-5">
+				<div class="row justify-content-center">
+					<div class="col-lg-10 text-center">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+
+		<div class="container-xxl py-3">
+			<div class="container">
+				<div class="text-center wow">
+					<h6 class="section-title bg-white text-center text-primary px-3">announcemen</h6>
+					<h1 class="mb-3">가입을 환영 합니다!</h1>
+				</div>
+			</div>
+		</div>
+
+		<!-- Service Start -->		<div class="container-xxl py-5">
+			<div class="container">
+				<div class="row g-4">
+					<div class="col-lg-4 col-sm-6 text-white wow category__card">
+						<div class="service-item text-center pt-3">
+							<div class="p-4" onClick="location.href='/cs/inform'">
+								<i class="fa fa-3x fa-graduation-cap text-white mb-4"></i>
+								<h5 class="mb-3">공지사항</h5>
+								<p class="text-white">공지사항 바로가기</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 text-white wow category__card">
+						<div class="service-item text-center pt-3">
+							<div class="p-4" onClick="location.href='/users/signIn'">
+								<i class="fa fa-3x fa-arrow-right-to-bracket text-white mb-4"></i>
+								<h5 class="mb-3">로그인</h5>
+								<p>로그인 하러 가기</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 text-white wow category__card">
+						<div class="service-item text-center pt-3">
+							<div class="p-4" onClick="location.href='/'">
+								<i class="fa fa-3x fa-home text-white mb-4"></i>
+								<h5 class="mb-3">홈</h5>
+								<p>홈으로 가기</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- Service End -->
+		
+
+
+	</div>
+</body>
+</html>
