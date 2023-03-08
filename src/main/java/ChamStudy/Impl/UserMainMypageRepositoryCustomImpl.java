@@ -62,7 +62,8 @@ public class UserMainMypageRepositoryCustomImpl implements UserMainMypageReposit
 						completion.regDate,
 						contentInfo.id,
 						contentInfo.imgUrl,
-						contentInfo.oriImgName
+						contentInfo.oriImgName,
+						classInfo.id
 						)
 				)
 				.from(completion)

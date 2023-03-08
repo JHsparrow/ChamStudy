@@ -1,5 +1,7 @@
 package ChamStudy.Dto;
 
+import java.util.Date;
+
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Getter;
