@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import ChamStudy.Dto.ClassInfoDto;
 import ChamStudy.Dto.EducationInfoInterface;
 import ChamStudy.Dto.MainFormDto;
+import ChamStudy.Dto.MainReviewDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Impl.ClassInfoRepositoryCustom;
 
@@ -43,10 +44,38 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "join content_info B on b.content_id = a.content_id\r\n"
 			+ "join sub_category C on c.sub_category_id = b.sub_category_id\r\n"
 			+ "left join class_review D on d.class_id = a.class_id\r\n"
-			+ "group by a.class_id;", nativeQuery = true)
+			+ "group by a.class_id limit 7;", nativeQuery = true)
 	List<MainFormDto> getMainClassInfo();
+	
+	@Query(value="select a.class_id as id, a.class_name as classname , a.price, c.name as subname,b.img_url as imgurl, \r\n"
+			+ "case when avg(d.star_point) is null then 0\r\n"
+			+ "else round(avg(d.star_point),1) \r\n"
+			+ "end as starpoint \r\n"
+			+ "from class_info A\r\n"
+			+ "join content_info B on b.content_id = a.content_id\r\n"
+			+ "join sub_category C on c.sub_category_id = b.sub_category_id\r\n"
+			+ "left join class_review D on d.class_id = a.class_id\r\n"
+			+ "group by a.class_id order by d.star_point desc limit 7;", nativeQuery = true)
+	List<MainFormDto> getMainClassInfostar();
+
+	
 	
 	@Query(value="select * from class_info where content_id = ?1 and class_id = ?2", nativeQuery = true)
 	ClassInfo getClassInfoConClass(Long contentId, Long classId );
+	
+	@Query(value="select b.review_id as reviewid,\r\n"
+			+ " e.user_email as email,\r\n"
+			+ " e.user_name as username,\r\n"
+			+ " b.description as description,\r\n"
+			+ " a.class_name as classname,\r\n"
+			+ " d.name, a.class_id as classid\r\n"
+			+ "from class_info A\r\n"
+			+ "join class_review B on a.class_id = b.class_id\r\n"
+			+ "join content_info C on c.content_id = a.content_id\r\n"
+			+ "join sub_category D on d.sub_category_id = c.sub_category_id\r\n"
+			+ "join user_info E on e.user_id = b.user_id;", nativeQuery = true)
+	List<MainReviewDto> getMainReview();
+	
+	
 
 }

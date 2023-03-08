@@ -80,12 +80,13 @@ QuerydslPredicateExecutor<Completion>, UserMainMypageRepositoryCustom, Certifica
 	CompletionContentInterface getApplyContentOne(Long classId);
 	
 	
-	@Query(value="select c.class_name as className, A.content_id as contentId, A.video_id as videoId, b.name as contentName, c.class_id as classId \r\n"
+	@Query(value="select c.class_name as className, A.content_id as contentId, A.video_id as videoId, b.name as contentName, c.class_id as classId,\r\n"
+			+ "case when (select history_id from study_history where video_id = a.video_Id and apply_id = ?3) is null then 'N' else 'Y' end as hitoryCheck\r\n"
 			+ "from content_video A \r\n"
 			+ "join content_info B on a.content_id = b.content_id\r\n"
 			+ "join class_info C on b.content_id = c.content_id\r\n"
 			+ "where b.content_id = ?1 and c.class_id = ?2 " , nativeQuery = true)
-	List<CompletionContentInterface> getApplyContent(Long contentId, Long classId);
+	List<CompletionContentInterface> getApplyContent(Long contentId, Long classId, Long applyId);
 	
 	
 	@Query(value="select e.content_id as contentId, d.class_name as className, d.class_id as classId ,b.progress, b.reg_date as startDate, d.e_date as endDate,\r\n"

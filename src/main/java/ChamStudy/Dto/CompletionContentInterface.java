@@ -10,4 +10,5 @@ public interface CompletionContentInterface {
 	String getStartDate();
 	String getEndDate();
 	Long getProgress();
+	String getHitoryCheck();
 }

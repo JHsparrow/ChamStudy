@@ -148,22 +148,34 @@ public class UserMainMyPageController {
 	}
 	
 	//완강 페이지 - 재생 버튼 클릭
-	@GetMapping(value="/completion/play/{contentId}")
-	public String playContent(@PathVariable("contentId") Long contentId, Model model) {
+	@GetMapping(value="/completion/play/{contentId}/{classId}")
+	public String playContent(@PathVariable("contentId") Long contentId, @PathVariable("classId") Long classId, Model model) {
 		
-		CompletionContentInterface completionContent = userMainMyPageService.getVideoOne(contentId);
-		List<CompletionContentInterface> completionContentList = userMainMyPageService.getVideo(contentId);
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		userMainMyPageService.createStudyHistory(contentId,email,"F",contentId,classId); //학습 이력 삽입(study_history)
+		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
+		Long applyId = userMainMyPageService.getApplyId(classId,email);
+		Long videoId = userMainMyPageService.getVideoId(contentId);
+		
+		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(classId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId, applyId);
+		Long firstVideo = userMainMyPageService.getfirstVideoId(contentId);
+		Long LastVideo = userMainMyPageService.getLastVideoId(contentId);
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
-		
-		return "mypage/my-page-class-completion-play";
+		model.addAttribute("videoId",videoId);
+		model.addAttribute("firstVideoId",firstVideo);
+		model.addAttribute("lastVideoId",LastVideo);
+		return "mypage/Learning-Lecture";
 	}
 	
 	//완강 플레이리스트에서 다른 회차 강의 클릭
-	@GetMapping(value="/completion/play/{contentId}/{videoId}")
+	@GetMapping(value="/completion/play/{contentId}/{classId}/{videoId}")
 	public String otherContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, Model model) {
 		CompletionContentInterface completionContent = userMainMyPageService.getVideoOther(contentId, videoId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getVideo(contentId);
+		
+		
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
 		
@@ -176,11 +188,11 @@ public class UserMainMyPageController {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		userMainMyPageService.createStudyHistory(contentId,email,"F",contentId,classId); //학습 이력 삽입(study_history)
 		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
-		
+		Long applyId = userMainMyPageService.getApplyId(classId,email);
 		Long videoId = userMainMyPageService.getVideoId(contentId);
 		
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideo1(classId);
-		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId, applyId);
 		Long firstVideo = userMainMyPageService.getfirstVideoId(contentId);
 		Long LastVideo = userMainMyPageService.getLastVideoId(contentId);
 		model.addAttribute("completionContent", completionContent);
@@ -197,8 +209,9 @@ public class UserMainMyPageController {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		userMainMyPageService.createStudyHistory(contentId,email,"N",videoId,classId); //학습 이력 삽입(study_history)
 		userMainMyPageService.createStudyResult(contentId,email,classId); //학습 이력 삽입(study_result)
+		Long applyId = userMainMyPageService.getApplyId(classId,email);
 		CompletionContentInterface completionContent = userMainMyPageService.getLearningVideoOther(email, videoId, classId);
-		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId);
+		List<CompletionContentInterface> completionContentList = userMainMyPageService.getLearningVideo(contentId, classId, applyId);
 		Long firstVideo = userMainMyPageService.getfirstVideoId(contentId);
 		Long LastVideo = userMainMyPageService.getLastVideoId(contentId);
 		model.addAttribute("completionContent", completionContent);
