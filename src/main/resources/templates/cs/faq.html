@@ -9,7 +9,6 @@
 		$('.category').each(function(){
 			if($(this).text()=='S'){$(this).text('사이트 이용')}
 			if($(this).text()=='V'){$(this).text('동영상')}
-			if($(this).text()=='P'){$(this).text('결제/환불')}
 			if($(this).text()=='M'){$(this).text('모바일')}
 			if($(this).text()=='F'){$(this).text('증빙서류')}
 			if($(this).text()=='U'){$(this).text('회원정보')}
@@ -42,12 +41,12 @@
 			<div class="container py-5">
 				<div class="row justify-content-center">
 					<div class="col-lg-10 text-center">
-						<h1 class="display-3 text-white">고객센터</h1>
+						<h1 class="display-3 text-white main-title" onClick="location.href='/cs/index'">고객센터</h1>
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb justify-content-center">
-								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/inform'">공지사항</a></li>
-								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
-								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/qna'">1:1 문의</a></li>
+								<li class="breadcrumb-item"><a class="small-title" onClick="location.href='/cs/inform'">공지사항</a></li>
+								<li class="breadcrumb-item"><a class="small-title" onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
+								<li class="breadcrumb-item"><a class="small-title" onClick="location.href='/cs/qna'">1:1 문의</a></li>
 							</ol>
 						</nav>
 					</div>
@@ -76,7 +75,6 @@
 													<option value="A" th:selected="${sValue}=='A'">전체</option>
 													<option value="S" th:selected="${sValue}=='S'">사이트 이용</option>
 													<option value="V" th:selected="${sValue}=='V'">동영상</option>
-													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
 													<option value="M" th:selected="${sValue}=='M'">모바일</option>
 													<option value="F" th:selected="${sValue}=='F'">증빙서류</option>
 													<option value="U" th:selected="${sValue}=='U'">회원정보</option>

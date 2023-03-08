@@ -10,7 +10,6 @@
 		$('.category').each(function(){
 			if($(this).text()=='S'){$(this).text('사이트 이용')}
 			if($(this).text()=='V'){$(this).text('동영상')}
-			if($(this).text()=='P'){$(this).text('결제/환불')}
 			if($(this).text()=='M'){$(this).text('모바일')}
 			if($(this).text()=='F'){$(this).text('증빙서류')}
 			if($(this).text()=='U'){$(this).text('회원정보')}
@@ -75,7 +74,6 @@
 													<option value="A" th:selected="${sValue}=='A'">전체</option>
 													<option value="S" th:selected="${sValue}=='S'">사이트 이용</option>
 													<option value="V" th:selected="${sValue}=='V'">동영상</option>
-													<option value="P" th:selected="${sValue}=='P'">결제/환불</option>
 													<option value="M" th:selected="${sValue}=='M'">모바일</option>
 													<option value="F" th:selected="${sValue}=='F'">증빙서류</option>
 													<option value="U" th:selected="${sValue}=='U'">회원정보</option>

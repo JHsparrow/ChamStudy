@@ -59,9 +59,18 @@
 									<!-- 아티클 내용 -->
 									<section class="article__data">
 										<div class="fr-view">
-											<p>[[${csInformDto.substance}]]</p>
+											<p class="substance__area">[[${csInformDto.substance}]]</p>
 										</div>
 									</section>
+									<div class="file__area" th:if="${not #lists.isEmpty(csInformFileList)}">
+										<h5 >첨부파일</h5>
+										<th:block th:each="informFile, status : ${csInformFileList}" class="download__file">
+											<div class="mb-2">
+												<a class="download__file" th:href="@{'C:/spring/ChamStudy' + ${informFile.fileUrl}}" download>[[${informFile.oriFileName}]]</a>
+												<br/>
+											</div>
+										</th:block>
+									</div>
 									<!-- // 아티클 내용 -->
 								</article>
 								<div class="text-center">

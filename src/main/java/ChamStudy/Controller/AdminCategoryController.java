@@ -104,10 +104,6 @@ public class AdminCategoryController {
 			SubCategory subCategory = adminCategoryService.saveSubCategory(mainId,cateName);
 			adminCategoryService.saveSubCategoryImg(subCategory, subImg);
 			
-			System.out.println(subCategory.getName());
-			System.out.println(subCategory.getImgUrl());
-			System.out.println(subCategory.getOriImgName());
-			
 			message = new MessageDto("서브카테고리 생성이 완료되었습니다.", "/adminCategory/sub/"+mainId.getId());
 		} catch (Exception e) {
 			message = new MessageDto("서브카테고리 생성이 실패하였습니다.", "/adminCategory/sub/"+mainId.getId());
@@ -129,11 +125,13 @@ public class AdminCategoryController {
         return showMessageAndRedirect(message, model);
 	}
 	
-	@GetMapping(value = "/modifySubResult") //서브 카테고리 수정 처리 페이지
-	public String subCategoryModify(@Valid modifySubCategoryDto modifySubCategoryDto, BindingResult bindingResult, Model model) {
+	@PostMapping(value = "/modifySubResult") //서브 카테고리 수정 처리 페이지
+	public String subCategoryModify(@Valid modifySubCategoryDto modifySubCategoryDto, BindingResult bindingResult, 
+			@RequestParam("subImg") MultipartFile subImg, Model model) {
 		MessageDto message;
 		try {
-			adminCategoryService.updateSubCategory(modifySubCategoryDto);
+			SubCategory subCategory = adminCategoryService.updateSubCategory(modifySubCategoryDto);
+			adminCategoryService.saveSubCategoryImg(subCategory, subImg);
 			message = new MessageDto("서브카테고리 수정이 완료되었습니다.", "/adminCategory/sub/"+modifySubCategoryDto.getMainId());
 		} catch (Exception e) {
 			message = new MessageDto("서브카테고리 수정이 실패하였습니다.", "/adminCategory/sub/"+modifySubCategoryDto.getMainId());

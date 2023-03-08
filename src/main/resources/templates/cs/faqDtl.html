@@ -11,7 +11,6 @@ $(function(){
 	$('#category').each(function(){
 		if($(this).text()=='S'){$(this).text('사이트 이용')}
 		if($(this).text()=='V'){$(this).text('동영상')}
-		if($(this).text()=='P'){$(this).text('결제/환불')}
 		if($(this).text()=='M'){$(this).text('모바일')}
 		if($(this).text()=='F'){$(this).text('증빙서류')}
 		if($(this).text()=='U'){$(this).text('회원정보')}
@@ -76,7 +75,7 @@ $(function(){
 									<!-- 아티클 내용 -->
 									<section class="article__data">
 										<div class="fr-view">
-											<p>[[${csFaqDto.substance}]]</p>
+											<p class="substance__area">[[${csFaqDto.substance}]]</p>
 										</div>
 									</section>
 									<!-- // 아티클 내용 -->

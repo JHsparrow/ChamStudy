@@ -27,7 +27,6 @@
 		$('#category').each(function(){
 			if($(this).text()=='S'){$(this).text('사이트 이용')}
 			if($(this).text()=='V'){$(this).text('동영상')}
-			if($(this).text()=='P'){$(this).text('결제/환불')}
 			if($(this).text()=='M'){$(this).text('모바일')}
 			if($(this).text()=='F'){$(this).text('증빙서류')}
 			if($(this).text()=='U'){$(this).text('회원정보')}
@@ -58,7 +57,9 @@
 						<div class="Admin-Dtl-Content3">
 							<div class="Admin-Dtl-Content3-1">[[${csFaqDto.update}]]</div>
 						</div>
-						<div class="Admin-Dtl-Content4">[[${csFaqDto.substance}]]</div>
+						<div class="Admin-Dtl-Content4">
+							<p class="substance__area">[[${csFaqDto.substance}]]</p>
+						</div>
 						
 						<div class="Admin-dtl-Content5">
 							<form id="frm" action="/adminCs/faq" method="get">

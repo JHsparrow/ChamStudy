@@ -5,6 +5,21 @@
 <head>
 <meta charset="utf-8">
 <title>about</title>
+<script>
+$(function(){
+	$('.category').each(function(){
+		if($(this).text()=='all'){$(this).text('전체')}
+		if($(this).text()=='S'){$(this).text('사이트 이용')}
+		if($(this).text()=='V'){$(this).text('동영상')}
+		if($(this).text()=='M'){$(this).text('모바일')}
+		if($(this).text()=='F'){$(this).text('증빙서류')}
+		if($(this).text()=='U'){$(this).text('회원정보')}
+		if($(this).text()=='E'){$(this).text('기타')}
+	})
+})
+</script>
+<link href="/main/css/cs_style.css" rel="stylesheet">
+<link href="/main/css/swiper.css" rel="stylesheet">
 </head>
 <body>
 
@@ -14,12 +29,12 @@
 			<div class="container py-5">
 				<div class="row justify-content-center">
 					<div class="col-lg-10 text-center">
-						<h1 class="display-3 text-white animated slideInDown">고객센터</h1>
+						<h1 class="display-3 text-white main-title" onClick="location.href='/cs/index'">고객센터</h1>
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb justify-content-center">
-								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/inform'">공지사항</a></li>
-								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
-								<li class="breadcrumb-item"><a class="text-white" onClick="location.href='/cs/qna'">1:1 문의</a></li>
+								<li class="breadcrumb-item"><a class="small-title" onClick="location.href='/cs/inform'">공지사항</a></li>
+								<li class="breadcrumb-item"><a class="small-title" onClick="location.href='/cs/faq'">자주 묻는 질문</a></li>
+								<li class="breadcrumb-item"><a class="small-title" onClick="location.href='/cs/qna'">1:1 문의</a></li>
 							</ol>
 						</nav>
 					</div>
@@ -32,30 +47,30 @@
 		<div class="container-xxl py-5">
 			<div class="container">
 				<div class="row g-4">
-					<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+					<div class="col-lg-4 col-sm-6 text-white wow category__card">
 						<div class="service-item text-center pt-3">
 							<div class="p-4" onClick="location.href='/cs/inform'">
-								<i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+								<i class="fa fa-3x fa-graduation-cap text-white mb-4"></i>
 								<h5 class="mb-3">공지사항</h5>
-								<p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed
+								<p class="text-white">Diam elitr kasd sed at elitr sed ipsum justo dolor sed
 									clita amet diam</p>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+					<div class="col-lg-4 col-sm-6 text-white wow category__card">
 						<div class="service-item text-center pt-3">
 							<div class="p-4" onClick="location.href='/cs/faq'">
-								<i class="fa fa-3x fa-globe text-primary mb-4"></i>
+								<i class="fa fa-3x fa-globe text-white mb-4"></i>
 								<h5 class="mb-3">자주 묻는 질문</h5>
 								<p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed
 									clita amet diam</p>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+					<div class="col-lg-4 col-sm-6 text-white wow category__card">
 						<div class="service-item text-center pt-3">
 							<div class="p-4" onClick="location.href='/cs/qna'">
-								<i class="fa fa-3x fa-home text-primary mb-4"></i>
+								<i class="fa fa-3x fa-home text-white mb-4"></i>
 								<h5 class="mb-3">1:1 문의</h5>
 								<p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed
 									clita amet diam</p>
@@ -68,32 +83,72 @@
 		<!-- Service End -->
 		
 		<!-- 공지사항 Start -->
-		<div class="container-xxl py-5">
+		<div class="container-xxl py-3">
 			<div class="container">
-				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<div class="text-center wow">
 					<h6 class="section-title bg-white text-center text-primary px-3">announcemen</h6>
-					<h1 class="mb-5">공지사항</h1>
+					<h1 class="mb-3">공지사항</h1>
 				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center margin-minus">
+			<div class="list list-default col-10">
+				<ul class="none text-center">
+					<li class="list-item fixed">
+						<div class="list__num list_tab" aria-label="글 번호">
+		                    <span class="icon icon--notice">No.</span>
+		                </div>
+	                    <div class="list__subject" aria-label="제목">
+	                        <span class="list__title">제목</span>
+	                    </div>
+	                    <div class="list__read list_tab" aria-label="조회수">조회수</div>
+	                    <div class="list__date list_tab" aria-label="등록일">등록일</div>
+					</li>
+	
+				</ul>
 			</div>
 		</div>
 		<!-- 공지사항 End -->
 		
 		
 		<!-- 자주묻는질문 Start -->
-		<div class="container-xxl py-5">
+		<div class="container-xxl py-3">
 			<div class="container">
-				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<div class="text-center wow">
 					<h6 class="section-title bg-white text-center text-primary px-3"f->faq</h6>
-					<h1 class="mb-5">자주 묻는 질문</h1>
+					<h1 class="mb-3">자주 묻는 질문</h1>
 				</div>
 			</div>
+		</div>
+		<div class="d-flex justify-content-center sub-category text-center">
+		    <div class="swiper-slideA ms-4 me-4 sub py-3 wow" onclick="selsub('all')">
+		    	<i class="fa-solid fa-asterisk"></i><h5 class="text-center category">all</h5>
+		    </div>
+		    <div class="swiper-slideA ms-4 me-4 sub py-3" onclick="selsub('S')">
+		    	<i class="fa-solid fa-display"></i><h5 class="text-center category">S</h5>
+		    </div>
+		    <div class="swiper-slideA ms-4 me-4 sub py-3" onclick="selsub('V')">
+		    	<i class="fa-solid fa-video"></i><h5 class="text-center category">V</h5>
+		    </div>
+		    <div class="swiper-slideA ms-4 me-4 sub py-3" onclick="selsub('M')">
+		    	<i class="fa-solid fa-mobile-screen-button"></i><h5 class="text-center category">M</h5>
+		    </div>
+		    <div class="swiper-slideA ms-4 me-4 sub py-3" onclick="selsub('F')">
+		    	<i class="fa-solid fa-graduation-cap"></i><h5 class="text-center category">F</h5>
+		    </div>
+		    <div class="swiper-slideA ms-4 me-4 sub py-3" onclick="selsub('U')">
+		    	<i class="fa-solid fa-user"></i><h5 class="text-center category">U</h5>
+		    </div>
+		    <div class="swiper-slideA ms-4 me-4 sub py-3" onclick="selsub('E')">
+		    	<i class="fa-solid fa-hashtag"></i><h5 class="text-center category">E</h5>
+		    </div>
 		</div>
 		<!-- 자주묻는질문 End -->
 		
 		<!-- 1:1 문의 Start -->
 		<div class="container-xxl py-5">
 			<div class="container">
-				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<div class="text-center wow">
 					<h6 class="section-title bg-white text-center text-primary px-3"f->qna</h6>
 					<h1 class="mb-5">1:1 문의</h1>
 				</div>
@@ -102,84 +157,6 @@
 		<!-- 1:1 문의 End -->
 
 
-		<!-- About Start -->
-		<div class="container-xxl py-5">
-			<div class="container">
-				<div class="row g-5">
-					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"
-						style="min-height: 400px;">
-						<div class="position-relative h-100">
-							<img class="img-fluid position-absolute w-100 h-100"
-								src="/main/img/about.jpg" alt="" style="object-fit: cover;">
-						</div>
-					</div>
-					<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-						<h6 class="section-title bg-white text-start text-primary pe-3">About
-							Us</h6>
-						<h1 class="mb-4">Welcome to eLEARNING</h1>
-						<p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor
-							diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et
-							lorem et sit.</p>
-						<p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor
-							diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et
-							lorem et sit, sed stet lorem sit clita duo justo magna dolore
-							erat amet</p>
-						<div class="row gy-2 gx-4 mb-4">
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Skilled
-									Instructors
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Online
-									Classes
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>International
-									Certificate
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Skilled
-									Instructors
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>Online
-									Classes
-								</p>
-							</div>
-							<div class="col-sm-6">
-								<p class="mb-0">
-									<i class="fa fa-arrow-right text-primary me-2"></i>International
-									Certificate
-								</p>
-							</div>
-						</div>
-						<a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- About End -->
-
-
-		<!-- Team Start -->
-		<div class="container-xxl py-5">
-			<div class="container">
-				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-					<h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
-					<h1 class="mb-5">Expert Instructors</h1>
-				</div>
-			</div>
-		</div>
-		<!-- Team End -->
 	</div>
 </body>
 </html>

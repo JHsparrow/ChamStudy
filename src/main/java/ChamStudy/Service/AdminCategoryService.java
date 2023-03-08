@@ -62,16 +62,18 @@ public class AdminCategoryService {
 		
 	}
 	
+	//서브카테고리 생성
 	public SubCategory saveSubCategory(Category mainId, String cataName) throws Exception {
 		SubCategory category = new SubCategory();
 		category.setCategoryId(mainId);
 		category.setName(cataName);
 		
-		category = subCategoryRepository.save(category);
+		subCategoryRepository.save(category);
 		
 		return category;
 	}
 	
+	//서브카테고리 생성 - 이미지 등록
 	public void saveSubCategoryImg(SubCategory subCategory, MultipartFile subImg) throws Exception {
 		String oriImgName = subImg.getOriginalFilename();
 		String imgName = "";
@@ -92,10 +94,14 @@ public class AdminCategoryService {
 		categoryRepository.save(category);
 	}
 	
-	public void updateSubCategory(modifySubCategoryDto modifySubCategoryDto) throws Exception {
+	//서브카테고리 수정
+	public SubCategory updateSubCategory(modifySubCategoryDto modifySubCategoryDto) throws Exception {
 		SubCategory subCategory = subCategoryRepository.findById(modifySubCategoryDto.getSubId()).orElseThrow(EntityNotFoundException::new);   
+		
 		subCategory.updateSubCategory(modifySubCategoryDto);
+		
 		subCategoryRepository.save(subCategory);
+		return subCategory;
 	}
 	
 	public void deleteSubCategory(Long subId) throws Exception {
