@@ -25,6 +25,7 @@ import ChamStudy.Dto.CertificateInterface;
 import ChamStudy.Dto.CompletionListDto;
 import ChamStudy.Dto.MyClassLearningDto;
 import ChamStudy.Dto.MyClassLearningSearchDto;
+import ChamStudy.Dto.MyPageYNumber;
 import ChamStudy.Dto.SubCategoryDto;
 import ChamStudy.Dto.UserInfoDto;
 import ChamStudy.Dto.UserListDto;
@@ -54,6 +55,12 @@ public class UserMainMyPageController {
 	@GetMapping(value = "/main")
 	public String signIn(Model model) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		Long myPageYNumber = userService.getYNumber(email);
+		model.addAttribute("myPageYNumber", myPageYNumber);
+		
+		Long myPageNNumber = userService.getNNumber(email);
+		model.addAttribute("myPageNNumber", myPageNNumber);
 		
 		try {
 			UserInfoDto user = userMainMyPageService.getUser(email);
