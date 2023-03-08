@@ -1,10 +1,13 @@
 package ChamStudy.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
+import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Impl.CsRepositoryCustom;
@@ -25,4 +28,10 @@ public interface CsInformRepository extends JpaRepository<CsInform, Long>,
 	 * nativeQuery = true) List<CsInformFile> findByInformIdOrderByIdAsc(Long
 	 * informId);
 	 */
+	@Query(value="select inform_id, title, view_count, up_date from cs_inform order by up_date desc limit 5 ;", nativeQuery = true)
+	List<CsInformListDto> getMainInformList ();
+	
+	
+	@Query(value = "select count(*) from cs_inform where gubun = 'f'", nativeQuery = true)
+	Long CountFixinform();
 }

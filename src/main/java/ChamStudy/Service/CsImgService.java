@@ -33,9 +33,6 @@ public class CsImgService {
 			imgName = fileService.uploadFile(csImgLocation, oriImgName, qnaImg.getBytes());
 			imgUrl = "/contents/img/" + imgName;
 		}
-		System.out.println("원본명: " + oriImgName);
-		System.out.println("이미지명 " + imgName);
-		System.out.println("이미지 url " + imgUrl);
 		
 		//이미지 정보 저장
 		csQnaImg.updateCsQnaImg(oriImgName, imgName, imgUrl);

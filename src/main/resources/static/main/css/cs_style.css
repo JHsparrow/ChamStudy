@@ -64,6 +64,11 @@
     cursor: pointer;
 }
 
+.list-content:hover {
+	color: #642F05 !important;
+    font-weight: 900 !important;
+}
+
 .list__num {
 	width: 10%;
 }
@@ -126,11 +131,7 @@ input::-webkit-search-results-decoration{
 
 .cs-title {
 	position: relative;
-    height: 35px;
     margin: 0;
-    padding: 50px 0 25px;
-    border-bottom: 3px solid #000;
-    font-size: 0;
     font-weight: 400;
 }
 
@@ -146,6 +147,7 @@ input::-webkit-search-results-decoration{
 
 .article-h {
 	min-height: 270.8px;
+	border-bottom: 1px solid;
 }
 
 .board--article .button--list {
@@ -166,12 +168,16 @@ input::-webkit-search-results-decoration{
 
 .title-w {
 	font-weight: bold;
+	margin-top: 27px;
+    margin-bottom: 10px;
 }
 
 .article__date {
 	margin-top: 3px;
     font-size: 15px;
     color: #888;
+    margin-bottom: 7px;
+    margin-left: 10px;
 }
 
 .article__info {
@@ -195,8 +201,15 @@ input::-webkit-search-results-decoration{
     border-top: 3px solid #f9f9f9;
 }
 
+.article__title {
+	margin-left: 10px;
+}
+
 .article__read {
+	float: right;
 	margin-top: 10px;
+	position: relative;
+    bottom: 9px;
 }
 
 .article__summary>div:first-child {
@@ -213,7 +226,7 @@ input::-webkit-search-results-decoration{
     text-align: right;
 }
 
-..article__summary .article__share>span:first-child~span {
+.article__summary .article__share>span:first-child~span {
     display: inline-block;
     position: relative;
     height: 40px;
@@ -232,6 +245,9 @@ section {
     overflow-x: auto;
     width: 950px;
     padding: 50px 0;
+    margin-bottom: 7px;
+    margin-left: 10px;
+    min-height: 542px;
 }
 
 .fr-view:not(.normalize), .fr-view:not(.normalize) {
@@ -262,4 +278,75 @@ section {
     padding-left: 25px;
     line-height: 35px;
     font-size: 15px;
+}
+
+header {
+	border-bottom: 1px solid;
+}
+
+.main__title {
+	margin-bottom: 20px;
+}
+
+.board--article {
+	border-top: 3px solid black;
+}
+
+.gubun {
+	font-size: 30px;
+	font-weight: 100;
+}
+
+.file__area{
+	min-height: 120px;
+	border-top: 1px solid black;
+}
+
+.file__area h5 {
+	margin-top: 15px;
+	color: black;
+}
+
+.download__file {
+	color: black !important;
+	margin-bottom: 10px;
+}
+
+.substance__area {
+	white-space: pre-line;
+}
+
+.small-title {
+	text-decoration: none!important;
+	cursor: pointer;
+	color: #ffffff !important;
+}
+
+.small-title:hover {
+	color: #ffffff;
+}
+
+.main-title {
+	cursor: pointer;
+}
+
+.category__card {
+	cursor: pointer;
+}
+
+.sub {
+	width: 100px;
+	background-color: #ab6e3ecf;
+	color: #ffffff;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.fa-solid {
+	font-size: 2rem;
+}
+
+.margin-minus {
+	margin-top: -2.5rem;
+	margin-bottom: 3rem;
 }

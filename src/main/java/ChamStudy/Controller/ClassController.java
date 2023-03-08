@@ -32,6 +32,7 @@ import ChamStudy.Dto.ClassReviewListDto;
 import ChamStudy.Dto.Class_reviewDto;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.UserSearchDto;
+import ChamStudy.Entity.SubCategory;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Service.ApplyListService;
 import ChamStudy.Service.ClassInfoService;
@@ -53,7 +54,8 @@ public class ClassController { //강의 페이지
 	@GetMapping(value="/class")
 	public String classView(Optional<Integer> page, Model model, UserSearchDto userSearchDto) { //강의 리스트
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		
+		List<SubCategory> subCateList = classInfoService.getSubCate();
+		model.addAttribute("subLists",subCateList);
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(userSearchDto, pageable);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		model.addAttribute("maxPage",classInfoDtoList.getTotalPages());
@@ -64,11 +66,14 @@ public class ClassController { //강의 페이지
 	@PostMapping(value="/class")
 	public String classView(Optional<Integer> page, Model model, UserSearchDto userSearchDto, ClassInfoDto adminClassDto) { //강의 리스트
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		
 		Page<ClassInfoListDto> classInfoDtoList = classInfoService.getAllClassPage(userSearchDto, pageable);
+		
+		List<SubCategory> subCateList = classInfoService.getSubCate();
+		model.addAttribute("subLists",subCateList);
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		model.addAttribute("maxPage", classInfoDtoList.getTotalPages());
 		model.addAttribute("userSearchDto", userSearchDto);
+		model.addAttribute("checkCate",userSearchDto.getSearchQuery());
 		
 		return "/MainForm/Class/classList";
 	}

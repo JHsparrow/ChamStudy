@@ -98,6 +98,20 @@ public class CsService {
 		return csInform.getId();
 	}
 	
+	//조회수 증가
+	public CsInformDto countingView(CsInformDto csInformDto) {
+		CsInform csInform = csInformRepository.findById(csInformDto.getId())
+											  .orElseThrow(EntityNotFoundException::new);
+		int viewCount = csInformDto.getViewCount();
+		viewCount += 1;
+		
+		csInformDto.setViewCount(viewCount);
+		
+		csInform.updateInform(csInformDto);
+		
+		return csInformDto;
+	}
+	
 	//공지사항 첫 화면 리스트 가져오기
 	@Transactional(readOnly = true)
 	public Page<CsInformListDto> getInformList (UserSearchDto userSearchDto, CsInformListDto csInformListDto, Pageable pageable){
@@ -174,6 +188,11 @@ public class CsService {
 	// 경고게시판 리스트 출력
 	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
 		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
+	}
+	
+	//공지 고정 5개 체크
+	public Long countinform() {
+		return csInformRepository.CountFixinform();
 	}
 
 }

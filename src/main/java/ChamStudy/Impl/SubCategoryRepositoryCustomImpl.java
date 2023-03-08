@@ -44,6 +44,7 @@ public class SubCategoryRepositoryCustomImpl implements SubCategoryRepositoryCus
 		
 		List<SubCategoryDto> categories = queryFactory
 			    .select(Projections.constructor(SubCategoryDto.class, subcategory.id, subcategory.name, subcategory.regDate.as("date")
+			    		,subcategory.imgUrl, subcategory.oriImgName
 			            ))
 			    .from(subcategory)
 			    .where(subcategory.categoryId.eq(mainId))
@@ -51,8 +52,6 @@ public class SubCategoryRepositoryCustomImpl implements SubCategoryRepositoryCus
 				.limit(pageable.getPageSize())	//한 번에 가져올 데이터의 최대 개수
 			    .fetch();
 				
-				
-		
 		long total = queryFactory.select(Wildcard.count)
 				.from(subcategory)
 				.where(subcategory.categoryId.eq(mainId))

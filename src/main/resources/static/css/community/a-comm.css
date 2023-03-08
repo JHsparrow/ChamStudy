@@ -235,3 +235,7 @@ select#searchBy {
     position: absolute;
     right: 280px;
 }
+
+.substance__area {
+	white-space: pre-line;
+}

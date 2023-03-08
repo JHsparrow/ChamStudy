@@ -44,13 +44,13 @@
 							<div class="board board--article">
 								<article class="article article-h">
 									<!-- 타이틀 -->
-									<header th:object="${csInformDto}">
+									<header>
 										<h2 class="title-w">
-											<span class="article__title">[[${csInformDto.title}]]</span>
+											<span class="article__title">악성코드 감염 예방을 위한 보안 수칙 안내</span>
 										</h2>
 										<div class="article__date" aria-label="등록일">
-											<span>[[${csInformDto.update}]]</span>
-											<span class="article__read me-2">조회수 [[${csInformDto.viewCount}]]</span>
+											<span>2020.02.26 17:52</span>
+											<span class="article__read me-2">조회수 142,793</span>
 										</div>
 										<div class="article__read me-2">
 										</div>
@@ -59,22 +59,13 @@
 									<!-- 아티클 내용 -->
 									<section class="article__data">
 										<div class="fr-view">
-											<p class="substance__area">[[${csInformDto.substance}]]</p>
+											<p>글 내용</p>
 										</div>
 									</section>
-									<div class="file__area" th:if="${not #lists.isEmpty(csInformFileList)}">
-										<h5 >첨부파일</h5>
-										<th:block th:each="informFile, status : ${csInformFileList}" class="download__file">
-											<div class="mb-2">
-												<a class="download__file" th:href="@{'C:/spring/ChamStudy' + ${informFile.fileUrl}}" download>[[${informFile.oriFileName}]]</a>
-												<br/>
-											</div>
-										</th:block>
-									</div>
 									<!-- // 아티클 내용 -->
 								</article>
 								<div class="text-center">
-									<button type="button" class="btn btn-primary mt-3 text-center" th:onclick="|location.href='@{/cs/inform/}'|">돌아가기</button>
+									<button type="button" class="btn btn-primary mt-3 text-center">돌아가기</button>
 								</div>
 							</div>
 						</div>

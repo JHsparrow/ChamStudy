@@ -47,7 +47,9 @@
 						<div class="Admin-Dtl-Content3">
 							<div class="Admin-Dtl-Content3-1">[[${csInformDto.update}]]</div>
 						</div>
-						<div class="Admin-Dtl-Content4">[[${csInformDto.substance}]]</div>
+						<div class="Admin-Dtl-Content4">
+							<p class="substance__area">[[${csInformDto.substance}]]</p>
+						</div>
 						
 						<div class="Admin-Dtl-Content4-2">
 							<div th:if="${not #lists.isEmpty(csInformFileList)}">
