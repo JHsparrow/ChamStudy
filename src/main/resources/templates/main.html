@@ -26,8 +26,8 @@ function selsub(sub){
  */
 function searchClassList(page) {
 	var frmObj = $('#frmSearch');
-	frmObj.attr('method', 'post');
-	frmObj.attr('action','/mainForm/class');
+// 	frmObj.attr('method', 'post');
+// 	frmObj.attr('action','/mainForm/class');
 	
 	if (typeof page != 'undefined' && page != null) {
 		$('#hiddenPage').val(page); //검색할 페이지 설정
@@ -66,7 +66,7 @@ function searchClassList(page) {
 
 
 		<!-- 검색창 -->
-		<form id="frmSearch" class="d-flex" role="search" method="post">
+		<form id="frmSearch" class="d-flex" action="/mainForm/class" role="search" method="post">
 		<div class="container-xxl py-5">
 			<div class="row justify-content-center">
 				<div class="col-md-8 d-flex justify-content-center">
