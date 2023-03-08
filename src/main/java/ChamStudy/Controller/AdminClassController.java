@@ -74,6 +74,7 @@ public class AdminClassController {
 	
 	@PostMapping(value = "/classNew") //강의 정보 등록
 	public String classNew(@Valid ClassInfoDto adminClassDto, BindingResult bindingResult, Model model) {
+		System.err.println("에러확인" + adminClassDto);
 		
 		MessageDto message;
 		if(bindingResult.hasErrors()) {
