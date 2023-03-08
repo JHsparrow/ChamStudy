@@ -125,8 +125,8 @@ public class UserMainMyPageService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<CompletionContentInterface> getLearningVideo(Long contentId, Long classId) {
-		return completionRepository.getApplyContent(contentId, classId);
+	public List<CompletionContentInterface> getLearningVideo(Long contentId, Long classId, Long applyId) {
+		return completionRepository.getApplyContent(contentId, classId, applyId);
 	}
 	
 	@Transactional(readOnly = true)
@@ -159,6 +159,19 @@ public class UserMainMyPageService {
 		}
 		studyHistortRepository.save(studyHistory);
 	}
+	
+	public Long getVideoId(Long contentId) {
+		return contentVideoRepository.getVideoIdF(contentId).getId();
+	}
+	
+	public Long getfirstVideoId(Long contentId) {
+		return contentVideoRepository.getfirstVideoId(contentId).getId();
+	}
+	public Long getLastVideoId(Long contentId) {
+		return contentVideoRepository.getlastVideoId(contentId).getId();
+	}
+	
+	
 	public void createStudyResult(Long contentId, String email, Long classId) {
 		UserInfo userId = userRepository.getUserId(email);
 		ClassInfo classInfo = classInfoRepository.getClassInfoConClass(contentId,classId);
@@ -181,6 +194,13 @@ public class UserMainMyPageService {
 					Completion completion = new Completion();
 					completion.setResultId(validResult);
 					completionRepository.save(completion);
+
+					ApplyList applyInfo = new ApplyList();
+					applyInfo.setId(applyId.getId());
+					applyInfo.setClassInfo(classInfo);
+					applyInfo.setUserInfo(userId);
+					applyInfo.setComFlag("Y");
+					applyListRepository.save(applyInfo);
 				}
 			}
 		}
@@ -192,6 +212,12 @@ public class UserMainMyPageService {
 	
 	public CertificateInterface getCertificateInfo(Long compId) {
 		return completionRepository.getCertificateInfo(compId);
+	}
+	
+	public Long getApplyId(Long classId, String email) {
+		Long userId = userRepository.getUserId(email).getId();
+		Long applyId = applyListRepository.findByClassInfoIdAndUserInfoId(classId, userId).getId();
+		return applyId;
 	}
 	
 }

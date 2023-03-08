@@ -1,23 +1,56 @@
 @charset "UTF-8";
 
+.wrap{
+	display: flex;
+	flex: 0 0 auto;
+	height: 100vh;
+	width: 100%;
+	overflow: hidden;
+}
+
+.main {
+	width: 100%;
+	transition: 0.5s;
+	margin-left : -100px;
+	
+}
+
+.sidebar{
+	
+	width:300px;
+  	transition: 0.5s;
+  	position:relative;
+}
+
+.body{
+	margin-bottom: 30px;
+}
+
 li.nav-item6 {
     /* border-top: 1px solid; */
     /* border-bottom: 1px solid; */
-    background-color: #34395F;
 }
 
 li.nav-item5 {
     margin-top: 20px;
 }
-
+.active{
+	background: #ab6e3ecf !important;
+}
+.progress-bar{
+	background: #ab6e3ecf !important;
+}
 video {
     display: block;
     margin: 0 auto;
     margin-top: 60px;
-    width: 75%;
+    position: relative;
+    width:900px;
+    height: 510px;
 }
 
 li.nav-item1 {
+	margin-top:30px;
     font-size: 2rem;
 }
 
@@ -28,16 +61,39 @@ li.nav-item2 {
 button.navbar-toggler {
     border: none;
 }
+.btn-primary {
+	background: #ab6e3ecf !important;  
+	border:1px #ab6e3ecf !important;
+	margin: 0 10px;
+}
+
+.btn-primary:hover {
+	background: #642F05 !important;  
+	border:1px #642F05 !important;
+}
+.nactive{
+	background: #ab6e3ecf !important;
+	opacity: 0.5;
+	cursor: default;
+}
+.nactive:hover{
+	background: #ab6e3ecf !important;
+	opacity: 0.5;
+}
+
+#showbtn{
+	display:none;
+}
 
 .footer {
     display: flex;
     justify-content: center;
     background-color: #696868;
-    height: 4vw;
     bottom: 0;
     position: fixed;
     width: 100vw;
     opacity: 69%;
+    padding : 20px 0;
 }
 
 button.btn.btn-primary {
@@ -64,4 +120,8 @@ button.btn.next-lecture {
 body.body {
     background-color: black;
 }
+.pointer{
+	cursor:pointer
+}
+
 

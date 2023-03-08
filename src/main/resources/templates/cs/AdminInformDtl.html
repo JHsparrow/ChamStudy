@@ -55,7 +55,7 @@
 							<div th:if="${not #lists.isEmpty(csInformFileList)}">
 							<p>첨부파일</p>
 								<th:block th:each="informFile, status : ${csInformFileList}">
-									<a th:href="@{'C:/spring/ChamStudy' + ${informFile.fileUrl}}" download>[[${informFile.oriFileName}]]</a>
+									<a th:href="${informFile.fileUrl}" th:download="${informFile.oriFileName}">[[${informFile.oriFileName}]]</a>
 									<br/>
 								</th:block>
 							</div>

@@ -10,4 +10,5 @@ public class UserSearchDto {
 	private String searchBy;
 	private String searchQuery = "";
 	private String searchCategory;
+	private String searchText = ""; //검색 문자열
 }

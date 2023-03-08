@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ChamStudy.Dto.MainFormDto;
+import ChamStudy.Dto.MainReviewDto;
 import ChamStudy.Entity.Visitor;
 import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.VisitorRepository;
@@ -30,6 +31,16 @@ public class HomeMainService {
 	@Transactional(readOnly = true)
 	public List<MainFormDto> getMainClass() {
 		return classInfoRepository.getMainClassInfo();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<MainFormDto> getMainstarClass() {
+		return classInfoRepository.getMainClassInfostar();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<MainReviewDto> getMainReviewDto() {
+		return classInfoRepository.getMainReview();
 	}
 	
 	

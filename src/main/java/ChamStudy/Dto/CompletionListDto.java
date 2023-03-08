@@ -38,9 +38,11 @@ public class CompletionListDto {
 	//콘텐츠 이미지 이름
 	private String oriImgName;
 	
+	private Long classId;
+	
 	@QueryProjection
 	public CompletionListDto(Long id, String categoryName, String subCategoryName, String className,
-			Long progress, String startDate, String endDate, Long contentId, String imgUrl, String oriImgName) {
+			Long progress, String startDate, String endDate, Long contentId, String imgUrl, String oriImgName, Long classId) {
 		this.id = id;
 		this.categoryName = categoryName;
 		this.subCategoryName = subCategoryName;
@@ -51,6 +53,7 @@ public class CompletionListDto {
 		this.contentId = contentId;
 		this.imgUrl = imgUrl;
 		this.oriImgName = oriImgName;
+		this.classId = classId;
 	}
 	
 }

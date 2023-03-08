@@ -45,6 +45,12 @@ public interface OnContentVideoRepository extends JpaRepository<ContentVideo, Lo
 	@Query(value="select * from content_video where content_id = ?1 limit 1" , nativeQuery = true)
 	ContentVideo getVideoIdF(Long contentId);
 	
+	@Query(value="select * from content_video where content_id = ?1 order by video_id asc limit 1" , nativeQuery = true)
+	ContentVideo getfirstVideoId(Long contentId);
+	
+	@Query(value="select * from content_video where content_id = ?1 order by video_id desc limit 1" , nativeQuery = true)
+	ContentVideo getlastVideoId(Long contentId);
+	
 	@Query(value="select * from content_video where video_id = ?1" , nativeQuery = true)
 	ContentVideo getVideoId(Long videoId);
 	
