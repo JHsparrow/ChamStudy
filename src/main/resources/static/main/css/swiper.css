@@ -140,6 +140,15 @@
 	padding: 5px;
 }
 
+.stars {
+	text-align: left;	
+}
+
+.empty-stars .full-stars{
+	text-align: left;
+	padding: 5px;
+}
+
 .review {
 	text-align: left;
 	padding: 5px;

@@ -164,6 +164,8 @@ public class UserMainMyPageController {
 	public String otherContent(@PathVariable("contentId") Long contentId, @PathVariable("videoId") Long videoId, Model model) {
 		CompletionContentInterface completionContent = userMainMyPageService.getVideoOther(contentId, videoId);
 		List<CompletionContentInterface> completionContentList = userMainMyPageService.getVideo(contentId);
+		
+		
 		model.addAttribute("completionContent", completionContent);
 		model.addAttribute("completionContentList",completionContentList);
 		

@@ -16,7 +16,6 @@
 </head>
 <body>
 	<div layout:fragment="content">
-
 		<!-- Spinner Start -->
 		<div id="spinner"
 			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -26,7 +25,6 @@
 			</div>
 		</div>
 		<!-- Spinner End -->
-		
 		
 		   <!-- Header Start -->
  	<div style="display: none;">
@@ -112,7 +110,7 @@
 		<div class="container-xxl py-5 category" style="margin-top: -100px;">
 			<div class="container">
 				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-					<h6 class="section-title bg-white text-center text-primary px-3">무료강의</h6>
+					<h6 class="section-title bg-white text-center text-primary px-3">신규 강의</h6>
 					<h1 class="mb-5">Courses free video</h1>
 				</div>
 				<div class="row g-3">
@@ -126,9 +124,12 @@
 							<div class="swiper-img"><img th:src="${mainFormDto.getimgurl()}"></div>
 							<div class="title">[[${mainFormDto.getclassname()}]]</div>
 							<div class="name">[[${mainFormDto.getsubname()}]]</div>
-							<div class="ratings">
+							<div class ="stars d-flex">
+							<div class="ratings" >
 							    <div class="empty-stars"></div>
 							    <div class="full-stars" th:style="'width:'+${(mainFormDto.getstarpoint()*20)}+'%'"></div>
+							</div>
+							<div style="text-align: right; margin-left: 40px;">[[${mainFormDto.getstarpoint()}]]/ 5.0</div>
 							</div>
 							<div class="price">[[${mainFormDto.getprice()}]]</div>
 							</a>
@@ -149,74 +150,33 @@
 		<div class="container-xxl py-5 category" style="margin-top: -80px;">
 			<div class="container">
 				<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-					<h6 class="section-title bg-white text-center text-primary px-3">진행중인
-						강의</h6>
+					<h6 class="section-title bg-white text-center text-primary px-3">인기 강의</h6>
 					<h1 class="mb-5">Courses video</h1>
 				</div>
 				<div class="row g-3">
 					<!-- 슬라이더 -->
 					<div class="swiper mySwiper">
 						<div class="swiper-wrapper">
+						
+						<th:block th:each="mainFormDtoStar, status : ${mainFormDtoStarList}">
 							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">서브카테고리</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">25000원!</div>
+							<a class="swiper-a" th:href="@{/mainForm/detail/{classId}(classId=${mainFormDtoStar.getid()})}">
+							<div class="swiper-img"><img th:src="${mainFormDtoStar.getimgurl()}"></div>
+							<div class="title">[[${mainFormDtoStar.getclassname}]]</div>
+							<div class="name">[[${mainFormDtoStar.getsubname}]]</div>
+
+							<div class ="stars d-flex">
+							<div class="ratings" >
+							    <div class="empty-stars"></div>
+							    <div class="full-stars" th:style="'width:'+${(mainFormDtoStar.getstarpoint()*20)}+'%'"></div>
+							</div>
+							<div style="text-align: right; margin-left: 40px;">[[${mainFormDtoStar.getstarpoint}]]/ 5.0</div>
+							</div>
+							<div class="price">[[${mainFormDtoStar.getprice}]]</div>
 							</a>
 							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">서브카테고리</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">25000원!</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">서브카테고리</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">25000원!</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">서브카테고리</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">25000원!</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">서브카테고리</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">25000원!</div>
-							</a>
-							</div>
-							
-							<div class="swiper-slide">
-							<a class="swiper-a" href="#">
-							<div class="swiper-img"><img src="/main/img/about.jpg"></div>
-							<div class="title">강의제목</div>
-							<div class="name">서브카테고리</div>
-							<div class="star"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-							<div class="price">25000원!</div>
-							</a>
-							</div>
-							
+						</th:block>
+
 						</div>
 						    <div class="swiper-button-next"></div>
     						<div class="swiper-button-prev"></div>

@@ -32,6 +32,11 @@ public class HomeMainService {
 		return classInfoRepository.getMainClassInfo();
 	}
 	
+	@Transactional(readOnly = true)
+	public List<MainFormDto> getMainstarClass() {
+		return classInfoRepository.getMainClassInfostar();
+	}
+	
 	
 	
 }

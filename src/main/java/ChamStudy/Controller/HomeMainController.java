@@ -28,16 +28,12 @@ public class HomeMainController {
 		homeMainService.addCount();
 		
 		List<MainFormDto> mainFormDtoList = homeMainService.getMainClass();
-		System.out.println(mainFormDtoList.get(0).getclassname());
-		System.out.println(mainFormDtoList.get(0).getsubname());
-		System.out.println(mainFormDtoList.get(0).getid());
-		System.out.println(mainFormDtoList.get(0).getprice());
-		System.out.println(mainFormDtoList.get(2).getstarpoint());
-		System.out.println(mainFormDtoList.get(0).getimgurl());
+		List<MainFormDto> mainFormDtostarList = homeMainService.getMainstarClass();
 		
 		
 		
-		model.addAttribute("mainFormDtoList",mainFormDtoList);
+		model.addAttribute("mainFormDtoList",mainFormDtoList); //신규 강의 리스트
+		model.addAttribute("mainFormDtoStarList", mainFormDtostarList); //별점 순 정렬
 		model.addAttribute("countMember",adminMainService.countMember()); //회원 수
 		return "main";
 	}
