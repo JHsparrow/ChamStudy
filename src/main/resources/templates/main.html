@@ -119,22 +119,7 @@
 					<!-- 슬라이더 -->
 					<div class="swiper mySwiper">
 						
-						<div class="swiper-wrapper" th:if="${not #lists.isEmpty(mainFormDtoList)}">
-						<th:block th:each="mainFormDto, status : ${mainFormDtoList}">
-							<div class="swiper-slide">
-							<a class="swiper-a" th:href="@{/mainForm/detail/{classId}(classId=${mainFormDto.getid})}">
-							<div class="swiper-img"><img th:src="${mainFormDto.getimgurl()}"></div>
-							<div class="title">[[${mainFormDto.getclassname()}]]</div>
-							<div class="name">[[${mainFormDto.getsubname()}]]</div>
-							<div class="ratings">
-							    <div class="empty-stars"></div>
-							    <div class="full-stars" th:style="'width:'+${(mainFormDto.getstarpoint()*20)}+'%'"></div>
-							</div>
-							<div class="price">[[${mainFormDto.getprice()}]]</div>
-							</a>
-							</div>
-						</th:block>
-						</div>
+						
 						
 						    <div class="swiper-button-next"></div>
     						<div class="swiper-button-prev"></div>

@@ -28,12 +28,6 @@ public class HomeMainController {
 		homeMainService.addCount();
 		
 		List<MainFormDto> mainFormDtoList = homeMainService.getMainClass();
-		System.out.println(mainFormDtoList.get(0).getclassname());
-		System.out.println(mainFormDtoList.get(0).getsubname());
-		System.out.println(mainFormDtoList.get(0).getid());
-		System.out.println(mainFormDtoList.get(0).getprice());
-		System.out.println(mainFormDtoList.get(2).getstarpoint());
-		System.out.println(mainFormDtoList.get(0).getimgurl());
 		
 		
 		

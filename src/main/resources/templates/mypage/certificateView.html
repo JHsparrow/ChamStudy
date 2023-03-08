@@ -23,7 +23,7 @@
 			<p class="m300"></p>
 			<p>성명 : [[${certiInfo.getUserName()}]]</p>
 			<p>교육과정 : [[${certiInfo.getClassName()}]]</p>
-			<p>교육기간 : [[${#strings.substring(certiInfo.getApplyDate(),0,13)}]] ~ [[${#strings.substring(certiInfo.getCompDate(),0,13)}]]</p>
+			<p>교육기간 : [[${#strings.substring(certiInfo.getApplyDate(),0,11)}]] ~ [[${#strings.substring(certiInfo.getCompDate(),2,13)}]]</p>
 			<p class="m60"></p>
 			<p class="desc">위 사람은 참스터디에서 시행하는 상기 교육과정을<br>수료하였으므로 이 증서를 수여합니다.</p>
 			<p class="desc">[[${#calendars.format(#calendars.createNow(), 'yyyy년 MM월 dd일')}]]</p>
