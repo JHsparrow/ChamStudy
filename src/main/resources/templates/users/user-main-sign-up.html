@@ -62,13 +62,17 @@
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="password">비밀번호</label> 
-											<input th:field="*{password}" class="form-control form-control-lg" type="password" id="password" name="password" placeholder="비밀번호를 입력 해주세요" />
+											<input th:field="*{password}" class="form-control form-control-lg" type="password" id="password" name="password" placeholder="비밀번호를 입력 해주세요" onchange="vaildCheck(); CheckPwd();" onclick="back_vaild('pwd')" />
 											<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
 										</div>
 										<div class="mb-3">
 											<label class="form-label">비밀번호 확인</label> 
 											<input class="form-control form-control-lg" type="password"
-												id="passwordck" name="password_ck" placeholder="비밀번호를 확인 해주세요" />
+												id="passwordck" name="password_ck" placeholder="비밀번호를 확인 해주세요" onchange="vaildCheck(); CheckPwd();" onclick="back_vaild('pwd')"/>
+												
+												<span id="check_Y" class="focus-input101" style="display: none; color: green; font-weight: 800">비밀번호가 일치합니다</span>
+												<span id="check_N" class="focus-input101" style="display: none; color: red; font-weight: 800">비밀번호가 일치하지 않습니다.</span>
+						
 										</div>
 										<div class="mb-3">
 											<label class="form-label" th:for="phone">휴대폰 번호</label> 
@@ -94,7 +98,7 @@
 		      	if( p1 != p2 ) {
 		      		console.log(p1);
 		      		console.log(p2);
-		          alert("비밀번호가 일치 하지 않습니다");
+		          alert("비밀번호가 일치하지 않습니다");
 		          return false;
 		        } else{
 		        	$('#frm').submit();
@@ -106,6 +110,52 @@
 				   .replace(/[^0-9]/g, '')
 				  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
 				}
+			
+			function vaildCheck(){
+				$('.input100').each(function(){
+			        $(this).on('blur', function(){
+			            if($(this).val().trim() != "") {
+			                $(this).addClass('has-val');
+			            }
+			            else {
+			                $(this).removeClass('has-val');
+			            }
+			        })    
+			    })
+			}
+			function back_vaild(val){
+				if(val=="id"){
+					$('.fieldError__id').hide();
+				}
+				if(val=="id"){
+					$('.fieldError__name').hide();
+				}
+				if(val=="pwd"){
+					$('.fieldError__pwd').hide();
+					$('.fieldError__pwdc').hide();
+				}
+				if(val=="Login_id"){
+					$('.fieldError__Login-id').hide();
+				}
+				if(val=="Login_pwd"){
+					$('.fieldError__Login-pwd').hide();
+				}
+			}
+
+			
+			function CheckPwd(){
+				
+				if($('#password').val()==$('#passwordck').val()){
+					$('#check_Y').show();
+					$('#check_N').hide();
+					$('#passwordcheck').val('Y')
+				}
+				else{
+					$('#check_N').show();
+					$('#check_Y').hide();
+					$('#passwordcheck').val('')
+				}
+			}
 		</script>
 	</div>
 </body>
