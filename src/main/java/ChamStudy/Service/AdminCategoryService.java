@@ -75,7 +75,6 @@ public class AdminCategoryService {
 	
 	//서브카테고리 생성 - 이미지 등록
 	public void saveSubCategoryImg(SubCategory subCategory, MultipartFile subImg, Long subId) throws Exception {
-		SubCategory subcategory = subCategoryRepository.findById(subId).orElseThrow();
 		String oriImgName = subImg.getOriginalFilename();
 		String imgName = "";
 		String imgUrl = "";
