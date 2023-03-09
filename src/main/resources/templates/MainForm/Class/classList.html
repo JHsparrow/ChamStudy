@@ -4,9 +4,15 @@
 	layout:decorate="~{layouts/layout_main}">
 <head>
 <meta charset="utf-8">
-​​
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="/main/css/swiper.css" rel="stylesheet">
+
+<title>courses</title>
+
 <script>
+
 	$(function(){
 		/**
 		 * 검색 이미지 클릭
@@ -85,44 +91,49 @@
 
 </style>
 
-<title>courses</title>
+
 </head>
 <body>
-​
-	<div layout:fragment="content">
+
+<div layout:fragment="content">
+	<!-- Spinner Start -->
+		<div id="spinner"
+			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+			<div class="spinner-border text-primary"
+				style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+	<!-- Spinner End -->
+	
    <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                </div>
-            </div>
-        </div>
+        <div class="container py-5"></div>
     </div>
     <!-- Header End -->
     
-		<!-- 검색창 -->
-		<form id="frmSearch" class="d-flex" role="search" method="post">
+<!-- 검색창 Start -->
+	<form id="frmSearch" class="d-flex" role="search" method="post">
 		<input type="hidden" id="hiddenQuery" name="searchQuery" th:value="${userSearchDto.searchQuery}">
 		<input type="hidden" id="hiddenPage" name="page" value="">
-		<div class="container-xxl py-5">
-			<div class="row justify-content-center">
-				<div class="col-md-8 d-flex justify-content-center">
-					<h3>배우고, 나누고, 성장하세요</h3>
-				</div>
-				<div class="col-md-8 d-flex justify-content-center">
-					<input id="inputSearch" class="form-control border-1 py-3 ps-4 pe-5" type="search"
-						placeholder="검색어 입력" aria-label="Search" name="searchText" th:value="${userSearchDto.searchText}">
-					<button class="btn btn-primary customBtn">
-		            	<span class="icon"><i class="fas fa-search" id="btnSearch"></i></span>
-		            </button>
-				</div>
-			</div>
-		</div>
-			</form>
-
-    
-    <!-- Courses Start -->
+	<div class="container-xxl py-5">
+		<div class="row justify-content-center">
+		<div class="col-md-8 d-flex justify-content-center">
+			<h3>배우고, 나누고, 성장하세요</h3>
+	</div>
+	<div class="col-md-8 d-flex justify-content-center">
+	<input id="inputSearch" class="form-control border-1 py-3 ps-4 pe-5" type="search"
+	placeholder="검색어 입력" aria-label="Search" name="searchText" th:value="${userSearchDto.searchText}">
+		<button class="btn btn-primary customBtn">
+			<span class="icon"><i class="fas fa-search" id="btnSearch"></i></span>
+		</button>
+	</div>
+	</div>
+	</div>
+	</form>
+	<!-- 검색창 End -->  
+	
+<!-- Courses Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -183,8 +194,11 @@
 			</div>
 		</div>
 		</div>
-	 <!-- 페이징 -->
+	 <!-- 페이징 -->	  	
 
-		</div>
+</div>
+                
+
+				
 </body>
 </html>
