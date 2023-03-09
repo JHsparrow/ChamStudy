@@ -56,7 +56,7 @@
 								<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 									<div class="navbar-nav">
 										<a class="nav-link" id="nav-link1" href="/adminForm/comm"
-											style="background-color: #007bff; border-radius: 7px; color: #fff;">자유게시판</a>
+											style="background-color: #ab6e3ecf; border-radius: 7px; color: #fff;">자유게시판</a>
 										<a class="nav-link" id="nav-link2"
 											href="/adminForm/comm/mento">멘토게시판</a> <a class="nav-link"
 											id="nav-link3" href="/adminForm/comm/qna">QnA게시판</a>
@@ -73,7 +73,7 @@
 
 										</div>
 									</div>
-									<div class="d-flex justify-content-center"
+									<form class="d-flex justify-content-center"
 										th:object="${commSearchDto}" style="height: 40px;">
 										<!-- 상품 등록일 -->
 										<!-- 상품명, 등록자 선택 -->
@@ -89,7 +89,7 @@
 											style="width: auto;">
 										<button id="searchBtn" type="submit"
 											class="btn btn-primary mb-3" style="height: 100%;">검색</button>
-									</div>
+									</form>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">

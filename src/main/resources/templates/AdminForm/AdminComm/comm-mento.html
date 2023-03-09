@@ -31,7 +31,7 @@
 			var searchBy = $("#searchBy").val();
 			var searchQuery = $("#searchQuery").val();
 
-			location.href = "/adminForm/comm/" + page + "?searchBy=" + searchBy
+			location.href = "/adminForm/comm/mento/" + page + "?searchBy=" + searchBy
 					+ "&searchQuery=" + searchQuery;
 		}
 	</script>
@@ -57,7 +57,7 @@
 									<div class="navbar-nav">
 										<a class="nav-link" id="nav-link1" href="/adminForm/comm">자유게시판</a>
 										<a class="nav-link" id="nav-link2"
-											href="/adminForm/comm/mento" style="background-color: #007bff; border-radius: 7px; color: #fff;">멘토게시판</a> <a class="nav-link"
+											href="/adminForm/comm/mento" style="background-color: #ab6e3ecf; border-radius: 7px; color: #fff;">멘토게시판</a> <a class="nav-link"
 											id="nav-link3" href="/adminForm/comm/qna">QnA게시판</a>
 									</div>
 								</div>
@@ -72,7 +72,7 @@
 											
 										</div>
 									</div>
-									<div class="d-flex justify-content-center"
+									<form class="d-flex justify-content-center"
 										th:object="${commSearchDto}" style="height: 40px;">
 										<!-- 상품 등록일 -->
 										<!-- 상품명, 등록자 선택 -->
@@ -88,7 +88,7 @@
 											style="width: auto;">
 										<button id="searchBtn" type="submit"
 											class="btn btn-primary mb-3" style="height: 100%;">검색</button>
-									</div>
+									</form>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
@@ -153,42 +153,37 @@
 										</table>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-sm-12 col-md-5">
-										<div class="dataTables_info" id="datatables-orders_info"
-											role="status" aria-live="polite"></div>
-									</div>
-									<div class="col-sm-12 col-md-7">
-										<div
-											class="dataTables_paginate paging_simple_numbers block-27"
-											id="datatables-orders_paginate"
-											th:with="start=${(comms.number/maxPage)*maxPage + 1}, end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage - 1) : comms.totalPages)})">
-											<ul class="pagination">
-												<li class="paginate_button page-item previous disabled mx-1"
-													id="datatables-orders_previous"
-													th:classappend="${comms.first}? 'disabled'">
-													<a
-													th:href="@{'/adminForm/comm' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page=' +${comms.number-1}}"
-													aria-controls="datatables-orders" data-dt-idx="0"
-													tabindex="0" class="page-link">&lt </a>
-												</li>
-												<li class="paginate_button page-item active  mx-1"
-													th:each="page, status:${#numbers.sequence(start,end)}"
-													th:classappend="${comms.number eq page-1}? 'active':''"><a
-													th:href="@{'/adminForm/comm' + '?searchQuery='+${commSearchDto.searchQuery} + '&page=' +${page-1}}"
-													aria-controls="datatables-orders" data-dt-idx="1"
-													tabindex="0" class="page-link">[[${page}]]</a></li>
-													
-													
-												<li class="paginate_button page-item next"
-													id="datatables-orders_next  mx-1"
-													th:classappend="${comms.last}? 'disabled'"><a
-													th:href="@{'/adminForm/comm' + '?searchQuery='+ ${commSearchDto.searchQuery} +'&page='+${comms.number+1} }"
-													aria-controls="datatables-orders" data-dt-idx="3"
-													tabindex="0" class="page-link">&gt</a></li>
-											</ul>
+						<div class="row">
+									<nav
+										th:with="start=${(comms.number/maxPage)*maxPage + 1},
+									end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage -1) : comms.totalPages)})">
+										<div class="col-sm-12 col-md-12 ">
+											<div
+												class="dataTables_paginate paging_simple_numbers block-27"
+												id="datatables-orders_paginate">
+												<ul class="pagination">
+													<li th:classappend="${comms.first}? 'disabled'"
+														class="paginate_button page-item previous disabled mx-1"
+														id="datatables-orders_previous"><a
+														th:href="@{'/adminForm/comm/mento' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
+														aria-controls="datatables-orders" data-dt-idx="0"
+														tabindex="0" class="page-link">&lt </a></li>
+													<li th:each="page: ${#numbers.sequence(start, end)}"
+														th:classappend="${comms.number eq page-1}?'active':''"
+														class="paginate_button page-item mx-1"><a
+														th:href="@{'/adminForm/comm/mento' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
+														aria-controls="datatables-orders" data-dt-idx="1"
+														tabindex="0" class="page-link">[[${page}]]</a></li>
+													<li th:classappend="${comms.last}? 'disabled'"
+														class="paginate_button page-item next"
+														id="datatables-orders_next  mx-1"><a
+														th:href="@{'/adminForm/comm/mento' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
+														aria-controls="datatables-orders" data-dt-idx="3"
+														tabindex="0" class="page-link">&gt</a></li>
+												</ul>
+											</div>
 										</div>
-									</div>
+									</nav>
 								</div>
 							</div>
 						</div>

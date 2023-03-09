@@ -190,5 +190,6 @@ border-right: 1px solid rgb(0 10 18 / 10%);
 	background-size : cover;
 	height: 400px;
 	background-position: 0 -705px;
+	background-repeat: no-repeat;
 }
 

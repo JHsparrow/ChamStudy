@@ -7,73 +7,87 @@
 <link th:href="@{/css/community/comm.css}" rel="stylesheet">
 <title>참스터디</title>
 <script type="text/javascript">
-function valinput() {
-	// name 값 설정
-	$('input[name=boardType]').val("M");
-	$('input[name=gubun]').val("B");
-	$('input[name=blockComment]').val("N");
-	$('input[name=viewCount]').val("0");
-}
+	function valinput() {
+		// name 값 설정
+		$('input[name=boardType]').val("M");
+		$('input[name=gubun]').val("B");
+		$('input[name=blockComment]').val("N");
+		$('input[name=viewCount]').val("0");
+	}
 </script>
 </head>
 <body>
 	<div layout:fragment="content">
-	<div class="write-body-wrap">
-		<form class="row g-3" role="form" method="post"
-			enctype="multipart/form-data" th:object="${commWriteFormDto}">
-			<div class="input-1">
-				<input type="hidden" name="oriId" th:value="${id}" id="oriId" />
-			</div>
-			<div class="input-2">
-				<input type="text" th:field="*{Title}" placeholder="제목에 핵심 내용을 적어보세요" class="input-Title"/>
-			</div>
-			<div class="input-3">
-				<textarea rows="10" cols="100" th:field="*{substance}" placeholder="글 내용을 입력 해 보세요."></textarea>
-			</div>
-			<div class="input-4">
-				<input type="hidden" th:field="*{boardType}" name="boardType" value=""/>
-			</div>
-			
-			<div class="input-5">
-				<input type="hidden" th:field="*{gubun}" name="gubun" value=""/>
-			</div>
+		<div class="write-body-wrap">
+			<form class="row g-3" role="form" method="post"
+				enctype="multipart/form-data" th:object="${commWriteFormDto}">
+				<div class="input-1">
+					<input type="hidden" name="oriId" th:value="${id}" id="oriId" />
+				</div>
+				<div class="input-2">
+					<input class="form-control form-control-lg" type="text"
+						aria-label=".form-control-lg example" th:field="*{Title}"
+						placeholder="제목에 핵심 내용을 적어보세요">
+				</div>
+				<div class="input-3">
+					<textarea rows="10" cols="100" class="form-control"
+						id="exampleFormControlTextarea1" th:field="*{substance}"
+						placeholder="글 내용을 입력 해 보세요."></textarea>
+				</div>
+				<div class="input-4">
+					<input type="hidden" th:field="*{boardType}" name="boardType"
+						value="" />
+				</div>
 
-			<div class="input-6">
-				<input type="hidden" th:field="*{blockComment}" name="blockComment" value=""/>
-			</div>
-		
-			<div class="input-7">
-				<input type="hidden" th:field="*{viewCount}" name="viewCount" value=""/>
-			</div>
-			
-			<div class="input-8">
-			<span>알려줄 강의</span>
-			<select th:field="*{className}">
-			<th:block  th:each="name, status: ${className}">
-			<option th:value="${name.className}">[[${name.className}]]</option>
-			</th:block>
-			</select>
-			</div>
+				<div class="input-5">
+					<input type="hidden" th:field="*{gubun}" name="gubun" value="" />
+				</div>
 
-			<div class="input-9">
-			<span>오픈채팅 링크</span>
-				<input type="text" th:field="*{openChat}" name="viewCount" value=""/>
-			</div>
-			
-			<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
-				<button th:formaction="@{/comm/Mentocreate}" type="submit" onclick="valinput()" class="btn btn-primary mb-3">저장</button>
-			</div>
-			
-			<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
-				<button th:formaction="@{'/comm/Mentocreate/' + ${commWriteFormDto.id} }" type="submit" class="btn btn-primary mb-3">수정</button>
-			</div>
-			
-		</form>
-			<div class="mentoBack-btn">			
-			<button th:onclick="|location.href='@{/comm/mento}'|"  class="mentoBack-btn">취소</button>
-			</div>
-			
-	</div>
+				<div class="input-6">
+					<input type="hidden" th:field="*{blockComment}" name="blockComment"
+						value="" />
+				</div>
+
+				<div class="input-7">
+					<input type="hidden" th:field="*{viewCount}" name="viewCount"
+						value="" />
+				</div>
+
+				<div class="input-8">
+					<span>알려줄 강의</span> <select class="form-select"
+						aria-label="Default select example" th:field="*{className}">
+						<th:block th:each="name, status: ${className}">
+							<option th:value="${name.className}">[[${name.className}]]</option>
+						</th:block>
+					</select>
+				</div>
+
+				<div class="input-9">
+					<span>오픈채팅 링크</span> <input class="form-control" type="text"
+						th:field="*{openChat}" aria-label="default input example" placeholder="카카오톡 오픈채팅 링크를 붙여넣기 하세요">
+				</div>
+				<div class="write-btn-wrap">
+
+					<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
+						<button th:formaction="@{/comm/Mentocreate}" type="submit"
+							onclick="valinput()" class="btn btn-primary" name="save">저장</button>
+					</div>
+
+					<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
+						<button
+							th:formaction="@{'/comm/Mentocreate/' + ${commWriteFormDto.id} }"
+							type="submit" class="btn btn-primary" name="modify">수정</button>
+					</div>
+
+					<div class="mentoBack-btn">
+						<button type="button"
+							th:onclick="|location.href='@{/comm/mento}'|"
+							class="btn btn-primary" id="back">취소</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
 	</div>
 </body>
 </html>
