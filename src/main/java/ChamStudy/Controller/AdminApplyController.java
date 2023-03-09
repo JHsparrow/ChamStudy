@@ -50,7 +50,7 @@ public class AdminApplyController {
 		List<AdminApplyClassInterface> Lists = applyListService.getAdminApplyClassList();
 		model.addAttribute("active","apply"); // 사이드 바 액티브
 		model.addAttribute("classLists", Lists);
-		return "AdminForm/adminClass/applyClassList";
+		return "adminForm/adminClass/applyClassList";
 	}
 	@GetMapping(value = "/sublist/{classId}") //메인 카테고리 리스트
 	public String applyList(@PathVariable(value = "classId") Long classId ,Optional<Integer> page,AdminApplySubListDto adminApplyListDto ,Model model, UserSearchDto userSearchDto) {
@@ -59,7 +59,7 @@ public class AdminApplyController {
 		model.addAttribute("active","apply"); // 사이드 바 액티브
 		model.addAttribute("applyLists", Lists);
 		model.addAttribute("maxPage", 5);
-		return "AdminForm/adminClass/applyList";
+		return "adminForm/adminClass/applyList";
 	}
 	
 	

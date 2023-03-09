@@ -53,7 +53,7 @@ public class CommController { //커뮤니티 컨트롤러
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("maxPage",5);
 
-		return "MainForm/community/commMain";
+		return "mainForm/community/commMain";
 	}
 	
 	
@@ -61,14 +61,14 @@ public class CommController { //커뮤니티 컨트롤러
 	@GetMapping(value = "/comm/create")
 	public String MainWriteForm(Model model) {
 		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
-		return "MainForm/community/commWrite";
+		return "mainForm/community/commWrite";
 	}
 	
 	//QnA게시판 글쓰기 페이지 불러오기
 	@GetMapping(value = "/comm/QnAcreate")
 	public String QnAWriteForm(Model model) {
 		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
-		return "MainForm/community/commQnaWrite";
+		return "mainForm/community/commQnaWrite";
 	}
 	
 	//멘토게시판 글쓰기 페이지 불러오기
@@ -78,7 +78,7 @@ public class CommController { //커뮤니티 컨트롤러
 		List<CommMentoClassNameDto> classNameDto = commService.getMentoClassName(email);
 		model.addAttribute("commWriteFormDto", new CommWriteFormDto());
 		model.addAttribute("className", classNameDto);
-		return "MainForm/community/commMentoWrite";
+		return "mainForm/community/commMentoWrite";
 	}
 	
 	//자유게시판 글쓰기 저장
@@ -87,7 +87,7 @@ public class CommController { //커뮤니티 컨트롤러
 		MessageDto message;
 		String email = principal.getName();
 		if(bindingResult.hasErrors()) {
-			return "MainForm/community/commWrite";
+			return "mainForm/community/commWrite";
 		} 
 		
 		try {
@@ -98,7 +98,7 @@ public class CommController { //커뮤니티 컨트롤러
 			message = new MessageDto("글 등록을 완료했습니다.", "/comm");
 		} catch (Exception e) {
 			message = new MessageDto("글 등록을 실패했습니다.", "/comm");
-			return "MainForm/community/commWrite";
+			return "mainForm/community/commWrite";
 		}
 		return showMessageAndRedirect(message, model);
 	}
@@ -109,7 +109,7 @@ public class CommController { //커뮤니티 컨트롤러
 			MessageDto message;
 			String email = principal.getName();
 			if(bindingResult.hasErrors()) {
-				return "MainForm/community/commQnAWrite";
+				return "mainForm/community/commQnAWrite";
 			} 
 			
 			try {
@@ -117,7 +117,7 @@ public class CommController { //커뮤니티 컨트롤러
 				message = new MessageDto("글 등록을 완료했습니다.", "/comm/qna");
 			} catch (Exception e) {
 				message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
-				return "MainForm/community/commQnAWrite";
+				return "mainForm/community/commQnAWrite";
 			}
 			return showMessageAndRedirect(message, model);
 		}
@@ -129,7 +129,7 @@ public class CommController { //커뮤니티 컨트롤러
 		String email = principal.getName();
 		
 		if(bindingResult.hasErrors()) {
-			return "MainForm/community/commMentoWrite";
+			return "mainForm/community/commMentoWrite";
 		} 
 		
 		try {
@@ -137,7 +137,7 @@ public class CommController { //커뮤니티 컨트롤러
 			message = new MessageDto("글 등록을 성공했습니다.", "/comm/mento");
 		} catch (Exception e) {
 			message = new MessageDto("글 등록을 실패했습니다.", "/comm/mento");
-			return "MainForm/community/commMentoWrite";
+			return "mainForm/community/commMentoWrite";
 		}
 		return showMessageAndRedirect(message, model);
 	}
@@ -157,7 +157,7 @@ public class CommController { //커뮤니티 컨트롤러
 					model.addAttribute("errorMessage","존재하지 않는 스토리입니다.");
 					model.addAttribute("storyFormDto", new CommWriteFormDto());
 				}
-				return "MainForm/community/commMentoWrite";
+				return "mainForm/community/commMentoWrite";
 			}
 			
 			//자유게시판 수정 페이지 보기 
@@ -175,7 +175,7 @@ public class CommController { //커뮤니티 컨트롤러
 					model.addAttribute("errorMessage","존재하지 않는 스토리입니다.");
 					model.addAttribute("storyFormDto", new CommWriteFormDto());
 				}
-				return "MainForm/community/commWrite";
+				return "mainForm/community/commWrite";
 			}
 
 			//자유게시판 수정 페이지 보기 
@@ -193,7 +193,7 @@ public class CommController { //커뮤니티 컨트롤러
 					model.addAttribute("errorMessage","존재하지 않는 스토리입니다.");
 					model.addAttribute("storyFormDto", new CommWriteFormDto());
 				}
-				return "MainForm/community/commQnAWrite";
+				return "mainForm/community/commQnAWrite";
 			}
 			
 			//자유게시판 수정페이지 저장
@@ -207,7 +207,7 @@ public class CommController { //커뮤니티 컨트롤러
 					message = new MessageDto("글 등록을 완료했습니다.", "/comm/dtl/"+boardId);
 				} catch (Exception e) {
 					message = new MessageDto("글 등록을 실패했습니다.", "/comm");
-					return "MainForm/community/commWrite";
+					return "mainForm/community/commWrite";
 				}
 				return showMessageAndRedirect(message, model);
 			}
@@ -223,7 +223,7 @@ public class CommController { //커뮤니티 컨트롤러
 					message = new MessageDto("글 등록을 완료했습니다.", "/comm/qnadtl/"+boardId);
 				} catch (Exception e) {
 					message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
-					return "MainForm/community/commQnAWrite";
+					return "mainForm/community/commQnAWrite";
 				}
 				return showMessageAndRedirect(message, model);
 			}
@@ -239,7 +239,7 @@ public class CommController { //커뮤니티 컨트롤러
 					message = new MessageDto("글 등록을 완료했습니다.", "/comm/dtl/mento/"+boardId);
 				} catch (Exception e) {
 					message = new MessageDto("글 등록을 실패했습니다.", "/comm/dtl/mento/");
-					return "MainForm/community/commMentoWrite";
+					return "mainForm/community/commMentoWrite";
 				}
 				return showMessageAndRedirect(message, model);
 			}
@@ -257,7 +257,7 @@ public class CommController { //커뮤니티 컨트롤러
 		model.addAttribute("commSearchDto", commSearchDto);
 		model.addAttribute("classNameDto", classNameDto);
 		model.addAttribute("maxPage", 5);
-		return "MainForm/community/commMento";
+		return "mainForm/community/commMento";
 	}
 	
 	//QnA게시판
@@ -272,7 +272,7 @@ public class CommController { //커뮤니티 컨트롤러
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("email",email);
 		model.addAttribute("maxPage",5);
-		return "MainForm/community/commQna";
+		return "mainForm/community/commQna";
 	}
 	
 	//게시판 상세 페이지
@@ -301,7 +301,7 @@ public class CommController { //커뮤니티 컨트롤러
 				request.getSession().setAttribute("redirectURI", referer);
 				//전 페이지의 링크를 view에 hidden으로 남기려고 작성
 				model.addAttribute("referer",referer);
-			return "MainForm/community/comm-Dtl-Form";
+			return "mainForm/community/comm-Dtl-Form";
 		}
 		//Qna 상세 페이지
 		@GetMapping(value = "/comm/QnAdtl/{boardId}")
@@ -329,7 +329,7 @@ public class CommController { //커뮤니티 컨트롤러
 			request.getSession().setAttribute("redirectURI", referer);
 			//전 페이지의 링크를 view에 hidden으로 남기려고 작성
 			model.addAttribute("referer",referer);
-			return "MainForm/community/qna-Dtl-Form";
+			return "mainForm/community/qna-Dtl-Form";
 		}
 		
 		//자유게시판 댓글 작성
@@ -340,7 +340,7 @@ public class CommController { //커뮤니티 컨트롤러
 			MessageDto message;
 			String email = principal.getName();
 			if(bindingResult.hasErrors()) {
-				return "MainForm/community/comm-Dtl-Form";
+				return "mainForm/community/comm-Dtl-Form";
 			} 
 			
 			try {
@@ -348,7 +348,7 @@ public class CommController { //커뮤니티 컨트롤러
 				message = new MessageDto("글 등록을 완료했습니다.", "/comm/dtl/"+boardId);
 			} catch (Exception e) {
 				message = new MessageDto("글 등록을 실패했습니다.", "/comm");
-				return "MainForm/community/comm-Dtl-Form";
+				return "mainForm/community/comm-Dtl-Form";
 			}
 			return showMessageAndRedirect(message, model);
 		}
@@ -361,7 +361,7 @@ public class CommController { //커뮤니티 컨트롤러
 			MessageDto message;
 			String email = principal.getName();
 			if(bindingResult.hasErrors()) {
-				return "MainForm/community/qna-Dtl-Form";
+				return "mainForm/community/qna-Dtl-Form";
 			} 
 			
 			try {
@@ -369,7 +369,7 @@ public class CommController { //커뮤니티 컨트롤러
 				message = new MessageDto("글 등록을 완료했습니다.", "/comm/QnAdtl/"+boardId);
 			} catch (Exception e) {
 				message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
-				return "MainForm/community/qna-Dtl-Form";
+				return "mainForm/community/qna-Dtl-Form";
 			}
 			return showMessageAndRedirect(message, model);
 		}
@@ -399,7 +399,7 @@ public class CommController { //커뮤니티 컨트롤러
 			request.getSession().setAttribute("redirectURI", referer);
 			//전 페이지의 링크를 view에 hidden으로 남기려고 작성
 			model.addAttribute("referer",referer);
-			return "MainForm/community/comm-Mento-Dtl-Form";
+			return "mainForm/community/comm-Mento-Dtl-Form";
 		}
 		
 		//댓글 저장
@@ -409,7 +409,7 @@ public class CommController { //커뮤니티 컨트롤러
 			String email = principal.getName();
 			
 			if(bindingResult.hasErrors()) {
-				return "MainForm/community/comm-Dtl-Form";
+				return "mainForm/community/comm-Dtl-Form";
 			} 
 			
 			try {
@@ -417,7 +417,7 @@ public class CommController { //커뮤니티 컨트롤러
 				message = new MessageDto("글 등록을 성공했습니다.", "/comm");
 			} catch (Exception e) {
 				message = new MessageDto("글 등록을 실패했습니다.", "/comm");
-				return "MainForm/community/comm-Dtl-Form";
+				return "mainForm/community/comm-Dtl-Form";
 			}
 			return "redirect:/";
 		}

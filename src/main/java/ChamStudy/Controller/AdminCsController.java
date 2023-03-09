@@ -78,7 +78,7 @@ public class AdminCsController {
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("maxPage", 5);
 		
-		return "cs/AdminInform";
+		return "cs/adminInform";
 	}
 	
 	//(첫 화면에서) 등록하기 버튼 클릭
@@ -96,7 +96,7 @@ public class AdminCsController {
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
 		model.addAttribute("fix5",fixoverfive);
 		System.out.println("작성자 아이디: " + SecurityContextHolder.getContext().getAuthentication().getName());
-		return "cs/AdminInformForm";
+		return "cs/adminInformForm";
 	}
 
 	
@@ -107,7 +107,7 @@ public class AdminCsController {
 		
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(bindingResult.hasErrors()) {
-			return "cs/AdminInformForm";
+			return "cs/adminInformForm";
 		}
 		
 		try {
@@ -135,7 +135,7 @@ public class AdminCsController {
 			return showMessageAndRedirect(message, model);
 		}
 		
-		return "cs/AdminInformDtl";
+		return "cs/adminInformDtl";
 	 }
 	
 	//게시글 수정 페이지 보기
@@ -149,7 +149,7 @@ public class AdminCsController {
 			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/inform");
 			return showMessageAndRedirect(message, model);
 		}
-		return "cs/AdminInformMdf";
+		return "cs/adminInformMdf";
 	}
 	
 	//게시글 수정 버튼 클릭
@@ -157,7 +157,7 @@ public class AdminCsController {
 	public String updateInform(@Valid CsInformDto csInformDto, BindingResult bindingResult, Model model,
 			@RequestParam("csInformFile") List<MultipartFile> informFileList, @PathVariable("informId")Long informId) {
 		if(bindingResult.hasErrors()) {
-			return "cs/AdminInformMdf";
+			return "cs/adminInformMdf";
 		}
 		
 		try {
@@ -198,7 +198,7 @@ public class AdminCsController {
 		model.addAttribute("faqList", faqList);
 		model.addAttribute("maxPage", 5);
 		model.addAttribute("sValue",userSearchDto.getSearchCategory());
-		return "cs/AdminFaq";
+		return "cs/adminFaq";
 	}
 	
 	//(첫 화면에서) 등록하기 버튼 클릭
@@ -207,7 +207,7 @@ public class AdminCsController {
 		model.addAttribute("active","csFaq"); // 사이드 바 액티브
 		model.addAttribute("csFaqDto", new CsFaqDto());
 		model.addAttribute("email",SecurityContextHolder.getContext().getAuthentication().getName());
-		return "cs/AdminFaqForm";
+		return "cs/adminFaqForm";
 	}
 	
 	//자주묻는 질문 등록 버튼
@@ -215,7 +215,7 @@ public class AdminCsController {
 	public String uploadInform(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model) {
 		
 		if(bindingResult.hasErrors()) {
-			return "cs/AdminFaqForm";
+			return "cs/adminFaqForm";
 		}
 		
 		try {
@@ -238,7 +238,7 @@ public class AdminCsController {
 			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/faq");
 			return showMessageAndRedirect(message, model);
 		}
-		return "cs/AdminFaqMdf";
+		return "cs/adminFaqMdf";
 	}
 	
 	//게시글 수정 버튼 클릭
@@ -246,7 +246,7 @@ public class AdminCsController {
 	public String updateFaq(@Valid CsFaqDto csFaqDto, BindingResult bindingResult, Model model,
 			@PathVariable("faqId")Long faqId) {
 		if(bindingResult.hasErrors()) {
-			return "cs/AdminFaqMdf";
+			return "cs/adminFaqMdf";
 		}
 		
 		try {
@@ -271,7 +271,7 @@ public class AdminCsController {
 			return showMessageAndRedirect(message, model);
 		}
 		
-		return "cs/AdminFaqDtl";
+		return "cs/adminFaqDtl";
 	 }
 	
 	//자주묻는질문 게시글 삭제
@@ -295,17 +295,17 @@ public class AdminCsController {
 	@GetMapping(value="/qna")
 	public String csQna(Model model) {
 		model.addAttribute("active","csQna"); // 사이드 바 액티브
-		return "cs/AdminQna";
+		return "cs/adminQna";
 	}
 	
 	@GetMapping(value="/createQna")
 	public String createQna(){
-		return "cs/AdminQnaForm";
+		return "cs/adminQnaForm";
 	}
 	
 	@GetMapping(value="/qnaDtl")
 	public String qnaDetail() {
-		return "cs/AdminQnaDtl";
+		return "cs/adminQnaDtl";
 	}
 	
 	

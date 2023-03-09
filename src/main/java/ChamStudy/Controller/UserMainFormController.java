@@ -13,32 +13,32 @@ public class UserMainFormController {
 	
 	@GetMapping(value = "/about")
 	public String about() {
-		return "MainForm/about";
+		return "mainForm/about";
 	}
 	
 	@GetMapping(value = "/courses")
 	public String courses() {
-		return "MainForm/courses";
+		return "mainForm/courses";
 	}
 	
 	@GetMapping(value = "/team")
 	public String team() {
-		return "MainForm/team";
+		return "mainForm/team";
 	}
 	
 	@GetMapping(value = "/404")
 	public String error() {
-		return "MainForm/404";
+		return "mainForm/404";
 	}
 	
 	@GetMapping(value = "/contact")
 	public String contact() {
-		return "MainForm/contact";
+		return "mainForm/contact";
 	}
 	
 	@GetMapping(value = "/testimonial")
 	public String testimonial() {
-		return "MainForm/testimonial";
+		return "mainForm/testimonial";
 	}
 	
 }

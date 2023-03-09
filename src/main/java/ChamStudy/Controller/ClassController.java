@@ -60,7 +60,7 @@ public class ClassController { //강의 페이지
 		model.addAttribute("classInfoDtoList", classInfoDtoList);
 		model.addAttribute("maxPage",classInfoDtoList.getTotalPages());
 		model.addAttribute("userSearchDto", userSearchDto);
-		return "/MainForm/Class/classList";
+		return "/mainForm/class/classList";
 	}
 	
 	@PostMapping(value="/class")
@@ -75,7 +75,7 @@ public class ClassController { //강의 페이지
 		model.addAttribute("userSearchDto", userSearchDto);
 		model.addAttribute("checkCate",userSearchDto.getSearchQuery());
 		
-		return "/MainForm/Class/classList";
+		return "/mainForm/class/classList";
 	}
 	
 	@GetMapping(value="/detail/{classId}")
@@ -127,7 +127,7 @@ public class ClassController { //강의 페이지
 			return showMessageAndRedirect(message, model);
 		}
 		
-		return "/MainForm/Class/classDetail";
+		return "/mainForm/class/classDetail";
 		
 	}
 	

@@ -49,14 +49,14 @@ public class AdminContentController {
 //		List<ContentInfo> contentInfo = onContentService.getAllContent();
 		model.addAttribute("contentInfo", contentInfo);
 		model.addAttribute("maxPage", 5);
-		return "/AdminForm/AdminClass/contentList";
+		return "/adminForm/adminClass/contentList";
 	}
 	
 	@GetMapping(value = "/adminOnClass/contentVideoList/{contentId}") //콘텐츠비디오 교안보기 리스트
 	public String contentVideoList(@PathVariable("contentId") ContentInfo contentId, Model model) {	
 		List<ContentVideo> videoLists = videoService.videoList(contentId);
 		model.addAttribute("videoLists",videoLists);
-		return "/AdminForm/AdminClass/contentVideoList";
+		return "/adminForm/adminClass/contentVideoList";
 	}
 	
 	@GetMapping(value = "/adminOnClass/video/{videoUrl}") //콘텐츠비디오 재생페이지
@@ -70,7 +70,7 @@ public class AdminContentController {
 		videoService.createStudyResult(email, contentId);
 		model.addAttribute("contentId",contentId);
 		model.addAttribute("videoUrl",url);
-		return "/AdminForm/AdminClass/contentVideo";
+		return "/adminForm/adminClass/contentVideo";
 	}
 	
 	@GetMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
@@ -78,13 +78,13 @@ public class AdminContentController {
 		model.addAttribute("active","contentInfo"); // 사이드 바 액티브
 		model.addAttribute("cateList",adminCategoryService.getCategory());
 		model.addAttribute("onContentDto", new OnContentDto());
-		return "/AdminForm/AdminClass/contentNew";
+		return "/adminForm/adminClass/contentNew";
 	}
 	
 	@PostMapping(value = "/adminOnClass/contentNew") //콘텐츠 등록
 	public String contentNew(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model) {
 		if(bindingResult.hasErrors()) {
-			return "/AdminForm/AdminClass/contentNew";
+			return "/adminForm/adminClass/contentNew";
 		}
 		try {
 			onContentService.saveOnContent(onContentDto);

@@ -17,42 +17,42 @@ public class AdminFormController {
 	
 	@GetMapping(value = "/profile")
 	public String profile() {
-		return "AdminForm/pages-profile";
+		return "adminForm/pages-profile";
 	}
 	
 	@GetMapping(value = "/blank")
 	public String blank() {
-		return "AdminForm/pages-blank";
+		return "adminForm/pages-blank";
 	}
 	
 	@GetMapping(value = "/button")
 	public String button() {
-		return "AdminForm/ui-buttons";
+		return "adminForm/ui-buttons";
 	}
 	
 	@GetMapping(value = "/forms")
 	public String forms() {
-		return "AdminForm/ui-forms";
+		return "adminForm/ui-forms";
 	}
 	
 	@GetMapping(value = "/cards")
 	public String cards() {
-		return "AdminForm/ui-cards";
+		return "adminForm/ui-cards";
 	}
 	
 	@GetMapping(value = "/typography")
 	public String typography() {
-		return "AdminForm/ui-typography";
+		return "adminForm/ui-typography";
 	}
 	
 	@GetMapping(value = "/icons")
 	public String icons() {
-		return "AdminForm/icons-feather";
+		return "adminForm/icons-feather";
 	}
 	
 	@GetMapping(value = "/list")
 	public String list() {
-		return "AdminForm/pages-list";
+		return "adminForm/pages-list";
 	}
 	
 	

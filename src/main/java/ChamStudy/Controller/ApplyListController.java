@@ -31,7 +31,7 @@ public class ApplyListController {
 	public String applyListView() { //회원 수강 리스트
 		
 
-		return "/MainForm/myclass/index";
+		return "/mainForm/myclass/index";
 	}
 	
 	@PostMapping(value="/applyList")

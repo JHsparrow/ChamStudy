@@ -173,7 +173,7 @@ public class UserMainMyPageController {
 		model.addAttribute("videoId",videoId);
 		model.addAttribute("firstVideoId",firstVideo);
 		model.addAttribute("lastVideoId",LastVideo);
-		return "mypage/Learning-Lecture";
+		return "mypage/learning-Lecture";
 	}
 	
 	//완강 플레이리스트에서 다른 회차 강의 클릭
@@ -207,7 +207,7 @@ public class UserMainMyPageController {
 		model.addAttribute("videoId",videoId);
 		model.addAttribute("firstVideoId",firstVideo);
 		model.addAttribute("lastVideoId",LastVideo);
-		return "mypage/Learning-Lecture";
+		return "mypage/learning-Lecture";
 	}
 	
 	//학습중 플레이리스트에서 다른 회차 강의 클릭
@@ -227,7 +227,7 @@ public class UserMainMyPageController {
 		model.addAttribute("firstVideoId",firstVideo);
 		model.addAttribute("lastVideoId",LastVideo);
 		
-		return "mypage/Learning-Lecture";
+		return "mypage/learning-Lecture";
 	}
 	
 	//수료증 리스트 페이지

@@ -47,7 +47,7 @@ public class AdminCategoryController {
 		model.addAttribute("active","category"); // 사이드 바 액티브
 		model.addAttribute("mainList", mainList);
 		model.addAttribute("maxPage", 5);
-		return "AdminForm/adminCategory/mainList";
+		return "adminForm/adminCategory/mainList";
 	}
 	
 	@GetMapping(value = "/sub/{mainid}") //서브 카테고리 리스트
@@ -60,7 +60,7 @@ public class AdminCategoryController {
 		model.addAttribute("subList", subList);
 		model.addAttribute("mainInfo", mainInfo);
 		model.addAttribute("maxPage", 5);
-		return "AdminForm/adminCategory/subList";
+		return "adminForm/adminCategory/subList";
 	}
 	
 	@GetMapping(value = "/consub/{mainid}") //콘텐츠 등록 서브 카테고리
@@ -77,7 +77,7 @@ public class AdminCategoryController {
 	
 	@GetMapping(value = "/new") //메인 카테고리 생성 페이지
 	public String mainCategoryCreateForm() {
-		return "AdminForm/adminCategory/mainNew";
+		return "adminForm/adminCategory/mainNew";
 	}
 	
 	

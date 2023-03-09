@@ -41,7 +41,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("maxPage",5);
 		model.addAttribute("active","comm"); // 사이드 바 액티브
-		return "AdminForm/AdminComm/comm-main";
+		return "adminForm/adminComm/comm-main";
 	}
 
 	@GetMapping(value = {"/comm/mento","comm/mento/{page}"})
@@ -54,7 +54,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		model.addAttribute("commSearchDto", commSearchDto);
 		model.addAttribute("maxPage", 5);
 		model.addAttribute("active","comm"); // 사이드 바 액티브
-		return "AdminForm/AdminComm/comm-mento";
+		return "adminForm/adminComm/comm-mento";
 	}
 
 	@GetMapping(value = {"/comm/qna","/comm/qna/{page}"})
@@ -67,7 +67,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		model.addAttribute("commSearchDto",commSearchDto);
 		model.addAttribute("maxPage",5);
 		model.addAttribute("active","comm"); // 사이드 바 액티브
-		return "AdminForm/AdminComm/comm-qna";
+		return "adminForm/adminComm/comm-qna";
 	}
 	
 	//게시판 상세 페이지
@@ -93,7 +93,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 			request.getSession().setAttribute("redirectURI", referer);
 			//전 페이지의 링크를 view에 hidden으로 남기려고 작성
 			model.addAttribute("referer",referer);
-		return "AdminForm/AdminComm/comm-Dtl-Form";
+		return "adminForm/adminComm/comm-Dtl-Form";
 	}
 
 	@GetMapping(value = "/comm/delete") // 게시글 삭제&댓글 삭제
