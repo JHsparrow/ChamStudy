@@ -43,6 +43,13 @@
 
             $(this).siblings(".custom-file-label").html(fileName);
         })};
+        function changenofix(){
+        	var checkfix = $('#fix5').val();
+        	if(checkfix=='Y'){
+	        	alert('고정글은 5개까지 가능합니다.\n\n기존 고정글을 확인해주세요.');
+	        	$('.gothis').prop("checked",true);
+        	} 
+        }
 
 </script>
 
@@ -66,6 +73,7 @@
 							<div class="col-sm-12">
 								<div class="card">
 									<form action="uploadInform" method="post" enctype="multipart/form-data" th:object="${csInformDto}">
+										<input type="hidden" id="fix5" th:value="${fix5}">
 										<input type="hidden" th:field="*{id}"/>
 										<input type="hidden" th:field="*{viewCount}"/>
 										<input type="hidden" name="email" th:value="${email}"/>
@@ -79,11 +87,11 @@
 											<div class="d-flex">
 												<span class="me-4">상단 고정 여부</span>
 												<label class="form-check">
-													<input class="form-check-input" type="radio" th:field="*{gubun}" value="f" name="radios-example">
+													<input class="form-check-input" onclick="changenofix()" type="radio" th:field="*{gubun}" value="f" name="radios-example">
 													<span class="form-check-label me-2">고정함</span>
 												</label>
 												<label class="form-check">
-													<input class="form-check-input" type="radio" th:field="*{gubun}" value="n" name="radios-example">
+													<input class="form-check-input gothis" type="radio" th:field="*{gubun}" value="n" name="radios-example">
 													<span class="form-check-label">고정하지 않음</span>
 												</label>
 												<p th:if="${#fields.hasErrors('gubun')}" th:errors="*{gubun}" class="fieldError">상단 고정 여부를 선택해 주세요.</p>

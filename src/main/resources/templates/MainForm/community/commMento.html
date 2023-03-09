@@ -28,17 +28,15 @@
 </head>
 <body>
 	<div layout:fragment="content">
+	<div class="container-fluid bg-primary py-5 mb-5 page-header1">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                </div>
+            </div>
+        </div>
+    </div>
 		<div class="body-wrap">
-			<div class="mento-header">
-				<div class="header-font-wrap">
-					<h2 class="mento-header1">멘토링</h2>
-					<div class="mento-header2-1">업계 선배들 혹은 동료들과 인사이트를 나눠보세요</div>
-					<div class="mento-header2-2">더 빨리,더 멀리 갈 수 있어요   (멘토는 수료한 강의가 있어야 할 수 있습니다.)</div>
-					<div class="mento-write" th:if="${not #lists.isEmpty(classNameDto)}">
-						<a class="mento-write-a" href="/comm/Mentocreate">멘토 지원하기</a>
-					</div>
-				</div>
-			</div>
 			<div class="side-body">
 				<form class="search-wrap" th:object="${commSearchDto}"
 					style="height: 40px;">
@@ -55,6 +53,9 @@
 						placeholder="검색" style="width: auto;">
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
+						<div class="mento-write" th:if="${not #lists.isEmpty(classNameDto)}">
+						<button id="mento-write-btn" class="btn btn-primary" type="button" onclick="location.href='/comm/Mentocreate'">멘토 신청</button>
+					</div>
 				</form>
 			</div>
 			<div class="main-body">

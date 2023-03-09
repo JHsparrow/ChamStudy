@@ -55,46 +55,49 @@
 
 <body>
 	<div layout:fragment="content">
-
+		<div class="formWrap card text-center">
 			<form id="frmContentNew" class="row g-3" method="post" enctype="multipart/form-data" th:object="${onContentDto}">
-			<h1 class="h3 mb-3">콘텐츠 수정</h1>
-			<input type="hidden" th:field="*{id}" />
-			<div class="row mb-3">
-				<select id="categorySelect" name="categoryId" class=" col-sm-2" onchange="getSubcategories()">
-					<option hidden>메인 카테고리</option>
-					<th:block th:each=" cateLists : ${cateList} ">
-						<option th:selected="${cateLists.id==onContentDto.getCategoryId}" th:value="${cateLists.id}">[[${cateLists.name}]]</option>
-					</th:block>
-				</select>
-				<select id="subcategorySelect" name="subCategoryId" class=" col-sm-2">
-					<option hidden>서브 카테고리</option>
-					
-				</select>
-			</div>
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">콘텐츠 이름</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" th:field="*{name}" placeholder="콘텐츠명 입력">
-			</div>
-				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
-			</div>
-			
-			<!-- 수정할때 -->
-			<div class="mb-3">
-				<label for="formFile" class="form-label class-file-label" th:text="${#strings.defaultString(onContentDto.oriImgName, '콘텐츠이미지')}"></label>
-				<input class="form-control class-file-input" type="file" id="contentImgFile" name="itemImgFile">
-			</div>
-			
-			
-			
-			<div th:if="${not #strings.isEmpty(onContentDto.id)}">
-				<input type="button" id="btnContentSave" class="btn btn-primary mb-3" value="저장" />
-			</div>
-		</form>
+				<h1 class="h3 mb-3">콘텐츠 수정</h1>
+				<input type="hidden" th:field="*{id}" />
+				<div class="mb-3 selbox">
+					<select id="categorySelect" name="categoryId" class="form-select-lg mb-3 me-3 col-sm-2" onchange="getSubcategories()">
+						<option hidden>메인 카테고리</option>
+						<th:block th:each=" cateLists : ${cateList} ">
+							<option th:selected="${cateLists.id==onContentDto.getCategoryId}" th:value="${cateLists.id}">[[${cateLists.name}]]</option>
+						</th:block>
+					</select>
+					<select id="subcategorySelect" name="subCategoryId" class="form-select-lg mb-3 col-sm-2">
+						<option hidden>서브 카테고리</option>
+						
+					</select>
+				</div>
+				<div class="row mb-3 jsc ps-4">
+					<label class="col-sm-1 col-form-label input-group-text formLabel">콘텐츠명</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" th:field="*{name}" placeholder="콘텐츠명 입력">
+				</div>
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
+				</div>
+				
+				<!-- 수정할때 -->
+				<div class="row mb-3 jsc ps-4">
+					<label for="formFile" class="col-sm-1 form-label class-file-label input-group-text formLabel" th:text="${#strings.defaultString(onContentDto.oriImgName, '콘텐츠이미지')}"></label>
+					<input class="form-control custom-file-input w-49 finput ms-3" type="file" id="contentImgFile" name="itemImgFile">
+				</div>
+				
+				
+				
+				<div th:if="${not #strings.isEmpty(onContentDto.id)}">
+					<input type="button" id="btnContentSave" class="btn btn-primary mb-3 btnFrm" value="저장" />
+				</div>
+			</form>
+			<input type="hidden" id="valCateId" th:value="${onContentDto.getCategoryId}">
+			<input type="hidden" id="valScateId" th:value="${onContentDto.getSubCategoryId}">
+		</div>
 		<script th:inline="javascript">
 		$(function(){
-			var categoryId = /*[[${onContentDto.getCategoryId}]]*/
-			var subcategoryId = /*[[${onContentDto.getSubCategoryId}]]*/
+			var categoryId = $('#valCateId').val();
+			var subcategoryId = $('#valScateId').val();
 		    $.ajax({
 		        url: "/adminCategory/consub/" + categoryId,
 	            type: 'GET',

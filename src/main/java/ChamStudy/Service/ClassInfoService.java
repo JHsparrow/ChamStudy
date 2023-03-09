@@ -15,8 +15,10 @@ import ChamStudy.Dto.ClassInfoListDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Entity.ClassInfo;
 import ChamStudy.Entity.ContentInfo;
+import ChamStudy.Entity.SubCategory;
 import ChamStudy.Repository.ClassInfoRepository;
 import ChamStudy.Repository.OnContentRepository;
+import ChamStudy.Repository.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,6 +28,7 @@ public class ClassInfoService {
 	
 	private final ClassInfoRepository classInfoRepository;
 	private final OnContentRepository onContentRepository;
+	private final SubCategoryRepository subCategoryRepository;
 	
 	//강의 등록
 	public Long saveClass(ClassInfoDto adminClassDto) throws Exception {
@@ -126,6 +129,10 @@ public class ClassInfoService {
     	}
 
         return classInfo.getId();
+    }
+    
+    public List<SubCategory> getSubCate(){
+    	return subCategoryRepository.findAll();
     }
      
 	

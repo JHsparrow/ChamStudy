@@ -196,5 +196,10 @@ public class CsService {
 	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
 		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
 	}
+	
+	//공지 고정 5개 체크
+	public Long countinform() {
+		return csInformRepository.CountFixinform();
+	}
 
 }

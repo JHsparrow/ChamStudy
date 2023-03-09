@@ -30,7 +30,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "join apply_list B on a.class_id = b.class_id \r\n"
 			+ "join content_info C on a.content_id = c.content_id\r\n"
 			+ "join sub_category D on d.sub_category_id = c.sub_category_id\r\n"
-			+ "group by A.class_id;", nativeQuery = true)
+			+ "group by A.class_id order by progressRate limit 5 ", nativeQuery = true)
 	List<EducationInfoInterface> educationInfo();
 	
 	@Query(value="select * from class_info where content_id = ?1", nativeQuery = true)
@@ -44,7 +44,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "join content_info B on b.content_id = a.content_id\r\n"
 			+ "join sub_category C on c.sub_category_id = b.sub_category_id\r\n"
 			+ "left join class_review D on d.class_id = a.class_id\r\n"
-			+ "group by a.class_id limit 7;", nativeQuery = true)
+			+ "group by a.class_id limit 7 ", nativeQuery = true)
 	List<MainFormDto> getMainClassInfo();
 	
 	@Query(value="select a.class_id as id, a.class_name as classname , a.price, c.name as subname,b.img_url as imgurl, \r\n"
@@ -55,7 +55,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "join content_info B on b.content_id = a.content_id\r\n"
 			+ "join sub_category C on c.sub_category_id = b.sub_category_id\r\n"
 			+ "left join class_review D on d.class_id = a.class_id\r\n"
-			+ "group by a.class_id order by starpoint desc limit 7;", nativeQuery = true)
+			+ "group by a.class_id order by starpoint desc limit 7 ", nativeQuery = true)
 	List<MainFormDto> getMainClassInfostar();
 
 	
@@ -73,7 +73,7 @@ public interface ClassInfoRepository extends JpaRepository<ClassInfo, Long>
 			+ "join class_review B on a.class_id = b.class_id\r\n"
 			+ "join content_info C on c.content_id = a.content_id\r\n"
 			+ "join sub_category D on d.sub_category_id = c.sub_category_id\r\n"
-			+ "join user_info E on e.user_id = b.user_id;", nativeQuery = true)
+			+ "join user_info E on e.user_id = b.user_id ", nativeQuery = true)
 	List<MainReviewDto> getMainReview();
 	
 	

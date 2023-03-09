@@ -23,7 +23,7 @@
 	<div layout:fragment="content">
 		<main class="content">
 			<div class="container-fluid p-0">
-				<h1 class="h3 mb-3"><strong>참스터디</strong> Dashboard</h1>
+				<h1 class="h3 mb-3"><strong>참스터디 관리자 페이지</strong></h1>
 				<div class="row">
 					<div class="col-xl-6 col-xxl-5 d-flex">
 						<div class="w-100">
@@ -37,16 +37,12 @@
 												</div>
 
 												<div class="col-auto">
-													<div class="stat text-primary">
+													<div class="stat">
 														<i class="fa-solid fa-users"></i>
 													</div>
 												</div>
 											</div>
 											<h1 class="mt-1 mb-3">[[${countMember}]]명</h1>
-											<div class="mb-0">
-												<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-												<span class="text-muted">Since last week</span>
-											</div>
 										</div>
 									</div>
 									<div class="card">
@@ -57,16 +53,12 @@
 												</div>
 
 												<div class="col-auto">
-													<div class="stat text-primary">
+													<div class="stat">
 														<i class="fa-solid fa-house-user"></i>
 													</div>
 												</div>
 											</div>
-											<h1 class="mt-1 mb-3">[[${countVisitor}]]명</h1>
-											<div class="mb-0">
-												<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-												<span class="text-muted">Since last week</span>
-											</div>
+											<h1 class="mt-1 mb-3">[[${countVisitor}]]</h1>
 										</div>
 									</div>
 								</div>
@@ -79,16 +71,12 @@
 												</div>
 
 												<div class="col-auto">
-													<div class="stat text-primary">
+													<div class="stat">
 														<i class="fa-solid fa-chalkboard-user"></i>
 													</div>
 												</div>
 											</div>
 											<h1 class="mt-1 mb-3">[[${countClass}]]개</h1>
-											<div class="mb-0">
-												<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-												<span class="text-muted">Since last week</span>
-											</div>
 										</div>
 									</div>
 									<div class="card">
@@ -99,16 +87,12 @@
 												</div>
 
 												<div class="col-auto">
-													<div class="stat text-primary">
+													<div class="stat">
 														<i class="fa-solid fa-book-open-reader"></i>
 													</div>
 												</div>
 											</div>
 											<h1 class="mt-1 mb-3">[[${countApply}]]명</h1>
-											<div class="mb-0">
-												<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-												<span class="text-muted">Since last week</span>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -119,7 +103,8 @@
 						<div class="card flex-fill">
 							<div class="card-header">
 
-								<h5 class="card-title mb-0">교육 진행정보</h5>
+								<h5 class="card-title mb-0 d-inline-block">교육 진행정보</h5>
+								<span class="btn btn-secondary mBtn"><a href="/adminApply/list">전체보기</a></span>
 							</div>
 							<table class="table table-hover my-0 text-center">
 								<colgroup>
@@ -142,14 +127,11 @@
 										<td class="d-none d-xl-table-cell">[[${eduList.getCompletionRate()}]]%</td>
 									</tr>
 									</th:block>
-									
 								</tbody>
 							</table>
 						</div>
 					</div>
-					
 				</div>
-
 				<div class="row">
 					<input type="hidden" id="mCateNum" th:value="${countChartMain.size()}">
 					<input type="hidden" id="s1CateNum" th:value="${countChartSubIt.size()}">
@@ -259,35 +241,6 @@
 											</th:block>
 										</tbody>
 									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					
-					<div class="col-12 col-lg-8 col-xxl-9">
-						<div class="card flex-fill w-100">
-							<div class="card-header">
-
-								<h5 class="card-title mb-0">Recent Movement</h5>
-							</div>
-							<div class="card-body py-3">
-								<div class="chart chart-sm">
-									<canvas id="chartjs-dashboard-line"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-12 col-lg-4 col-xxl-3 d-flex">
-						<div class="card flex-fill w-100">
-							<div class="card-header">
-
-								<h5 class="card-title mb-0">Monthly Sales</h5>
-							</div>
-							<div class="card-body d-flex w-100">
-								<div class="align-self-center chart chart-lg">
-									<canvas id="chartjs-dashboard-bar"></canvas>
 								</div>
 							</div>
 						</div>
