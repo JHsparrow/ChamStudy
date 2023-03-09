@@ -493,3 +493,6 @@ $text-primart{
 .subtextactive{
     box-shadow: rgba(100,47,5,0.3) 0 6px;
 }
+.pointer{
+	cursor:pointer;
+}
