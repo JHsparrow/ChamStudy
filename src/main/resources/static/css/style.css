@@ -160,3 +160,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 	position: relative;
     right: 15px;
 }
+.mBtn{
+	float: right;
+    height: 20px !important; 
+    line-height: 6px !important;
+    font-size: 13px !important;
+}
+.mBtn > a {
+	text-decoration: none;
+	color: white;
+}
