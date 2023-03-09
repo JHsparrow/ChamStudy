@@ -86,11 +86,23 @@ ul.pagination {
     top: 125px;
 }
 
+.Admin-Dtl-Content2-2c {
+    position: absolute;
+    right: 3vw;
+    top: 65px;
+}
+
 .Admin-Dtl-Content2-3 {
     width: 65vw;
 }
 
 .Admin-Dtl-Content3-1 {
+    right: 2vw;
+    position: absolute;
+    margin-top: 15px;
+}
+
+.Admin-Dtl-Content3-1c {
     right: 2vw;
     position: absolute;
     margin-top: 15px;
@@ -107,6 +119,13 @@ ul.pagination {
 .Admin-dtl-Content5 {
 	display:flex;
     margin-left: 68vw;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.Admin-dtl-Content5c {
+	display:flex;
+    margin-left: 64vw;
     margin-top: 40px;
     margin-bottom: 15px;
 }
