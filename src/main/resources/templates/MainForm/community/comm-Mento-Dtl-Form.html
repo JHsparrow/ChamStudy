@@ -46,13 +46,13 @@
 								<div class="Dtl-Content2-3-1">[[${comm.regdate}]]</div>
 								<div class="Dtl-content2-3-2">조회수:[[${comm.viewCount}]]</div>
 								<div class="mycomm-menu" th:if="${email == comm.userInfo.email}">
-									<button class="mycomm-delete" th:onclick="|location.href='@{/comm/delete(boardId=${comm.id})}'|">삭제</button>	
-									<a class="mycomm-modify" th:href="'/comm/Mentocreate/'+${comm.id}" >수정</a>	
+									<button id="delete" class="btn btn-primary" th:onclick="|location.href='@{/comm/delete(boardId=${comm.id})}'|">삭제</button>	
+									<button id="modify" class="btn btn-primary" th:onclick="|location.href='@{/comm/Mentocreate/}${comm.id}'|">수정</button>	
 								</div>
 							</div>
 						</div>
 						<div class="Dtl-Content3">[[${comm.substance}]]</div>
-						<button class="openchat-Link"
+						<button class="btn btn-primary"
 							th:onclick="'location.href=\''+ @{${comm.openChat}} + '\''">오픈채팅</button>
 					</div>
 				</div>

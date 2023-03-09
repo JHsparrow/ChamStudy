@@ -44,7 +44,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		return "AdminForm/AdminComm/comm-main";
 	}
 
-	@GetMapping(value = "/comm/mento")
+	@GetMapping(value = {"/comm/mento","comm/mento/{page}"})
 	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);
@@ -57,7 +57,7 @@ public class AdminCommController { // 관리자 커뮤니티 게시판
 		return "AdminForm/AdminComm/comm-mento";
 	}
 
-	@GetMapping(value = "/comm/qna")
+	@GetMapping(value = {"/comm/qna","/comm/qna/{page}"})
 	public String commQna(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
 		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 10);

@@ -25,6 +25,7 @@ import ChamStudy.Dto.CsInformDto;
 import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Dto.CsInformListDto;
 import ChamStudy.Dto.CsQnaDto;
+import ChamStudy.Dto.MainInformInterface;
 import ChamStudy.Dto.MessageDto;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Service.CsImgService;
@@ -51,7 +52,10 @@ public class CsController {
 	//=========================================== 고객센터 메인 ===========================================
 	
 	@GetMapping(value="/index")
-	public String csMain() {
+	public String csMain(Model model) {
+		List<MainInformInterface> mainInformList = csService.getMainInformList();
+		model.addAttribute("mainInformList", mainInformList);
+		
 		return "cs/index";
 	}
 	
