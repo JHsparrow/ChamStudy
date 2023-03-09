@@ -53,8 +53,8 @@
 						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;" onKeypress="javascript:if(event.keyCode==13) {search_onclick_submit}">
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
-					<div class="write-btn">
-						<a class="write-btn-a" onclick="location.href='/comm/create';">글쓰기</a>
+					<div class="write-btn" onclick="location.href='/comm/create';">
+						<a class="write-btn-a" >글쓰기</a>
 					</div>
 					</form>
 				</div>
@@ -64,18 +64,16 @@
 							<div class="comm-wrap" th:onclick="|location.href='@{/comm/dtl/}'+${comm.id}|">
 								<div class="comm-li1">
 									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<a class="comm-li1-2">조회</a>
+									<span class="comm-li1-2">조회</span>
 								</div>
 								<div class="comm-wrap2">
 									<div class="comm-li2">
-										<a class="comm-wrap-a2">[[${comm.Title}]]</a>
+										<span class="comm-wrap-a2">[[${comm.Title}]]</span>
 									</div>
 									<div class="comm-li3-1">
-										<a th:href="'/comm/dtl/'+${comm.id}"
-											class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
+										<span class="comm-wrap-a3">[[${comm.userInfo.name}]]</span>
 										<div class="comm-li3-2">
-											<a th:href="'/comm/dtl/'+${comm.id}"
-												class="comm-wrap-a4">[[${comm.regDate}]]</a>
+											<span class="comm-wrap-a4">[[${comm.regDate}]]</span>
 										</div>
 									</div>
 								</div>

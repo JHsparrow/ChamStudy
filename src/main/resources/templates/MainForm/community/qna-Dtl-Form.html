@@ -47,8 +47,8 @@
 								<div class="Dtl-Content2-3-1">[[${comm.regdate}]]</div>
 								<div class="Dtl-content2-3-2">조회수:[[${comm.viewCount}]]</div>
 								<div class="mycomm-menu" th:if="${email == comm.userInfo.email}">
-									<button class="mycomm-delete" th:onclick="|location.href='@{/comm/delete(boardId=${comm.id})}'|">삭제</button>	
-									<a class="mycomm-modify" th:href="'/comm/QnAUpdate/'+${comm.id}" >수정</a>	
+									<button id="delete" class="btn btn-primary" th:onclick="|location.href='@{/comm/delete(boardId=${comm.id})}'|">삭제</button>	
+									<button id="modify" class="btn btn-primary" th:onclick="|location.href='@{/comm/QnAUpdate/}${comm.id}'|">수정</button>		
 								</div>
 							</div>
 						</div>
@@ -96,7 +96,7 @@
 								<div class="btn-wrap">
 									<div>
 										<button th:formaction="@{/comm/qnacomment/create}" type="submit"
-											onclick="valinput()" class="btn btn-primary mb-3">저장</button>
+											onclick="valinput()" class="btn btn-primary" id="comment-save">저장</button>
 									</div>
 								</div>
 							</form>
@@ -117,7 +117,7 @@
 										<span>이 댓글은 관리자에 의해 차단됐습니다.</span>
 									</div>
 									<div class="comm-del-wrap" th:if="${email == comment.userInfo.email}">
-										<button class="Admin-reply-Delete"
+										<button id="Admin-reply-Delete" class="btn btn-primary"
 											th:onclick="|location.href='@{/comm/delete(boardId=${comment.id})}'|">삭제</button>
 									</div>
 								</div>

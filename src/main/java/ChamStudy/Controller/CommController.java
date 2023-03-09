@@ -200,14 +200,16 @@ public class CommController { //커뮤니티 컨트롤러
 			@PostMapping(value = "/comm/boardUpdate/{boardId}")
 			public String boardUpdate(@PathVariable("boardId") Long boardId,@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, 
 					Model model) {
+				MessageDto message;
 				try {
 					commWriteFormDto.setId(boardId);
 					commService.updateboard(commWriteFormDto);
+					message = new MessageDto("글 등록을 완료했습니다.", "/comm/dtl/"+boardId);
 				} catch (Exception e) {
-					model.addAttribute("errorMessage","수정 중 에러가 발생하였습니다.");
+					message = new MessageDto("글 등록을 실패했습니다.", "/comm");
 					return "MainForm/community/commWrite";
 				}
-				return "redirect:/";
+				return showMessageAndRedirect(message, model);
 			}
 			
 			//QnA게시판 수정페이지 저장
@@ -218,7 +220,7 @@ public class CommController { //커뮤니티 컨트롤러
 				try {
 					commWriteFormDto.setId(boardId);
 					commService.updateboard(commWriteFormDto);
-					message = new MessageDto("글 등록을 완료했습니다.", "/comm/qna");
+					message = new MessageDto("글 등록을 완료했습니다.", "/comm/qnadtl/"+boardId);
 				} catch (Exception e) {
 					message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
 					return "MainForm/community/commQnAWrite";
@@ -230,21 +232,23 @@ public class CommController { //커뮤니티 컨트롤러
 			@PostMapping(value = "/comm/Mentocreate/{boardId}")
 			public String itemUpdate(@PathVariable("boardId") Long boardId,@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, 
 					Model model) {
+				MessageDto message;
 				try {
 					commWriteFormDto.setId(boardId);
 					commService.updateboard(commWriteFormDto);
+					message = new MessageDto("글 등록을 완료했습니다.", "/comm/dtl/mento/"+boardId);
 				} catch (Exception e) {
-					model.addAttribute("errorMessage","상품 수정 중 에러가 발생하였습니다.");
+					message = new MessageDto("글 등록을 실패했습니다.", "/comm/dtl/mento/");
 					return "MainForm/community/commMentoWrite";
 				}
-				return "redirect:/";
+				return showMessageAndRedirect(message, model);
 			}
 	
 	//멘토게시판
 	@GetMapping(value = {"/comm/mento","/comm/mento/{page}"})
 	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
-		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 8);
+		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 24);
 		Page<MainCommDto> adminMainCommDtoList = commSearchService.getMentoCommPage(commSearchDto, adminMainCommDto, pageable);
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<CommMentoClassNameDto> classNameDto = commService.getMentoClassName(email);
