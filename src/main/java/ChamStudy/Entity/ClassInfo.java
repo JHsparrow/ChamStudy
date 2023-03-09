@@ -49,11 +49,7 @@ public class ClassInfo {
 	@Column(name="class_name")
 	private String name;	
 	
-	private Integer price;
-	
 	private String teacherName;
-	
-	private Integer peopleNum;
 	
 	private String sDate;
 	

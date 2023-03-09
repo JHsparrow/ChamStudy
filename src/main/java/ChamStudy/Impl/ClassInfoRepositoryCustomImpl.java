@@ -63,7 +63,7 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
 			
 			List<ClassInfoListDto> classInfoList = queryFactory
 	                .select(Projections.constructor(ClassInfoListDto.class, classInfo.id,
-	                		classInfo.name, classInfo.price, classInfo.peopleNum, classInfo.regDate.as("date"), classInfo.teacherName, 
+	                		classInfo.name, classInfo.regDate.as("date"), classInfo.teacherName, 
 	                		classInfo.sDate, classInfo.eDate, contentInfo.id, contentInfo.name, contentInfo.imgUrl)) //select 컬럼1, 컬럼2, 컬럼... from class_info
 	                .from(classInfo)
 	                .join(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
@@ -101,7 +101,7 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
 		
 		List<ClassInfoListDto> classList = queryFactory		
                 .select(Projections.constructor(ClassInfoListDto.class, classInfo.id,
-                		classInfo.name, classInfo.price, classInfo.peopleNum, classInfo.regDate.as("date"), classInfo.teacherName, 
+                		classInfo.name, classInfo.regDate.as("date"), classInfo.teacherName, 
                 		classInfo.sDate, classInfo.eDate, contentInfo.id, contentInfo.name, contentInfo.imgUrl)) //select 컬럼1, 컬럼2, 컬럼... from class_info
                 .from(classInfo)
                 .join(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
@@ -140,7 +140,7 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
 		
 		ClassInfoListDto classDetail = queryFactory		
                 .select(Projections.constructor(ClassInfoListDto.class, classInfo.id,
-                		classInfo.name, classInfo.price, classInfo.peopleNum, classInfo.regDate.as("date"), classInfo.teacherName, 
+                		classInfo.name, classInfo.regDate.as("date"), classInfo.teacherName, 
                 		classInfo.sDate, classInfo.eDate, contentInfo.id, contentInfo.name, contentInfo.imgUrl)) //select 컬럼1, 컬럼2, 컬럼... from class_info
                 .from(classInfo)
                 .join(contentInfo).on(classInfo.contentInfo.id.eq(contentInfo.id))
@@ -160,11 +160,9 @@ public class ClassInfoRepositoryCustomImpl implements ClassInfoRepositoryCustom 
                 .set(classInfo.name, adminClassDto.getName())
                 .set(classInfo.teacherName, adminClassDto.getTeacherName())
                 .set(classInfo.contentInfo.id, adminClassDto.getContentId())
-                .set(classInfo.peopleNum, adminClassDto.getPeopleNum())
                 //.set(classInfo.regDate, adminClassDto.getRegDate())
                 .set(classInfo.sDate, adminClassDto.getSDate())
                 .set(classInfo.eDate, adminClassDto.getEDate())
-                .set(classInfo.price, adminClassDto.getPrice())
                 .where(classInfo.id.eq(adminClassDto.getId()))
                 .execute(); //update 실행
 		

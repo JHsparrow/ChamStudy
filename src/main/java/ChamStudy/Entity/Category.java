@@ -17,7 +17,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import ChamStudy.Dto.modifySubCategoryDto;
 import groovy.transform.ToString;
 import lombok.Getter;
 import lombok.Setter;

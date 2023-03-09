@@ -9,10 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import groovy.transform.ToString;
@@ -36,7 +34,4 @@ public class StudyResult extends BaseTimeEntity {
 	private ApplyList applyId;
 	
 	private Long progress;
-	
-	private int exam_score;
-	
 }
