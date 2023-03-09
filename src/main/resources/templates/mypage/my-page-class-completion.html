@@ -102,9 +102,6 @@
 
 								<!-- 페이징 버튼 -->
 								<div class="row justify-content-center">
-									<div class="col-sm-12 col-md-3">
-										<div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite"></div>
-									</div>
 									<div class="col-sm-12 col-md-6">
 										<nav th:with="start=${(completionList.number/maxPage)*maxPage + 1},
 										end=(${(completionList.totalPages == 0) ? 1 : (start + (maxPage -1) < completionList.totalPages ? start + (maxPage -1) : completionList.totalPages)})">

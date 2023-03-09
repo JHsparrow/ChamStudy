@@ -39,7 +39,7 @@
 												<tr>
 													<th>아이디</th>
 													<th>메인 카테고리 이름</th>
-													<th>서브 카테고리 수</th>
+													<th>서브 <br /> 카테고리 수</th>
 													<th>등록일</th>
 													<th>수정</th>
 													<th>삭제</th>
@@ -49,7 +49,7 @@
 												<tr th:if="${cateList.getId()!=null}">
 													<td class="dtr-control sorting_1" tabindex="0"><strong>[[${cateList.getId()}]]</strong></td>
 													<td><a th:href="'/adminCategory/sub/'+${cateList.getId()}">[[${cateList.getName()}]]</a></td>
-													<td>[[${cateList?.getCount()}]]</td>
+													<td>[[${cateList.getCount()}]]</td>
 													<td>[[${cateList.getDate().substring(0,13)}]]</td>
 													<td>
 														<button th:onclick="modifySet([[${cateList.getId()}]],[[${cateList.getName()}]])" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">수정</button>
@@ -64,7 +64,7 @@
 												</th:block>
 												<th:block th:if="${mainList.getContent().size() == 0 }">
 												<tr>
-													<td colspan="5"><strong>등록된 카테고리가 없습니다.</strong></td>
+													<td colspan="6"><strong>등록된 카테고리가 없습니다.</strong></td>
 												</tr>
 												</th:block>
 											</tbody>

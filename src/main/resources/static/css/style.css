@@ -133,3 +133,40 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 
 .pointer{cursor: pointer;}
+.formWrap{
+	margin: 20px 0;
+	padding:30px;
+}
+.formLabel{
+	text-align: center;
+	justify-content: center;
+}
+.jsc{
+	justify-content: center;
+}
+.finput{height: 39px;}
+.w-49{ width:49% !important;}
+.btn-primary{
+	background: #ab6e3ecf !important;
+	border: 1px solid #ab6e3ecf !important;
+}
+.selbox{
+    position: relative;
+    right: 185px;
+}
+.btnFrm{width:58%;}
+.btnFrmC{
+	width:58%;
+	position: relative;
+    right: 15px;
+}
+.mBtn{
+	float: right;
+    height: 20px !important; 
+    line-height: 6px !important;
+    font-size: 13px !important;
+}
+.mBtn > a {
+	text-decoration: none;
+	color: white;
+}

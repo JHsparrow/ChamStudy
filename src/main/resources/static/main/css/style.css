@@ -477,3 +477,22 @@ $text-primart{
 
 
 /*별점*/
+.sub{
+	position:relative;
+	transition: 0.3s;
+	transition-property:top;
+}
+.sub:hover{
+	transition:0.5s;
+	top: -15px;
+	cursor: pointer;
+}
+.subactive{
+    top: -15px;
+}
+.subtextactive{
+    box-shadow: rgba(100,47,5,0.3) 0 6px;
+}
+.pointer{
+	cursor:pointer;
+}

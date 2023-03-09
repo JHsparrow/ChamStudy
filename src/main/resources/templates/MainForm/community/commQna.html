@@ -29,6 +29,13 @@
 <body>
 	<div layout:fragment="content">
 		<div class="body-wrap">
+		<div class="container-fluid bg-primary py-5 mb-5 page-header2">
+				<div class="container py-5">
+					<div class="row justify-content-center">
+						<div class="col-lg-10 text-center"></div>
+					</div>
+				</div>
+			</div>
 			<div class="side-body">
 				<div class="side-1">
 					<a class="side-a-1" href="/comm">자유주제</a>
@@ -53,8 +60,8 @@
 						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;">
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
-					<div class="write-btn">
-						<a class="write-btn-a" th:onclick="|location.href='@{/comm/QnAcreate}'|">글쓰기</a>
+					<div class="write-btn" th:onclick="|location.href='@{/comm/QnAcreate}'|">
+						<a class="write-btn-a" >글쓰기</a>
 					</div>
 				</form>
 				<div class="boards">
@@ -63,16 +70,16 @@
 							<div class="comm-wrap" th:onclick="|location.href='@{/comm/QnAdtl/}'+${comm.id}|">
 								<div class="comm-li1">
 									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<a class="comm-li1-2">조회</a>
+									<span class="comm-li1-2">조회</span>
 								</div>
 								<div class="comm-wrap2">
 									<div class="comm-li2">
-										<a class="comm-wrap-a2">[[${comm.Title}]]</a>
+										<span class="comm-wrap-a2">[[${comm.Title}]]</span>
 									</div>
 									<div class="comm-li3-1">
-										<a class="comm-wrap-a3">[[${comm.userInfo.name}]]</a>
+										<span class="comm-wrap-a3">[[${comm.userInfo.name}]]</span>
 										<div class="comm-li3-2">
-											<a class="comm-wrap-a4">[[${comm.regDate}]]</a>
+											<span class="comm-wrap-a4">[[${comm.regDate}]]</span>
 										</div>
 									</div>
 								</div>
@@ -91,19 +98,19 @@
 									<li th:classappend="${comms.first}? 'disabled'"
 										class="paginate_button page-item previous disabled mx-1"
 										id="datatables-orders_previous"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
+										th:href="@{'/comm/qna' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
 										aria-controls="datatables-orders" data-dt-idx="0" tabindex="0"
 										class="page-link">&lt </a></li>
 									<li th:each="page: ${#numbers.sequence(start, end)}"
 										th:classappend="${comms.number eq page-1}?'active':''"
 										class="paginate_button page-item mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
+										th:href="@{'/comm/qna' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
 										aria-controls="datatables-orders" data-dt-idx="1" tabindex="0"
 										class="page-link">[[${page}]]</a></li>
 									<li th:classappend="${comms.last}? 'disabled'"
 										class="paginate_button page-item next"
 										id="datatables-orders_next  mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
+										th:href="@{'/comm/qna' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
 										aria-controls="datatables-orders" data-dt-idx="3" tabindex="0"
 										class="page-link">&gt</a></li>
 								</ul>

@@ -13,13 +13,12 @@
 <body>
 	<nav id="sidebar" class="sidebar js-sidebar" th:fragment="header_side">
 		<div class="sidebar-content overflow-auto">
-			<a class="sidebar-brand" href="/admin"> <span class="align-middle">AdminKit</span>
-			</a>
+			<a class="sidebar-brand" href="/admin"> <span class="">참스터디 관리자</span></a>
 			<ul class="sidebar-nav">
-				<li class="sidebar-header">Pages</li>
+				<li class="sidebar-header">페이지</li>
 				<li class="sidebar-item" th:classappend="${active} == 'dash' ? 'active'">
 					<a class="sidebar-link" href="/admin">
-           				<i class="fa-solid fa-sliders"></i><span>Dashboard</span>
+           				<i class="fa-solid fa-sliders"></i><span>메인페이지</span>
            			</a>
 				</li>
 				<!-- 로그인 테스트(김용수) -->
@@ -28,56 +27,42 @@
 		            	<i class="fa-solid fa-right-to-bracket"></i><span>로그인</span>
 		            </a>
 				</li>
-
-				<li class="sidebar-item" sec:authorize="isAnonymous()">
-					<a class="sidebar-link" href="/users/signUp">
-		            	<i class="fa-regular fa-address-card"></i><span>회원가입</span>
-		            </a>
-				</li>
-
-
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="/">
-		            	<i class="align-middle" data-feather="book"> </i><span class="text-danger">사용자 페이지 이동!!!</span>
-		            </a>
-				</li>
-				<!-- 로그인 테스트(김용수) end-->
-				
+				<li class="sidebar-header">회원관리</li>
 				<li class="sidebar-item" th:classappend="${active} == 'user' ? 'active'">
 					<a class="sidebar-link" href="/users/userList" >
-		            	<i class="fa-solid fa-people-roof"></i><span>회원관리</span>
+		            	<i class="fa-solid fa-people-roof"></i><span>회원 목록</span>
 		            </a>
 				</li>
 				<!-- 전은미 온라인강의 start -->
 				
-				<li class="sidebar-header">Online Class</li>
+				<li class="sidebar-header">클래스 관리</li>
 				<li class="sidebar-item" th:classappend="${active} == 'classInfo' ? 'active'">
 					<a class="sidebar-link" href="/adminClass/classList">
-						<i class="fa-solid fa-chalkboard"></i><span>강의 관리</span>
+						<i class="fa-solid fa-chalkboard"></i><span>강의 목록</span>
 					</a>
 				</li>
 				<li class="sidebar-item" th:classappend="${active} == 'contentInfo' ? 'active'">
 					<a class="sidebar-link" href="/adminOnClass/contents">
-						<i class="fa-regular fa-folder"></i><span>콘텐츠 관리</span>
+						<i class="fa-regular fa-folder"></i><span>콘텐츠 목록</span>
 					</a>
 				</li>
 				<li class="sidebar-item" th:classappend="${active} == 'apply' ? 'active'">
 					<a class="sidebar-link" href="/adminApply/list">
-						<i class="fa-regular fa-folder"></i><span>수강생 관리</span>
+						<i class="fa-regular fa-folder"></i><span>교육진행정보</span>
 					</a>
 				</li>
 				<!-- 전은미 온라인강의 end -->
 				<!-- 커뮤니티 게시판 관리  -->
-				<li class="sidebar-header">User board management</li>
+				<li class="sidebar-header">커뮤니티 관리</li>
 				<li class="sidebar-item" th:classappend="${active} == 'comm' ? 'active'">
 					<a class="sidebar-link" href="/adminForm/comm">
 						<i class="fa-regular fa-comments"></i>
-						<span>커뮤니티 게시판 관리</span>
+						<span>게시판 목록</span>
 					</a>
 				</li>
 				<!-- 커뮤니티 게시판 관리 end -->
 				<!-- 고객센터 nav -->
-				<li class="sidebar-header">Customer Service</li>
+				<li class="sidebar-header">고객센터 관리</li>
 				<li class="sidebar-item" th:classappend="${active} == 'csInform' ? 'active'">
 					<a class="sidebar-link" href="/adminCs/inform">
 						<i class="fa-regular fa-clipboard"></i>
@@ -90,18 +75,12 @@
 						<span>자주묻는 질문</span>
 					</a>
 				</li>
-				<li class="sidebar-item" th:classappend="${active} == 'csQna' ? 'active'">
-					<a class="sidebar-link" href="/adminCs/qna">
-						<i class="fa-solid fa-headset"></i>
-						<span>1:1 문의</span>
-					</a>
-				</li>
 				<!-- 고객센터 nav end-->
 				<li class="sidebar-header">카테고리 관리</li>
 				<li class="sidebar-item" th:classappend="${active} == 'category' ? 'active'">
 					<a class="sidebar-link" href="/adminCategory/main">
 						<i class="fa-solid fa-list-ul"></i>
-						<span>카테고리 관리</span>
+						<span>카테고리 목록</span>
 					</a>
 				</li>
 			</ul>

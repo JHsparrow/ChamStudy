@@ -71,12 +71,14 @@ function valinput() {
 				<input type="hidden" name="id" th:value="${comm}" id="id" />
 			</div>
 			<div class="input-2">
-				<input type="text" th:field="*{Title}"
-					placeholder="제목에 핵심 내용을 요약해보세요" />
+				<input class="form-control form-control-lg" type="text"
+					aria-label=".form-control-lg example" th:field="*{Title}"
+					placeholder="제목에 핵심 내용을 적어보세요">
 			</div>
 			<div class="input-3">
-				<textarea rows="20" cols="70" th:field="*{substance}"
-					placeholder="글 내용을 입력하세요 (제목이랑 내용은 필수 항목입니다)"></textarea>
+				<textarea rows="10" cols="100" class="form-control"
+					id="exampleFormControlTextarea1" th:field="*{substance}"
+					placeholder="글 내용을 입력 해 보세요."></textarea>
 			</div>
 
 			<div class="input-4">
@@ -102,18 +104,18 @@ function valinput() {
 			<div class="btn-wrap">
 				<div th:if="${#strings.isEmpty(commWriteFormDto.id)}">
 					<button th:formaction="@{/comm/create}" type="submit"
-						onclick="valinput()" class="btn btn-primary mb-3">저장</button>
+						onclick="valinput()" class="btn btn-primary" name="save">저장</button>
 				</div>
 
 				<div th:unless="${#strings.isEmpty(commWriteFormDto.id)}">
 					<button
 						th:formaction="@{'/comm/boardUpdate/' + ${commWriteFormDto.id} }"
-						type="submit" onclick="valinput()" class="btn btn-primary mb-3">수정</button>
+						type="submit" class="btn btn-primary" name="modify">수정</button>
 				</div>
 
-				<div class="back-comm-btn">
-					<button th:onclick="location.href='/comm'" type="button"
-						class="back-comm">취소</button>
+				<div class="Back-btn">
+					<button type="button" th:onclick="|location.href='@{/comm}'|"
+						class="btn btn-primary" id="back">취소</button>
 				</div>
 			</div>
 		</form>

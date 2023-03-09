@@ -202,12 +202,29 @@
 				$('.tabs').css('height', (ulHeight + h) + "px");
 			})
 		});
+		
+		
+			   
 	</script>
 
 <style>
+.page-header {
+	background: url("/img/photos/banner2.jpg");
+	background-color: white !important;
+	background-size : contain;
+	height: 400px;
+	background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 0 !important;
+}
+
+.bstyle .btn {
+	width: 300px;
+}
+
 /* 레이아웃 외곽 너비 400px 제한, 리뷰 */
 .wrap{
-    max-width: 480px;
+    max-width: 600px;
     margin: 0 auto; /* 화면 가운데로 */
     background-color: #fff;
     height: 100%;
@@ -250,20 +267,6 @@
 .rating .rate_radio:checked + label {
     background-color: #FFFF00;
 }
-
-
-/* .warning_msg {
-    display: none;
-    position: relative;
-    text-align: center;
-    background: #ffffff;
-    line-height: 26px;
-    width: 100%;
-    color: red;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #e0e0e0;
-} */
 
 .rating2 {
 	width: 130px;
@@ -319,11 +322,12 @@
 
 .course__comment-box {
   background: #FBEBD4;
+  width: 460px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  padding: 25px 30px 25px 30px;
-  margin-bottom: 10px;
+  padding: 20px 10px 2px 20px;
+  margin: 0;
 }
 
 .course__comment-rating .fa:before {
@@ -356,351 +360,154 @@
 
 }
 
-/* 상세페이지 메뉴tab */
-.tabStyle * {
-  margin: 0;
-  padding: 0;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.tabStyle body {
-  padding: 20px;
-  text-align: left;
-  font-family: Lato;
-  color: black;
-}
-
-.tabStyle h1 {
-  font-weight: normal;
-  font-size: 40px;
-  font-weight: normal;
-  text-transform: uppercase;
-  float: left;
-  margin: 20px 0 100px 10px;
-}
-
-.tabStyle h1 span {
-  font-size: 13px;
-  display: block;
-  padding-left: 4px;
-}
-
-.tabs {
-  width: 650px;
-  float: none;
-  list-style: none;
-  position: relative;
-  margin: 80px 0 0 10px;
-  text-align: left;
-}
-.tabs li {
-  float: left;
-  display: block;
-}
-.tabs input[type="radio"] {
-  position: absolute;
-  top: 0;
-  left: -9999px;
-}
-.tabs label {
-  display: block;
-  padding: 14px 21px;
-  border-radius: 2px 2px 0 0;
-  font-size: 20px;
-  font-weight: normal;
-  text-transform: uppercase;
-  background: #ab6e3ecf  ;
-  cursor: pointer;
-  position: relative;
-  top: 4px;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  color: #fff;
-}
-
-.tabs .tab-content {
-  z-index: 2;
-  display: none;
-  overflow: hidden;
-  width: 100%;
-  font-size: 17px;
-  line-height: 25px;
-  padding: 25px;
-  position: absolute;
-  top: 53px;
-  left: 0;
-}
-.tabs [id^="tab"]:checked + label {
-  top: 0;
-  padding-top: 17px;
-  background: #642F05;
-}
-.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
-  display: block;
-}
-
-video { max-width: 80%; display: block; margin: 20px auto; }
-
 </style>
 
 <title>courses</title>
 </head>
 <body>
 
-	<div layout:fragment="content">
-	   <!-- Header Start -->
-	 	<div style="display: none;">
-			<input type="hidden" id="delIndex" name="delIndex" value="-1" />
-		</div>
-		    <div class="container-fluid bg-primary py-5 mb-5 page-header">
-		        <div class="container py-5">
-		            <div class="row justify-content-center">
-		                <div class="col-lg-10 text-center">
-		                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
-		                    <nav aria-label="breadcrumb">
-		                        <ol class="breadcrumb justify-content-center">
-		                            <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
-		                            <li class="breadcrumb-item"><a class="text-white" href="#">Class</a></li>
-		                            <li class="breadcrumb-item text-white active" aria-current="page">Class</li>
-		                        </ol>
-		                    </nav>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-	    <!-- Header End -->
+<div layout:fragment="content">
+   <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
                 
         <input type="hidden" id="classId" th:value="${adminClassDto.id}">
 				
-				<div class="row g-5 justify-content-center">
+				
 				<!-- 제목 -->
+				<div class="row g-5 justify-content-center">
 				<div class="col-md-4">
-					<h3 class="pb-4 mb-4 fst-italic border-bottom">
-						참스터디에서 배워요!
+					<h3 class="pb-4 mb-4 fst-italic border-bottom" style="color: #642F05">
+						✍️ 참스터디에서 배워요!
 					</h3>
 				</div>
-				
-					<!-- 오른쪽 신청버큰 고정 -->
-					<div class="col-md-2">
-					<div class="position-sticky" style="top: 2rem;">
-					<div class="p-4 mb-3 bg-light rounded">
-						<h4 class="fst-italic">무료신청</h4>
-						<div class="p-4">
-		                          <input type="button" class="btn btn-primary btn-lg" id="classOff" th:style="${isApplyListNew == 'Y' ? 'display: block;' : 'display: none;'}" value="수강신청">
-		                          <input type="button" class="btn btn-primary btn-lg" id="classOn" th:style="${isApplyListNew != 'Y' ? 'display: block;' : 'display: none;'}" value="신청완료">
-		                </div>
-						<p class="mb-0"></p>
-					</div>
-					</div>
-					</div>
 				</div>
-					<!-- 오른쪽 신청버큰 고정 -->
 					
-					<!-- 강의 이미지 -->				    
-					    <div class="row g-5 justify-content-center">
-					    <div class="col-md-6">
-					    <div class="card mb-4" style="max-width: 540px;">
-						  <div class="row g-0" style="height: 200px;">
-						    <div class="col-md-4" style="height: 200px;">
-						      <img th:src="${classDetail.imgUrl}" class="img-fluid rounded-start" alt="이미지" style="width: 100%; height: 100%;">
-						    </div>
-						    <div class="col-md-8">
-						      <div class="card-body">
-						      	<div class="cd-fixed-body__list" style="padding-bottom: 10px;">
-						      		<span class="infd-icon">
-										✍️
-						      		</span>
-						      		이런걸 배워요!
-						      	</div>						      						      
-						      
-						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
-						      		<span class="infd-icon">
-						      			<svg width="16" height="16" viewBox="0 0 16 16">
-						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
-						      			</svg>
-						      		</span>
-						      		컴퓨터 하드웨어 속성
-						      	</div>
-
-						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
-						      		<span class="infd-icon">
-						      			<svg width="16" height="16" viewBox="0 0 16 16">
-						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
-						      			</svg>
-						      		</span>
-						      		컴퓨터 하드웨어 속성
-						      	</div>
-						      	
-						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
-						      		<span class="infd-icon">
-						      			<svg width="16" height="16" viewBox="0 0 16 16">
-						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
-						      			</svg>
-						      		</span>
-						      		컴퓨터 하드웨어 속성
-						      	</div>
-						      	
-						      	<div class="cd-fixed-body__list" style="padding-bottom: 5px;">
-						      		<span class="infd-icon">
-						      			<svg width="16" height="16" viewBox="0 0 16 16">
-						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
-						      			</svg>
-						      		</span>
-						      		컴퓨터 하드웨어 속성
-						      	</div>
-						      	
-						      	<div class="cd-fixed-body__list">
-						      		<span class="infd-icon">
-						      			<svg width="16" height="16" viewBox="0 0 16 16">
-						      				<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
-						      			</svg>
-						      		</span>
-						      		컴퓨터 하드웨어 속성
-						      	</div>						      							      							      	
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						</div>
-						</div>
 					<!-- 강의 이미지 -->
-							
-
-				<!-- 커리큘럼 -->
-				<div class="container-fluid" style="background-color: #ffffff">
-				<div class="container">
-					<picture class="container__picture container__picture--center">
-						<source media="(min-width: 64.1rem)" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202211/070952-476/pain3.gif">
-						<source media="(max-width: 64rem)" srcset="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202211/070959-476/pain3mob.gif">
-						<img class="container__image" src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202211/070952-476/pain3.gif" style="width: 70rem;" loading="lazy">
-					</picture>				
-				</div>
-				</div>
-					
-					<!-- 커리큘럼, 리뷰 -->
-					<div class="row featurette justify-content-center">					
-					<ul class="tabs" role="tablist">
-					    <li class="labelStyle">
-					        <input type="radio" name="tabs" id="tab1" checked />
-					        <label for="tab1" 
-					               role="tab" 
-					               aria-selected="true" 
-					               aria-controls="panel1" 
-					               tabindex="0">Description</label>
-					        
-					        
-					        <div id="tab-content1" 
-					             class="tab-content" 
-					             role="tabpanel" 
-					             aria-labelledby="description" 
-					             aria-hidden="false">
-					             
-					             <p>
-					             	<b>
-									<img src="https://cdn.inflearn.com/public/files/courses/329126/ae784034-86cf-4ce0-b5e0-61eeab9d1c71/resume-guide-content(2)-03.png" width="670" height="200" style="display: block; margin-left: auto; margin-right: auto;">
-									</b>
-								</p>
-
-					        </div>
-					        
-					    </li>
-					  
-					    <li>
-					        <input type="radio" name="tabs" id="tab2" />
-					        <label for="tab2"
-					               role="tab" 
-					               aria-selected="false" 
-					               aria-controls="panel2" 
-					               tabindex="0">Review</label>
-					        <div id="tab-content2" 
-					             class="tab-content"
-					             role="tabpanel" 
-					             aria-labelledby="specification" 
-					             aria-hidden="true">
-					             <div id="review" role="tabpanel" aria-labelledby="review-tab">
-										<div class="wrap">
-						                 <!-- 코멘트 -->
-						                 <form id="delFrm" action="/mainForm/detail/{reviewId}">
-						                 	<input type="hidden" name="_method" value="delete"/>
-						                 <div class="course__comment mb-75">
-						                    <h3>[[${#lists.size(classReviewList)}]] Comments</h3>
-						
-							                 <th:block th:each="class_review, stat: ${classReviewList}">
-						                    <ul>
-						                       <li>
-						                          <div class="course__comment-box ">
-						                             <div class="course__comment-content">
-						                                <div class="course__comment-wrapper ml-70 fix">
-						                                   <div class="course__comment-info float-start">
-						                                      <h4>[[${class_review.userName}]]</h4>
-						                                      <span>[[${class_review.regDate}]]</span>
-						                                   </div>
-						                                   <div class="course__comment-rating float-start float-sm-end">
-							                                <small class="fa fa-star text-primary"></small>
-							                                <small class="fa fa-star text-primary"></small>
-							                                <small class="fa fa-star text-primary"></small>
-							                                <small class="fa fa-star text-primary"></small>
-							                                <small class="fa fa-star text-primary"></small>
-											            	<label>([[${class_review.starPoint}]])</label>
-						                                   </div>
-						                                </div>
-						                                <div class="course__comment-text">
-						                                   <p>[[${class_review.description}]]</p>
-						                             	</div>
-						                          	</div>
-						                          </div>
-						                       </li>
-							               		<div class="cmd">
-							               			<input type="hidden" name="reviewId" th:value="${class_review.id}" />
-													<input type="button" class="btn btn-primary btn-sm btn-review-del" value="삭제" />
-									        	</div>
-						                    </ul>
-						                    </th:block>
-						                 </div> 
-						            	</form>
-						            	<!-- 코멘트 -->
-						            	
-						                 	<!-- 후기 작성 -->
-										    <h1 style="font-size: 30px; padding-top: 20px">후기</h1>
-										    <form name="reviewform" class="reviewform" method="post" action="/save">
-										        <input type="hidden" name="rate" id="rate" value="0"/>
-										        <p class="title_star">별점과 리뷰를 남겨주세요.</p>
-										 
-										        <div class="review_rating">
-										            <div class="rating">
-										                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
-										                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
-										                <label for="rating1"></label>
-										                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
-										                <label for="rating2"></label>
-										                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" >
-										                <label for="rating3"></label>
-										                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점">
-										                <label for="rating4"></label>
-										                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점">
-										                <label for="rating5"></label>
-										            </div>
-										        </div>
-										        <div class="review_contents">
-										        	<label id="rate_count" style="background: none; color: black;">0/400</label>
-										            <textarea rows="10" class="review_textarea" name="description" placeholder="5자 이상 400자 이하로 작성해 주세요."></textarea>
-										        </div>   
-										        <div class="cmd">
-										        	<input type="button" class="btn btn-primary btn-lg" id="save" value="등록">
-										        </div>
-										    </form>
-										    <!-- 후기 작성 -->	
-										    </div>
-										    </div>
-					        </div>
-					    </li>
-					</ul>
+					<div class="row g-5 justify-content-center">
+					<div class="col-md-4" style="display: flex; gap:40px">
+						<div style="line-height: 0; margin: 0.5rem -1.5rem 0.5rem 0; flex-basis: 18rem;">
+							<span style="color: #495057;">
+								<img src="/img/photos/classD.jpg" class="img-fluid rounded-start" alt="이미지" style="border-radius: 0.3rem; margin:0.5rem 1rem 1rem 0; background-size:cover;">
+							</span>
+						</div>
+						 <div style="margin: 0.5rem 0 1.5rem 1rem; flex-basis: 25rem;">
+						 	<span style="color: #495057;">						 		
+						 		<span style="color: #495057;" class="infd-icon">
+									<svg width="16" height="16" viewBox="0 0 16 16">
+									<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+									</svg>
+									수강료가 부담되시는 분!
+						 		</span>
+								<br>
+						 		<span style="color: #495057;" class="infd-icon">
+									<svg width="16" height="16" viewBox="0 0 16 16">
+									<path fill="#00C471" fill-rule="evenodd" d="M13.78 4.22c.14.14.22.331.22.53s-.08.39-.22.53l-7.25 7.25c-.14.14-.331.22-.53.22s-.39-.08-.53-.22L2.22 9.28c-.133-.142-.205-.33-.201-.525.003-.194.082-.38.22-.517.137-.137.322-.216.516-.22.195-.003.383.07.525.202L6 10.94l6.72-6.72c.14-.14.331-.22.53-.22s.39.08.53.22z" clip-rule="evenodd"></path>
+									</svg>
+									무언가를 배우고 싶은 신 분!
+						 		</span>
+						 		<br>
+						 		<strong style="font-size: 2rem; color: #642F05;">지금 바로 신청하세요!</strong>
+						 		<br>
+						 		<br>
+						 		<!-- 신청버튼 -->
+									<div class="col-md-4 bstyle" style="margin-top: 0;">
+		                   			<input type="button" class="btn btn-primary btn-lg" id="classOff" th:style="${isApplyListNew == 'Y' ? 'display: block;' : 'display: none;'}" value="수강신청">
+		                   			<input type="button" class="btn btn-primary btn-lg" id="classOn" th:style="${isApplyListNew != 'Y' ? 'display: block;' : 'display: none;'}" value="신청완료">
+		                			</div>
+								<!-- 신청버튼 --> 		
+						 	</span>				 	
+						 </div>			
 					</div>
-			
-</div>
+					</div>
+					<br>
+
+					
+				<!-- 리뷰 -->
+			    <div id="review" role="tabpanel" aria-labelledby="review-tab">
+				<div class="wrap">
+	                <!-- 코멘트 -->
+	                <form id="delFrm" action="/mainForm/detail/{reviewId}">
+	                	<input type="hidden" name="_method" value="delete"/>
+	                <div class="course__comment mb-75">
+	                   <h3 style="color: #642F05">[[${#lists.size(classReviewList)}]] Comments</h3>
+	
+	                 <th:block th:each="class_review, stat: ${classReviewList}">
+	                 	<div class="cmd mx-5" style="text-align:right; padding:0 30px 10px 0;">
+	               			<input type="hidden" name="reviewId" th:value="${class_review.id}" />
+							<input type="button" class="btn btn-primary btn-sm btn-review-del" value="삭제" />
+			        	</div>							
+	                   <ul class="justify-content-center">
+	                      <li>
+	                         <div class="course__comment-box">
+	                            <div class="course__comment-content">
+	                               <div class="course__comment-wrapper ml-70 fix">
+	                                  <div class="course__comment-info float-start">
+	                                     <h4>[[${class_review.userName}]]</h4>
+	                                     <span>[[${class_review.regDate}]]</span>
+	                                  </div>                            
+	                                  <div class="course__comment-rating float-start float-sm-end">
+	                                <small class="fa fa-star text-primary"></small>
+	                                <small class="fa fa-star text-primary"></small>
+	                                <small class="fa fa-star text-primary"></small>
+	                                <small class="fa fa-star text-primary"></small>
+	                                <small class="fa fa-star text-primary"></small>
+					            	<label>([[${class_review.starPoint}]])</label>
+	                                  </div>
+	                               </div>
+	                               <div class="course__comment-text">
+	                                  <p>[[${class_review.description}]]</p>
+	                            	</div>
+	                         	</div>
+	                         </div>
+	                      </li>
+	                   </ul>                   
+	                   </th:block>
+	                </div> 
+	           	</form>
+	           	<!-- 코멘트 -->
+	           	
+	                	<!-- 후기 작성 -->
+				    <h3 style="font-size: 30px; padding-top: 20px; color: #642F05;">후기</h3>
+				    <form name="reviewform" class="reviewform" method="post" action="/save">
+				        <input type="hidden" name="rate" id="rate" value="0"/>
+				        <p class="title_star text-center" style="color: #642F05">별점과 리뷰를 남겨주세요.</p>
+				 
+				        <div class="review_rating">
+				            <div class="rating text-center">
+				                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+				                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
+				                <label for="rating1"></label>
+				                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
+				                <label for="rating2"></label>
+				                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" >
+				                <label for="rating3"></label>
+				                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점">
+				                <label for="rating4"></label>
+				                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점">
+				                <label for="rating5"></label>
+				            </div>
+				        </div>
+				        <div style="padding-left: 60px;">
+				        	<label id="rate_count" style="background: none; color: black;">0/400</label>
+				        </div>
+				        <div class="review_contents text-center">
+				            <textarea rows="10" class="review_textarea" style="width:460px;" name="description" placeholder="5자 이상 400자 이하로 작성해 주세요."></textarea>
+				        </div>   
+				        <div class="cmd mx-5" style="text-align:right;">
+				        	<input type="button" class="btn btn-primary btn-lg" id="save" value="등록">
+				        </div>
+				    </form>
+				    <!-- 후기 작성 -->	
+				    </div>
+				    </div>
+				
 </body>
 </html>

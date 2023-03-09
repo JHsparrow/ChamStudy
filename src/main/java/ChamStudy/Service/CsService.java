@@ -16,6 +16,7 @@ import ChamStudy.Dto.CsFaqListDto;
 import ChamStudy.Dto.CsInformDto;
 import ChamStudy.Dto.CsInformFileDto;
 import ChamStudy.Dto.CsInformListDto;
+import ChamStudy.Dto.MainInformInterface;
 import ChamStudy.Dto.UserSearchDto;
 import ChamStudy.Dto.WarnBoardDto;
 import ChamStudy.Entity.CsFaq;
@@ -134,7 +135,13 @@ public class CsService {
 		CsInform csInform = csInformRepository.findById(id)
 											 .orElseThrow(EntityNotFoundException::new);
 		csInformRepository.delete(csInform);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<MainInformInterface> getMainInformList() {
+		List<MainInformInterface> mainInformList = csInformRepository.getMainInformList();
 		
+		return mainInformList;
 	}
 	
 	//========================================== 자주묻는질문 ==========================================
@@ -188,6 +195,11 @@ public class CsService {
 	// 경고게시판 리스트 출력
 	public Page<WarnBoardDto> getWarnList (UserSearchDto userSearchDto, WarnBoardDto warnBoardDto, Pageable pageable){
 		return csFaqRepository.getWarnList(userSearchDto, warnBoardDto, pageable);
+	}
+	
+	//공지 고정 5개 체크
+	public Long countinform() {
+		return csInformRepository.CountFixinform();
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import ChamStudy.Dto.CsInformListDto;
+import ChamStudy.Dto.MainInformInterface;
 import ChamStudy.Entity.CsInform;
 import ChamStudy.Entity.UserInfo;
 import ChamStudy.Impl.CsRepositoryCustom;
@@ -28,6 +29,15 @@ public interface CsInformRepository extends JpaRepository<CsInform, Long>,
 	 * nativeQuery = true) List<CsInformFile> findByInformIdOrderByIdAsc(Long
 	 * informId);
 	 */
+<<<<<<< HEAD
+	@Query(value="select inform_id as id, title, view_count as viewCount, up_date as regDate from cs_inform order by regDate desc limit 5", nativeQuery = true)
+	List<MainInformInterface> getMainInformList(); 
+=======
 	@Query(value="select inform_id, title, view_count, up_date from cs_inform order by up_date desc limit 5 ;", nativeQuery = true)
 	List<CsInformListDto> getMainInformList ();
+	
+	
+	@Query(value = "select count(*) from cs_inform where gubun = 'f'", nativeQuery = true)
+	Long CountFixinform();
+>>>>>>> 18290d6bd693faddd0941075a4aba695078d3a5b
 }
