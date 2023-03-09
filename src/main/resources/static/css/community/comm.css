@@ -315,18 +315,10 @@ button#comment-save {
     margin-bottom: 20px;
 }
 
-.page-header1 {
-    background: url(/img/photos/community-1.png);
-    background-size: cover;
-    height: 400px;
-    background-position: 0 -800px;
-}
 
-.page-header2 {
-    background: url(/img/photos/community-1.png);
-    background-size: cover;
-    height: 400px;
-    background-position: 0 -800px;
+
+div.header-img {
+	margin-bottom: 25px;
 }
 
 
