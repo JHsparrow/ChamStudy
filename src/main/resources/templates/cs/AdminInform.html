@@ -73,7 +73,7 @@
 												<td class="dtr-control sorting_1" tabindex="0"><i class="fa-solid fa-volume-high"></i></td>
 												<td><a class="underline" th:onclick="|location.href='@{/adminCs/informDtl/}${fixedInform.id}'|"><strong>[[${fixedInform.title}]]</strong></a></td>
 												<td class="text-center">[[${fixedInform.viewCount}]]</td>
-												<td>[[${fixedInform.update.substring(0,13)}]]</td>
+												<td>[[${fixedInform.regdate.substring(0,13)}]]</td>
 												<td>
 													<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/adminCs/informMdf/}${fixedInform.id}'|">수정</a>
 												</td>
@@ -89,7 +89,7 @@
 											<td class="dtr-control sorting_1" tabindex="0"><strong>[[${inform.id}]]</strong></td>
 											<td><a class="underline" th:onclick="|location.href='@{/adminCs/informDtl/}+${inform.id}'|">[[${inform.title}]]</a></td>
 											<td class="text-center">[[${inform.viewCount}]]</td>
-											<td>[[${inform.update.substring(0,13)}]]</td>
+											<td>[[${inform.regdate.substring(0,13)}]]</td>
 											<td>
 												<a class="btn btn-primary btn-sm" th:onclick="|location.href='@{/adminCs/informMdf/}${inform.id}'|">수정</a>
 											</td>

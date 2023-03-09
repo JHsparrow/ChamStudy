@@ -64,7 +64,7 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 						csInform.id,
 						csInform.title,
 						csInform.viewCount,
-						csInform.upDate)
+						csInform.regDate)
 				)
 				.from(csInform)
 				.where(titleLike(userSearchDto.getSearchQuery()))
@@ -98,7 +98,7 @@ public class CsRepositoryCustomImpl implements CsRepositoryCustom {
 						csFixedInform.id,
 						csFixedInform.title,
 						csFixedInform.viewCount,
-						csFixedInform.upDate)
+						csFixedInform.regDate)
 				)
 				.from(csFixedInform)
 				.where(csFixedInform.gubun.eq("f"))

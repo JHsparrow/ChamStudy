@@ -29,7 +29,7 @@ public interface CsInformRepository extends JpaRepository<CsInform, Long>,
 	 * nativeQuery = true) List<CsInformFile> findByInformIdOrderByIdAsc(Long
 	 * informId);
 	 */
-	@Query(value="select inform_id as id, title, view_count as viewCount, up_date as regDate from cs_inform order by regDate desc limit 5", nativeQuery = true)
+	@Query(value="select inform_id as id, title, view_count as viewCount, reg_date as regDate from cs_inform order by regDate desc limit 5", nativeQuery = true)
 	List<MainInformInterface> getMainInformList(); 
 	
 	

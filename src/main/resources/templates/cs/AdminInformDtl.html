@@ -30,7 +30,7 @@
 
     }
 	</script>
-<title>공지사항 관리</title>
+<title>참스터디</title>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -45,7 +45,7 @@
 							<div class="Admin-Dtl-Content2-3 mb-3">작성자 : [[${csInformDto.email}]]</div>
 						</div>
 						<div class="Admin-Dtl-Content3">
-							<div class="Admin-Dtl-Content3-1">[[${csInformDto.update}]]</div>
+							<div class="Admin-Dtl-Content3-1">[[${csInformDto.regdate}]]</div>
 						</div>
 						<div class="Admin-Dtl-Content4 ms-3">
 							<p class="substance__area">[[${csInformDto.substance}]]</p>
@@ -69,9 +69,7 @@
 								<button class="btn btn-primary me-3" >돌아가기</button>
 							</form>
 							
-							<button	class="btn btn-secondary" th:onclick="delCheck([[${csInformDto.id}]])">
-								삭제
-							</button>
+							<button	class="btn btn-secondary" th:onclick="delCheck([[${csInformDto.id}]])">삭제</button>
 							<form id="delFrm" th:action="'/adminCs/deleteInform/'+${csInformDto.id}">
 								<input type="hidden" id="delInformId" name="informId" />
 							</form>

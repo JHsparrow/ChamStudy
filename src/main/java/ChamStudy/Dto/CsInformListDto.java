@@ -15,13 +15,13 @@ public class CsInformListDto {
 	
 	private Integer viewCount;
 	
-	private String update;
+	private String regdate;
 	
 	@QueryProjection
-	public CsInformListDto(Long id, String title, Integer viewCount, String update) {
+	public CsInformListDto(Long id, String title, Integer viewCount, String regdate) {
 		this.id = id;
 		this.title = title;
 		this.viewCount = viewCount;
-		this.update = update;
+		this.regdate = regdate;
 	}
 }

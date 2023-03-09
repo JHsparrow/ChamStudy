@@ -66,40 +66,38 @@ $(function(){
 								</form>
 
 								<!-- 강의 목록 -->
-								<div class="row text-center justify-content-center">
-									<div class="col-12 col-md-5 mx-4">
+								<div class="row justify-content-between width-95">
 									<th:block class="card-each-wrap" th:each="class, status: ${class}">
-										<div class="card">
-											<img class="card-img-top" th:src="${class.imgUrl}"
-												alt="Unsplash">
-											<div class="card-header pd-07 d-flex">
-												<div class="d-inline-block">
-													<p class="card-ttl mb-0">[[${class.name}]] - [[${class.subName}]]</p>
-													<p class="card-ttl class-title mb-0">[[${class.classInfo.name}]]</p>
-												</div>
-												<div class="d-inline-block">
-													<a th:onclick="|location.href='@{/mypage/learning/watch/}${class.contentId}/${class.classInfo.id}'|"><i class="fa-regular fa-circle-play"></i></a>
+										<div class="col-12 col-md-4 mx-7">
+												<div class="card">
+													<img class="card-img-top" th:src="${class.imgUrl}"
+														alt="Unsplash">
+													<div class="card-header d-flex">
+														<div class="d-inline-block h-40">
+															<p class="card-ttl mb-0">[[${class.name}]] - [[${class.subName}]]</p>
+															<p class="card-ttl class-title mb-0">[[${class.classInfo.name}]]</p>
+														</div>
+														<div class="d-inline-block">
+															<a th:onclick="|location.href='@{/mypage/learning/watch/}${class.contentId}/${class.classInfo.id}'|"><i class="fa-regular fa-circle-play class-play"></i></a>
+														</div>
+													</div>
+													<div class="card-body pd-0">
+														<span class="rate-txt-class">학습률</span>
+														<div class="progress class-progress ms-6 me-2" role="progressbar"
+															aria-label="Default striped example" aria-valuenow="10"
+															aria-valuemin="0" aria-valuemax="100" >
+															<div class="progress-bar progress-bar-striped"
+																th:style="'width:'+${class.progress}+'%'">[[${class.progress}]]%</div>
+														</div>
+														<div>
+															<p class="text-center">
+																<small>수강기간: [[${class.classInfo.sDate}]] ~ [[${class.classInfo.eDate}]]</small>
+															</p>
+														</div>
+													</div>
 												</div>
 											</div>
-											<div class="card-body pd-0">
-												<span class="d-flex">학습률</span>
-												<div class="progress ms-6 me-2" role="progressbar"
-													aria-label="Default striped example" aria-valuenow="10"
-													aria-valuemin="0" aria-valuemax="100" >
-													<div class="progress-bar progress-bar-striped"
-														th:style="'width:'+${class.progress}+'%'">[[${class.progress}]]%</div>
-												</div>
-												<div>
-													<p>
-														<small>수강기간: [[${class.classInfo.sDate}]] ~ [[${class.classInfo.eDate}]]</small>
-													</p>
-												</div>
-												<button type="button" class="btn btn-lg btn-primary"
-													id="loginbtn" th:onclick="|location.href='@{/mypage/learning/watch/}${class.contentId}/${class.classInfo.id}'|">강의듣기</button>
-											</div>
-										</div>
 										</th:block>
-									</div>
 									<!-- 페이징 버튼 -->
 									<div class="row justify-content-center">
 										<div class="col-sm-12 col-md-6">

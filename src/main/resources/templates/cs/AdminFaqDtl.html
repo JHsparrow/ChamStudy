@@ -42,33 +42,31 @@
 
     }
 	</script>
-<title>자주묻는질문 관리</title>
+<title>참스터디</title>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="main">
 			<main class="content">
 			<input type="hidden" th:field="${faqId}" />
-				<div class="container-fluid p-0" th:object="${csFaqDto}">
-					<div class="Admin-Comm-Dtl-Wrap">
-						<div class="Admin-Dtl-Content2">
+				<div class="container-fluid p-0 card" th:object="${csFaqDto}">
+					<div class="Admin-Comm-Dtl-Wrap card-body">
+						<div class="Admin-Dtl-Content2 mt-3 ms-3 pb-3">
 							<div class="Admin-Dtl-Content2-1">[<span id="category">[[${csFaqDto.gubun}]]</span>] [[${csFaqDto.title}]]</div>
 						</div>
 						<div class="Admin-Dtl-Content3">
 							<div class="Admin-Dtl-Content3-1">[[${csFaqDto.update}]]</div>
 						</div>
-						<div class="Admin-Dtl-Content4">
+						<div class="Admin-Dtl-Content4 ms-3">
 							<p class="substance__area">[[${csFaqDto.substance}]]</p>
 						</div>
 						
 						<div class="Admin-dtl-Content5">
 							<form id="frm" action="/adminCs/faq" method="get">
-								<button class="Admin-Dtl-Back" >돌아가기</button>
+								<button class="btn btn-primary me-3" >돌아가기</button>
 							</form>
 							
-							<button	class="Admin-Dtl-Delete" th:onclick="delCheck([[${csFaqDto.id}]])" type="button">
-								<span class="Dtl-Delete-Span">삭제</span>
-							</button>
+							<button	class="btn btn-secondary" th:onclick="delCheck([[${csFaqDto.id}]])" type="button">삭제</button>
 							<form id="delFrm" th:action="'/adminCs/deleteFaq/'+${csFaqDto.id}">
 								<input type="hidden" id="delFaqId" name="faqId" />
 							</form>

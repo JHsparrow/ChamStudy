@@ -72,7 +72,7 @@
 							                            <span class="list__title">[[${fixedInform.title}]]</span>
 							                        </div>
 							                        <div class="list__read" aria-label="조회수">[[${fixedInform.viewCount}]]</div>
-							                        <div class="list__date" aria-label="등록일">[[${fixedInform.update.substring(0,13)}]]</div>
+							                        <div class="list__date" aria-label="등록일">[[${fixedInform.regdate.substring(0,13)}]]</div>
 												</li>
 											</th:block>
 										</div>
@@ -85,7 +85,7 @@
 						                            <span class="list__title">[[${inform.title}]]</span>
 						                        </div>
 						                        <div class="list__read" aria-label="조회수">[[${inform.viewCount}]]</div>
-						                        <div class="list__date" aria-label="등록일">[[${inform.update.substring(0,13)}]]</div>
+						                        <div class="list__date" aria-label="등록일">[[${inform.regdate.substring(0,13)}]]</div>
 											</li>
 										</th:block>
 										<th:block th:if="${informList.getTotalElements()==0}">

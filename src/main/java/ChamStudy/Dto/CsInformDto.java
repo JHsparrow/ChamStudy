@@ -30,7 +30,7 @@ public class CsInformDto {
 	@NotBlank(message = "상단 고정여부를 선택해 주십시오.")
 	private String gubun;
 	
-	private String update;
+	private String regdate;
 	
 	private Long userId;
 
@@ -59,7 +59,7 @@ public class CsInformDto {
 		this.substance = csInform.getSubstance();
 		this.viewCount = csInform.getViewCount();
 		this.gubun = csInform.getGubun();
-		this.update = csInform.getUpDate();
+		this.regdate = csInform.getRegDate();
 		this.email = csInform.getUserId().getEmail();
 	}
 }

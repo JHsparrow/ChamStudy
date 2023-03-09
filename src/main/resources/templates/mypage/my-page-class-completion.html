@@ -63,24 +63,24 @@
 								</form>
 
 								<!-- 강의 목록 -->
-								<th:block th:each="completion, status : ${completionList.getContent()}">
-									<div class="row text-center justify-content-center">
-										<div class="col-12 col-md-5 mx-4">
+								<div class="row justify-content-between width-95">
+									<th:block th:each="completion, status : ${completionList.getContent()}">
+										<div class="col-12 col-md-4 mx-7">
 											<div class="card">
 												<img class="card-img-top" th:src="${completion.getImgUrl}"
 													th:alt="${completion.getOriImgName}">
-												<div class="card-header pd-07 d-flex">
-													<div class="d-inline-block">
-														<p class="card-ttl mb-0 searchQuery">[[${completion.CategoryName}]]</p>
-														<p class="card-ttl mb-0">[[${completion.subCategoryName}]]</p>
-														<p class="card-ttl class-title mb-0">[[${completion.ClassName}]]</p>
-													</div>
-													<div class="d-inline-block">
-														<a th:onclick="|location.href='@{/mypage/completion/play/}${completion.contentId}/${completion.classId}'|"><i class="fa-regular fa-circle-play"></i></a>
+												<div class="card-header d-flex">
+													<div class="d-inline-block h-40">
+														<span class="card-ttl ms-2 mb-0 searchQuery">[[${completion.CategoryName}]] - </span>
+														<span class="card-ttl ms-2 mb-0">[[${completion.subCategoryName}]]</span>
+														<p class="card-ttl class-title ms-1 mb-0">[[${completion.ClassName}]]</p>
+														<div class="d-inline-block">
+															<a th:onclick="|location.href='@{/mypage/completion/play/}${completion.contentId}/${completion.classId}'|"><i class="fa-regular fa-circle-play"></i></a>
+														</div>
 													</div>
 												</div>
 												<div class="card-body pd-0">
-													<span class="d-flex">학습률</span>
+													<span class="rate-txt">학습률</span>
 													<div th:if="${completion.progress} == '100'">
 														<div class="progress ms-6 me-2" role="progressbar"
 															aria-label="Default striped example" aria-valuenow="10"
@@ -90,15 +90,15 @@
 														</div>
 													</div>
 													<div>
-														<p>
-															<small>[[${completion.startDate}]] ~ [[${completion.endDate}]]</small>
+														<p class="text-center">
+															<small>[[${completion.startDate.substring(0,13)}]] ~ [[${completion.endDate.substring(0,13)}]]</small>
 														</p>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</th:block>
+									</th:block>
+								</div>
 
 								<!-- 페이징 버튼 -->
 								<div class="row justify-content-center">
