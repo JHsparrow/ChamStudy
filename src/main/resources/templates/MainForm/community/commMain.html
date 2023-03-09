@@ -29,6 +29,13 @@
 <body>
 	<div layout:fragment="content">
 		<div class="body-wrap">
+			<div class="container-fluid bg-primary py-5 mb-5 page-header1">
+				<div class="container py-5">
+					<div class="row justify-content-center">
+						<div class="col-lg-10 text-center"></div>
+					</div>
+				</div>
+			</div>
 			<div class="side-body">
 				<div class="side-1">
 					<a class="side-a-1" href="/comm/qna" style="color: #642F05;">자유주제</a>
@@ -38,7 +45,7 @@
 				</div>
 			</div>
 			<div class="main-body">
-					<form class="search-wrap" th:object="${commSearchDto}"
+				<form class="search-wrap" th:object="${commSearchDto}"
 					style="height: 40px;">
 					<!-- 상품 등록일 -->
 					<!-- 상품명, 등록자 선택 -->
@@ -50,70 +57,72 @@
 					</select>
 					<!-- 검색창 -->
 					<input type="text" th:field="*{searchQuery}" class="search-input"
-						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;" onKeypress="javascript:if(event.keyCode==13) {search_onclick_submit}">
+						placeholder="찾고 싶은것을 선택해 검색해보세요" style="width: auto;"
+						onKeypress="javascript:if(event.keyCode==13) {search_onclick_submit}">
 					<button id="searchBtn" type="submit" class="search-btn"
 						style="height: 100%;">검색</button>
 					<div class="write-btn" onclick="location.href='/comm/create';">
-						<a class="write-btn-a" >글쓰기</a>
+						<a class="write-btn-a">글쓰기</a>
 					</div>
-					</form>
-				</div>
-				<div class="boards">
-					<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
-						<div class="each">
-							<div class="comm-wrap" th:onclick="|location.href='@{/comm/dtl/}'+${comm.id}|">
-								<div class="comm-li1">
-									<div class="comm-li1-1">[[${comm.viewCount}]]</div>
-									<span class="comm-li1-2">조회</span>
+				</form>
+			</div>
+			<div class="boards">
+				<th:block class="comm-each-wrap" th:each="comm, status: ${comms}">
+					<div class="each">
+						<div class="comm-wrap"
+							th:onclick="|location.href='@{/comm/dtl/}'+${comm.id}|">
+							<div class="comm-li1">
+								<div class="comm-li1-1">[[${comm.viewCount}]]</div>
+								<span class="comm-li1-2">조회</span>
+							</div>
+							<div class="comm-wrap2">
+								<div class="comm-li2">
+									<span class="comm-wrap-a2">[[${comm.Title}]]</span>
 								</div>
-								<div class="comm-wrap2">
-									<div class="comm-li2">
-										<span class="comm-wrap-a2">[[${comm.Title}]]</span>
-									</div>
-									<div class="comm-li3-1">
-										<span class="comm-wrap-a3">[[${comm.userInfo.name}]]</span>
-										<div class="comm-li3-2">
-											<span class="comm-wrap-a4">[[${comm.regDate}]]</span>
-										</div>
+								<div class="comm-li3-1">
+									<span class="comm-wrap-a3">[[${comm.userInfo.name}]]</span>
+									<div class="comm-li3-2">
+										<span class="comm-wrap-a4">[[${comm.regDate}]]</span>
 									</div>
 								</div>
 							</div>
 						</div>
-					</th:block>
-				</div>
-				<div class="row">
-					<nav
-						th:with="start=${(comms.number/maxPage)*maxPage + 1},
+					</div>
+				</th:block>
+			</div>
+			<div class="row">
+				<nav
+					th:with="start=${(comms.number/maxPage)*maxPage + 1},
 									end=(${(comms.totalPages == 0) ? 1 : (start + (maxPage -1) < comms.totalPages ? start + (maxPage -1) : comms.totalPages)})">
-						<div class="col-sm-12 col-md-12 ">
-							<div class="dataTables_paginate paging_simple_numbers block-27"
-								id="datatables-orders_paginate">
-								<ul class="pagination">
-									<li th:classappend="${comms.first}? 'disabled'"
-										class="paginate_button page-item previous disabled mx-1"
-										id="datatables-orders_previous"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
-										aria-controls="datatables-orders" data-dt-idx="0" tabindex="0"
-										class="page-link">&lt </a></li>
-									<li th:each="page: ${#numbers.sequence(start, end)}"
-										th:classappend="${comms.number eq page-1}?'active':''"
-										class="paginate_button page-item mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
-										aria-controls="datatables-orders" data-dt-idx="1" tabindex="0"
-										class="page-link">[[${page}]]</a></li>
-									<li th:classappend="${comms.last}? 'disabled'"
-										class="paginate_button page-item next"
-										id="datatables-orders_next  mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
-										aria-controls="datatables-orders" data-dt-idx="3" tabindex="0"
-										class="page-link">&gt</a></li>
-								</ul>
-							</div>
+					<div class="col-sm-12 col-md-12 ">
+						<div class="dataTables_paginate paging_simple_numbers block-27"
+							id="datatables-orders_paginate">
+							<ul class="pagination">
+								<li th:classappend="${comms.first}? 'disabled'"
+									class="paginate_button page-item previous disabled mx-1"
+									id="datatables-orders_previous"><a
+									th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
+									aria-controls="datatables-orders" data-dt-idx="0" tabindex="0"
+									class="page-link">&lt </a></li>
+								<li th:each="page: ${#numbers.sequence(start, end)}"
+									th:classappend="${comms.number eq page-1}?'active':''"
+									class="paginate_button page-item mx-1"><a
+									th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
+									aria-controls="datatables-orders" data-dt-idx="1" tabindex="0"
+									class="page-link">[[${page}]]</a></li>
+								<li th:classappend="${comms.last}? 'disabled'"
+									class="paginate_button page-item next"
+									id="datatables-orders_next  mx-1"><a
+									th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
+									aria-controls="datatables-orders" data-dt-idx="3" tabindex="0"
+									class="page-link">&gt</a></li>
+							</ul>
 						</div>
-					</nav>
-				</div>
+					</div>
+				</nav>
 			</div>
 		</div>
+	</div>
 
 	</div>
 </body>

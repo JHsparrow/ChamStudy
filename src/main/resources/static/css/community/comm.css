@@ -18,7 +18,6 @@ button#searchBtn:hover {
 	display: flex;
 	justify-content: center;
 	height: 50px !important;
-	margin-top: 5%;
 	margin-bottom: 4%;
 }
 
@@ -316,12 +315,21 @@ button#comment-save {
     margin-bottom: 20px;
 }
 
-.page-header {
-    background: url(/img/photos/banner2.jpg);
+.page-header1 {
+    background: url(/img/photos/community-1.png);
     background-size: cover;
     height: 400px;
-    background-position: 0 -705px;
+    background-position: 0 -800px;
 }
+
+.page-header2 {
+    background: url(/img/photos/main-banner.jpg);
+    background-size: cover;
+    height: 400px;
+    background-position: 0 -800px;
+}
+
+
 
 button.back-comm {
 	font-size: 15px;

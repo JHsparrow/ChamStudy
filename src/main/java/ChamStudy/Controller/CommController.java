@@ -248,7 +248,7 @@ public class CommController { //커뮤니티 컨트롤러
 	@GetMapping(value = {"/comm/mento","/comm/mento/{page}"})
 	public String commMento(Model model,CommSearchDto commSearchDto,Optional<Integer> page,MainCommDto adminMainCommDto) {
 		// 서비스에 작성한 게시판 불러오는 메소드를 실행
-		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 24);
+		Pageable pageable= PageRequest.of(page.isPresent()? page.get() : 0, 18);
 		Page<MainCommDto> adminMainCommDtoList = commSearchService.getMentoCommPage(commSearchDto, adminMainCommDto, pageable);
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<CommMentoClassNameDto> classNameDto = commService.getMentoClassName(email);

@@ -29,6 +29,13 @@
 <body>
 	<div layout:fragment="content">
 		<div class="body-wrap">
+		<div class="container-fluid bg-primary py-5 mb-5 page-header2">
+				<div class="container py-5">
+					<div class="row justify-content-center">
+						<div class="col-lg-10 text-center"></div>
+					</div>
+				</div>
+			</div>
 			<div class="side-body">
 				<div class="side-1">
 					<a class="side-a-1" href="/comm">자유주제</a>
@@ -91,19 +98,19 @@
 									<li th:classappend="${comms.first}? 'disabled'"
 										class="paginate_button page-item previous disabled mx-1"
 										id="datatables-orders_previous"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
+										th:href="@{'/comm/qna' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number-1}}"
 										aria-controls="datatables-orders" data-dt-idx="0" tabindex="0"
 										class="page-link">&lt </a></li>
 									<li th:each="page: ${#numbers.sequence(start, end)}"
 										th:classappend="${comms.number eq page-1}?'active':''"
 										class="paginate_button page-item mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
+										th:href="@{'/comm/qna' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${page-1}}"
 										aria-controls="datatables-orders" data-dt-idx="1" tabindex="0"
 										class="page-link">[[${page}]]</a></li>
 									<li th:classappend="${comms.last}? 'disabled'"
 										class="paginate_button page-item next"
 										id="datatables-orders_next  mx-1"><a
-										th:href="@{'/comm' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
+										th:href="@{'/comm/qna' + '?searchQuery=' + ${commSearchDto.searchQuery} + '&page=' + ${comms.number+1}}"
 										aria-controls="datatables-orders" data-dt-idx="3" tabindex="0"
 										class="page-link">&gt</a></li>
 								</ul>

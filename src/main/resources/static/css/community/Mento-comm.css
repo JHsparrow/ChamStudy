@@ -15,6 +15,10 @@ body {
     height: 150px;
 }
 
+button#mento-write-btn {
+    margin-left: 20px;
+}
+
 h2.mento-header1 {
     font-size: 1.9rem;
 }
@@ -43,10 +47,10 @@ div.dataTables_paginate ul.pagination {
 }
 
 .page-header {
-    background: url(/img/photos/community-2.jpg);
+    background: url(/img/photos/community-2.png);
     background-size: cover;
     height: 400px;
-    background-position: 0 -705px;
+    background-position: 0 -800px;
 }
 
 .boards {

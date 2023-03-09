@@ -32,6 +32,27 @@ button.Admin-Dtl-Back {
     background-color: black;
 }
 
+td {
+    text-align: center;
+}
+
+tr {
+    text-align: center;
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    justify-content: center;
+    margin: 2px 0;
+    white-space: nowrap;
+    display: block;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
 .Admin-Dtl-Content1-1 {
     height: 30px;
     border-bottom: 1px solid black;
