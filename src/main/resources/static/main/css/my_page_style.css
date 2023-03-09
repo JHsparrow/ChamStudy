@@ -146,3 +146,26 @@ div.dataTables_paginate {
 	box-shadow: #ab6e3ecf 1px 1px 1px !important;
 	align-items: center;
 }
+
+.page-item.active .page-link {
+	background-color: #ab6e3ecf;
+	border-color: #ab6e3ecf;
+}
+
+.beige {
+	background-color: #ab6e3ecf !important;
+}
+
+.fa-chalkboard-user:before,
+.fa-book-open-reader:before,
+.fa-users:before {
+	color: #ffffff;
+}
+
+.navhover{
+	text-decoration: none;
+}
+
+.navhover:hover{
+	text-decoration: none;
+}

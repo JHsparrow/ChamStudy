@@ -37,9 +37,9 @@
 		<div class="main">
 			<main class="content">
 			<input type="hidden" th:field="${informId}" />
-				<div class="container-fluid p-0" th:object="${csInformDto}">
-					<div class="Admin-Comm-Dtl-Wrap">
-						<div class="Admin-Dtl-Content2">
+				<div class="container-fluid p-0 card" th:object="${csInformDto}">
+					<div class="Admin-Comm-Dtl-Wrap card-body">
+						<div class="Admin-Dtl-Content2 mt-3 ms-3">
 							<div class="Admin-Dtl-Content2-1">[[${csInformDto.title}]]</div>
 							<div class="Admin-Dtl-Content2-2">조회수 : [[${csInformDto.viewCount}]]</div>
 							<div class="Admin-Dtl-Content2-3">작성자 : [[${csInformDto.email}]]</div>
@@ -63,11 +63,11 @@
 						
 						<div class="Admin-dtl-Content5">
 							<form id="frm" action="/adminCs/inform" method="get">
-								<button class="Admin-Dtl-Back" >돌아가기</button>
+								<button class="btn btn-primary me-3" >돌아가기</button>
 							</form>
 							
-							<button	class="Admin-Dtl-Delete" th:onclick="delCheck([[${csInformDto.id}]])" type="button">
-								<span class="Dtl-Delete-Span">삭제</span>
+							<button	class="btn btn-secondary" th:onclick="delCheck([[${csInformDto.id}]])">
+								삭제
 							</button>
 							<form id="delFrm" th:action="'/adminCs/deleteInform/'+${csInformDto.id}">
 								<input type="hidden" id="delInformId" name="informId" />
