@@ -82,7 +82,6 @@ public class AdminCategoryService {
 			imgName = fileService.uploadFile(csImgLocation, oriImgName, subImg.getBytes());
 			imgUrl = "/contents/img/" + imgName;
 		}
-		
 		subCategory.updateImg(oriImgName, imgName, imgUrl);
 		subCategoryRepository.save(subCategory);
 	}
