@@ -42,20 +42,23 @@
 						<div class="Admin-Dtl-Content2 mt-3 ms-3">
 							<div class="Admin-Dtl-Content2-1">[[${csInformDto.title}]]</div>
 							<div class="Admin-Dtl-Content2-2">조회수 : [[${csInformDto.viewCount}]]</div>
-							<div class="Admin-Dtl-Content2-3">작성자 : [[${csInformDto.email}]]</div>
+							<div class="Admin-Dtl-Content2-3 mb-3">작성자 : [[${csInformDto.email}]]</div>
 						</div>
 						<div class="Admin-Dtl-Content3">
 							<div class="Admin-Dtl-Content3-1">[[${csInformDto.update}]]</div>
 						</div>
-						<div class="Admin-Dtl-Content4">
+						<div class="Admin-Dtl-Content4 ms-3">
 							<p class="substance__area">[[${csInformDto.substance}]]</p>
 						</div>
 						
-						<div class="Admin-Dtl-Content4-2">
+						<div class="Admin-Dtl-Content4-2 ms-3">
 							<div th:if="${not #lists.isEmpty(csInformFileList)}">
-							<p>첨부파일</p>
+							<p class="filelist pb-3">첨부파일</p>
 								<th:block th:each="informFile, status : ${csInformFileList}">
-									<a th:href="${informFile.fileUrl}" th:download="${informFile.oriFileName}">[[${informFile.oriFileName}]]</a>
+									<a th:if="${informFile.oriFileName}!=''" th:href="${informFile.fileUrl}" th:download="${informFile.oriFileName}">
+										<i class="fa-solid fa-file-arrow-down" ></i>
+										[[${informFile.oriFileName}]]
+									</a>
 									<br/>
 								</th:block>
 							</div>

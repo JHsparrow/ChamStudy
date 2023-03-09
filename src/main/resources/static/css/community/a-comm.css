@@ -63,39 +63,43 @@ ul.pagination {
     justify-content: left !important;
 }
 
+.Admin-Dtl-Content2 {
+	border-bottom: 1px solid black;
+}
+
 .Admin-Dtl-Content2-1 {
     font-size: 24px;
 }
 
 .Admin-Dtl-Content2-2 {
     position: absolute;
-    right: 20vw;
-    top: 192px;
+    right: 2vw;
+    top: 83px;
 }
 
 .Admin-Dtl-Content2-3 {
-    border-bottom: 1px solid black;
     width: 65vw;
 }
 
 .Admin-Dtl-Content3-1 {
-    right: 20vw;
+    right: 2vw;
     position: absolute;
     margin-top: 15px;
 }
 
 .Admin-Dtl-Content4 {
-    width: 65vw;
     margin-top: 60px;
     font-size: 20px;
+    min-height: 500px;
 }
 
 
 
 .Admin-dtl-Content5 {
 	display:flex;
-    margin-left: 55vw;
+    margin-left: 68vw;
     margin-top: 40px;
+    margin-bottom: 15px;
 }
     
     
@@ -259,4 +263,8 @@ select#searchBy {
 
 .substance__area {
 	white-space: pre-line;
+}
+
+.filelist {
+	border-bottom: 1px solid black;
 }

@@ -66,7 +66,10 @@
 										<h5 >첨부파일</h5>
 										<th:block th:each="informFile, status : ${csInformFileList}" class="download__file">
 											<div class="mb-2">
-												<a class="download__file" th:href="@{'C:/spring/ChamStudy' + ${informFile.fileUrl}}" download>[[${informFile.oriFileName}]]</a>
+												<a class="download__file" th:if="${informFile.oriFileName}!=''" th:href="@{'C:/spring/ChamStudy' + ${informFile.fileUrl}}" download>
+													<i class="fa-solid fa-file-arrow-down" ></i>
+													[[${informFile.oriFileName}]]
+												</a>
 												<br/>
 											</div>
 										</th:block>
