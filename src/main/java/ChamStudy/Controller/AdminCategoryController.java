@@ -101,11 +101,8 @@ public class AdminCategoryController {
 		System.out.println("메인아이디 : "+mainId.getId());
 		
 		try {
-			System.err.println("11111111111");
 			SubCategory subCategory = adminCategoryService.saveSubCategory(mainId,cateName);
-			System.err.println("22222222222");
 			adminCategoryService.saveSubCategoryImg(subCategory, subImg, mainId.getId());
-			System.err.println("33333333333");
 			message = new MessageDto("서브카테고리 생성이 완료되었습니다.", "/adminCategory/sub/"+mainId.getId());
 		} catch (Exception e) {
 			message = new MessageDto("서브카테고리 생성이 실패하였습니다.", "/adminCategory/sub/"+mainId.getId());
