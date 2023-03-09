@@ -63,90 +63,67 @@
 	    	});
 	    	
 	    }
-	    
-
-		
 	</script>
-	
 	<style>
         .fieldError {
             color: #bd2130;
         }
-        
-        
 	</style>
-	
 </head>
-
 <body>
 	<div layout:fragment="content">
-
+		<div class="formWrap card text-center">
 			<form id="frmClassNew" class="row g-3" method="post" th:object="${adminClassDto}">
 			<h1 class="h3 mb-3">강의 등록</h1>
 			<input type="hidden" th:field="*{id}" />
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">콘텐츠명</label>
-			<div class="col-sm-10">
-				<select id="contentSel" name="contentId" class=" col-sm-2" >
-					<th:block th:each="ContentInfo, status: ${contentInfo}">
-						<option th:value="${ContentInfo.id}">[[${ContentInfo.name}]]</option>
-					</th:block>
-				</select>
+			<div class="row mb-3 jsc">
+				<label class="col-sm-1 col-form-label input-group-text formLabel">콘텐츠명</label>
+				<div class="selbox col-sm-6" style="height:46px">
+					<select id="contentSel" name="contentId" class="form-select-lg mb-3 me-3 col-sm-6" >
+						<th:block th:each="ContentInfo, status: ${contentInfo}">
+							<option th:value="${ContentInfo.id}">[[${ContentInfo.name}]]</option>
+						</th:block>
+					</select>
+				</div>
 			</div>
-			</div>
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">강의 이름</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" th:field="*{name}" placeholder="강의명 입력">
-			</div>
+			<div class="row mb-3 jsc">
+				<label class="col-sm-1 col-form-label input-group-text formLabel">강의 이름</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" th:field="*{name}" placeholder="강의명 입력">
+				</div>
 				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
 			</div>
 			
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">수강료</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" th:field="*{price}" placeholder="수강료 입력">
-			</div>
-				<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect Data</p>
-			</div>
-			
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">인원제한</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" th:field="*{peopleNum}" placeholder="인원제한수 입력">
-			</div>
-				<p th:if="${#fields.hasErrors('peopleNum')}" th:errors="*{peopleNum}" class="fieldError">Incorrect Data</p>
-			</div>
-			
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">강사명</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" th:field="*{teacherName}" placeholder="강사명 입력">
-			</div>
+			<div class="row mb-3 jsc">
+				<label class="col-sm-1 col-form-label input-group-text formLabel">강사명</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" th:field="*{teacherName}" placeholder="강사명 입력">
+				</div>
 				<p th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}" class="fieldError">Incorrect Data</p>
 			</div>
 			
 			
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">시작일</label>
-			<div class="col-sm-10">
-				<input type="text" id="datepicker" class="form-control" th:field="*{sDate}" placeholder="강의시작일 입력">
-			</div>
+			<div class="row mb-3 jsc">
+				<label class="col-sm-1 col-form-label input-group-text formLabel">시작일</label>
+				<div class="col-sm-6">
+					<input type="text" id="datepicker" class="form-control" th:field="*{sDate}" placeholder="강의시작일 입력">
+				</div>
 				<p th:if="${#fields.hasErrors('sDate')}" th:errors="*{sDate}" class="fieldError">Incorrect Data</p>
 			</div>
 			
-			<div class="row mb-3">
-				<label class="col-sm-2 col-form-label">종료일</label>
-			<div class="col-sm-10">
+			<div class="row mb-3 jsc">
+				<label class="col-sm-1 col-form-label input-group-text formLabel">종료일</label>
+			<div class="col-sm-6">
 				<input type="text" id="datepicker2" class="form-control" th:field="*{eDate}" placeholder="강의종료일 입력">
 			</div>
 				<p th:if="${#fields.hasErrors('eDate')}" th:errors="*{eDate}" class="fieldError">Incorrect Data</p>
 			</div>
 				
 			<div th:if="${#strings.isEmpty(adminClassDto.id)}">
-				<input type="button" id="btnClassSave" class="btn btn-primary mb-3" value="저장" />
+				<input type="button" id="btnClassSave" class="btn btn-primary mb-3 btnFrmC" value="저장" />
 			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 

@@ -82,6 +82,20 @@ public class AdminCategoryService {
 		if(!StringUtils.isEmpty(oriImgName)) {
 			imgName = fileService.uploadFile(csImgLocation, oriImgName, subImg.getBytes());
 			imgUrl = "/contents/img/" + imgName;
+		}
+		
+		subCategory.updateImg(oriImgName, imgName, imgUrl);
+		subCategoryRepository.save(subCategory);
+	}
+	
+	public void saveSubCategoryImgUp(SubCategory subCategory, MultipartFile subImg, Long subId) throws Exception {
+		SubCategory subcategory = subCategoryRepository.findById(subId).orElseThrow();
+		String oriImgName = subImg.getOriginalFilename();
+		String imgName = "";
+		String imgUrl = "";
+		if(!StringUtils.isEmpty(oriImgName)) {
+			imgName = fileService.uploadFile(csImgLocation, oriImgName, subImg.getBytes());
+			imgUrl = "/contents/img/" + imgName;
 		} else {
 			oriImgName = subcategory.getOriImgName();
 			imgName = subcategory.getImgName();
