@@ -28,7 +28,7 @@
 	<div layout:fragment="content">
 		<div class="main">
 			<main class="content">
-				<div class="container-fluid p-0">
+				<div class="container-fluid p-0 card">
 					<div class="Admin-Comm-Dtl-Wrap">
 
 						<div class="Admin-Dtl-Content1">
@@ -38,8 +38,8 @@
 						</div>
 						<div class="Admin-Dtl-Content2">
 							<div class="Admin-Dtl-Content2-1">[[${comm.Title}]]</div>
-							<div class="Admin-Dtl-Content2-2">조회수:[[${comm.viewCount}]]</div>
 							<div class="Admin-Dtl-Content2-3">[[${comm.userInfo.name}]]([[${comm.userInfo.email}]])</div>
+							<div class="Admin-Dtl-Content2-2">조회수:[[${comm.viewCount}]]</div>
 						</div>
 						<div class="Admin-Dtl-Content3">
 							<div class="Admin-Dtl-Content3-1">[[${comm.regdate}]]</div>
@@ -55,7 +55,7 @@
 							<form id="frm" action="/adminForm/comm/back" method="get">
 								<input type="hidden" id="referer" name="referer"
 									th:value="${referer}">
-								<button class="Admin-Dtl-Back"
+								<button class="btn btn-primary me-3"
 									th:onclick="|location.href='@{/adminForm/comm/back}'|">돌아가기</button>
 							</form>
 							<button

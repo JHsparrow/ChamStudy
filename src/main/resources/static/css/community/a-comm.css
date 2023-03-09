@@ -61,6 +61,13 @@ div.dataTables_wrapper div.dataTables_paginate {
     width: 65vw;
 }
 
+button.Admin-Dtl-Delete {
+    width: 58px;
+    height: 38px;
+    border-radius: 5px;
+    background-color: #6c757d;
+}
+
 ul.pagination {
     justify-content: left !important;
 }
@@ -76,7 +83,7 @@ ul.pagination {
 .Admin-Dtl-Content2-2 {
     position: absolute;
     right: 2vw;
-    top: 83px;
+    top: 125px;
 }
 
 .Admin-Dtl-Content2-3 {
@@ -106,15 +113,23 @@ ul.pagination {
     
     
 .Admin-Dtl-Content1 {
-    font-size: 40px;
-    border-bottom: 1px solid;
+    font-size: 30px;
     width: 65vw;
     height: 70px;
+    margin-top: 20px;
 }
 
+button.btn.btn-primary.me-3 {
+    width: 90px;
+}
 
 .Admin-dtl-Content6 {
-    width: 65vw;
+    width: 78vw;
+}
+
+.Admin-Comm-Dtl-Wrap {
+    margin-left: 32px;
+    margin-right: 32px;
 }
 
 body {
@@ -209,15 +224,14 @@ button.Admin-Comment-Delete {
 }
 
 button.Admin-reply-Delete {
-    width: 98px;
-    height: 43px;
+    width: 58px;
+    height: 38px;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     color: white;
-    background-color: black;
-        margin-left: 51vw;
+    background-color: #6c757d;
+    margin-left: 70vw;
 }
-
 .reply-wrap {
     margin-left: 79px;
     margin-bottom: 25px;
@@ -239,7 +253,7 @@ nav.navbar.navbar-expand.bg-light {
 
 button.Admin-Comment-Block {
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 button.Admin-reply-Block {
