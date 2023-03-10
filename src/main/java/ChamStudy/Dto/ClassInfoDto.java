@@ -20,10 +20,6 @@ public class ClassInfoDto {
 	@NotBlank(message = "강의이름은 필수 입력 값입니다.")
 	private String name; //강의이름
 	
-	private Integer price; //수강료
-	
-	private Integer peopleNum; //인원제한
-	
 	private String teacherName; //강사명
 	
 	@NotNull(message = "시작일은 필수 입력 값입니다.")

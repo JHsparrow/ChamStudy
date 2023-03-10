@@ -99,7 +99,7 @@ public class CsController {
 			model.addAttribute("csInformFileList",csInformFileDtoList);
 			
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/AdminInform");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/adminInform");
 			return showMessageAndRedirect(message, model);
 		}
 		
@@ -127,7 +127,7 @@ public class CsController {
 			CsFaqDto csFaqDto = csService.getFaq(faqId);
 			model.addAttribute("csFaqDto", csFaqDto);
 		} catch (Exception e) {
-			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/AdminFaq");
+			message = new MessageDto("게시글을 불러오기를 실패하였습니다.", "/adminCs/adminFaq");
 			return showMessageAndRedirect(message, model);
 		}
 		return "cs/faqDtl";

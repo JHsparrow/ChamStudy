@@ -61,14 +61,8 @@
  				var data = $(this).siblings('input[name=infoName]').val();
  			    $("#modal_name").val(data);
  			    
- 				var data = $(this).siblings('input[name="infoPrice"]').val();
- 			    $("#modal_price").val(data);
- 			    
  				var data = $(this).siblings('input[name="infoTeacherName"]').val();
  			    $("#modal_teacherName").val(data);
- 			    
- 				var data = $(this).siblings('input[name="infoPeopleNum"]').val();
- 			    $("#modal_peopleNum").val(data);
  			    
  				var data = $(this).siblings('input[name="infoSDate"]').val();
  			    $("#modal_sDate").val(data);
@@ -140,9 +134,7 @@
 												<td> <!-- Button trigger modal -->												
  													<input type="hidden" name="id" th:value="${classInfoDto.id}">
 													<input type="hidden" th:value="${classInfoDto.name}" name="infoName">												
-													<input type="hidden" th:value="${classInfoDto.price}" name="infoPrice">
 													<input type="hidden" th:value="${classInfoDto.teacherName}" name="infoTeacherName">
-													<input type="hidden" th:value="${classInfoDto.peopleNum}" name="infoPeopleNum">
 													<input type="hidden" th:value="${classInfoDto.sDate}" name="infoSDate">
 													<input type="hidden" th:value="${classInfoDto.eDate}" name="infoEDate">
 													<a class="btn-class-Dt" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -216,16 +208,8 @@
 						<input type="text" class="form-control" id="modal_name"  >
 					</div>
 					<div class="mb-3">
-						<label for="message-text" class="col-form-label">수강료</label>
-						<input type="text" class="form-control" id="modal_price" >
-					</div>
-					<div class="mb-3">
 						<label for="message-text" class="col-form-label">강사명</label>
 						<input type="text" class="form-control" id="modal_teacherName">
-					</div>
-					<div class="mb-3">
-						<label for="message-text" class="col-form-label">인원제한수</label>
-						<input type="text" class="form-control" id="modal_peopleNum" >
 					</div>
 					<div class="mb-3">
 						<label for="message-text" class="col-form-label">시작일</label>

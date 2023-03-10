@@ -48,7 +48,7 @@
 								<div class="Dtl-content2-3-2">조회수:[[${comm.viewCount}]]</div>
 								<div class="mycomm-menu" th:if="${email == comm.userInfo.email}">
 									<button id="delete" class="btn btn-primary" th:onclick="|location.href='@{/comm/delete(boardId=${comm.id})}'|">삭제</button>	
-									<button id="modify" class="btn btn-primary" th:onclick="|location.href='@{/comm/QnAUpdate/}${comm.id}'|">수정</button>		
+									<button id="modify" class="btn btn-primary" th:onclick="|location.href='@{/comm/qnAUpdate/}${comm.id}'|">수정</button>		
 								</div>
 							</div>
 						</div>

@@ -175,7 +175,7 @@ public class AdminUserController {
 			model.addAttribute("errorMessage", "수정 중 에러 발생");
 			return "users/user-list";
 		}
-			return "redirect://localhost/users/userList";
+			return "users/user-list";
 		
 	}
 	
@@ -206,7 +206,7 @@ public class AdminUserController {
 			System.out.println("addUser 메소드 내 catch문 오류");
 			return "users/user-sign-up";
 		}
-		return "redirect:/users/userList";
+		return "users/userList";
 	}
 	
 }

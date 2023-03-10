@@ -92,7 +92,7 @@ public class AdminContentController {
 			videoService.insertVideoData(conId,5);
 			message = new MessageDto("콘텐츠 등록이 완료되었습니다.", "/adminOnClass/contents");
 		} catch (Exception e) {
-			message = new MessageDto("콘텐츠 등록이 실패하였습니다.", "/AdminForm/AdminClass/contentNew");
+			message = new MessageDto("콘텐츠 등록이 실패하였습니다.", "/adminForm/adminClass/contentNew");
 		}
 		return showMessageAndRedirect(message, model);
 	}
@@ -118,12 +118,12 @@ public class AdminContentController {
 			 if(contentInfo == null) {
 				 model.addAttribute("onContentDto", new OnContentDto());
 				 message = new MessageDto("존재하지 않는 콘텐츠 입니다.", "/adminOnClass/contents");
-				 return "/AdminForm/AdminClass/contentNew";
+				 return "/adminForm/adminClass/contentNew";
 			 } else {
 				 model.addAttribute("cateList", adminCategoryService.getCategory());
 				 OnContentDto onContentDto = OnContentDto.of(contentInfo);
 				 model.addAttribute("onContentDto", onContentDto);
-				 return "/AdminForm/AdminClass/contentUpdate";
+				 return "/adminForm/adminClass/contentUpdate";
 			 }
 		} catch(EntityNotFoundException e) {
 			model.addAttribute("onContentDto", new OnContentDto());
@@ -138,7 +138,7 @@ public class AdminContentController {
 	public String contentUpdate(@Valid OnContentDto onContentDto, BindingResult bindingResult,	Model model, 
 			@RequestParam(value="itemImgFile") MultipartFile itemImgFile) throws Exception {
 		if (bindingResult.hasErrors()) {
-			return "/AdminForm/AdminClass/contentList";
+			return "/adminForm/adminClass/contentList";
 		}
 		try {
 			onContentService.saveOnContent(onContentDto);

@@ -123,13 +123,13 @@ public class CommController { //커뮤니티 컨트롤러
 		}
 	
 	//멘토게시판 글쓰기 저장
-	@PostMapping(value = "/comm/Mentocreate")
+	@PostMapping(value = "/comm/mentocreate")
 	public String MentoBoardCreate(@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, Model model,Principal principal) {
 		MessageDto message;
 		String email = principal.getName();
 		
 		if(bindingResult.hasErrors()) {
-			return "mainForm/community/commMentoWrite";
+			return "mainForm/community/commmentoWrite";
 		} 
 		
 		try {
@@ -143,7 +143,7 @@ public class CommController { //커뮤니티 컨트롤러
 	}
 	
 	//멘토 수정 페이지 보기 
-			@GetMapping(value="/comm/Mentocreate/{boardId}")
+			@GetMapping(value="/comm/mentocreate/{boardId}")
 			public String storyUpdate(@PathVariable("boardId") Long boardId,Model model) {
 				CommDto commDto = commService.getcommDto(boardId);
 				String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -179,7 +179,7 @@ public class CommController { //커뮤니티 컨트롤러
 			}
 
 			//자유게시판 수정 페이지 보기 
-			@GetMapping(value="/comm/QnAUpdate/{boardId}")
+			@GetMapping(value="/comm/qnAUpdate/{boardId}")
 			public String QnAUpdateForm(@PathVariable("boardId") Long boardId,Model model) {
 				CommDto commDto = commService.getcommDto(boardId);
 				String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -213,7 +213,7 @@ public class CommController { //커뮤니티 컨트롤러
 			}
 			
 			//QnA게시판 수정페이지 저장
-			@PostMapping(value = "/comm/QnAUpdate/{boardId}")
+			@PostMapping(value = "/comm/qnAUpdate/{boardId}")
 			public String QnAUpdate(@PathVariable("boardId") Long boardId,@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, 
 					Model model) {
 				MessageDto message;
@@ -229,7 +229,7 @@ public class CommController { //커뮤니티 컨트롤러
 			}
 			
 			//멘토 수정페이지 저장
-			@PostMapping(value = "/comm/Mentocreate/{boardId}")
+			@PostMapping(value = "/comm/mentocreate/{boardId}")
 			public String itemUpdate(@PathVariable("boardId") Long boardId,@Valid CommWriteFormDto commWriteFormDto, BindingResult bindingResult, 
 					Model model) {
 				MessageDto message;
@@ -304,7 +304,7 @@ public class CommController { //커뮤니티 컨트롤러
 			return "mainForm/community/comm-Dtl-Form";
 		}
 		//Qna 상세 페이지
-		@GetMapping(value = "/comm/QnAdtl/{boardId}")
+		@GetMapping(value = "/comm/qnAdtl/{boardId}")
 		public String commQnaDtl(@PathVariable("boardId") Long boardId, Model model, HttpServletRequest request,Principal principal) {
 			String email = principal.getName();
 			Long getid = boardId;
@@ -366,7 +366,7 @@ public class CommController { //커뮤니티 컨트롤러
 			
 			try {
 				commService.saveComm(commWriteFormDto,email);
-				message = new MessageDto("글 등록을 완료했습니다.", "/comm/QnAdtl/"+boardId);
+				message = new MessageDto("글 등록을 완료했습니다.", "/comm/qnAdtl/"+boardId);
 			} catch (Exception e) {
 				message = new MessageDto("글 등록을 실패했습니다.", "/comm/qna");
 				return "mainForm/community/qna-Dtl-Form";
